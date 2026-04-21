@@ -1,0 +1,15 @@
+commands:
+  - name: help
+    aliases: ["?"]
+    handler: builtin.help
+    description: Show available commands.
+
+  - name: commands
+    aliases: ["ls"]
+    handler: builtin.commands
+    description: List registered commands.
+
+  - name: quit
+    aliases: ["exit", "q"]
+    handler: builtin.quit
+    description: Exit the CLI.
