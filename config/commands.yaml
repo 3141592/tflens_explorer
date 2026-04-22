@@ -13,3 +13,18 @@ commands:
     aliases: ["exit", "q"]
     handler: builtin.quit
     description: Exit the CLI.
+
+  - name: prompt-set
+    aliases: []
+    handler: builtin.prompt_set
+    description: Store the current prompt text.
+
+  - name: prompt-show
+    aliases: []
+    handler: builtin.prompt_show
+    description: Show the current prompt text.
+
+  - name: model-load
+    aliases: []
+    handler: builtin.model_load
+    description: Load a model into the current session.

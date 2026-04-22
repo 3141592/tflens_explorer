@@ -1,5 +1,7 @@
 """Parse raw user input and dispatch commands."""
 
+import shlex
+
 from tflens_explorer.core.types import CommandContext
 
 
@@ -9,7 +11,7 @@ class CommandDispatcher:
         self.session = session
 
     def dispatch(self, raw: str) -> None:
-        parts = raw.split()
+        parts = shlex.split(raw)
         command_name = parts[0]
         args = parts[1:]
 

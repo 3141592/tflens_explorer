@@ -40,6 +40,9 @@ def resolve_handler(handler_name: str) -> Callable:
         "builtin.help": builtins.handle_help,
         "builtin.commands": builtins.handle_commands,
         "builtin.quit": builtins.handle_quit,
+        "builtin.prompt_set": builtins.handle_prompt_set,
+        "builtin.prompt_show": builtins.handle_prompt_show,
+        "builtin.model_load": builtins.handle_model_load,
     }
 
     try:
