@@ -38,7 +38,12 @@ def handle_prompt_show(context: CommandContext) -> None:
 
 def handle_model_list(context: CommandContext) -> None:
     from tflens_explorer.services.model_service import list_models
-    models = list_models()
+    
+    arg = ""
+    if context.args:
+        arg = context.args[0]
+
+    models = list_models(arg)
     for item in models:
         print(item)
 

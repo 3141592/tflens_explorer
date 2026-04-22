@@ -3,9 +3,17 @@
 from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
 
-def list_models():
+def list_models(partial_name):
     models = list_supported_models()
-    return models
+    model_list = []
+
+    for item in models:
+        if partial_name == "":
+            model_list.append(item)
+        elif partial_name in item:
+            model_list.append(item)
+
+    return model_list
 
 
 def load_model(model_name: str, device: str = "cuda"):
