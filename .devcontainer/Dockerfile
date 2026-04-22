@@ -3,13 +3,21 @@ FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
-
-ENV HISTFILE=/commandhistory/.bash_history
-ENV HISTSIZE=10000
-ENV HISTFILESIZE=20000
+    PIP_NO_CACHE_DIR=1 \
+    HISTFILE=/commandhistory/.bash_history \
+    HISTSIZE=10000 \
+    HISTFILESIZE=20000
 
 RUN echo 'export PROMPT_COMMAND="history -a; history -n"' >> /root/.bashrc
+
+ENV HISTFILE=/commandhistory/.bash_history \
+    HISTSIZE=10000 \
+    HISTFILESIZE=20000
+
+RUN apt-get update \
+    && rm -rf /var/lib/apt/lists/* \
+    && printf '\nexport PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a; history -n"\n' >> /root/.bashrc \
+    && printf '"\\e[A": history-search-backward\n"\\e[B": history-search-forward\n' >> /root/.inputrc
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.11 \
