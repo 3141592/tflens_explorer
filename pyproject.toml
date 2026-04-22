@@ -10,7 +10,8 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pyyaml>=6.0",
-    "transformer-lens",
+    "transformers>=4.56",
+    "transformer-lens>=3.0,<4.0",
 ]
 
 [project.optional-dependencies]

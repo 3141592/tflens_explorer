@@ -24,7 +24,18 @@ commands:
     handler: builtin.prompt_show
     description: Show the current prompt text.
 
+  - name: prompt-run
+    aliases: []
+    handler: builtin.prompt_run
+    description:  Run inference on the current prompt text.
+
   - name: model-load
     aliases: []
     handler: builtin.model_load
     description: Load a model into the current session.
+
+  - name: model-info
+    aliases: []
+    handler: builtin.model_info
+    description: Show information about the currently loaded model.
+  

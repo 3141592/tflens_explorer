@@ -57,3 +57,29 @@ def handle_model_load(context: CommandContext) -> None:
     print(f"Loaded model: {model_name}")
 
 
+def handle_model_info(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    from tflens_explorer.services.model_service import get_model_info
+
+    info = get_model_info(model)
+
+    for key, value in info.items():
+        print(f"{key}: {value}")
+
+
+def handle_prompt_run(context: CommandContext) -> None:
+    model = context.session.model
+    prompt = context.session.current_prompt
+    if model is None:
+        print("No model loaded.")
+        return
+
+    from tflens_explorer.services.model_service import prompt_run
+
+    results = prompt_run(model, prompt)
+
+    print(results)
