@@ -5,10 +5,17 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
 
+ENV HISTFILE=/commandhistory/.bash_history
+ENV HISTSIZE=10000
+ENV HISTFILESIZE=20000
+
+RUN echo 'export PROMPT_COMMAND="history -a; history -n"' >> /root/.bashrc
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.11 \
     python3.11-venv \
     python3-pip \
+    openssh-client \
     git \
     curl \
     build-essential \

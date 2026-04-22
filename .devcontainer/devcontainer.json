@@ -21,5 +21,8 @@
       }
     }
   },
+  "mounts": [
+    "source=tflens-bash-history,target=/commandhistory,type=volume"
+  ],
   "postCreateCommand": "python -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip setuptools wheel && pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124 && pip install -e .[dev]"
 }
