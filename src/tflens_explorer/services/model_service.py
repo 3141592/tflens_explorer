@@ -1,6 +1,11 @@
 """Model loading service."""
 
 from transformer_lens.model_bridge import TransformerBridge
+from transformer_lens.model_bridge.sources.transformers import list_supported_models
+
+def list_models():
+    models = list_supported_models()
+    return models
 
 
 def load_model(model_name: str, device: str = "cuda"):

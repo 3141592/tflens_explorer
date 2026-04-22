@@ -29,6 +29,11 @@ commands:
     handler: builtin.prompt_run
     description:  Run inference on the current prompt text.
 
+  - name: model-list
+    aliases: []
+    handler: builtin.model_list
+    description: List all models supported by TransformerLens.
+
   - name: model-load
     aliases: []
     handler: builtin.model_load

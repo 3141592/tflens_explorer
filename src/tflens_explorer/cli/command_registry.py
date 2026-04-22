@@ -43,6 +43,7 @@ def resolve_handler(handler_name: str) -> Callable:
         "builtin.prompt_set": builtins.handle_prompt_set,
         "builtin.prompt_show": builtins.handle_prompt_show,
         "builtin.prompt_run": builtins.handle_prompt_run,
+        "builtin.model_list": builtins.handle_model_list,
         "builtin.model_load": builtins.handle_model_load,
         "builtin.model_info": builtins.handle_model_info,
     }

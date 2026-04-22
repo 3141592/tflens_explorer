@@ -36,6 +36,13 @@ def handle_prompt_show(context: CommandContext) -> None:
     print(context.session.current_prompt)
 
 
+def handle_model_list(context: CommandContext) -> None:
+    from tflens_explorer.services.model_service import list_models
+    models = list_models()
+    for item in models:
+        print(item)
+
+
 def handle_model_load(context: CommandContext) -> None:
     if not context.args:
         print("Usage: model-load <model_name>")
