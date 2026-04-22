@@ -11,3 +11,4 @@ class AppSession:
     model: object | None = None
     cache: object | None = None
     scratch: dict = field(default_factory=dict)
+    last_output: str = ""

@@ -73,13 +73,27 @@ def handle_model_info(context: CommandContext) -> None:
 
 def handle_prompt_run(context: CommandContext) -> None:
     model = context.session.model
-    prompt = context.session.current_prompt
     if model is None:
         print("No model loaded.")
         return
 
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+    
+    new_tokens = 10
+
     from tflens_explorer.services.model_service import prompt_run
 
-    results = prompt_run(model, prompt)
+    if context.args:
+        arg = context.args[0]
 
-    print(results)
+        if arg.isdigit():
+            new_tokens = int(arg)
+        elif arg.startswith("new_tokens="):
+            new_tokens = int(arg.split("=", 1)[1])
+
+    output = prompt_run(model, prompt, new_tokens=new_tokens)
+    context.session.last_output = output
+    print(output)

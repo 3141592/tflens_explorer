@@ -28,5 +28,5 @@ def get_model_info(model) -> dict:
 
     return info
 
-def prompt_run(model, string):
-    return model(string)
+def prompt_run(model, prompt, new_tokens):
+    return model.generate(prompt, max_new_tokens=new_tokens, do_sample=False)
