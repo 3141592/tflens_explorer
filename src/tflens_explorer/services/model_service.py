@@ -1,5 +1,6 @@
 """Model loading service."""
 
+import torch
 from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
 
@@ -62,14 +63,22 @@ def tokens(model, prompt):
 
 def logits(model, prompt):
     logits = model(prompt, prepend_bos=True)
-    tokens = model.to_tokens(prompt)
 
     logits_list = []
     logits_list.append("prepend_bos=True")
-    for index, logit in enumerate(logits[0]):
+    final_logits = logits[0, -1]
+
+    # values=tensor([-82.2124, -82.5013, -82.8357, -83.0191, -83.1987, -83.3259, -83.4433, -83.5148, -83.5338, -83.6343], device='cuda:0',
+    #               grad_fn=<TopkBackward0>),
+    # indices=tensor([ 4314,  2323,  3996, 18507,   736,  5743,  1735,  2166, 34902,  7624],
+    #               device='cuda:0'))
+    topk_logits = torch.topk(final_logits, 10)
+
+    for index, value in enumerate(topk_logits):
         breakpoint()
-        print(f"index: {index}, logit: {logit}")
-        logit_line = f"[{index}] {logit} -> 'token'"
+        str_token = model.to_str_tokens(index)
+        print(f"index: {index}, logit: {value}")
+        logit_line = f"[{index}] {value} -> '{str_token}'"
         logit_list.append(logit_line)
 
     return logit_list
