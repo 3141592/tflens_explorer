@@ -43,4 +43,8 @@ commands:
     aliases: []
     handler: builtin.model_info
     description: Show information about the currently loaded model.
-  
+
+  - name: tokens
+    aliases: []
+    handler: builtin.tokens
+    description: Show information about the tokenized prompt. 

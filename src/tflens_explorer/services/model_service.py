@@ -43,3 +43,18 @@ def get_model_info(model) -> dict:
 
 def prompt_run(model, prompt, new_tokens):
     return model.generate(prompt, max_new_tokens=new_tokens, do_sample=False)
+
+
+def tokens(model, prompt):
+    # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
+    tokens = model.to_tokens(prompt)
+
+    token_list = []
+    token_list.append("prepend_bos=True")
+    for index, token in enumerate(tokens[0]):
+        #print(f"index: {index}, token: {token}")
+        str_token = model.to_str_tokens(token)
+        token_line = f"[{index}] {token} -> '{str_token[0]}'"
+        token_list.append(token_line)
+
+    return token_list

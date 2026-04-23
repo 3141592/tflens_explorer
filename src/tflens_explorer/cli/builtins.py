@@ -66,6 +66,8 @@ def handle_model_load(context: CommandContext) -> None:
     context.session.model = model
     context.session.current_model_name = model_name
     context.session.cache = None
+
+    print()
     print(f"Loaded model: {model_name}")
 
 
@@ -109,3 +111,25 @@ def handle_prompt_run(context: CommandContext) -> None:
     output = prompt_run(model, prompt, new_tokens=new_tokens)
     context.session.last_output = output
     print(output)
+
+
+
+def handle_tokens(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+    
+    from tflens_explorer.services.model_service import tokens
+    token_list = tokens(model, prompt)
+
+    for token in token_list:
+        print(token)
+
+
+
