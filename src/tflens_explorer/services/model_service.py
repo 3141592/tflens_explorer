@@ -58,3 +58,19 @@ def tokens(model, prompt):
         token_list.append(token_line)
 
     return token_list
+
+
+def logits(model, prompt):
+    logits = model(prompt, prepend_bos=True)
+    tokens = model.to_tokens(prompt)
+
+    logits_list = []
+    logits_list.append("prepend_bos=True")
+    for index, logit in enumerate(logits[0]):
+        breakpoint()
+        print(f"index: {index}, logit: {logit}")
+        logit_line = f"[{index}] {logit} -> 'token'"
+        logit_list.append(logit_line)
+
+    return logit_list
+

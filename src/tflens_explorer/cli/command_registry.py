@@ -47,6 +47,7 @@ def resolve_handler(handler_name: str) -> Callable:
         "builtin.model_load": builtins.handle_model_load,
         "builtin.model_info": builtins.handle_model_info,
         "builtin.tokens": builtins.handle_tokens,
+        "builtin.logits": builtins.handle_logits,
     }
 
     try:

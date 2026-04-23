@@ -48,3 +48,8 @@ commands:
     aliases: []
     handler: builtin.tokens
     description: Show information about the tokenized prompt. 
+
+  - name: logits
+    aliases: []
+    handler: builtin.logits
+    description: Show the final position logits. 
