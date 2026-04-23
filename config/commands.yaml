@@ -27,7 +27,7 @@ commands:
   - name: prompt-run
     aliases: []
     handler: builtin.prompt_run
-    description:  Run inference on the current prompt text.
+    description:  Run inference on the current prompt text. Ex. > prompt-run new_tokens=25
 
   - name: model-list
     aliases: []
@@ -53,3 +53,11 @@ commands:
     aliases: []
     handler: builtin.logits
     description: Show the final position logits. 
+
+  - name: cache-run
+    aliases: []
+    handler: builtin.cache_run
+    description: Runs the current prompt through the model with cache and stores cache in the session state. 
+
+
+

@@ -46,6 +46,11 @@ def prompt_run(model, prompt, new_tokens):
     return model.generate(prompt, max_new_tokens=new_tokens, do_sample=False)
 
 
+def token_count(model, prompt):
+    tokens = model.to_tokens(prompt)
+    return len(tokens)
+
+
 def tokens(model, prompt):
     # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
     tokens = model.to_tokens(prompt)
@@ -82,3 +87,7 @@ def logits(model, prompt):
         logits_list.append(logit_line)
 
     return logits_list
+
+
+def cache_run(model, prompt):
+    cache = model.run_with_cache(prompt)

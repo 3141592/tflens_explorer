@@ -12,3 +12,4 @@ class AppSession:
     cache: object | None = None
     scratch: dict = field(default_factory=dict)
     last_output: str = ""
+    token_count: int = 0

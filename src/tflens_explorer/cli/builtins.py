@@ -85,6 +85,13 @@ def handle_model_info(context: CommandContext) -> None:
         print(f"{key}: {value}")
 
 
+def parse_new_tokens(args):
+    for arg in args:
+        if arg.startswith("new_tokens="):
+            return int(arg.split("=")[1])
+    return 10
+
+
 def handle_prompt_run(context: CommandContext) -> None:
     model = context.session.model
     if model is None:
@@ -96,22 +103,13 @@ def handle_prompt_run(context: CommandContext) -> None:
         print("No prompt set. Use: prompt-set <text>")
         return
     
-    new_tokens = 10
-
     from tflens_explorer.services.model_service import prompt_run
 
-    if context.args:
-        arg = context.args[0]
+    n = parse_new_tokens(context.args)
 
-        if arg.isdigit():
-            new_tokens = int(arg)
-        elif arg.startswith("new_tokens="):
-            new_tokens = int(arg.split("=", 1)[1])
-
-    output = prompt_run(model, prompt, new_tokens=new_tokens)
+    output = prompt_run(model, prompt, new_tokens=n)
     context.session.last_output = output
     print(output)
-
 
 
 def handle_tokens(context: CommandContext) -> None:
@@ -132,7 +130,6 @@ def handle_tokens(context: CommandContext) -> None:
         print(token)
 
 
-
 def handle_logits(context: CommandContext) -> None:
     model = context.session.model
     if model is None:
@@ -151,4 +148,20 @@ def handle_logits(context: CommandContext) -> None:
         print(logit)
 
 
+def handle_cache_run(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
 
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+    
+    from tflens_explorer.services.model_service import cache_run
+    cache = cache_run(model, prompt)
+    context.session.cache = cache
+    breakpoint()
+    print(f"Cached forward pass for {context.session.token_count} tokens.")
+    print("Available for inspection.")
