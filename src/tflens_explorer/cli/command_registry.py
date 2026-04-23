@@ -49,6 +49,7 @@ def resolve_handler(handler_name: str) -> Callable:
         "builtin.tokens": builtins.handle_tokens,
         "builtin.logits": builtins.handle_logits,
         "builtin.cache_run": builtins.handle_cache_run,
+        "builtin.cache_show": builtins.handle_cache_show,
     }
 
     try:

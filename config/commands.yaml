@@ -59,5 +59,10 @@ commands:
     handler: builtin.cache_run
     description: Runs the current prompt through the model with cache and stores cache in the session state. 
 
+  - name: cache-show
+    aliases: []
+    handler: builtin.cache_run
+    description: Shows information about the cache. 
+
 
 

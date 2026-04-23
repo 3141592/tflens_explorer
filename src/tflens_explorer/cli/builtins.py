@@ -160,8 +160,13 @@ def handle_cache_run(context: CommandContext) -> None:
         return
     
     from tflens_explorer.services.model_service import cache_run
-    cache = cache_run(model, prompt)
+    logits, cache = cache_run(model, prompt)
+    context.session.prompt = prompt
+    context.session.logits = logits
     context.session.cache = cache
-    breakpoint()
-    print(f"Cached forward pass for {context.session.token_count} tokens.")
+ 
+    tokens = model.to_tokens(prompt)
+    context.session.tokens = tokens
+
+    print(f"Cached forward pass for {len(tokens[0])} tokens.")
     print("Available for inspection.")
