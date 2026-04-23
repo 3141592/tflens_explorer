@@ -74,12 +74,11 @@ def logits(model, prompt):
     #               device='cuda:0'))
     topk_logits = torch.topk(final_logits, 10)
 
-    for index, value in enumerate(topk_logits):
-        breakpoint()
-        str_token = model.to_str_tokens(index)
-        print(f"index: {index}, logit: {value}")
-        logit_line = f"[{index}] {value} -> '{str_token}'"
-        logit_list.append(logit_line)
+    for index in range(len(topk_logits.values)):
+        str_token = model.to_str_tokens(topk_logits.indices[index])
+        value = topk_logits.values[index]
+        #print(f"token: {str_token}, value: {value}")
+        logit_line = f"[{index}] {value:.2f} -> '{str_token[0]}'"
+        logits_list.append(logit_line)
 
-    return logit_list
-
+    return logits_list
