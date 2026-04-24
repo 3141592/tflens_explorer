@@ -3,6 +3,13 @@
 import torch
 from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
+from tflens_explorer.config.config_loader import load_model_aliases
+
+MODEL_ALIASES = load_model_aliases()
+
+def resolve_model_name(name: str) -> str:
+    return MODEL_ALIASES.get(name, name)
+
 
 def list_models(partial_name):
     models = list_supported_models()
@@ -90,5 +97,5 @@ def cache_run(model, prompt):
 
 
 def cache_show():
-    print("cache_show()")
+    return "cache_show()"
     

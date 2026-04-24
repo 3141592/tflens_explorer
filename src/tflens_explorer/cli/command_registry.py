@@ -1,5 +1,6 @@
 """Command registry built from YAML config."""
 
+import importlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
@@ -7,6 +8,7 @@ from typing import Callable
 from tflens_explorer.cli import builtins
 from tflens_explorer.utils.yaml_loader import load_yaml
 
+_HANDLER_CACHE = {}
 
 @dataclass
 class CommandDefinition:
@@ -36,26 +38,29 @@ class CommandRegistry:
 
 
 def resolve_handler(handler_name: str) -> Callable:
-    builtin_handlers = {
-        "builtin.help": builtins.handle_help,
-        "builtin.commands": builtins.handle_commands,
-        "builtin.quit": builtins.handle_quit,
-        "builtin.prompt_set": builtins.handle_prompt_set,
-        "builtin.prompt_show": builtins.handle_prompt_show,
-        "builtin.prompt_run": builtins.handle_prompt_run,
-        "builtin.model_list": builtins.handle_model_list,
-        "builtin.model_load": builtins.handle_model_load,
-        "builtin.model_info": builtins.handle_model_info,
-        "builtin.tokens": builtins.handle_tokens,
-        "builtin.logits": builtins.handle_logits,
-        "builtin.cache_run": builtins.handle_cache_run,
-        "builtin.cache_show": builtins.handle_cache_show,
-    }
+    if handler_name in _HANDLER_CACHE:
+        return _HANDLER_CACHE[handler_name]
 
     try:
-        return builtin_handlers[handler_name]
-    except KeyError as exc:
-        raise ValueError(f"Unknown handler in config: {handler_name}") from exc
+        module_path, function_name = handler_name.rsplit(".", 1)
+    except ValueError as exc:
+        raise ValueError(
+            f"Invalid handler path: {handler_name}"
+        ) from exc
+
+    full_module_path = f"tflens_explorer.{module_path}"
+
+    module = importlib.import_module(full_module_path)
+
+    try:
+        handler = getattr(module, function_name)
+    except AttributeError as exc:
+        raise ValueError(
+            f"Handler not found: {function_name} in {full_module_path}"
+        ) from exc
+
+    _HANDLER_CACHE[handler_name] = handler
+    return handler
 
 
 def build_registry(config_path: str | Path = "config/commands.yaml") -> CommandRegistry:

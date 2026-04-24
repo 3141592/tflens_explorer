@@ -1,11 +1,18 @@
 """CLI entry point."""
 
+from huggingface_hub import login
+import os
+
 from tflens_explorer.cli.dispatcher import CommandDispatcher
 from tflens_explorer.cli.command_registry import build_registry
 from tflens_explorer.core.session import AppSession
 
 
 def main() -> int:
+    token = os.getenv("HF_TOKEN")
+    if token:
+        login(token=token)
+
     session = AppSession()
     registry = build_registry()
     dispatcher = CommandDispatcher(registry=registry, session=session)

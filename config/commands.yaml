@@ -1,67 +1,72 @@
 commands:
   - name: help
     aliases: ["?"]
-    handler: builtin.help
+    handler: cli.builtins.handle_help
     description: Show available commands.
 
   - name: commands
     aliases: ["ls"]
-    handler: builtin.commands
+    handler: cli.builtins.handle_commands
     description: List registered commands.
 
   - name: quit
     aliases: ["exit", "q"]
-    handler: builtin.quit
+    handler: cli.builtins.handle_quit
     description: Exit the CLI.
 
   - name: prompt-set
     aliases: []
-    handler: builtin.prompt_set
+    handler: cli.builtins.handle_prompt_set
     description: Store the current prompt text.
 
   - name: prompt-show
     aliases: []
-    handler: builtin.prompt_show
+    handler: cli.builtins.handle_prompt_show
     description: Show the current prompt text.
 
   - name: prompt-run
     aliases: []
-    handler: builtin.prompt_run
+    handler: cli.builtins.handle_prompt_run
     description:  Run inference on the current prompt text. Ex. > prompt-run new_tokens=25
 
   - name: model-list
     aliases: []
-    handler: builtin.model_list
+    handler: handlers.model_handlers.handle_model_list
+    description: List all models supported by TransformerLens.
+
+  - name: model-alaises
+    aliases: []
+    handler: handlers.model_handlers.handle_model_list
     description: List all models supported by TransformerLens.
 
   - name: model-load
     aliases: []
-    handler: builtin.model_load
+    handler: handlers.model_handlers.handle_model_load
     description: Load a model into the current session.
 
   - name: model-info
     aliases: []
-    handler: builtin.model_info
+    handler: handlers.model_handlers.handle_model_info
     description: Show information about the currently loaded model.
 
   - name: tokens
     aliases: []
-    handler: builtin.tokens
+    handler: cli.builtins.handle_tokens
     description: Show information about the tokenized prompt. 
 
   - name: logits
     aliases: []
-    handler: builtin.logits
+    handler: cli.builtins.handle_logits
     description: Show the final position logits. 
 
   - name: cache-run
     aliases: []
-    handler: builtin.cache_run
+    handler: cli.builtins.handle_cache_run
     description: Runs the current prompt through the model with cache and stores cache in the session state. 
 
   - name: cache-show
     aliases: []
-    handler: builtin.cache_run
+    handler: cli.builtins.handle_cache_show
     description: Shows information about the cache. 
 
 

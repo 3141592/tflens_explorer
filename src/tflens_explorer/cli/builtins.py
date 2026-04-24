@@ -36,55 +36,6 @@ def handle_prompt_show(context: CommandContext) -> None:
     print(context.session.current_prompt)
 
 
-def handle_model_list(context: CommandContext) -> None:
-    from tflens_explorer.services.model_service import list_models
-    
-    arg = ""
-    if context.args:
-        arg = context.args[0]
-
-    models = list_models(arg)
-    for item in models:
-        print(item)
-
-
-def handle_model_load(context: CommandContext) -> None:
-    if not context.args:
-        print("Usage: model-load <model_name>")
-        return
-
-    model_name = context.args[0]
-
-    from tflens_explorer.services.model_service import load_model
-
-    try:
-        model = load_model(model_name)
-    except Exception as exc:
-        print(f"Failed to load model '{model_name}': {exc}")
-        return
-
-    context.session.model = model
-    context.session.current_model_name = model_name
-    context.session.cache = None
-
-    print()
-    print(f"Loaded model: {model_name}")
-
-
-def handle_model_info(context: CommandContext) -> None:
-    model = context.session.model
-    if model is None:
-        print("No model loaded.")
-        return
-
-    from tflens_explorer.services.model_service import get_model_info
-
-    info = get_model_info(model)
-
-    for key, value in info.items():
-        print(f"{key}: {value}")
-
-
 def parse_new_tokens(args):
     for arg in args:
         if arg.startswith("new_tokens="):
@@ -170,3 +121,26 @@ def handle_cache_run(context: CommandContext) -> None:
 
     print(f"Cached forward pass for {len(tokens[0])} tokens.")
     print("Available for inspection.")
+
+
+def handle_cache_show(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+    
+    from tflens_explorer.services.model_service import cache_run
+    cache = context.session.cache
+    if not cache:
+        cache_run(model, prompt)
+    
+    cache_info = "prompt:" + prompt + "\n"
+    cache_info += "prepend_bos=True" + "\n"
+    breakpoint()
+    print(cache_info)
+

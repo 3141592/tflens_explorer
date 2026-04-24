@@ -34,3 +34,5 @@ RUN ln -sf /usr/bin/python3.11 /usr/local/bin/python \
     && ln -sf /usr/bin/pip3 /usr/local/bin/pip
 
 RUN python -m pip install --upgrade pip setuptools wheel
+
+RUN echo 'source /workspaces/tflens_explorer/.venv/bin/activate' >> /root/.bashrc

@@ -9,6 +9,12 @@
   "runArgs": [
     "--gpus=all"
   ],
+  "containerEnv": {
+    "HF_TOKEN": "${localEnv:HF_TOKEN}"
+  },
+  "remoteEnv": {
+    "HF_TOKEN": "${localEnv:HF_TOKEN}"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
@@ -22,7 +28,8 @@
     }
   },
   "mounts": [
-    "source=tflens-bash-history,target=/commandhistory,type=volume"
+    "source=tflens-bash-history,target=/commandhistory,type=volume",
+    "source=${localEnv:HOME}/.cache/huggingface,target=/root/.cache/huggingface,type=bind"
   ],
   "postCreateCommand": "python -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip setuptools wheel && pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124 && pip install -e .[dev]",
   "postStartCommand": "bash -lc 'grep -qxF \"source /workspaces/tflens_explorer/.venv/bin/activate\" /root/.bashrc || echo \"source /workspaces/tflens_explorer/.venv/bin/activate\" >> /root/.bashrc'"
