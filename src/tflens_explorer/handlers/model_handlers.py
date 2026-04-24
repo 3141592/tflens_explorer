@@ -75,6 +75,11 @@ def handle_model_aliases(context) -> None:
 
 
 def handle_model_cache(context) -> None:
+    from pathlib import Path
+import json
+
+
+def handle_model_cache(context) -> None:
     cache_dir = Path.home() / ".cache" / "huggingface" / "hub"
 
     if not cache_dir.exists():
@@ -88,8 +93,49 @@ def handle_model_cache(context) -> None:
         return
 
     print("Cached Hugging Face models:\n")
-
+    print(f"{'model':<45} {'kind':<10} detail")
+    print("-" * 70)
     for model_dir in model_dirs:
-        # models--openai-community--gpt2 → openai-community/gpt2
-        name = model_dir.name.replace("models--", "").replace("--", "/")
-        print(name)
+        model_id = model_dir.name.replace("models--", "").replace("--", "/")
+
+        snapshots_dir = model_dir / "snapshots"
+        snapshot_dirs = sorted(snapshots_dir.iterdir()) if snapshots_dir.exists() else []
+
+        if not snapshot_dirs:
+            #print(f"{model_id:<45} unknown  no snapshots")
+            status = "unknown"
+            detail = "no snapshots"
+            print(f"{model_id:<45} {status:<10} {detail}")
+            continue
+
+        latest_snapshot = snapshot_dirs[-1]
+        config_path = latest_snapshot / "config.json"
+
+        if not config_path.exists():
+            status = "invalid"
+            detail = "no config.json"
+            print(f"{model_id:<45} {status:<10} {detail}")
+            continue
+
+        try:
+            with open(config_path, "r") as f:
+                config = json.load(f)
+                model_type = config.get("model_type")
+                archs = config.get("architectures", [])
+        except json.JSONDecodeError:
+            print(f"{model_id:<45} no       invalid config.json")
+            continue
+
+        if any(("CausalLM" in arch or "LMHeadModel" in arch) for arch in archs):
+            status = "LLM"
+        elif model_type:
+            status = "non-LLM"
+        else:
+            status = "no"
+
+        if "model_type" in config:
+            detail = f"model_type={model_type}"
+        else:
+            detail = "missing model_type"
+
+        print(f"{model_id:<45} {status:<10} {detail}")
