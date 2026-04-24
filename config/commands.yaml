@@ -34,10 +34,16 @@ commands:
     handler: handlers.model_handlers.handle_model_list
     description: List all models supported by TransformerLens.
 
-  - name: model-alaises
+  - name: model-aliases
+    aliases:
+        - model-alias
+    handler: handlers.model_handlers.handle_model_aliases
+    description: List configured local model aliases.
+
+  - name: model-cache
     aliases: []
-    handler: handlers.model_handlers.handle_model_list
-    description: List all models supported by TransformerLens.
+    handler: handlers.model_handlers.handle_model_cache
+    description: List models currently stored in the local Hugging Face cache.
 
   - name: model-load
     aliases: []

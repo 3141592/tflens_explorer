@@ -1,5 +1,6 @@
 """Model command handlers."""
 
+from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 
 
@@ -20,7 +21,13 @@ def handle_model_load(context: CommandContext) -> None:
         print("Usage: model-load <model_name>")
         return
 
-    model_name = context.args[0]
+    from tflens_explorer.services.model_service import resolve_model_name
+
+    input_name = context.args[0]
+    model_name = resolve_model_name(input_name)
+
+    if model_name != input_name:
+        print(f"Resolved alias: {input_name} -> {model_name}")
 
     from tflens_explorer.services.model_service import load_model
 
@@ -52,3 +59,37 @@ def handle_model_info(context: CommandContext) -> None:
         print(f"{key}: {value}")
 
 
+from tflens_explorer.config.config_loader import load_model_aliases
+def handle_model_aliases(context) -> None:
+    aliases = load_model_aliases()
+
+    if not aliases:
+        print("No model aliases configured.")
+        return
+
+    print("Model aliases:")
+    print()
+
+    for alias, model_id in sorted(aliases.items()):
+        print(f"{alias:<20} -> {model_id}")
+
+
+def handle_model_cache(context) -> None:
+    cache_dir = Path.home() / ".cache" / "huggingface" / "hub"
+
+    if not cache_dir.exists():
+        print("Hugging Face cache directory not found.")
+        return
+
+    model_dirs = sorted(cache_dir.glob("models--*"))
+
+    if not model_dirs:
+        print("No cached models found.")
+        return
+
+    print("Cached Hugging Face models:\n")
+
+    for model_dir in model_dirs:
+        # models--openai-community--gpt2 → openai-community/gpt2
+        name = model_dir.name.replace("models--", "").replace("--", "/")
+        print(name)
