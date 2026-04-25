@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-from tflens_explorer.cli import builtins
+from tflens_explorer.cli import core_handlers
 from tflens_explorer.utils.yaml_loader import load_yaml
 
 _HANDLER_CACHE = {}

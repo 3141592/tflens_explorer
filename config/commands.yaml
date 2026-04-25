@@ -1,17 +1,17 @@
 commands:
   - name: help
     aliases: ["?"]
-    handler: cli.builtins.handle_help
+    handler: cli.core_handlers.handle_help
     description: Show available commands.
 
   - name: commands
     aliases: ["ls"]
-    handler: cli.builtins.handle_commands
+    handler: cli.core_handlers.handle_commands
     description: List registered commands.
 
   - name: quit
     aliases: ["exit", "q"]
-    handler: cli.builtins.handle_quit
+    handler: cli.core_handlers.handle_quit
     description: Exit the CLI.
 
   - name: prompt-set
