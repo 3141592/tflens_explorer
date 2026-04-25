@@ -43,13 +43,6 @@ def handle_prompt_show(context: CommandContext) -> None:
     print(context.session.current_prompt)
 
 
-def parse_new_tokens(args):
-    for arg in args:
-        if arg.startswith("new_tokens="):
-            return int(arg.split("=")[1])
-    return 10
-
-
 def handle_prompt_run(context: CommandContext) -> None:
     model = context.session.model
     if model is None:
@@ -65,6 +58,10 @@ def handle_prompt_run(context: CommandContext) -> None:
 
     kwargs = parse_kv_args(context.args)
     new_tokens = kwargs.get("new_tokens", 10)
+    if not isinstance(new_tokens, int) or new_tokens <= 0:
+        print("Error: new_tokens must be a positive integer.")
+        return
+
     output = prompt_run(model, prompt, new_tokens=new_tokens)
     context.session.last_output = output
     print(output)

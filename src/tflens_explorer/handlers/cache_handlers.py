@@ -46,6 +46,14 @@ def handle_cache_show(context: CommandContext) -> None:
     
     cache_info = "prompt:" + prompt + "\n"
     cache_info += "prepend_bos=True" + "\n"
-    breakpoint()
+    keys = list(cache.keys())
+    num_keys = len(keys)
+    first_keys = keys[:10]
+    cache_info += f"cache_keys = {num_keys}" + "\n"
+    cache_info += f"first_keys: "
+    for key in first_keys:
+        cache_info += f"  {key}\n"
+
+    #breakpoint()
     print(cache_info)
 
