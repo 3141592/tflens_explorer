@@ -16,17 +16,17 @@ commands:
 
   - name: prompt-set
     aliases: []
-    handler: cli.builtins.handle_prompt_set
+    handler: handlers.prompt_handlers.handle_prompt_set
     description: Store the current prompt text.
 
   - name: prompt-show
     aliases: []
-    handler: cli.builtins.handle_prompt_show
+    handler: handlers.prompt_handlers.handle_prompt_show
     description: Show the current prompt text.
 
   - name: prompt-run
     aliases: []
-    handler: cli.builtins.handle_prompt_run
+    handler: handlers.prompt_handlers.handle_prompt_run
     description:  Run inference on the current prompt text. Ex. > prompt-run new_tokens=25
 
   - name: model-list

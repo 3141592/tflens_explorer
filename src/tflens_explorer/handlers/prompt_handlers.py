@@ -1,0 +1,50 @@
+"""Prompt command handlers."""
+
+from pathlib import Path
+from tflens_explorer.core.types import CommandContext
+
+
+def handle_prompt_set(context: CommandContext) -> None:
+    if not context.args:
+        print("Usage: prompt-set <text>")
+        return
+
+    context.session.current_prompt = " ".join(context.args)
+    print("Prompt updated.")
+
+
+def handle_prompt_show(context: CommandContext) -> None:
+    if not context.session.current_prompt:
+        print("(no prompt set)")
+        return
+
+    print(context.session.current_prompt)
+
+
+def parse_new_tokens(args):
+    for arg in args:
+        if arg.startswith("new_tokens="):
+            return int(arg.split("=")[1])
+    return 10
+
+
+def handle_prompt_run(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+    
+    from tflens_explorer.services.model_service import prompt_run
+
+    n = parse_new_tokens(context.args)
+
+    output = prompt_run(model, prompt, new_tokens=n)
+    context.session.last_output = output
+    print(output)
+
+

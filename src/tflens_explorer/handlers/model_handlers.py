@@ -1,6 +1,9 @@
 """Model command handlers."""
 
+
+import json
 from pathlib import Path
+
 from tflens_explorer.core.types import CommandContext
 
 
@@ -75,11 +78,6 @@ def handle_model_aliases(context) -> None:
 
 
 def handle_model_cache(context) -> None:
-    from pathlib import Path
-import json
-
-
-def handle_model_cache(context) -> None:
     cache_dir = Path.home() / ".cache" / "huggingface" / "hub"
 
     if not cache_dir.exists():
@@ -123,7 +121,9 @@ def handle_model_cache(context) -> None:
                 model_type = config.get("model_type")
                 archs = config.get("architectures", [])
         except json.JSONDecodeError:
-            print(f"{model_id:<45} no       invalid config.json")
+            status = "invalid"
+            detail = "invalid config.json"
+            print(f"{model_id:<45} {status:<10} {detail}")
             continue
 
         if any(("CausalLM" in arch or "LMHeadModel" in arch) for arch in archs):
