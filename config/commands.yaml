@@ -57,22 +57,22 @@ commands:
 
   - name: tokens
     aliases: []
-    handler: cli.builtins.handle_tokens
+    handler: handlers.token_handlers.handle_tokens
     description: Show information about the tokenized prompt. 
 
   - name: logits
     aliases: []
-    handler: cli.builtins.handle_logits
+    handler: handlers.token_handlers.handle_logits
     description: Show the final position logits. 
 
   - name: cache-run
     aliases: []
-    handler: cli.builtins.handle_cache_run
+    handler: handlers.cache_handlers.handle_cache_run
     description: Runs the current prompt through the model with cache and stores cache in the session state. 
 
   - name: cache-show
     aliases: []
-    handler: cli.builtins.handle_cache_show
+    handler: handlers.cache_handlers.handle_cache_show
     description: Shows information about the cache. 
 
 
