@@ -4,6 +4,28 @@ from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 
 
+def parse_kv_args(args: list[str]) -> dict:
+    result = {}
+
+    for arg in args:
+        if "=" not in arg:
+            continue
+
+        key, value = arg.split("=", 1)
+
+        # basic type coercion
+        if value.isdigit():
+            value = int(value)
+        else:
+            try:
+                value = float(value)
+            except ValueError:
+                pass  # leave as string
+
+        result[key] = value
+
+    return result
+
 def handle_prompt_set(context: CommandContext) -> None:
     if not context.args:
         print("Usage: prompt-set <text>")
@@ -41,9 +63,9 @@ def handle_prompt_run(context: CommandContext) -> None:
     
     from tflens_explorer.services.model_service import prompt_run
 
-    n = parse_new_tokens(context.args)
-
-    output = prompt_run(model, prompt, new_tokens=n)
+    kwargs = parse_kv_args(context.args)
+    new_tokens = kwargs.get("new_tokens", 10)
+    output = prompt_run(model, prompt, new_tokens=new_tokens)
     context.session.last_output = output
     print(output)
 
