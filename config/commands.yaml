@@ -14,6 +14,11 @@ commands:
     handler: cli.core_handlers.handle_quit
     description: Exit the CLI.
 
+  - name: clear
+    aliases: []
+    handler: cli.core_handlers.handle_clear
+    description: Clear the terminal.
+
   - name: prompt-set
     aliases: []
     handler: handlers.prompt_handlers.handle_prompt_set

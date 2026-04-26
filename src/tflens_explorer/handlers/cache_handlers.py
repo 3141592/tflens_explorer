@@ -43,7 +43,7 @@ def handle_cache_show(context: CommandContext) -> None:
     cache = context.session.cache
     if not cache:
         cache_run(model, prompt)
-
+    breakpoint()
     lines = [
         f"prompt: {prompt}",
         f"prepend_bos={context.session.prepend_bos}",

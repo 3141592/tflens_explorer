@@ -66,6 +66,7 @@ def tokens(model, prompt, prepend_bos):
     tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
 
     token_list = []
+    token_list.append(f"tokens[0].shape: {tokens[0].shape}")
     token_list.append(f"prepend_bos={prepend_bos}")
     for index, token in enumerate(tokens[0]):
         #print(f"index: {index}, token: {token}")
@@ -80,6 +81,7 @@ def logits(model, prompt, prepend_bos):
     logits = model(prompt, prepend_bos=prepend_bos)
 
     logits_list = []
+    logits_list.append(f"logits.shape: {logits.shape}")
     logits_list.append(f"prepend_bos={prepend_bos}")
     final_logits = logits[0, -1]
 
