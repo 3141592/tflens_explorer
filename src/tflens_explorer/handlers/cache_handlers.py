@@ -57,3 +57,33 @@ def handle_cache_show(context: CommandContext) -> None:
     #breakpoint()
     print(cache_info)
 
+def handle_cache_keys(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+
+    from tflens_explorer.services.model_service import cache_run
+    cache = context.session.cache
+    if not cache:
+        cache_run(model, prompt)
+
+    arg = ""
+    if context.args:
+        arg = context.args[0]
+
+    keys = list(context.session.cache.keys())
+    for key in keys:
+        if arg == "":
+            print(key)
+        elif arg in key:
+            print(key)
+        
+
+
+

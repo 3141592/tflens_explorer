@@ -75,5 +75,10 @@ commands:
     handler: handlers.cache_handlers.handle_cache_show
     description: Shows information about the cache. 
 
+  - name: cache-keys
+    aliases: []
+    handler: handlers.cache_handlers.handle_cache_keys
+    description: Shows information about the cache. 
+
 
 
