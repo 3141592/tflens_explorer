@@ -16,7 +16,8 @@ def handle_tokens(context: CommandContext) -> None:
         return
     
     from tflens_explorer.services.model_service import tokens
-    token_list = tokens(model, prompt)
+    token_list = tokens(model, prompt, prepend_bos=True)
+    context.session.prepend_bos = True
 
     for token in token_list:
         print(token)
@@ -34,7 +35,8 @@ def handle_logits(context: CommandContext) -> None:
         return
     
     from tflens_explorer.services.model_service import logits
-    logits_list = logits(model, prompt)
+    logits_list = logits(model, prompt, prepend_bos=True)
+    context.session.prepend_bos = True
 
     for logit in logits_list:
         print(logit)

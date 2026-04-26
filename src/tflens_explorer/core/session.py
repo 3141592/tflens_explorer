@@ -15,4 +15,4 @@ class AppSession:
     tokens: object | None = None
     scratch: dict = field(default_factory=dict)
     last_output: str = ""
-    token_count: int = 0
+    prepend_bos: bool | None = None

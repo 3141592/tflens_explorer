@@ -45,7 +45,7 @@ def handle_cache_show(context: CommandContext) -> None:
         cache_run(model, prompt)
     
     cache_info = "prompt:" + prompt + "\n"
-    cache_info += "prepend_bos=True" + "\n"
+    cache_info += f"prepend_bos={context.session.prepend_bos}" + "\n"
     keys = list(cache.keys())
     num_keys = len(keys)
     first_keys = keys[:10]
@@ -68,10 +68,10 @@ def handle_cache_keys(context: CommandContext) -> None:
         print("No prompt set. Use: prompt-set <text>")
         return
 
-    from tflens_explorer.services.model_service import cache_run
     cache = context.session.cache
     if not cache:
-        cache_run(model, prompt)
+        print("No cache set. Use: cache-run <text>")
+        return
 
     arg = ""
     if context.args:

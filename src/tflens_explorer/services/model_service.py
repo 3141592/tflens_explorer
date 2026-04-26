@@ -50,15 +50,17 @@ def get_model_info(model) -> dict:
     return info
 
 def prompt_run(model, prompt, new_tokens):
+    #tokenizer = model.tokenizer
+    #print(type(tokenizer))
     return model.generate(prompt, max_new_tokens=new_tokens, do_sample=False)
 
 
-def tokens(model, prompt):
+def tokens(model, prompt, prepend_bos):
     # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
-    tokens = model.to_tokens(prompt)
+    tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
 
     token_list = []
-    token_list.append("prepend_bos=True")
+    token_list.append(f"prepend_bos={prepend_bos}")
     for index, token in enumerate(tokens[0]):
         #print(f"index: {index}, token: {token}")
         str_token = model.to_str_tokens(token)
@@ -68,11 +70,11 @@ def tokens(model, prompt):
     return token_list
 
 
-def logits(model, prompt):
-    logits = model(prompt, prepend_bos=True)
+def logits(model, prompt, prepend_bos):
+    logits = model(prompt, prepend_bos=prepend_bos)
 
     logits_list = []
-    logits_list.append("prepend_bos=True")
+    logits_list.append(f"prepend_bos={prepend_bos}")
     final_logits = logits[0, -1]
 
     # values=tensor([-82.2124, -82.5013, -82.8357, -83.0191, -83.1987, -83.3259, -83.4433, -83.5148, -83.5338, -83.6343], device='cuda:0',

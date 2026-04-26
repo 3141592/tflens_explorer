@@ -5,3 +5,5 @@ models:
   chat: Sharathhebbar24/chat_gpt2
   chat2: model-load h2oai/h2o-danube3-500m-chat
   pythia1b: EleutherAI/pythia-1b
+  deepseek: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+  deepseek-coder: deepseek-ai/deepseek-coder-1.3b-instruct

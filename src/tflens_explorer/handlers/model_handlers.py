@@ -40,12 +40,19 @@ def handle_model_load(context: CommandContext) -> None:
         print(f"Failed to load model '{model_name}': {exc}")
         return
 
+    context.session.cache = None
+    context.session.logits = None
+    context.session.tokens = None
+    context.session.scratch.clear()
+    context.session.last_output = ""
+
     context.session.model = model
     context.session.current_model_name = model_name
     context.session.cache = None
 
     print()
     print(f"Loaded model: {model_name}")
+    print("Session state cleared.")
 
 
 def handle_model_info(context: CommandContext) -> None:
