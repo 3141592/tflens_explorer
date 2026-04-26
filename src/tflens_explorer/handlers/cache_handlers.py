@@ -43,19 +43,21 @@ def handle_cache_show(context: CommandContext) -> None:
     cache = context.session.cache
     if not cache:
         cache_run(model, prompt)
-    
-    cache_info = "prompt:" + prompt + "\n"
-    cache_info += f"prepend_bos={context.session.prepend_bos}" + "\n"
-    keys = list(cache.keys())
-    num_keys = len(keys)
-    first_keys = keys[:10]
-    cache_info += f"cache_keys = {num_keys}" + "\n"
-    cache_info += f"first_keys: "
-    for key in first_keys:
-        cache_info += f"  {key}\n"
 
-    #breakpoint()
-    print(cache_info)
+    lines = [
+        f"prompt: {prompt}",
+        f"prepend_bos={context.session.prepend_bos}",
+    ]
+
+    keys = list(cache.keys())
+    lines.append(f"cache_keys = {len(keys)}")
+    lines.append("first_keys:")
+
+    for key in keys[:10]:
+        lines.append(f"  {key}")
+
+    cache_info = "\n".join(lines)
+    print(cache_info)    
 
 def handle_cache_keys(context: CommandContext) -> None:
     model = context.session.model

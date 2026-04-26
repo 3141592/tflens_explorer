@@ -32,7 +32,6 @@ def get_model_info(model) -> dict:
     info = {
         "object_type": type(model).__name__,
     }
-
     cfg = getattr(model, "cfg", None)
     if cfg is not None:
         for field_name in [
@@ -48,6 +47,13 @@ def get_model_info(model) -> dict:
             info[field_name] = getattr(cfg, field_name, "unknown")
 
     return info
+
+
+def model_show(model, model_name):
+    print(model_name)
+    print()
+    print(model.named_children)
+
 
 def prompt_run(model, prompt, new_tokens):
     #tokenizer = model.tokenizer

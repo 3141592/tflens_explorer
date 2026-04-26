@@ -69,6 +69,16 @@ def handle_model_info(context: CommandContext) -> None:
         print(f"{key}: {value}")
 
 
+def handle_model_show(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    from tflens_explorer.services.model_service import model_show
+    model_show(model, context.session.current_model_name)
+
+
 from tflens_explorer.config.config_loader import load_model_aliases
 def handle_model_aliases(context) -> None:
     aliases = load_model_aliases()
