@@ -76,7 +76,7 @@ def handle_model_show(context: CommandContext) -> None:
         return
 
     from tflens_explorer.services.model_service import model_show
-    model_show(model, context.session.current_model_name)
+    model_show(model)
 
 
 from tflens_explorer.config.config_loader import load_model_aliases

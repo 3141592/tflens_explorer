@@ -39,11 +39,6 @@ def handle_cache_show(context: CommandContext) -> None:
         print("No prompt set. Use: prompt-set <text>")
         return
     
-    from tflens_explorer.services.model_service import cache_run
-    cache = context.session.cache
-    if not cache:
-        cache_run(model, prompt)
-    breakpoint()
     lines = [
         f"prompt: {prompt}",
         f"prepend_bos={context.session.prepend_bos}",

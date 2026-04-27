@@ -70,6 +70,16 @@ commands:
     handler: handlers.token_handlers.handle_tokens
     description: Show information about the tokenized prompt. 
 
+  - name: token-decode
+    aliases: []
+    handler: handlers.token_handlers.handle_token_decode
+    description: Decode a single token. 
+
+  - name: token-encode
+    aliases: []
+    handler: handlers.token_handlers.handle_token_encode
+    description: Encode strings. 
+
   - name: logits
     aliases: []
     handler: handlers.token_handlers.handle_logits

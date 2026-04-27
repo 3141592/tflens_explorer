@@ -49,8 +49,8 @@ def get_model_info(model) -> dict:
     return info
 
 
-def model_show(model, model_name):
-    print(model_name)
+def model_show(model):
+    print(model.cfg.model_name)
     print()
     print(model.named_children)
 
@@ -76,6 +76,14 @@ def tokens(model, prompt, prepend_bos):
 
     return token_list
 
+
+def token_decode(model, token):
+    decoded_token = model.tokenizer.decode(token)
+    return decoded_token
+
+def token_encode(model, str_token):
+    token_id = model.tokenizer.encode(str_token)
+    return token_id
 
 def logits(model, prompt, prepend_bos):
     logits = model(prompt, prepend_bos=prepend_bos)
