@@ -55,6 +55,11 @@ commands:
     handler: handlers.model_handlers.handle_model_load
     description: Load a model into the current session.
 
+  - name: model-load-quantized
+    aliases: []
+    handler: handlers.model_handlers.handle_model_load_quantized
+    description: Load a quantized model into the current session.
+
   - name: model-info
     aliases: []
     handler: handlers.model_handlers.handle_model_info

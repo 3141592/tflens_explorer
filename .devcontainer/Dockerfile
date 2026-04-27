@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.11 \
     python3.11-venv \
     python3-pip \
+    python3.11-dev \
     openssh-client \
     git \
     curl \
@@ -34,5 +35,6 @@ RUN ln -sf /usr/bin/python3.11 /usr/local/bin/python \
     && ln -sf /usr/bin/pip3 /usr/local/bin/pip
 
 RUN python -m pip install --upgrade pip setuptools wheel
+RUN pip install -U bitsandbytes>=0.46.1
 
 RUN echo 'source /workspaces/tflens_explorer/.venv/bin/activate' >> /root/.bashrc

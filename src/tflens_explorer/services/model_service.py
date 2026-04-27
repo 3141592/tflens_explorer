@@ -28,6 +28,36 @@ def load_model(model_name: str, device: str = "cuda"):
     return TransformerBridge.boot_transformers(model_name, device=device)
 
 
+def load_quantized_model(model_name: str, device: str = "cuda"):
+    from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+    quant_config = BitsAndBytesConfig(
+        load_in_4bit=True,
+        # or load_in_8bit=True
+    )
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        quantization_config=quant_config,
+        device_map="auto",
+    )
+
+    import torch
+    import bitsandbytes as bnb
+
+    print(type(model))
+
+    for name, module in model.named_modules():
+        if "Linear4bit" in type(module).__name__ or "Linear8bit" in type(module).__name__:
+            print(name, type(module))
+            break
+    else:
+        print("No bitsandbytes quantized Linear modules found")
+
+    return model
+
+
 def get_model_info(model) -> dict:
     info = {
         "object_type": type(model).__name__,

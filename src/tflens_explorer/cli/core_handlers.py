@@ -12,8 +12,12 @@ def handle_help(context: CommandContext) -> None:
 
 
 def handle_commands(context: CommandContext) -> None:
+    arg = context.args
     for command in context.registry.unique_commands():
-        print(command.name)
+        if len(context.args) == 0:
+            print(command.name)
+        elif arg[0] in command.name:
+            print(command.name)
 
 
 def handle_clear(context: CommandContext) -> None:
