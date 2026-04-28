@@ -18,6 +18,10 @@ def handle_eval_run(context) -> None:
         eval_name = eval['name']
         eval_prompt = eval['prompt']
         eval_next_tokens = eval['expected_next_tokens']
-        run_model_eval(model, eval_name, eval_prompt, eval_next_tokens)
+        eval_prepend_bos = eval['prepend_bos']
+        print(f"eval name: {eval['name']}")
+        print(run_model_eval(model, eval))
+        print(f"Expected next tokens:\n {eval['expected_next_tokens']}")
+        print()
     return
 

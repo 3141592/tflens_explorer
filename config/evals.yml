@@ -1,11 +1,13 @@
 - name: dog_floor
   prompt: "The dog sat on the"
+  prepend_bos: True
   expected_next_tokens:
-    - "floor"
-    - "couch"
-    - "bed"
+    - " floor"
+    - " couch"
+    - " bed"
 
 - name: simple_math
-  prompt: "2 + 2 ="
+  prompt: "2 + 2 = "
+  prepend_bos: True
   expected_next_tokens:
     - "4"

@@ -131,8 +131,6 @@ def logits(model, prompt, prepend_bos):
     topk_probs = torch.topk(final_probs, 10)
     topk_logits = torch.topk(final_logits, 10)
     
-    breakpoint()
-
     logits_list.append("\n VALUES")
     for index in range(len(topk_logits.values)):
         str_token = model.to_str_tokens(topk_logits.indices[index])
