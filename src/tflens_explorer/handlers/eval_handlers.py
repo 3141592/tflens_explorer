@@ -13,7 +13,11 @@ def handle_eval_run(context) -> None:
     from tflens_explorer.services.eval_service import run_model_eval
 
     evals = load_model_evals()
+    
     for eval in evals:
-        run_model_eval(model, eval)
+        eval_name = eval['name']
+        eval_prompt = eval['prompt']
+        eval_next_tokens = eval['expected_next_tokens']
+        run_model_eval(model, eval_name, eval_prompt, eval_next_tokens)
     return
 

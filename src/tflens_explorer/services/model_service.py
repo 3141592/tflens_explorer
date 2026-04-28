@@ -127,12 +127,25 @@ def logits(model, prompt, prepend_bos):
     #               grad_fn=<TopkBackward0>),
     # indices=tensor([ 4314,  2323,  3996, 18507,   736,  5743,  1735,  2166, 34902,  7624],
     #               device='cuda:0'))
+    final_probs = torch.softmax(final_logits, dim=-1)
+    topk_probs = torch.topk(final_probs, 10)
     topk_logits = torch.topk(final_logits, 10)
+    
+    breakpoint()
 
+    logits_list.append("\n VALUES")
     for index in range(len(topk_logits.values)):
         str_token = model.to_str_tokens(topk_logits.indices[index])
         value = topk_logits.values[index]
         #print(f"token: {str_token}, value: {value}")
+        logit_line = f"[{index}] {value:.2f} -> '{str_token[0]}'"
+        logits_list.append(logit_line)
+
+    logits_list.append("\n PROBABILITIES")
+
+    for index in range(len(topk_probs.values)):
+        str_token = model.to_str_tokens(topk_probs.indices[index])
+        value = topk_probs.values[index]
         logit_line = f"[{index}] {value:.2f} -> '{str_token[0]}'"
         logits_list.append(logit_line)
 
