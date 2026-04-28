@@ -1,0 +1,11 @@
+- name: dog_floor
+  prompt: "The dog sat on the"
+  expected_next_tokens:
+    - " floor"
+    - " couch"
+    - " bed"
+
+- name: simple_math
+  prompt: "2 + 2 ="
+  expected_next_tokens:
+    - " 4"

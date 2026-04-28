@@ -15,7 +15,7 @@ commands:
     description: Exit the CLI.
 
   - name: clear
-    aliases: []
+    aliases: ["c"]
     handler: cli.core_handlers.handle_clear
     description: Clear the terminal.
 
@@ -104,6 +104,11 @@ commands:
     aliases: []
     handler: handlers.cache_handlers.handle_cache_keys
     description: Shows information about the cache. 
+
+  - name: eval-run
+    aliases: []
+    handler: handlers.eval_handlers.handle_eval_run
+    description: Runs model evaluations defined in the evals.yml. 
 
 
 

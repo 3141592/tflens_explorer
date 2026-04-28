@@ -10,3 +10,15 @@ def load_model_aliases():
         data = yaml.safe_load(f)
 
     return data.get("models", {})
+
+
+def load_model_evals():
+    # go up from this file → project root → config/evals.yml
+    base_dir = Path(__file__).resolve().parents[3]
+    config_path = base_dir / "config" / "evals.yml"
+
+    with open(config_path, "r") as f:
+        data = yaml.safe_load(f)
+
+    return data
+
