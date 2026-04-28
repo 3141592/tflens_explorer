@@ -1,6 +1,6 @@
 """Application session state."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 
 
 @dataclass
@@ -8,7 +8,6 @@ class AppSession:
     running: bool = True
     current_model_name: str | None = None
     current_prompt: str = ""
-    prompt: str = ""
     model: object | None = None
     cache: object | None = None
     logits: object | None = None
@@ -16,3 +15,8 @@ class AppSession:
     scratch: dict = field(default_factory=dict)
     last_output: str = ""
     prepend_bos: bool | None = None
+
+
+    def __iter__(self):
+        for f in fields(self):
+            yield f.name, getattr(self, f.name)

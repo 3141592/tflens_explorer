@@ -3,6 +3,7 @@ models:
   gpt2-medium: openai-community/gpt2-medium
   gpt2-large: openai-community/gpt2-large
   gpt2-q: openai-community/gpt2
+  gpt3: minhtoan/gpt3-small-finetune-cnndaily-news
   chat: Sharathhebbar24/chat_gpt2
   chat2: model-load h2oai/h2o-danube3-500m-chat
   pythia1b: EleutherAI/pythia-1b

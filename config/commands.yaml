@@ -19,6 +19,16 @@ commands:
     handler: cli.core_handlers.handle_clear
     description: Clear the terminal.
 
+  - name: clear-sessions
+    aliases: []
+    handler: cli.core_handlers.clear_sessions
+    description: Clears the context.sessions object.
+
+  - name: context-show
+    aliases: []
+    handler: cli.core_handlers.handle_show_context
+    description: Shows the contents of the current context.
+
   - name: prompt-set
     aliases: []
     handler: handlers.prompt_handlers.handle_prompt_set

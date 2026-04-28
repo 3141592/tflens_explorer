@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from tflens_explorer.core.types import CommandContext
+from tflens_explorer.cli.core_handlers import clear_sessions
 
 
 def handle_model_list(context: CommandContext) -> None:
@@ -40,11 +41,7 @@ def handle_model_load(context: CommandContext) -> None:
         print(f"Failed to load model '{model_name}': {exc}")
         return
 
-    context.session.cache = None
-    context.session.logits = None
-    context.session.tokens = None
-    context.session.scratch.clear()
-    context.session.last_output = ""
+    clear_sessions(context)
 
     context.session.model = model
     context.session.current_model_name = model_name
@@ -75,11 +72,7 @@ def handle_model_load_quantized(context: CommandContext) -> None:
         print(f"Failed to load model '{model_name}': {exc}")
         return
 
-    context.session.cache = None
-    context.session.logits = None
-    context.session.tokens = None
-    context.session.scratch.clear()
-    context.session.last_output = ""
+    clear_sessions(context)
 
     context.session.model = model
     context.session.current_model_name = model_name
@@ -87,7 +80,6 @@ def handle_model_load_quantized(context: CommandContext) -> None:
 
     print()
     print(f"Loaded model: {model_name}")
-    print("Session state cleared.")
 
 
 def handle_model_info(context: CommandContext) -> None:

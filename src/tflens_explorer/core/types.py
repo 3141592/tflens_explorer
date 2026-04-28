@@ -9,3 +9,8 @@ class CommandContext:
     args: list[str]
     session: object
     registry: object
+
+    def __iter__(self):
+        yield "args", self.args
+        yield "session", self.session
+        yield "registry", self.registry

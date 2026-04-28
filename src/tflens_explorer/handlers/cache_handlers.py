@@ -44,7 +44,7 @@ def handle_cache_show(context: CommandContext) -> None:
         f"prepend_bos={context.session.prepend_bos}",
     ]
 
-    keys = list(cache.keys())
+    keys = list(context.session.cache.keys())
     lines.append(f"cache_keys = {len(keys)}")
     lines.append("first_keys:")
 
