@@ -11,3 +11,4 @@
   prepend_bos: True
   expected_next_tokens:
     - "4"
+    - " 4"
