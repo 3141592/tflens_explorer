@@ -7,3 +7,11 @@ def test_registry_loads_default_commands():
     assert "help" in names
     assert "commands" in names
     assert "quit" in names
+
+def test_command_aliases_are_registered():
+    registry = build_registry()
+
+    for command in registry.unique_commands():
+        for alias in command.aliases:
+            resolved = registry.get(alias)
+            assert resolved.name == command.name
