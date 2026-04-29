@@ -12,3 +12,27 @@
   expected_next_tokens:
     - "4"
     - " 4"
+
+- name: simple_logic_1
+  prompt: "If Tom is taller than Bob, and Bob is taller than Jim, then Tom is taller than"
+  prepend_bos: True
+  expected_next_tokens:
+    - " Jim"
+
+- name: simple_logic_names_2
+  prompt: "If Alice is taller than Carol, and Carol is taller than Dave, then Alice is taller than"
+  prepend_bos: true
+  expected_next_tokens:
+    - " Dave"
+
+- name: simple_logic_shorter_1
+  prompt: "If Carol is shorter than Alice, and Dave is shorter than Carol, then Alice is taller than"
+  prepend_bos: true
+  expected_next_tokens:
+    - " Dave"
+
+- name: simple_transitive_logic
+  prompt: "If Carol is shorter than Alice, and Dave is shorter than Carol, then Alice is taller than Dave, and Carol is taller than"
+  prepend_bos: true
+  expected_next_tokens:
+    - " Dave"

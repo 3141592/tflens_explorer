@@ -16,7 +16,11 @@ def handle_eval_run(context) -> None:
     
     for eval in evals:
         print(f"eval name: {eval['name']}")
-        print(run_model_eval(model, eval))
+        #print(run_model_eval(model, eval)))
+        results = run_model_eval(model, eval)
+        for k, v in results.items():
+            print(f"{k}: {v}")
+
         print(f"Eval prompt: {eval['prompt']}")
         print(f"Expected next tokens:\n {eval['expected_next_tokens']}")
         print()
