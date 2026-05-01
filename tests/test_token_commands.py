@@ -1,3 +1,6 @@
+import io
+import sys
+from types import SimpleNamespace
 from tflens_explorer.cli.dispatcher import CommandDispatcher
 from tflens_explorer.cli.command_registry import build_registry
 from tflens_explorer.core.types import CommandContext
@@ -36,35 +39,44 @@ def test_token_encode_dispatches_to_handler():
 
     assert captured["called"] is True
 
+class FakeTokenizer:
+    def encode(self, text):
+        return [len(text)]  # simple, deterministic
+
+    def decode(self, token_ids):
+        return "Hello"
+
+class FakeModel:
+    def __init__(self):
+        self.tokenizer = FakeTokenizer()
+        self.cfg = SimpleNamespace(d_vocab=50257)
+
 def test_token_decode():
     registry = build_registry()
     session = AppSession()
+    session.model = FakeModel()
     dispatcher = CommandDispatcher(registry, session)
 
-    captured = {}
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
 
-    def fake_handler(ctx):
-        captured["input"] = ctx.raw
+    dispatcher.dispatch("token-decode 15496")
+    sys.stdout = sys.__stdout__
 
-    registry.get("token-decode").handler = fake_handler
+    assert "Hello" in captured_output.getvalue()
 
-    dispatcher.dispatch("token-decode 10057")
-
-    assert "10057" in captured["input"]
 
 def test_token_encode():
     registry = build_registry()
     session = AppSession()
+    session.model = FakeModel()
     dispatcher = CommandDispatcher(registry, session)
 
-    captured = {}
+    captured_output = io.StringIO()
+    sys.stdout = captured_output
 
-    def fake_handler(ctx):
-        captured["input"] = ctx.raw
+    dispatcher.dispatch("token-encode Hello")
+    sys.stdout = sys.__stdout__
 
-    registry.get("token-encode").handler = fake_handler
-
-    dispatcher.dispatch("token-encode system")
-
-    assert "system" in captured["input"]
+    assert "5" in captured_output.getvalue()
 

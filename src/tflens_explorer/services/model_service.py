@@ -107,8 +107,11 @@ def tokens(model, prompt, prepend_bos):
     return token_list
 
 
-def token_decode(model, token):
-    decoded_token = model.tokenizer.decode(token)
+def token_decode(model, token_id):
+    if token_id < 0 or token_id >= model.cfg.d_vocab:
+        return (-1)
+
+    decoded_token = model.tokenizer.decode(token_id)
     return decoded_token
 
 def token_encode(model, str_token):

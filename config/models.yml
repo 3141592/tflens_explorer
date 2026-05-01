@@ -11,3 +11,4 @@ models:
   deepseek-coder: deepseek-ai/deepseek-coder-1.3b-instruct
   deepseek-math: VladShash/deepseek-math-7b-lean-prover-dpo-olmo-3
   qwen3-math: jaygala24/Qwen3-1.7B-ReMax-math-reasoning
+  tiny-llama: alexredna/TinyLlama-1.1B-Chat-v1.0-reasoning-v2
