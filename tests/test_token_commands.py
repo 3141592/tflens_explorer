@@ -6,7 +6,6 @@ from tflens_explorer.cli.command_registry import build_registry
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.core.session import AppSession
 
-
 def test_token_decode_dispatches_to_handler():
     registry = build_registry()
     session = AppSession()
