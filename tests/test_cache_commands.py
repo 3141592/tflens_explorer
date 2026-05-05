@@ -1,19 +1,11 @@
 import io
 import sys
-from types import SimpleNamespace
 from tflens_explorer.cli.dispatcher import CommandDispatcher
 from tflens_explorer.cli.command_registry import build_registry
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.core.session import AppSession
+from tests.fakes import FakeModel
 
-class FakeModel:
-    def run_with_cache(self, tokens, prepend_bos=True):
-        logits = [[0.1, 0.2]]
-        cache = {"fake_key": "fake_value"}
-        return logits, cache
-
-    def to_tokens(self, prompt, prepend_bos=True):
-        return [1, 2, 3]
 
 def test_cache_keys_dispatches_to_handler():
     registry = build_registry()

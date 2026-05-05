@@ -1,10 +1,10 @@
 import io
 import sys
-from types import SimpleNamespace
 from tflens_explorer.cli.dispatcher import CommandDispatcher
 from tflens_explorer.cli.command_registry import build_registry
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.core.session import AppSession
+from tests.fakes import FakeModel
 
 def test_token_decode_dispatches_to_handler():
     registry = build_registry()
@@ -37,18 +37,6 @@ def test_token_encode_dispatches_to_handler():
     dispatcher.dispatch("token-encode Dog")
 
     assert captured["called"] is True
-
-class FakeTokenizer:
-    def encode(self, text):
-        return [len(text)]  # simple, deterministic
-
-    def decode(self, token_ids):
-        return "Hello"
-
-class FakeModel:
-    def __init__(self):
-        self.tokenizer = FakeTokenizer()
-        self.cfg = SimpleNamespace(d_vocab=50257)
 
 def test_token_decode():
     registry = build_registry()
