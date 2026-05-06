@@ -37,7 +37,6 @@ def rank_expected_tokens(model, eval):
     expected_token_ranks = []
 
     for token in eval["expected_next_tokens"]:
-        print("TOKEN CHECK: ", token)
         token_id = model.to_single_token(token)
         matches = (sorted_indices == token_id).nonzero(as_tuple=True)[0]
         rank = matches.item() + 1 if len(matches) else None
