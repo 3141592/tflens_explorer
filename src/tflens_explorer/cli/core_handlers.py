@@ -36,17 +36,10 @@ def handle_show_context(context: CommandContext) -> None:
             continue
         print(k, v)
 
+def handle_clear_runtime_state(ctx: CommandContext):
+    ctx.session.clear_runtime_state(keep_model=True)
+    print("Session runtime state cleared.")
 
-def clear_sessions(context: CommandContext) -> None:
-    context.session.cache = None
-    context.session.logits = None
-    context.session.tokens = None
-    context.session.scratch.clear()
-    context.session.last_output = ""
-
-    context.session.current_prompt = ""
-    context.session.model = None
-    context.session.current_model_name = None
-    context.session.prepend_bos = None
-
+def handle_session_clear(ctx: CommandContext):
+    ctx.session.clear_session()
     print("Session state cleared.")

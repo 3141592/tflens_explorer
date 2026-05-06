@@ -5,7 +5,7 @@ from tflens_explorer.core.session import AppSession
 from tflens_explorer.handlers.prompt_handlers import parse_kv_args
 
 
-def test_clear_sessions_resets_prompt_and_outputs():
+def test_clear_session_clear_prompt_and_outputs():
     registry = build_registry()
     session = AppSession()
     session.current_prompt = "Hello"
@@ -16,7 +16,7 @@ def test_clear_sessions_resets_prompt_and_outputs():
 
     dispatcher = CommandDispatcher(registry, session)
 
-    dispatcher.dispatch("clear-sessions")
+    dispatcher.dispatch("session-clear")
 
     assert session.current_prompt == ""
     assert session.last_output == ""

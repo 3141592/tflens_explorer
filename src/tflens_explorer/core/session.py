@@ -16,7 +16,29 @@ class AppSession:
     last_output: str = ""
     prepend_bos: bool | None = None
 
-
     def __iter__(self):
         for f in fields(self):
             yield f.name, getattr(self, f.name)
+
+    def clear_runtime_state(self, keep_model: bool = True) -> None:
+        self.logits = None
+        self.cache = None
+        self.tokens = None
+        self.scratch.clear()
+        self.last_output = ""
+
+        if not keep_model:
+            self.model = None
+            self.prepend_bos = None
+            self.current_model_name = ""
+
+    def clear_session(self) -> None:
+        self.current_prompt = ""
+        self.logits = None
+        self.cache = None
+        self.tokens = None
+        self.scratch.clear()
+        self.last_output = ""
+        self.model = None
+        self.prepend_bos = None
+        self.current_model_name = ""
