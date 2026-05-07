@@ -1,5 +1,6 @@
 """Eval command handlers."""
 
+import statistics
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 
@@ -16,6 +17,7 @@ def handle_eval_run(context) -> None:
     eval_summary = {
         'expected_in_top_1': 0,
         'expected_in_top_5': 0,
+        'best_ranks': [],
         'total': 0,
     }
     for eval in evals:
@@ -33,16 +35,9 @@ def handle_eval_run(context) -> None:
         eval_summary['total'] += 1
         eval_summary['expected_in_top_1'] += results['expected_in_top_1']
         eval_summary['expected_in_top_5'] += results['expected_in_top_5']
+        eval_summary['best_ranks'].append(results['expected_token_best_rank'])
 
-    print("Eval Summary")
-    print("------------")
-    print(f"model: {eval_summary['model']}")
-    print(f"evals: {eval_summary['total']}")
-    print(f"top-1 accuracy: {eval_summary['expected_in_top_1']}/{eval_summary['total']} = {round(eval_summary['expected_in_top_1'] / eval_summary['total'], 2)} ")
-    print(f"top-5 accuracy: {eval_summary['expected_in_top_5']}/{eval_summary['total']} = {round(eval_summary['expected_in_top_5'] / eval_summary['total'], 2)} ")
-    print(f"best ranks: {eval_summary['total']}")
-    print(f"median best rank: {eval_summary['total']}")
-
+    print_summary(eval_summary)
 
 def handle_eval_summary(context) -> None:
     model = context.session.model
@@ -57,6 +52,7 @@ def handle_eval_summary(context) -> None:
     eval_summary = {
         'expected_in_top_1': 0,
         'expected_in_top_5': 0,
+        'best_ranks': [],
         'total': 0,
     }
     for eval in evals:
@@ -65,13 +61,23 @@ def handle_eval_summary(context) -> None:
         eval_summary['total'] += 1
         eval_summary['expected_in_top_1'] += results['expected_in_top_1']
         eval_summary['expected_in_top_5'] += results['expected_in_top_5']
+        eval_summary['best_ranks'].append(results['expected_token_best_rank'])
 
+    print_summary(eval_summary)
+
+def print_summary(eval_summary) -> None:
     print("Eval Summary")
     print("------------")
     print(f"model: {eval_summary['model']}")
     print(f"evals: {eval_summary['total']}")
-    print(f"top-1 accuracy: {eval_summary['expected_in_top_1']}/{eval_summary['total']} = {round(eval_summary['expected_in_top_1'] / eval_summary['total'], 2)} ")
-    print(f"top-5 accuracy: {eval_summary['expected_in_top_5']}/{eval_summary['total']} = {round(eval_summary['expected_in_top_5'] / eval_summary['total'], 2)} ")
-    print(f"best ranks: {eval_summary['total']}")
-    print(f"median best rank: {eval_summary['total']}")
+
+    accuracy = eval_summary['expected_in_top_1'] / eval_summary['total']
+    print(f"top-1 accuracy: {eval_summary['expected_in_top_1']}/{eval_summary['total']} = {accuracy:.1%} ")
+    
+    accuracy = eval_summary['expected_in_top_5'] / eval_summary['total']
+    print(f"top-5 accuracy: {eval_summary['expected_in_top_5']}/{eval_summary['total']} = {accuracy:.1%} ")
+    print(f"best ranks: {eval_summary['best_ranks']}")
+    print(f"worst expected rank: {max(eval_summary['best_ranks'])}")
+    print(f"median best rank: {statistics.median(eval_summary['best_ranks'])}")
+    print("------------")
 
