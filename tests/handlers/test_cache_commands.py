@@ -4,7 +4,7 @@ from tflens_explorer.cli.dispatcher import CommandDispatcher
 from tflens_explorer.cli.command_registry import build_registry
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.core.session import AppSession
-from tests.fakes import FakeModel
+from tests.handlers.fakes import FakeModel
 
 
 def test_cache_keys_dispatches_to_handler():
