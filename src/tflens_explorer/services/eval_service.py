@@ -66,6 +66,8 @@ def rank_expected_tokens(model, eval):
     eval_results['expected_in_top_1'] = expected_in_top_1
     eval_results['expected_in_top_5'] = expected_in_top_5
     eval_results['expected_token_best_rank'] = expected_token_best_rank
+    eval_results['expected_token_ranks'] = expected_token_ranks
+    #breakpoint()
  
     # Debugging
     for index in range(len(topk_probs.values)):
