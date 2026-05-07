@@ -1,9 +1,14 @@
 import torch
-
+from types import SimpleNamespace
+from unittest.mock import patch
 from tflens_explorer.services.eval_service import rank_expected_tokens
+from tflens_explorer.services.eval_service import run_model_eval
 
 
 class FakeModel:
+    def __init__(self):
+        self.cfg = SimpleNamespace(model_name="FakeModel", d_vocab=50257)
+
     def __call__(self, prompt, prepend_bos=True):
         logits = torch.zeros(1, 1, 200)
 
@@ -53,6 +58,9 @@ class FakeModel:
             " bench": 100,
         }
         return mapping[token]
+
+    def generate(self, prompt, max_new_tokens=1, do_sample=False):
+        return prompt
 
 
 class FakeModelExpectedSecond(FakeModel):
@@ -139,3 +147,29 @@ def test_rank_expected_token_is_not_in_top_5():
     assert result["expected_token_best_rank"] > 5
     assert result["expected_in_top_1"] is False
     assert result["expected_in_top_5"] is False
+
+
+@patch("tflens_explorer.services.eval_service.rank_expected_tokens")
+def test_run_model_eval_returns_rank_results(mock_rank):
+    model = FakeModel()
+
+    mock_rank.return_value = {
+        "next_token": " floor",
+        "next_token_id": 10,
+        "expected_token_best_rank": 1,
+        "expected_in_top_1": True,
+        "expected_in_top_5": True,
+    }
+
+    eval_case = {
+        "name": "dog_floor",
+        "prompt": "The dog sat on the",
+        "prepend_bos": True,
+        "expected_next_tokens": [" floor", " couch", " bed"],
+    }
+
+    results = run_model_eval(model, eval_case)
+    mock_rank.assert_called_once_with(model, eval_case)
+
+    assert results["next_token"] == " floor"
+    assert results["expected_token_best_rank"] == 1
