@@ -1,14 +1,66 @@
 """Model loading service."""
 
+import os
 import torch
+from pathlib import Path
+from time import perf_counter
 from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
 from tflens_explorer.config.config_loader import load_model_aliases
 
 MODEL_ALIASES = load_model_aliases()
 
+
+def has_hf_token() -> bool:
+    return bool(os.environ.get("HF_TOKEN"))
+
+def try_hf_login(verbose: bool = True) -> bool:
+    token = os.environ.get("HF_TOKEN")
+
+    if not token:
+        if verbose:
+            print("HF login: skipped, no HF_TOKEN")
+        return False
+
+    try:
+        from huggingface_hub import login
+        login(token=token, add_to_git_credential=False)
+        if verbose:
+            print("HF login: succeeded")
+        return True
+    except Exception as e:
+        if verbose:
+            print(f"HF login: failed ({type(e).__name__}: {e})")
+        return False
+
+
 def resolve_model_name(name: str) -> str:
     return MODEL_ALIASES.get(name, name)
+
+
+def is_model_cached(model_name) -> bool:
+    cache_dir = Path.home() / ".cache" / "huggingface" / "hub"
+
+    if not cache_dir.exists():
+        return False
+
+    model_dirs = sorted(cache_dir.glob("models--*"))
+
+    if not model_dirs:
+        return False
+
+    for model_dir in model_dirs:
+        model_id = model_dir.name.replace("models--", "").replace("--", "/")
+        if model_name in model_id:
+            return True
+    return False
+
+def timed(label, fn):
+    start = perf_counter()
+    result = fn()
+    elapsed = perf_counter() - start
+    print(f"{label}: {elapsed:.2f}s")
+    return result
 
 
 def list_models(partial_name):
@@ -25,7 +77,26 @@ def list_models(partial_name):
 
 
 def load_model(model_name: str, device: str = "cuda"):
-    return TransformerBridge.boot_transformers(model_name, device=device)
+    cached = is_model_cached(model_name)
+
+    if cached:
+        print("Cache check: local model found")
+        print("HF mode: offline/cache-only")
+        os.environ["HF_HUB_OFFLINE"] = "1"
+        os.environ["TRANSFORMERS_OFFLINE"] = "1"
+    else:
+        print("Cache check: local model not found")
+        print("HF mode: online/download allowed")
+        os.environ.pop("HF_HUB_OFFLINE", None)
+        os.environ.pop("TRANSFORMERS_OFFLINE", None)
+        try_hf_login()
+
+    model = timed(
+        "Load model weights",
+        lambda: TransformerBridge.boot_transformers(model_name, device=device),
+    )
+
+    return model
 
 
 def load_quantized_model(model_name: str, device: str = "cuda"):

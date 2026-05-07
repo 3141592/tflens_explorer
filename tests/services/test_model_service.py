@@ -1,12 +1,23 @@
 import torch
+import pytest
 from types import SimpleNamespace
 from unittest.mock import patch
-from tflens_explorer.services.eval_service import rank_expected_tokens
+from tflens_explorer.services.model_service import resolve_model_name
+from tflens_explorer.services.model_service import load_model
 
+
+class FakeCfg:
+    n_layers = 12
+    n_heads = 12
+    d_model = 768
+    d_head = 64
+    d_vocab = 50257
+    n_ctx = 1024
 
 class FakeModel:
     def __init__(self):
-        self.cfg = SimpleNamespace(model_name="FakeModel", d_vocab=50257)
+        self.cfg = FakeCfg()
+        device = "cuda"
 
     def __call__(self, prompt, prepend_bos=True):
         logits = torch.zeros(1, 1, 200)
@@ -61,22 +72,43 @@ class FakeModel:
     def generate(self, prompt, max_new_tokens=1, do_sample=False):
         return prompt
 
+def test_resolve_model_name_uses_alias():
+    assert resolve_model_name("gpt2") == "openai-community/gpt2"
 
-@patch("tflens_explorer.services.eval_service.rank_expected_tokens")
-def test_run_model_eval_returns_rank_results(mock_rank):
-    model = FakeModel()
+@patch("tflens_explorer.services.model_service.TransformerBridge")
+def test_load_model_by_alias(mock_bridge):
+    fake_model = object()
+    mock_bridge.boot_transformers.return_value = fake_model
+    resolved_model_name = resolve_model_name("gpt2")
+    model = load_model(resolved_model_name)
 
-    mock_rank.return_value = {
-        "next_token": " floor",
-        "next_token_id": 10,
-        "expected_token_best_rank": 1,
-        "expected_in_top_1": True,
-        "expected_in_top_5": True,
-    }
+    mock_bridge.boot_transformers.assert_called_once_with(
+        "openai-community/gpt2",
+        device="cuda",
+    )
+    assert model is fake_model
 
-    eval_case = {
-        "name": "dog_floor",
-        "prompt": "The dog sat on the",
-        "prepend_bos": True,
-        "expected_next_tokens": [" floor", " couch", " bed"],
-    }
+
+@patch("tflens_explorer.services.model_service.TransformerBridge")
+def test_load_model_by_full_model_id(mock_bridge):
+    fake_model = object()
+    mock_bridge.boot_transformers.return_value = fake_model
+    model = load_model("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B")
+
+    mock_bridge.boot_transformers.assert_called_once_with(
+        "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+        device="cuda",
+    )
+    assert model is fake_model
+
+
+def test_resolve_model_name_unknown_alias_returns_original():
+    result =  resolve_model_name("nonsense_model")
+    assert result == "nonsense_model" 
+
+@patch("tflens_explorer.services.model_service.TransformerBridge")
+def test_load_model_raises_exception_on_failure(mock_bridge):
+    mock_bridge.boot_transformers.side_effect = RuntimeError("load failed")
+
+    with pytest.raises(RuntimeError, match="load failed"):
+        load_model("gpt2")

@@ -129,7 +129,7 @@ def handle_model_cache(context) -> None:
         return
 
     print("Cached Hugging Face models:\n")
-    print(f"{'model':<45} {'kind':<10} detail")
+    print(f"{'model':<50} {'kind':<10} detail")
     print("-" * 70)
     for model_dir in model_dirs:
         model_id = model_dir.name.replace("models--", "").replace("--", "/")
@@ -138,10 +138,10 @@ def handle_model_cache(context) -> None:
         snapshot_dirs = sorted(snapshots_dir.iterdir()) if snapshots_dir.exists() else []
 
         if not snapshot_dirs:
-            #print(f"{model_id:<45} unknown  no snapshots")
+            #print(f"{model_id:<50} unknown  no snapshots")
             status = "unknown"
             detail = "no snapshots"
-            print(f"{model_id:<45} {status:<10} {detail}")
+            print(f"{model_id:<50} {status:<10} {detail}")
             continue
 
         latest_snapshot = snapshot_dirs[-1]
@@ -150,7 +150,7 @@ def handle_model_cache(context) -> None:
         if not config_path.exists():
             status = "invalid"
             detail = "no config.json"
-            print(f"{model_id:<45} {status:<10} {detail}")
+            print(f"{model_id:<50} {status:<10} {detail}")
             continue
 
         try:
@@ -161,7 +161,7 @@ def handle_model_cache(context) -> None:
         except json.JSONDecodeError:
             status = "invalid"
             detail = "invalid config.json"
-            print(f"{model_id:<45} {status:<10} {detail}")
+            print(f"{model_id:<50} {status:<10} {detail}")
             continue
 
         if any(("CausalLM" in arch or "LMHeadModel" in arch) for arch in archs):
@@ -176,4 +176,4 @@ def handle_model_cache(context) -> None:
         else:
             detail = "missing model_type"
 
-        print(f"{model_id:<45} {status:<10} {detail}")
+        print(f"{model_id:<50} {status:<10} {detail}")
