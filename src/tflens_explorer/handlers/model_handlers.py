@@ -21,7 +21,7 @@ def handle_model_load(context: CommandContext) -> None:
     if not context.args:
         print("Usage: model-load <model_name>")
         return
-
+    
     from tflens_explorer.services.model_service import resolve_model_name
 
     input_name = context.args[0]

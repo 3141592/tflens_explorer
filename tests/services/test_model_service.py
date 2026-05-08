@@ -4,6 +4,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 from tflens_explorer.services.model_service import resolve_model_name
 from tflens_explorer.services.model_service import load_model
+from tflens_explorer.services.model_service import get_model_info
 
 
 class FakeCfg:
@@ -13,6 +14,7 @@ class FakeCfg:
     d_head = 64
     d_vocab = 50257
     n_ctx = 1024
+    device = "cuda"
 
 class FakeModel:
     def __init__(self):
@@ -112,3 +114,30 @@ def test_load_model_raises_exception_on_failure(mock_bridge):
 
     with pytest.raises(RuntimeError, match="load failed"):
         load_model("gpt2")
+
+@patch("tflens_explorer.services.model_service.TransformerBridge")
+def test_get_model_info(model):
+    model = FakeModel()
+    info = get_model_info(model)
+
+    assert info["n_layers"] == 12
+    assert info["n_heads"] == 12
+    assert info["d_model"] == 768
+    assert info["d_head"] == 64
+    assert info["d_vocab"] == 50257
+    assert info["n_ctx"] == 1024
+    assert info["device"] == "cuda"
+    
+
+@patch("tflens_explorer.services.model_service.TransformerBridge")
+def test_load_model_uses_explicit_device(mock_bridge):
+    fake_model = object()
+    mock_bridge.boot_transformers.return_value = fake_model
+
+    model = load_model("openai-community/gpt2", device="cpu")
+
+    mock_bridge.boot_transformers.assert_called_once_with(
+        "openai-community/gpt2",
+        device="cpu",
+    )
+    assert model is fake_model
