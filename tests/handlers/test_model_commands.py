@@ -9,6 +9,7 @@ from tflens_explorer.core.types import CommandContext
 from tflens_explorer.handlers.model_handlers import handle_model_load
 from tflens_explorer.handlers.model_handlers import handle_model_info
 from tflens_explorer.services.model_service import get_model_info
+from tflens_explorer.handlers.model_handlers import handle_model_cache
 
 @patch("tflens_explorer.services.model_service.load_model")
 def test_handle_model_load_updates_session(mock_load_model):
@@ -129,3 +130,21 @@ def test_handle_model_info_without_loaded_model(mock_get_model_info, capsys):
 
     captured = capsys.readouterr()
     assert "No model loaded." in captured.out
+
+
+def test_handle_model_cache(capsys):
+    session = AppSession()
+    registry = build_registry()
+
+    context = CommandContext(
+        raw="model-cache",
+        args=[],
+        session=session,
+        registry=registry,
+    )
+
+    handle_model_cache(context)
+
+    captured = capsys.readouterr()
+    assert "Cached Hugging Face models:" in captured.out
+
