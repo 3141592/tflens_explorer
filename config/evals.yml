@@ -36,3 +36,22 @@
   prepend_bos: true
   expected_next_tokens:
     - " Dave"
+
+- name: simple_instruction_1
+  prompt: "The capital of France is"
+  prepend_bos: true
+  expected_next_tokens:
+    - " Paris"
+
+- name: simple_instruction_2
+  prompt: "Q: The capital of France is A:"
+  prepend_bos: true
+  expected_next_tokens:
+    - " Paris"
+
+- name: simple_instruction_3
+  prompt: "Q: The capital of France is"
+  prepend_bos: true
+  expected_next_tokens:
+    - " Paris"
+

@@ -37,8 +37,18 @@ def rank_expected_tokens(model, eval):
     expected_token_ranks = []
 
     for token in eval["expected_next_tokens"]:
-        token_id = model.to_single_token(token)
-        matches = (sorted_indices == token_id).nonzero(as_tuple=True)[0]
+        try:
+            token_id = model.to_single_token(token)
+        except:
+            token_ids = model.to_tokens(token)
+            token_id = token_ids[-1]
+            token_id = token_id[-1].item()
+        
+        try:
+            matches = (sorted_indices == token_id).nonzero(as_tuple=True)[0]
+        except:
+            breakpoint()
+
         rank = matches.item() + 1 if len(matches) else None
         expected_token_ranks.append({
             "token": token,
