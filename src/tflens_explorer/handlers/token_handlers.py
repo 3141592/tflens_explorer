@@ -82,3 +82,29 @@ def handle_logits(context: CommandContext) -> None:
         print(logit)
 
 
+def handle_logits_for(context: CommandContext) -> None:
+    if not context.args:
+        print("Usage: logits-for \"<text>\" || <integer>")
+        return
+
+    str_token = context.args[0]
+
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+
+    from tflens_explorer.services.model_service import logits_for
+    logits_list = logits_for(model, prompt, str_token, prepend_bos=True)
+    context.session.prepend_bos = True
+
+    for logit in logits_list:
+        breakpoint()
+        print(logit)
+
+

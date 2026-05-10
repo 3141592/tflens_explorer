@@ -100,6 +100,11 @@ commands:
     handler: handlers.token_handlers.handle_logits
     description: Show the final position logits. 
 
+  - name: logits-for
+    aliases: []
+    handler: handlers.token_handlers.handle_logits_for
+    description: Show the final position logits for text or token, logits-for \"text\" or integer. 
+
   - name: cache-run
     aliases: []
     handler: handlers.cache_handlers.handle_cache_run

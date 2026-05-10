@@ -224,6 +224,41 @@ def logits(model, prompt, prepend_bos):
     return logits_list
 
 
+def logits_for(model, prompt, str_token, prepend_bos):
+    logits = model(prompt, prepend_bos=prepend_bos)
+
+    # Get token_id for str_token
+    # WIP 05-09-2026
+    # Some str_tokens are translated to multiple tokens
+    # 'folks' == tensor([50256,  9062,   591], device='cuda:0')
+    #         == 'fol' + 'ks'
+    token_id = model.to_tokens(str_token)
+    # Get index of token_id in the logits.values tensor
+    token_index = (logits.indices == token_id).nonzero()
+    breakpoint()
+    logits_list = []
+    final_logits = logits[0, -1]
+
+    # values=tensor([-82.2124, -82.5013, -82.8357, -83.0191, -83.1987, -83.3259, -83.4433, -83.5148, -83.5338, -83.6343], device='cuda:0',
+    #               grad_fn=<TopkBackward0>),
+    # indices=tensor([ 4314,  2323,  3996, 18507,   736,  5743,  1735,  2166, 34902,  7624],
+    #               device='cuda:0'))
+    final_probs = torch.softmax(final_logits, dim=-1)
+
+    logits_list.append("\n VALUES")
+    value = final_logits[token_index]
+    logit_line = f"[{token_index}] {value:.2f} -> '{value}'"
+    logits_list.append(logit_line)
+
+    logits_list.append("\n PROBABILITIES")
+    prob = final_probs[token_index]
+    logit_line = f"[{token_index}] {value:.2f} -> '{value}'"
+    logits_list.append(logit_line)
+
+
+    return logits_list
+
+
 def cache_run(model, prompt):
     cache = model.run_with_cache(prompt)
     return cache
