@@ -5,6 +5,7 @@ from unittest.mock import patch
 from tflens_explorer.services.model_service import resolve_model_name
 from tflens_explorer.services.model_service import load_model
 from tflens_explorer.services.model_service import get_model_info
+from tflens_explorer.services.model_service import logits_for
 
 
 class FakeCfg:
@@ -22,7 +23,7 @@ class FakeModel:
         device = "cuda"
 
     def __call__(self, prompt, prepend_bos=True):
-        logits = torch.zeros(1, 1, 200)
+        logits = torch.zeros(1, 1, 50257)
 
         logits[0, -1, 10] = 9.0   # " floor" top token
         logits[0, -1, 20] = 7.0   # " ground"
@@ -34,6 +35,7 @@ class FakeModel:
         logits[0, -1, 80] = 1.0
         logits[0, -1, 90] = 1.0
         logits[0, -1, 100] = 1.0
+        logits[0, -1, 2323] = -101.52
 
         return logits
 
@@ -73,6 +75,13 @@ class FakeModel:
 
     def generate(self, prompt, max_new_tokens=1, do_sample=False):
         return prompt
+
+    def to_tokens(self, str_token, prepend_bos=False):
+        return torch.tensor([[2323]])
+
+    def to_string(self, token_id):
+        return " ground"
+
 
 def test_resolve_model_name_uses_alias():
     assert resolve_model_name("gpt2") == "openai-community/gpt2"
@@ -141,3 +150,16 @@ def test_load_model_uses_explicit_device(mock_bridge):
         device="cpu",
     )
     assert model is fake_model
+
+@patch("tflens_explorer.services.model_service.TransformerBridge")
+def test_logits_for(model):
+    model = FakeModel()
+    prompt = "The dog sat on the"
+    str_token = " ground"
+    logits_list = logits_for(model, prompt, str_token, prepend_bos=True)
+    
+    assert '-101.52' in logits_list[1]
+    assert ' ground' in logits_list[1]
+    assert '0.00%' in logits_list[3]
+    assert ' ground' in logits_list[3]
+
