@@ -102,14 +102,15 @@ def handle_cache_layer(context: CommandContext) -> None:
     args = ""
     if context.args:
         layer = int(context.args[0])
+
+    if isinstance(layer, int):
+        print("")
     else:
         print("The argument is not an integer: cache-layer <layer #>")
         return
 
-    if isinstance(layer, int):
-        print("The argument is an integer.")
-    else:
-        print("The argument is not an integer: cache-layer <layer #>")
+    if layer >= model.cfg.n_layers:
+        print(f"This cache only has {model.cfg.n_layers} layers: (0 - {model.cfg.n_layers - 1}).")
         return
 
     keys = list(context.session.cache.keys())
@@ -150,7 +151,7 @@ def handle_cache_tensor(context: CommandContext) -> None:
             print(f"{key}: {value}")
 
     else:
-        print(f"The layer name {layer} is not an integer: cache-layer <layer #>")
+        print(f"The layer name {layer} does not exist in this cache. Run: cache-layer <layer #> to find a layer name.")
         return
 
     print()
