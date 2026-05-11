@@ -260,7 +260,17 @@ def cache_run(model, prompt):
     cache = model.run_with_cache(prompt)
     return cache
 
+def get_cache_tensor(model, prompt, layer):
+    _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
+    gpt2_attn = gpt2_cache[layer]
+ 
+    tensor_info = {"shape": gpt2_attn.shape}
+    tensor_info["shape"] = gpt2_attn.shape
+    tensor_info["dtype"] = gpt2_attn.dtype
+    tensor_info["device"] = gpt2_attn.device
+    tensor_info["minimum"] = torch.min(gpt2_attn).item()
+    tensor_info["maximum"] = torch.max(gpt2_attn)
+    tensor_info["mean"] = torch.mean(gpt2_attn)
 
-def cache_show():
-    return "cache_show()"
+    return tensor_info
     

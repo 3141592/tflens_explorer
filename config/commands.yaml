@@ -125,6 +125,11 @@ commands:
     handler: handlers.cache_handlers.handle_cache_layer
     description: Shows available tensors for one layer. 
 
+  - name: cache-tensor
+    aliases: []
+    handler: handlers.cache_handlers.handle_cache_tensor
+    description: Shows information about tensor <name>. 
+
   - name: eval-run
     aliases: []
     handler: handlers.eval_handlers.handle_eval_run

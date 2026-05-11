@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
+from tflens_explorer.services.model_service import get_cache_tensor
 
 
 def handle_cache_run(context: CommandContext) -> None:
@@ -112,12 +113,48 @@ def handle_cache_layer(context: CommandContext) -> None:
         return
 
     keys = list(context.session.cache.keys())
-    breakpoint()
     for key in keys:
         if f"blocks.{layer}" in key:
             print(key)
     print()
         
 
+def handle_cache_tensor(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+
+    cache = context.session.cache
+    if not cache:
+        print("No cache set. Use: cache-run <text>")
+        return
+
+    args = ""
+    if context.args:
+        layer = context.args[0]
+    else:
+        print("No layer name set. Use: cache-layer <layer #> to find layer names.")
+        return
+
+    keys = list(context.session.cache.keys())
+
+    if is_layer_in_cache(keys, layer):
+        tensor_info = get_cache_tensor(model, prompt, layer)
+        for key, value in tensor_info.items():
+            print(f"{key}: {value}")
+
+    else:
+        print(f"The layer name {layer} is not an integer: cache-layer <layer #>")
+        return
+
+    print()
 
 
+def is_layer_in_cache(cache_keys, layer) -> bool:
+    return layer in cache_keys
