@@ -82,5 +82,42 @@ def handle_cache_keys(context: CommandContext) -> None:
             print(key)
         
 
+def handle_cache_layer(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+
+    cache = context.session.cache
+    if not cache:
+        print("No cache set. Use: cache-run <text>")
+        return
+
+    args = ""
+    if context.args:
+        layer = int(context.args[0])
+    else:
+        print("The argument is not an integer: cache-layer <layer #>")
+        return
+
+    if isinstance(layer, int):
+        print("The argument is an integer.")
+    else:
+        print("The argument is not an integer: cache-layer <layer #>")
+        return
+
+    keys = list(context.session.cache.keys())
+    breakpoint()
+    for key in keys:
+        if f"blocks.{layer}" in key:
+            print(key)
+    print()
+        
+
 
 

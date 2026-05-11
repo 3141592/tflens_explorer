@@ -106,4 +106,6 @@ def handle_logits_for(context: CommandContext) -> None:
     for logit in logits_list:
         print(logit)
 
+    print()
+
 
