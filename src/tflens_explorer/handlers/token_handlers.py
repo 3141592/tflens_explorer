@@ -104,7 +104,6 @@ def handle_logits_for(context: CommandContext) -> None:
     context.session.prepend_bos = True
 
     for logit in logits_list:
-        breakpoint()
         print(logit)
 
 

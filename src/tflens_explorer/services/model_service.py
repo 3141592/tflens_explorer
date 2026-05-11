@@ -195,12 +195,8 @@ def logits(model, prompt, prepend_bos):
     logits_list = []
     logits_list.append(f"logits.shape: {logits.shape}")
     logits_list.append(f"prepend_bos={prepend_bos}")
-    final_logits = logits[0, -1]
 
-    # values=tensor([-82.2124, -82.5013, -82.8357, -83.0191, -83.1987, -83.3259, -83.4433, -83.5148, -83.5338, -83.6343], device='cuda:0',
-    #               grad_fn=<TopkBackward0>),
-    # indices=tensor([ 4314,  2323,  3996, 18507,   736,  5743,  1735,  2166, 34902,  7624],
-    #               device='cuda:0'))
+    final_logits = logits[0, -1]
     final_probs = torch.softmax(final_logits, dim=-1)
     topk_probs = torch.topk(final_probs, 10)
     topk_logits = torch.topk(final_logits, 10)
@@ -218,7 +214,7 @@ def logits(model, prompt, prepend_bos):
     for index in range(len(topk_probs.values)):
         str_token = model.to_str_tokens(topk_probs.indices[index])
         value = topk_probs.values[index]
-        logit_line = f"[{index}] {value:.2f} -> '{str_token[0]}'"
+        logit_line = f"[{index}] {value:.2%} -> '{str_token[0]}'"
         logits_list.append(logit_line)
 
     return logits_list
@@ -232,29 +228,30 @@ def logits_for(model, prompt, str_token, prepend_bos):
     # Some str_tokens are translated to multiple tokens
     # 'folks' == tensor([50256,  9062,   591], device='cuda:0')
     #         == 'fol' + 'ks'
-    token_id = model.to_tokens(str_token)
-    # Get index of token_id in the logits.values tensor
-    token_index = (logits.indices == token_id).nonzero()
-    breakpoint()
+    token_ids = model.to_tokens(str_token, prepend_bos=False)
+    token_list = []
+    for index, value in enumerate(token_ids[-1]):
+        #if index == 0:
+        #    continue
+        token_list.append(value.item())
+
     logits_list = []
     final_logits = logits[0, -1]
-
-    # values=tensor([-82.2124, -82.5013, -82.8357, -83.0191, -83.1987, -83.3259, -83.4433, -83.5148, -83.5338, -83.6343], device='cuda:0',
-    #               grad_fn=<TopkBackward0>),
-    # indices=tensor([ 4314,  2323,  3996, 18507,   736,  5743,  1735,  2166, 34902,  7624],
-    #               device='cuda:0'))
     final_probs = torch.softmax(final_logits, dim=-1)
 
     logits_list.append("\n VALUES")
-    value = final_logits[token_index]
-    logit_line = f"[{token_index}] {value:.2f} -> '{value}'"
-    logits_list.append(logit_line)
+    for index, token_id in enumerate(token_list):
+        new_str_token = model.to_string(token_id)
+        value = final_logits[token_id]
+        logit_line = f"[{index}] {value:.2f} -> '{new_str_token}'"
+        logits_list.append(logit_line)
 
     logits_list.append("\n PROBABILITIES")
-    prob = final_probs[token_index]
-    logit_line = f"[{token_index}] {value:.2f} -> '{value}'"
-    logits_list.append(logit_line)
-
+    for index, token_id in enumerate(token_list):
+        new_str_token = model.to_string(token_id)
+        prob = final_probs[token_id]
+        logit_line = f"[{index}] {prob:.2%} -> '{new_str_token}'"
+        logits_list.append(logit_line)
 
     return logits_list
 

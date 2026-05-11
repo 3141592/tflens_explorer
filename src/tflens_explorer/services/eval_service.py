@@ -47,7 +47,8 @@ def rank_expected_tokens(model, eval):
         try:
             matches = (sorted_indices == token_id).nonzero(as_tuple=True)[0]
         except:
-            breakpoint()
+            print("EXCEPTION")
+            exit()
 
         rank = matches.item() + 1 if len(matches) else None
         expected_token_ranks.append({
