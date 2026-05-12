@@ -1,0 +1,141 @@
+internals:
+  - name: hook_in
+    description: Input to the transformer block. Usually identical to the residual stream entering the block before any sublayer processing.
+
+  - name: hook_resid_pre
+    description: Residual stream entering the block. Core communication channel of the model. Critical for activation patching.
+
+  - name: ln1.hook_in
+    description: Input to the first layer normalization, taken from the pre-attention residual stream.
+
+  - name: ln1.hook_scale
+    description: Per-token normalization scale (standard deviation or RMS term) used by the first layer normalization.
+
+  - name: ln1.hook_normalized
+    description: Normalized residual stream used as input to the attention sublayer.
+
+  - name: ln1.hook_out
+    description: Output of the first layer normalization.
+
+  - name: attn.hook_in
+    description: Input to the attention module after layer normalization.
+
+  - name: attn.q.hook_in
+    description: Input to the query projection linear layer.
+
+  - name: attn.q.hook_out
+    description: Output of the query projection before reshaping into heads.
+
+  - name: attn.hook_q
+    description: Query vectors for each attention head. Represents what each position is looking for.
+
+  - name: attn.k.hook_in
+    description: Input to the key projection linear layer.
+
+  - name: attn.k.hook_out
+    description: Output of the key projection before reshaping into heads.
+
+  - name: attn.hook_k
+    description: Key vectors for each attention head. Represents what each position offers to other positions.
+
+  - name: attn.v.hook_in
+    description: Input to the value projection linear layer.
+
+  - name: attn.v.hook_out
+    description: Output of the value projection before reshaping into heads.
+
+  - name: attn.hook_v
+    description: Value vectors for each attention head. Contains the information that can be moved between positions.
+
+  - name: attn.hook_cos
+    description: Cosine values used for rotary positional embeddings (RoPE).
+
+  - name: attn.hook_sin
+    description: Sine values used for rotary positional embeddings (RoPE).
+
+  - name: attn.hook_rot_q
+    description: Query vectors after rotary positional embeddings have been applied.
+
+  - name: attn.hook_rot_k
+    description: Key vectors after rotary positional embeddings have been applied.
+
+  - name: attn.hook_attn_scores
+    description: Raw attention scores before softmax, computed as QK^T / sqrt(d_head). Useful when attention probabilities alone are misleading.
+
+  - name: attn.hook_pattern
+    description: Softmaxed attention probabilities. Shows where each head is attending. Usually the first place to inspect attention behavior.
+
+  - name: attn.o.hook_in
+    description: Input to the output projection linear layer, containing per-head attention results.
+
+  - name: attn.hook_z
+    description: Per-head outputs after combining values according to the attention pattern. Represents what each head actually contributes.
+
+  - name: attn.o.hook_out
+    description: Output of the attention output projection before it is added to the residual stream.
+
+  - name: attn.hook_out
+    description: Final output of the attention module.
+
+  - name: hook_attn_out
+    description: Combined output of all attention heads projected back to d_model and added into the residual stream.
+
+  - name: ln2.hook_in
+    description: Input to the second layer normalization, taken from the residual stream after attention has been added.
+
+  - name: hook_resid_mid
+    description: Residual stream after attention output is added. Serves as the input to the MLP sublayer.
+
+  - name: ln2.hook_scale
+    description: Per-token normalization scale used by the second layer normalization.
+
+  - name: ln2.hook_normalized
+    description: Normalized residual stream fed into the MLP.
+
+  - name: ln2.hook_out
+    description: Output of the second layer normalization.
+
+  - name: mlp.hook_in
+    description: Input to the MLP after layer normalization.
+
+  - name: hook_mlp_in
+    description: Same as mlp.hook_in. Residual stream entering the MLP.
+
+  - name: mlp.gate.hook_in
+    description: Input to the gating projection in gated MLP architectures such as SwiGLU.
+
+  - name: mlp.gate.hook_out
+    description: Output of the gating projection before the gating activation is applied.
+
+  - name: mlp.hook_pre
+    description: Pre-activation values after the main input projection and before the nonlinearity.
+
+  - name: mlp.in.hook_in
+    description: Input to the MLP input projection linear layer.
+
+  - name: mlp.in.hook_out
+    description: Output of the MLP input projection before activation.
+
+  - name: mlp.hook_pre_linear
+    description: Linear projection output before any activation or gating is applied.
+
+  - name: mlp.out.hook_in
+    description: Input to the MLP output projection after activation and optional gating.
+
+  - name: mlp.hook_post
+    description: Post-activation neuron values. Shows which neurons are active. Best place to inspect neuron activations.
+
+  - name: mlp.out.hook_out
+    description: Output of the MLP output projection before it is added to the residual stream.
+
+  - name: mlp.hook_out
+    description: Final output of the MLP module.
+
+  - name: hook_mlp_out
+    description: MLP output projected back to d_model and added into the residual stream.
+
+  - name: hook_out
+    description: Output of the transformer block after all sublayers have completed.
+
+  - name: hook_resid_post
+    description: Residual stream after MLP output is added. Output of the block and input to the next block. Critical for activation patching.

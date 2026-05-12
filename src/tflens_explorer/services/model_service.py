@@ -7,9 +7,10 @@ from time import perf_counter
 from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
 from tflens_explorer.config.config_loader import load_model_aliases
+from tflens_explorer.config.config_loader import load_tflens_internals
 
 MODEL_ALIASES = load_model_aliases()
-
+INTERNALS = load_tflens_internals()
 
 def has_hf_token() -> bool:
     return bool(os.environ.get("HF_TOKEN"))
@@ -263,8 +264,16 @@ def cache_run(model, prompt):
 def get_cache_tensor(model, prompt, layer):
     _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
     gpt2_attn = gpt2_cache[layer]
+
+    internals = INTERNALS['internals']
+    description = "NA"
+    for item in internals:
+        if item['name'] in layer:
+            description = item['description']
  
-    tensor_info = {"shape": gpt2_attn.shape}
+    tensor_info = {"key": layer}
+    tensor_info["description"] = description
+    tensor_info["shape"] = gpt2_attn.shape
     tensor_info["shape"] = gpt2_attn.shape
     tensor_info["dtype"] = gpt2_attn.dtype
     tensor_info["device"] = gpt2_attn.device
