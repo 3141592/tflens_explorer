@@ -266,7 +266,7 @@ def get_cache_tensor(model, prompt, layer):
     gpt2_attn = gpt2_cache[layer]
 
     internals = INTERNALS['internals']
-    description = "NA"
+
     for item in internals:
         if item['name'] in layer:
             description = item['description']
