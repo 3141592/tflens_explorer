@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
+from tflens_explorer.services.model_service import unload_model
 
 
 def handle_model_list(context: CommandContext) -> None:
@@ -21,6 +22,8 @@ def handle_model_load(context: CommandContext) -> None:
     if not context.args:
         print("Usage: model-load <model_name>")
         return
+
+    unload_model(context.session)
     
     from tflens_explorer.services.model_service import resolve_model_name
 

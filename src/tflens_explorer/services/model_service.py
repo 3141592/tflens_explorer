@@ -77,6 +77,20 @@ def list_models(partial_name):
     return model_list
 
 
+import gc
+import torch
+
+def unload_model(session):
+    if session.model is not None:
+        del session.model
+        session.model = None
+
+    gc.collect()
+
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.ipc_collect()  # optional but often helpful
+
 def load_model(model_name: str, device: str = "cuda"):
     cached = is_model_cached(model_name)
 
