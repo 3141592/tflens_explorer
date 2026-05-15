@@ -21,5 +21,9 @@ class Snapshot:
     
 
 class Compare:
-    def __init__(self) -> None:
-        self.snaphot = Snapshot()    
+    def __init__(self, name) -> None:
+        self.snaphot = Snapshot()
+        self.snapshot.name = name
+
+def compare(model):
+    return
