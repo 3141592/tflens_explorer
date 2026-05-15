@@ -258,14 +258,25 @@ def logits_for(model, prompt, str_token, prepend_bos):
     for index, token_id in enumerate(token_list):
         new_str_token = model.to_string(token_id)
         value = final_logits[token_id]
-        logit_line = f"[{index}] {value:.2f} -> '{new_str_token}'"
+
+        # final_logits: 1D tensor
+        sorted_vals, sorted_idx = torch.sort(final_logits, descending=True)
+        # find rank (0-based) of token_id in the descending-sorted tensor
+        rank = (sorted_idx == token_id).nonzero(as_tuple=False).item()
+
+        logit_line = f"[{rank}] {value:.2f} -> '{new_str_token}'"
         logits_list.append(logit_line)
 
     logits_list.append("\n PROBABILITIES")
     for index, token_id in enumerate(token_list):
         new_str_token = model.to_string(token_id)
         prob = final_probs[token_id]
-        logit_line = f"[{index}] {prob:.2%} -> '{new_str_token}'"
+        # final_logits: 1D tensor
+        sorted_vals, sorted_idx = torch.sort(final_probs, descending=True)
+        # find rank (0-based) of token_id in the descending-sorted tensor
+        rank = (sorted_idx == token_id).nonzero(as_tuple=False).item()
+
+        logit_line = f"[{rank}] {prob:.2%} -> '{new_str_token}'"
         logits_list.append(logit_line)
 
     return logits_list
