@@ -28,9 +28,16 @@ def rank_expected_tokens(model, eval):
     topk_probs = torch.topk(final_probs, 5)
 
     str_token = model.to_str_tokens(topk_logits.indices[0])
-    next_token_id = model.to_single_token(str_token)
-    boolean_tensor = (topk_probs.indices == next_token_id) 
-    next_token_rank = boolean_tensor.nonzero()
+
+    try:
+        next_token_id = model.to_single_token(str_token)
+        boolean_tensor = (topk_probs.indices == next_token_id) 
+        next_token_rank = boolean_tensor.nonzero()
+    except:
+        next_token_ids = model.to_tokens(str_token)
+        next_token_id = next_token_ids[-1]
+        next_token_id = next_token_id[-1].item()
+        
 
     # Get ranks of the expected token(s)
     sorted_probs, sorted_indices = torch.sort(final_probs, descending=True)
