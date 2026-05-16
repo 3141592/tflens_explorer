@@ -95,6 +95,11 @@ commands:
     handler: handlers.token_handlers.handle_token_encode
     description: Encode strings. 
 
+  - name: token-next
+    aliases: []
+    handler: handlers.token_handlers.handle_token_next
+    description: Adds the next predicted token to the prompt. 
+
   - name: logits
     aliases: []
     handler: handlers.token_handlers.handle_logits

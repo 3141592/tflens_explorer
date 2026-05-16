@@ -22,6 +22,23 @@ def handle_tokens(context: CommandContext) -> None:
     for token in token_list:
         print(token)
 
+def handle_token_next(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    prompt = context.session.current_prompt
+    if not prompt:
+        print("No prompt set. Use: prompt-set <text>")
+        return
+    
+    from tflens_explorer.services.model_service import prompt_run
+
+    next_token = prompt_run(model, prompt, new_tokens=1)
+    next_token = " " + next_token.split()[-1]
+    context.session.current_prompt += next_token
+    print(f"New prompt: {context.session.current_prompt}")
 
 def handle_token_decode(context: CommandContext) -> None:
     model = context.session.model

@@ -25,5 +25,9 @@ class Compare:
         self.snaphot = Snapshot()
         self.snapshot.name = name
 
-def compare(model):
+def compare(context, snapshot_name: str):
+    print("Comparing model...WIP")
+    snapshot = Snapshot()
+    
+    breakpoint()
     return

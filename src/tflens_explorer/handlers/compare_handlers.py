@@ -4,6 +4,8 @@ import statistics
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.services.compare_service import compare
+from tflens_explorer.services.compare_service import Snapshot
+from tflens_explorer.cli.utilities import parse_kv_args
 
 def handle_compare(context: CommandContext) -> None:
     model = context.session.model
@@ -16,4 +18,25 @@ def handle_compare(context: CommandContext) -> None:
         print("No prompt set. Use: prompt-set <text>")
         return
 
+    kwargs = parse_kv_args(context.args)
+    snapshot_name = kwargs.get("name")
+
+    if snapshot_name == None:
+        print("A snapshot name is required. Use: run-create name=<name>")
+        return
+
+    if not linux_filename_validation(snapshot_name):
+        print("Error: The snapshot name must be a valid Linux filename.")
+        return
+
+    compare(context, snapshot_name)
+
     return
+
+def linux_filename_validation(filename):
+    forbidden_chars = ['/', '\0']
+    if any(char in filename for char in forbidden_chars):
+        return False
+    if len(filename) > 255:
+        return False
+    return True
