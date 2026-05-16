@@ -1,0 +1,36 @@
+name: cat_sat
+model: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+prompt: The cat sat on the
+tokens:
+- 'tokens[0].shape: torch.Size([5])'
+- prepend_bos=None
+- '[0] 785 -> ''The'''
+- '[1] 8251 -> '' cat'''
+- '[2] 7578 -> '' sat'''
+- '[3] 389 -> '' on'''
+- '[4] 279 -> '' the'''
+logits:
+- 'logits.shape: torch.Size([1, 5, 151936])'
+- prepend_bos=None
+- "\n VALUES"
+- '[0] 15.31 -> '' mat'''
+- '[1] 13.43 -> ''mat'''
+- '[2] 11.98 -> ''Mat'''
+- '[3] 11.91 -> '' Mat'''
+- '[4] 11.43 -> '' mats'''
+- '[5] 11.09 -> '' vertex'''
+- '[6] 11.02 -> ''_mat'''
+- '[7] 10.77 -> '' perimeter'''
+- '[8] 10.57 -> '' hat'''
+- '[9] 10.56 -> '' top'''
+- "\n PROBABILITIES"
+- '[0] 65.83% -> '' mat'''
+- '[1] 9.99% -> ''mat'''
+- '[2] 2.36% -> ''Mat'''
+- '[3] 2.20% -> '' Mat'''
+- '[4] 1.35% -> '' mats'''
+- '[5] 0.97% -> '' vertex'''
+- '[6] 0.90% -> ''_mat'''
+- '[7] 0.70% -> '' perimeter'''
+- '[8] 0.58% -> '' hat'''
+- '[9] 0.57% -> '' top'''

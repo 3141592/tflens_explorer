@@ -1,0 +1,38 @@
+name: dog_sat
+model: openai-community/gpt2
+prompt: The dog sat on the
+tokens:
+- 'tokens[0].shape: torch.Size([6])'
+- prepend_bos=None
+- '[0] 50256 -> ''<|endoftext|>'''
+- '[1] 464 -> ''The'''
+- '[2] 3290 -> '' dog'''
+- '[3] 3332 -> '' sat'''
+- '[4] 319 -> '' on'''
+- '[5] 262 -> '' the'''
+logits:
+- 'logits.shape: torch.Size([1, 6, 50257])'
+- prepend_bos=None
+- "\n VALUES"
+- '[0] -82.21 -> '' floor'''
+- '[1] -82.50 -> '' ground'''
+- '[2] -82.84 -> '' bed'''
+- '[3] -83.02 -> '' couch'''
+- '[4] -83.20 -> '' back'''
+- '[5] -83.33 -> '' edge'''
+- '[6] -83.44 -> '' side'''
+- '[7] -83.51 -> '' front'''
+- '[8] -83.53 -> '' sofa'''
+- '[9] -83.63 -> '' bench'''
+- "\n PROBABILITIES"
+- '[0] 9.13% -> '' floor'''
+- '[1] 6.84% -> '' ground'''
+- '[2] 4.90% -> '' bed'''
+- '[3] 4.08% -> '' couch'''
+- '[4] 3.41% -> '' back'''
+- '[5] 3.00% -> '' edge'''
+- '[6] 2.67% -> '' side'''
+- '[7] 2.48% -> '' front'''
+- '[8] 2.44% -> '' sofa'''
+- '[9] 2.20% -> '' bench'''
+cache: null
