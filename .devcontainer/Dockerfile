@@ -41,6 +41,8 @@ RUN ln -sf /usr/bin/python3.11 /usr/local/bin/python \
 RUN python -m pip install --upgrade pip setuptools wheel
 RUN pip install -U bitsandbytes>=0.46.1
 
+RUN mkdir -p /home/roy/commandhistory && chown -R roy:roy /home/roy/commandhistory
+
 RUN echo 'export PROMPT_COMMAND="history -a; history -n"' >> /home/roy/.bashrc 
 
 RUN echo 'if [ -f /workspaces/tflens_explorer/.venv/bin/activate ]; then source /workspaces/tflens_explorer/.venv/bin/activate; fi' >> /home/roy/.bashrc
