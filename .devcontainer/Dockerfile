@@ -1,5 +1,12 @@
 FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
 
+ARG USERNAME=roy
+ARG USER_UID=1000
+ARG USER_GID=1000
+
+RUN groupadd --gid ${USER_GID} ${USERNAME} \
+    && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} -s /bin/bash
+
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -8,16 +15,19 @@ ENV DEBIAN_FRONTEND=noninteractive \
     HISTSIZE=10000 \
     HISTFILESIZE=20000
 
-RUN echo 'export PROMPT_COMMAND="history -a; history -n"' >> /root/.bashrc
+RUN echo 'export PROMPT_COMMAND="history -a; history -n"' >> /home/roy/.bashrc
 
 ENV HISTFILE=/commandhistory/.bash_history \
     HISTSIZE=10000 \
     HISTFILESIZE=20000
 
 RUN apt-get update \
-    && rm -rf /var/lib/apt/lists/* \
-    && printf '\nexport PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a; history -n"\n' >> /root/.bashrc \
-    && printf '"\\e[A": history-search-backward\n"\\e[B": history-search-forward\n' >> /root/.inputrc
+    && rm -rf /var/lib/apt/lists/*
+
+RUN printf '\nexport PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a; history -n"\n' >> /home/roy/.bashrc \
+    && printf '"\\e[A": history-search-backward\n"\\e[B": history-search-forward\n' >> /home/roy/.inputrc \
+    && echo 'source /workspaces/tflens_explorer/.venv/bin/activate' >> /home/roy/.bashrc \
+    && chown -R roy:roy /home/roy
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.11 \
@@ -37,4 +47,4 @@ RUN ln -sf /usr/bin/python3.11 /usr/local/bin/python \
 RUN python -m pip install --upgrade pip setuptools wheel
 RUN pip install -U bitsandbytes>=0.46.1
 
-RUN echo 'source /workspaces/tflens_explorer/.venv/bin/activate' >> /root/.bashrc
+RUN echo 'if [ -f /workspaces/tflens_explorer/.venv/bin/activate ]; then source /workspaces/tflens_explorer/.venv/bin/activate; fi' >> /home/roy/.bashrc
