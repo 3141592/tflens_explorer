@@ -17,7 +17,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 RUN echo 'export PROMPT_COMMAND="history -a; history -n"' >> /home/roy/.bashrc
 
-ENV HISTFILE=/commandhistory/.bash_history \
+ENV HISTFILE=/home/roy/commandhistory/.bash_history \
     HISTSIZE=10000 \
     HISTFILESIZE=20000
 
