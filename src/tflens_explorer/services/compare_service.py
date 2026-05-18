@@ -18,7 +18,7 @@ class Snapshot:
     prompt: str
     tokens: list[int] = field(default_factory=list)
     logits: list[float] = field(default_factory=list)
-    cache: list[int] = field(default_factory=list)
+    _cache: list[int] = field(default_factory=list)
 
     def save(self) -> None:
         """Save the snapshot to a YAML file."""
@@ -49,7 +49,6 @@ def compare(context: CommandContext, snapshot_name: str) -> None:
         prompt=prompt,
         tokens=tokens(model, prompt, prepend_bos),
         logits=logits(model, prompt, prepend_bos),
-        cache=cache_run(model, prompt)
     )
     
     snapshot.save()
