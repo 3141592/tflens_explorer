@@ -11,11 +11,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    HISTFILE=/commandhistory/.bash_history \
-    HISTSIZE=10000 \
-    HISTFILESIZE=20000
-
-ENV HISTFILE=/home/roy/commandhistory/.bash_history \
+    HISTFILE=/home/roy/commandhistory/.bash_history \
     HISTSIZE=10000 \
     HISTFILESIZE=20000
 
