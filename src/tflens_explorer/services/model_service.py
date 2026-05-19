@@ -192,6 +192,23 @@ def tokens(model, prompt, prepend_bos):
 
     return token_list
 
+class Token:
+    shape: int
+    token_list: list[int]
+
+def tokens_for_snapshot(model, prompt, prepend_bos):
+    # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
+    tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
+
+    token_list = []
+    all_tokens = []
+    shape = {"shape": str(tokens[0].shape)}
+    all_tokens.append(shape)
+    for index, token in enumerate(tokens[0]):
+        str_token = model.to_str_tokens(token)
+        token_dict = {"index": index, "token_id": token.item(), "token": str_token[0]}
+        all_tokens.append(token_dict)
+    return all_tokens
 
 def token_decode(model, token_id):
     if token_id < 0 or token_id >= model.cfg.d_vocab:
@@ -233,6 +250,30 @@ def logits(model, prompt, prepend_bos):
         logits_list.append(logit_line)
 
     return logits_list
+
+def logits_for_snapshot(model, prompt, prepend_bos):
+    logits = model(prompt, prepend_bos=prepend_bos)
+    
+    all_logits = []
+    logits_list = []
+    shape = {"shape": str(logits.shape)}
+    all_logits.append(shape)
+
+    final_logits = logits[0, -1]
+    final_probs = torch.softmax(final_logits, dim=-1)
+    topk_probs = torch.topk(final_probs, 10)
+    topk_logits = torch.topk(final_logits, 10)
+    
+    for index in range(10):
+        value_str_token = model.to_str_tokens(topk_logits.indices[index])
+        value = topk_logits.values[index]
+
+        prob_str_token = model.to_str_tokens(topk_probs.indices[index])
+        prob = topk_probs.values[index]
+        logit_dict = {"index": index, "value": round(value.item(), 2), "prob": round(prob.item(), 2), "token": value_str_token[0]}
+        all_logits.append(logit_dict)
+
+    return all_logits
 
 
 def logits_for(model, prompt, str_token, prepend_bos):

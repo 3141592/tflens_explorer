@@ -4,7 +4,7 @@ import os
 import yaml
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens, logits, cache_run
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_run
 from tflens_explorer.core.types import CommandContext
 
 base_dir = Path(__file__).resolve().parents[3]
@@ -18,6 +18,7 @@ class Model:
     top_k: int
     top_p: float
     num_ctx: int
+    prepend_bos: bool
 
     def save(self) -> None:
         path = snapshot_path / f"{self.name}.yaml"
@@ -29,6 +30,7 @@ class Model:
             "top_k": self.model.top_k,
             "top_p": self.model.top_p,
             "num_ctx": self.model.num_ctx,
+            "prepend_bos": self.model.prepend_bos
         }
         with path.open("w", encoding="utf-8") as f:
             yaml.safe_dump(serial, f, sort_keys=False)
@@ -64,7 +66,7 @@ class Compare:
         self.snapshot = Snapshot(name=name)
         # Additional initialization could be added here
 
-def compare(context: CommandContext, snapshot_name: str) -> None:
+def snapshot_create(context: CommandContext, snapshot_name: str) -> None:
     """Create a model comparison snapshot."""
     current_model = context.session.model
     prompt = context.session.current_prompt
@@ -75,15 +77,16 @@ def compare(context: CommandContext, snapshot_name: str) -> None:
         temperature=0.0,
         top_k=0,
         top_p=0.0,
-        num_ctx=2048
+        num_ctx=2048,
+        prepend_bos=context.session.prepend_bos
     )
-    
+
     snapshot = Snapshot(
         name=snapshot_name,
         model=model,
         prompt=prompt,
-        tokens=tokens(current_model, prompt, prepend_bos),
-        logits=logits(current_model, prompt, prepend_bos),
+        tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
+        logits=logits_for_snapshot(current_model, prompt, prepend_bos),
     )
     
     snapshot.save()

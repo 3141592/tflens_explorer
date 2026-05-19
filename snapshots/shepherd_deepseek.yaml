@@ -1,0 +1,69 @@
+name: shepherd_deepseek
+model:
+  name: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+  temperature: 0.0
+  top_k: 0
+  top_p: 0.0
+  num_ctx: 2048
+  prepend_bos: true
+prompt: The Lord is my
+tokens:
+- shape: torch.Size([5])
+- index: 0
+  token_id: 151646
+  token: "<\uFF5Cbegin\u2581of\u2581sentence\uFF5C>"
+- index: 1
+  token_id: 785
+  token: The
+- index: 2
+  token_id: 10214
+  token: ' Lord'
+- index: 3
+  token_id: 374
+  token: ' is'
+- index: 4
+  token_id: 847
+  token: ' my'
+logits:
+- shape: torch.Size([1, 5, 151936])
+- index: 0
+  value: 10.87
+  prob: 0.15
+  token: ' s'
+- index: 1
+  value: 10.52
+  prob: 0.11
+  token: ' Lord'
+- index: 2
+  value: 10.24
+  prob: 0.08
+  token: ' God'
+- index: 3
+  value: 9.48
+  prob: 0.04
+  token: ' S'
+- index: 4
+  value: 9.47
+  prob: 0.04
+  token: ' King'
+- index: 5
+  value: 9.06
+  prob: 0.02
+  token: ' strength'
+- index: 6
+  value: 9.01
+  prob: 0.02
+  token: ' only'
+- index: 7
+  value: 8.53
+  prob: 0.01
+  token: ' father'
+- index: 8
+  value: 8.26
+  prob: 0.01
+  token: ' focus'
+- index: 9
+  value: 8.25
+  prob: 0.01
+  token: ' enemy'
+_cache: []

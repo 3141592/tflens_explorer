@@ -3,11 +3,11 @@
 import statistics
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
-from tflens_explorer.services.compare_service import compare
+from tflens_explorer.services.compare_service import snapshot_create
 from tflens_explorer.services.compare_service import Snapshot
 from tflens_explorer.cli.utilities import parse_kv_args
 
-def handle_compare(context: CommandContext) -> None:
+def handle_snapshot_create(context: CommandContext) -> None:
     model = context.session.model
     if model is None:
         print("No model loaded.")
@@ -29,7 +29,7 @@ def handle_compare(context: CommandContext) -> None:
         print("Error: The snapshot name must be a valid Linux filename.")
         return
 
-    compare(context, snapshot_name)
+    snapshot_create(context, snapshot_name)
 
     return
 

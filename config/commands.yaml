@@ -145,9 +145,9 @@ commands:
     handler: handlers.eval_handlers.handle_eval_summary
     description: Runs model evaluations defined in the evals.yml and prints just the summary. 
 
-  - name: run-create
+  - name: snapshot-create
     aliases: []
-    handler: handlers.compare_handlers.handle_compare
+    handler: handlers.compare_handlers.handle_snapshot_create
     description: Creates a snapshot YAML file for comparisons. 
 
 

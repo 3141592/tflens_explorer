@@ -14,7 +14,7 @@ class AppSession:
     tokens: object | None = None
     scratch: dict = field(default_factory=dict)
     last_output: str = ""
-    prepend_bos: bool | None = None
+    prepend_bos: bool = True
 
     def __iter__(self):
         for f in fields(self):
