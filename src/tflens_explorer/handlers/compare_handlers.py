@@ -4,6 +4,16 @@ import statistics
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.services.compare_service import snapshot_create
+from tflens_explorer.services.compare_service import snapshots_list
+from tflens_explorer.services.compare_service import compare_runs
+from tflens_explorer.services.compare_service import compare_mlp
+from tflens_explorer.services.compare_service import compare_attention
+from tflens_explorer.services.compare_service import compare_generated
+from tflens_explorer.services.compare_service import compare_evals
+from tflens_explorer.services.compare_service import compare_tokens
+from tflens_explorer.services.compare_service import compare_logits
+from tflens_explorer.services.compare_service import compare_cache
+from tflens_explorer.services.compare_service import compare_models
 from tflens_explorer.services.compare_service import Snapshot
 from tflens_explorer.cli.utilities import parse_kv_args
 
@@ -46,3 +56,43 @@ def linux_filename_validation(filename):
     if len(filename) > 255:
         return False
     return True
+
+def handle_snapshots_list(context: CommandContext) -> None:
+    snapshots_list()
+    return
+
+def handle_compare_runs(context: CommandContext) -> None:
+    compare_runs()
+    return
+
+def handle_compare_attention(context: CommandContext) -> None:
+    compare_attention()
+    return
+
+def handle_compare_mlp(context: CommandContext) -> None:
+    compare_mlp()
+    return
+
+def handle_compare_generated(context: CommandContext) -> None:
+    compare_generated()
+    return
+
+def handle_compare_evals(context: CommandContext) -> None:
+    compare_evals()
+    return
+
+def handle_compare_tokens(context: CommandContext) -> None:
+    compare_tokens()
+    return
+
+def handle_compare_logits(context: CommandContext) -> None:
+    compare_logits()
+    return
+
+def handle_compare_cache(context: CommandContext) -> None:
+    compare_cache()
+    return
+
+def handle_compare_models(context: CommandContext) -> None:
+    compare_models()
+    return

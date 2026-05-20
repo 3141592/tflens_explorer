@@ -155,5 +155,55 @@ commands:
     handler: handlers.compare_handlers.handle_snapshot_create
     description: Creates a snapshot YAML file for comparisons. 
 
+  - name: snapshots-list
+    aliases: []
+    handler: handlers.compare_handlers.handle_snapshots_list
+    description: List available snapshot YAML files. 
+
+  - name: compare-runs
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_runs
+    description: Runs a general compare of two snapshots. 
+
+  - name: compare-mlp
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_mlp
+    description: Compare mlp values of two models. 
+
+  - name: compare-attention
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_attention
+    description: Compare attention values of two models. 
+
+  - name: compare-generated
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_generated
+    description: Compare generated values of two models. 
+
+  - name: compare-evals
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_evals
+    description: Compare evals of two models. 
+
+  - name: compare-tokens
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_tokens
+    description: Compare tokens of two models. 
+
+  - name: compare-logits
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_logits
+    description: Compare logits of two models. 
+
+  - name: compare-cache
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_cache
+    description: Compare cache of two models. 
+
+  - name: compare-models
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_models
+    description: Compare two models. 
+
 
 

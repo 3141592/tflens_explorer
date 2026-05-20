@@ -100,3 +100,37 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
     )
     
     snapshot.save()
+
+def snapshots_list():
+    p = Path(snapshot_path)
+    for f in p.iterdir():
+        if f.is_file():
+            print(f.stem)
+
+def compare_runs():
+    print("compare-runs")
+
+def compare_mlp():
+    print("compare-mlp")
+
+def compare_attention():
+    print("compare-attention")
+
+def compare_generated():
+    print("compare-generated")
+
+def compare_evals():
+    print("compare-evals")
+
+def compare_tokens():
+    print("compare-tokens")
+
+def compare_logits():
+    print("compare-logits")
+
+def compare_cache():
+    print("compare-cache")
+
+def compare_models():
+    print("compare-models")
+
