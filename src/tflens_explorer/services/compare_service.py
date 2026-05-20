@@ -4,7 +4,7 @@ import os
 import yaml
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.core.types import CommandContext
 
 base_dir = Path(__file__).resolve().parents[3]
@@ -74,12 +74,17 @@ class Compare:
 
 def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> None:
     """Create a model comparison snapshot."""
+    model_name = context.session.current_model_name
     current_model = context.session.model
     prompt = context.session.current_prompt
     prepend_bos = context.session.prepend_bos
+    model_alias = get_model_alias(model_name)
+
+    if len(model_alias) > 0:
+        model_name = f"{model_alias} -> {model_name}"
 
     model = Model(
-        name=context.session.current_model_name,
+        name=model_name,
         temperature=0.0,
         top_k=0,
         top_p=0.0,
@@ -89,6 +94,12 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
         heads=current_model.cfg.n_heads,
         vocabulary=current_model.cfg.d_vocab,
     )
+    
+    try:
+        cache = cache_summary_for_snapshot(current_model, prompt, layer)
+    except:
+        print(f"Layer name {layer} is not valid.")
+        return
 
     snapshot = Snapshot(
         name=snapshot_name,
@@ -96,7 +107,7 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
         prompt=prompt,
         tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
         logits=logits_for_snapshot(current_model, prompt, prepend_bos),
-        cache=cache_summary_for_snapshot(current_model, prompt, layer),
+        cache=cache,
     )
     
     snapshot.save()
@@ -131,6 +142,11 @@ def compare_logits():
 def compare_cache():
     print("compare-cache")
 
-def compare_models():
+def compare_models(context: CommandContext):
+    model_name = context.session.current_model_name
+    current_model = context.session.model
+    prompt = context.session.current_prompt
+    prepend_bos = context.session.prepend_bos
+    model_alias = get_model_alias(model_name)
     print("compare-models")
 

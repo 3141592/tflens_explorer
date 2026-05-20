@@ -38,6 +38,12 @@ def try_hf_login(verbose: bool = True) -> bool:
 def resolve_model_name(name: str) -> str:
     return MODEL_ALIASES.get(name, name)
 
+def get_model_alias(name: str) -> str:
+    model_alias = ""
+    for item in MODEL_ALIASES:
+        if MODEL_ALIASES[item] == name:
+            return item
+    return ""
 
 def is_model_cached(model_name) -> bool:
     cache_dir = Path.home() / ".cache" / "huggingface" / "hub"
