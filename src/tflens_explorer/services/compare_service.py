@@ -19,6 +19,9 @@ class Model:
     top_p: float
     num_ctx: int
     prepend_bos: bool
+    layers: int
+    heads: int
+    vocabulary: int
 
     def save(self) -> None:
         path = snapshot_path / f"{self.name}.yaml"
@@ -30,7 +33,10 @@ class Model:
             "top_k": self.model.top_k,
             "top_p": self.model.top_p,
             "num_ctx": self.model.num_ctx,
-            "prepend_bos": self.model.prepend_bos
+            "prepend_bos": self.model.prepend_bos,
+            "layers": self.model.layers,
+            "heads": self.model.heads,
+            "vocabulary": self.model.vocabulary,
         }
         with path.open("w", encoding="utf-8") as f:
             yaml.safe_dump(serial, f, sort_keys=False)
@@ -77,8 +83,11 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
         temperature=0.0,
         top_k=0,
         top_p=0.0,
-        num_ctx=2048,
-        prepend_bos=context.session.prepend_bos
+        num_ctx=current_model.cfg.n_ctx,
+        prepend_bos=context.session.prepend_bos,
+        layers=current_model.cfg.n_layers,
+        heads=current_model.cfg.n_heads,
+        vocabulary=current_model.cfg.d_vocab,
     )
 
     snapshot = Snapshot(

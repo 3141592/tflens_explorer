@@ -100,6 +100,11 @@ commands:
     handler: handlers.token_handlers.handle_token_next
     description: Adds the next predicted token to the prompt. 
 
+  - name: embedding-similarity
+    aliases: ["embedding-cos", "embedding-sim", "cos-sim"]
+    handler: handlers.token_handlers.handle_embedding_similarity
+    description: Calculates the cosine similarity of two tokens. 
+
   - name: logits
     aliases: []
     handler: handlers.token_handlers.handle_logits

@@ -217,6 +217,20 @@ def token_encode(model, str_token):
     token_id = model.tokenizer.encode(str_token)
     return token_id
 
+def embedding_cosine_similarity(model, token1, token2):
+    try:
+        token1_vector = model.W_E[model.to_single_token(token1)]
+        token2_vector = model.W_E[model.to_single_token(token2)]
+
+        similarity = torch.nn.functional.cosine_similarity(
+            token1_vector.unsqueeze(0),
+            token2_vector.unsqueeze(0)
+        )
+    except:
+        return "na"
+
+    return similarity
+
 def logits(model, prompt, prepend_bos):
     logits = model(prompt, prepend_bos=prepend_bos)
 

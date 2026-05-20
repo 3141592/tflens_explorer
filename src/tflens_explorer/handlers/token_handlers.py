@@ -1,5 +1,6 @@
 """Prompt command handlers."""
 
+import numbers
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 
@@ -126,3 +127,26 @@ def handle_logits_for(context: CommandContext) -> None:
     print()
 
 
+def handle_embedding_similarity(context: CommandContext) -> None:
+    model = context.session.model
+    if model is None:
+        print("No model loaded.")
+        return
+
+    if len(context.args) != 2:
+        print("Specify two tokens to compare. Use: embedding-similarity <word1> <word2>")
+        return
+
+    word1 = context.args[0]
+    word2 = context.args[1]
+     
+    from tflens_explorer.services.model_service import embedding_cosine_similarity
+
+    cos_sim = embedding_cosine_similarity(model, word1, word2)
+
+    if isinstance(cos_sim, str):
+        print(f"Cosine similarity for '{word1}' and '{word2}' could not be calculated.")
+    elif isinstance(cos_sim.item(), numbers.Number):
+        print(f"Cosine similarity for '{word1}' and '{word2}': {round(cos_sim.item(), 4)}")
+    else:
+        print(f"Cosine similarity for '{word1}' and '{word2}' could not be calculated.")
