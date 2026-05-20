@@ -192,10 +192,6 @@ def tokens(model, prompt, prepend_bos):
 
     return token_list
 
-class Token:
-    shape: int
-    token_list: list[int]
-
 def tokens_for_snapshot(model, prompt, prepend_bos):
     # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
     tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
@@ -332,20 +328,35 @@ def get_cache_tensor(model, prompt, layer):
     gpt2_attn = gpt2_cache[layer]
 
     internals = INTERNALS['internals']
-
+    description = "na"
     for item in internals:
         if item['name'] in layer:
             description = item['description']
  
-    tensor_info = {"key": layer}
-    tensor_info["description"] = description
-    tensor_info["shape"] = gpt2_attn.shape
-    tensor_info["shape"] = gpt2_attn.shape
-    tensor_info["dtype"] = gpt2_attn.dtype
-    tensor_info["device"] = gpt2_attn.device
-    tensor_info["minimum"] = torch.min(gpt2_attn).item()
-    tensor_info["maximum"] = torch.max(gpt2_attn)
-    tensor_info["mean"] = torch.mean(gpt2_attn)
+    cache_info = {"key": layer}
+    cache_info["description"] = description
+    cache_info["shape"] = str(gpt2_attn.shape)
+    cache_info["dtype"] = str(gpt2_attn.dtype)
+    cache_info["device"] = str(gpt2_attn.device)
+    cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
+    cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
+    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
 
-    return tensor_info
+    return cache_info
+    
+def cache_summary_for_snapshot(model, prompt, layer):
+    _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
+    gpt2_attn = gpt2_cache[layer]
+    
+
+    cache_info = {"layer": layer}
+    cache_info["shape"] = str(gpt2_attn.shape)
+    cache_info["dtype"] = str(gpt2_attn.dtype)
+    cache_info["device"] = str(gpt2_attn.device)
+    cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
+    cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
+    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
+    cache_info["value"] = gpt2_attn[0].tolist()
+
+    return cache_info
     

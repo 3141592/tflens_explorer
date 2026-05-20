@@ -68,7 +68,7 @@ def handle_cache_keys(context: CommandContext) -> None:
 
     cache = context.session.cache
     if not cache:
-        print("No cache set. Use: cache-run <text>")
+        print("No cache set. Use: cache-run")
         return
 
     arg = ""
@@ -100,6 +100,7 @@ def handle_cache_layer(context: CommandContext) -> None:
         return
 
     args = ""
+    layer = ""
     if context.args:
         layer = int(context.args[0])
 

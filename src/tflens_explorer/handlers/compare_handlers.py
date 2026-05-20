@@ -20,16 +20,22 @@ def handle_snapshot_create(context: CommandContext) -> None:
 
     kwargs = parse_kv_args(context.args)
     snapshot_name = kwargs.get("name")
+    layer = kwargs.get("layer")
 
     if snapshot_name == None:
-        print("A snapshot name is required. Use: run-create name=<name>")
+        print("A snapshot name is required. Use: snapshot-create name=<name> layer=<layer>")
         return
 
     if not linux_filename_validation(snapshot_name):
         print("Error: The snapshot name must be a valid Linux filename.")
         return
 
-    snapshot_create(context, snapshot_name)
+    if layer == None:
+        print("A cache layer is required. Use: run-create name=<name> layer=<layer>")
+        print("Find a layer using the cache-layer command.")
+        return
+
+    snapshot_create(context, snapshot_name, layer)
 
     return
 

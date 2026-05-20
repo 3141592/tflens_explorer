@@ -4,7 +4,7 @@ import os
 import yaml
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_run
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot
 from tflens_explorer.core.types import CommandContext
 
 base_dir = Path(__file__).resolve().parents[3]
@@ -42,7 +42,7 @@ class Snapshot:
     prompt: str
     tokens: list[int] = field(default_factory=list)
     logits: list[float] = field(default_factory=list)
-    _cache: list[int] = field(default_factory=list)
+    cache: list[int] = field(default_factory=list)
 
     def save(self) -> None:
         """Save the snapshot to a YAML file."""
@@ -66,7 +66,7 @@ class Compare:
         self.snapshot = Snapshot(name=name)
         # Additional initialization could be added here
 
-def snapshot_create(context: CommandContext, snapshot_name: str) -> None:
+def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> None:
     """Create a model comparison snapshot."""
     current_model = context.session.model
     prompt = context.session.current_prompt
@@ -87,6 +87,7 @@ def snapshot_create(context: CommandContext, snapshot_name: str) -> None:
         prompt=prompt,
         tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
         logits=logits_for_snapshot(current_model, prompt, prepend_bos),
+        cache=cache_summary_for_snapshot(current_model, prompt, layer),
     )
     
     snapshot.save()
