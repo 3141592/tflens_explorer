@@ -94,5 +94,11 @@ def handle_compare_cache(context: CommandContext) -> None:
     return
 
 def handle_compare_models(context: CommandContext) -> None:
-    compare_models()
+    if context.args == None:
+        print("A snapshot name is required. Use: compare-models <snapshot>")
+        return  
+    
+    snapshot1 = context.args[0]
+    snapshot2 = context.args[1]
+    compare_models(snapshot1, snapshot2)
     return

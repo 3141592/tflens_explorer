@@ -5,7 +5,7 @@ commands:
     description: Show available commands.
 
   - name: commands
-    aliases: ["ls"]
+    aliases: ["ls", "ll"]
     handler: cli.core_handlers.handle_commands
     description: List registered commands.
 

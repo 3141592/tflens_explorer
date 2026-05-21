@@ -13,15 +13,15 @@ snapshot_path.mkdir(parents=True, exist_ok=True)
 
 @dataclass
 class Model:
-    name: str
-    temperature: float
-    top_k: int
-    top_p: float
-    num_ctx: int
-    prepend_bos: bool
-    layers: int
-    heads: int
-    vocabulary: int
+    name: str | None = None
+    temperature: float | None = None
+    top_k: int | None = None
+    top_p: float | None = None
+    num_ctx: int | None = None
+    prepend_bos: bool | None = None
+    layers: int | None = None
+    heads: int | None = None
+    vocabulary: int | None = None    
 
     def save(self) -> None:
         path = snapshot_path / f"{self.name}.yaml"
@@ -43,9 +43,9 @@ class Model:
 
 @dataclass
 class Snapshot:
-    name: str
-    model: Model
-    prompt: str
+    name: str | None = None
+    model: Model | None = None
+    prompt: str | None = None
     tokens: list[int] = field(default_factory=list)
     logits: list[float] = field(default_factory=list)
     cache: list[int] = field(default_factory=list)
@@ -66,6 +66,48 @@ class Snapshot:
         except Exception as e:
             print(f"Error saving snapshot: {str(e)}")
             raise
+
+    def load(self) -> None:
+        """Load the snapshot to a Snapshot object."""
+        try:
+            path = snapshot_path / f"{self.name}.yaml"
+            import yaml
+
+            with open(path, 'r') as file:
+                data = yaml.safe_load(file)
+
+            self.name = data['name']
+            self.prompt = data['prompt']
+            # Model
+            self.model = Model()
+            self.model.name = data['model']['name']
+            self.model.temperature = data['model']['temperature']
+            self.model.top_k = data['model']['top_k']
+            self.model.top_p = data['model']['top_p']
+            self.model.num_ctx = data['model']['num_ctx']
+            self.model.prepend_bos = data['model']['prepend_bos']
+            self.model.layers = data['model']['layers']
+            self.model.heads = data['model']['heads']
+            self.model.vocabulary = data['model']['vocabulary']
+            
+            # Tokens
+            self.tokens = []
+            for item in data['tokens']:
+                self.tokens.append(item)
+
+            # Logits
+            self.logits = []
+            for item in data['logits']:
+                self.logits.append(item)
+
+            # Cache
+            self.cache = []
+            for item in data['cache']:
+                self.cache.append({item: data['cache'][item]})
+
+        except Exception as error:
+            print(f"Exception: {error}")
+            
 
 class Compare:
     def __init__(self, name: str) -> None:
@@ -142,11 +184,45 @@ def compare_logits():
 def compare_cache():
     print("compare-cache")
 
-def compare_models(context: CommandContext):
-    model_name = context.session.current_model_name
-    current_model = context.session.model
-    prompt = context.session.current_prompt
-    prepend_bos = context.session.prepend_bos
-    model_alias = get_model_alias(model_name)
-    print("compare-models")
+def verify_snapshot(snapshot_name):
+    p = Path(f"{snapshot_path}/{snapshot_name}.yaml")
+    if p.exists():
+        return True
+    else:
+        return False
 
+def compare_models(snapshot1: Snapshot, snapshot2: Snapshot):
+    all_args = locals()
+    for name, value in all_args.items():
+        if verify_snapshot(value):
+            pass
+        else:
+            print(f"Snapshot {value} does not exist. Use: snapshots-list to find valid snapshots.")
+            return
+
+    snapshot1 = Snapshot(name=snapshot1)
+    snapshot1.load()
+
+    snapshot2 = Snapshot(name=snapshot2)
+    snapshot2.load()
+
+    snapshot1_token_list = get_token_list(snapshot1.tokens)
+    snapshot2_token_list = get_token_list(snapshot2.tokens)
+
+    print(f"Models:")
+    print(f"  A: {snapshot1.model.name}")
+    print(f"  B: {snapshot2.model.name}")
+    print()
+    print(f"Prompt:")
+    print(f"  A: {snapshot1.prompt}")
+    print(f"  B: {snapshot2.prompt}")
+    print()
+    print(f"Tokenization:")
+    print(f"  A: {snapshot1.tokens}")
+    print(f"  B: {snapshot2.tokens}")
+    print()
+
+def get_token_list(tokens):
+    for item in tokens:
+        breakpoint()
+    return []

@@ -1,6 +1,6 @@
 name: shepherd_gpt2
 model:
-  name: openai-community/gpt2
+  name: gpt2 -> openai-community/gpt2
   temperature: 0.0
   top_k: 0
   top_p: 0.0
