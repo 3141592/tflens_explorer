@@ -206,8 +206,9 @@ def compare_models(snapshot1: Snapshot, snapshot2: Snapshot):
     snapshot2 = Snapshot(name=snapshot2)
     snapshot2.load()
 
-    snapshot1_token_list = get_token_list(snapshot1.tokens)
-    snapshot2_token_list = get_token_list(snapshot2.tokens)
+    token_size_comparison = snapshot1.tokens[0] == snapshot2.tokens[0]
+    token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)
+    token_comparison = compare_tokens(snapshot1.tokens, snapshot2.tokens)
 
     print(f"Models:")
     print(f"  A: {snapshot1.model.name}")
@@ -218,11 +219,102 @@ def compare_models(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"  B: {snapshot2.prompt}")
     print()
     print(f"Tokenization:")
-    print(f"  A: {snapshot1.tokens}")
-    print(f"  B: {snapshot2.tokens}")
+    print(f"  same length: {token_size_comparison}")
+    print(f"  differing token_ids:")
+    print_token_id_comparison(snapshot1, snapshot2, token_id_comparison)
+    print()
+    print(f"  differing tokens:")
+    print_token_comparison(snapshot1, snapshot2, token_comparison)
     print()
 
-def get_token_list(tokens):
-    for item in tokens:
-        breakpoint()
-    return []
+def compare_token_ids(tokens1, tokens2):
+    tokens1.pop(0)
+    tokens2.pop(0)
+    token_id_comparison = [None] * max(len(tokens1), len(tokens2))
+    for index, item in enumerate(tokens1):
+        if len(tokens2) <= index:
+            token_id_comparison[index] = False
+        elif item['token_id'] == tokens2[index]['token_id']:
+            token_id_comparison[index] = True
+        else:
+            token_id_comparison[index] = False
+    for index, item in enumerate(tokens2):
+        try:
+            if len(tokens1) <= index:
+                token_id_comparison[index] = False
+            elif item['token_id'] == tokens1[index]['token_id']:
+                token_id_comparison[index] = True
+            else:
+                token_id_comparison[index] = False
+        except:
+            breakpoint()
+    return token_id_comparison
+
+def print_token_id_comparison(snapshot1, snapshot2, token_id_comparison):
+    for index, item in enumerate(token_id_comparison):
+        if item:
+            pass
+        elif (len(snapshot1.tokens) <= index) \
+             and (len(snapshot1.tokens) <= index):
+             pass
+        else:
+            if len(snapshot1.tokens) > index:
+                print(f"    A: {snapshot1.tokens[index]}")
+            else:
+                print(f"    A: NA")
+
+            if len(snapshot2.tokens) > index:
+                print(f"    B: {snapshot2.tokens[index]}")
+            else:
+                print(f"    B: NA")
+
+    if all(token_id_comparison):
+        print(f"    All token_ids are the same.")
+
+    return
+
+def compare_tokens(tokens1, tokens2):
+    token_comparison = [None] * max(len(tokens1), len(tokens2))
+    for index, item in enumerate(tokens1):
+        if len(tokens2) <= index:
+            token_comparison[index] = False
+        elif item['token'] == tokens2[index]['token']:
+            token_comparison[index] = True
+        else:
+            token_comparison[index] = False
+
+    for index, item in enumerate(tokens2):
+        try:
+            if len(tokens1) <= index:
+                token_comparison[index] = False
+            elif item['token'] == tokens1[index]['token']:
+                token_comparison[index] = True
+            else:
+                token_comparison[index] = False
+        except:
+            breakpoint()
+
+    return token_comparison
+
+def print_token_comparison(snapshot1, snapshot2, token_comparison):
+    for index, item in enumerate(token_comparison):
+        if item:
+            pass
+        elif (len(snapshot1.tokens) <= index) \
+             and (len(snapshot1.tokens) <= index):
+             pass
+        else:
+            if len(snapshot1.tokens) > index:
+                print(f"    A: {snapshot1.tokens[index]}")
+            else:
+                print(f"    A: NA")
+
+            if len(snapshot2.tokens) > index:
+                print(f"    B: {snapshot2.tokens[index]}")
+            else:
+                print(f"    B: NA")
+
+    if all(token_comparison):
+        print(f"    All tokens are the same.")
+
+    return
