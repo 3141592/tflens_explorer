@@ -14,6 +14,7 @@ from tflens_explorer.services.compare_service import compare_tokens
 from tflens_explorer.services.compare_service import compare_logits
 from tflens_explorer.services.compare_service import compare_cache
 from tflens_explorer.services.compare_service import compare_models
+from tflens_explorer.services.compare_service import compare_snapshots
 from tflens_explorer.services.compare_service import Snapshot
 from tflens_explorer.cli.utilities import parse_kv_args
 
@@ -61,8 +62,8 @@ def handle_snapshots_list(context: CommandContext) -> None:
     snapshots_list()
     return
 
-def handle_compare_runs(context: CommandContext) -> None:
-    compare_runs()
+def handle_compare_models(context: CommandContext) -> None:
+    compare_models()
     return
 
 def handle_compare_attention(context: CommandContext) -> None:
@@ -93,12 +94,12 @@ def handle_compare_cache(context: CommandContext) -> None:
     compare_cache()
     return
 
-def handle_compare_models(context: CommandContext) -> None:
+def handle_compare_snapshots(context: CommandContext) -> None:
     if context.args == None:
         print("A snapshot name is required. Use: compare-models <snapshot>")
         return  
     
     snapshot1 = context.args[0]
     snapshot2 = context.args[1]
-    compare_models(snapshot1, snapshot2)
+    compare_snapshots(snapshot1, snapshot2)
     return

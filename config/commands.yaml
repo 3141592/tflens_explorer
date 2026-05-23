@@ -160,11 +160,6 @@ commands:
     handler: handlers.compare_handlers.handle_snapshots_list
     description: List available snapshot YAML files. 
 
-  - name: compare-runs
-    aliases: []
-    handler: handlers.compare_handlers.handle_compare_runs
-    description: Runs a general compare of two snapshots. 
-
   - name: compare-mlp
     aliases: []
     handler: handlers.compare_handlers.handle_compare_mlp
@@ -204,6 +199,11 @@ commands:
     aliases: []
     handler: handlers.compare_handlers.handle_compare_models
     description: Compare two models. 
+
+  - name: compare-snapshots
+    aliases: []
+    handler: handlers.compare_handlers.handle_compare_snapshots
+    description: Compare two snapshots. 
 
 
 

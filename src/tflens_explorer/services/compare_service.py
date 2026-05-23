@@ -201,7 +201,7 @@ def verify_snapshot(snapshot_name):
     else:
         return False
 
-def compare_models(snapshot1: Snapshot, snapshot2: Snapshot):
+def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     all_args = locals()
     for name, value in all_args.items():
         if verify_snapshot(value):
@@ -340,3 +340,6 @@ def print_token_comparison(snapshot1, snapshot2, token_comparison):
         print(f"    All tokens are the same.")
 
     return
+
+def compare_models():
+    print("compare-models")
