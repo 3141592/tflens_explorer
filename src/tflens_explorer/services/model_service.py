@@ -277,10 +277,10 @@ def logits_for_snapshot(model, prompt, prepend_bos):
 
     final_logits = logits[0, -1]
     final_probs = torch.softmax(final_logits, dim=-1)
-    topk_probs = torch.topk(final_probs, 10)
-    topk_logits = torch.topk(final_logits, 10)
+    topk_probs = torch.topk(final_probs, 5)
+    topk_logits = torch.topk(final_logits, 5)
     
-    for index in range(10):
+    for index in range(5):
         value_str_token = model.to_str_tokens(topk_logits.indices[index])
         value = topk_logits.values[index]
 

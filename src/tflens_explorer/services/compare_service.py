@@ -175,11 +175,21 @@ def compare_generated():
 def compare_evals():
     print("compare-evals")
 
-def compare_tokens():
-    print("compare-tokens")
-
-def compare_logits():
-    print("compare-logits")
+def compare_logits(logits1, logits2):
+    logits1.pop(0)
+    logits2.pop(0)
+    top_1 = [logits1[0]['token']]
+    top_1.append(logits2[0]['token'])
+    top_5_match_count = 0
+    for index, item in enumerate(logits1):
+        for index2, item2 in enumerate(logits2):
+            if item['token'] == item2['token']:
+                top_5_match_count += 1
+            if index == 4:
+                pass
+        if index == 4:
+            break
+    return top_1, top_5_match_count
 
 def compare_cache():
     print("compare-cache")
@@ -209,6 +219,10 @@ def compare_models(snapshot1: Snapshot, snapshot2: Snapshot):
     token_size_comparison = snapshot1.tokens[0] == snapshot2.tokens[0]
     token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)
     token_comparison = compare_tokens(snapshot1.tokens, snapshot2.tokens)
+    logits_1_size = snapshot1.logits[0]
+    logits_2_size = snapshot2.logits[0]
+    logit_size_comparison = logits_1_size == logits_2_size
+    logit_comparison = compare_logits(snapshot1.logits, snapshot2.logits)
 
     print(f"Models:")
     print(f"  A: {snapshot1.model.name}")
@@ -226,6 +240,14 @@ def compare_models(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"  differing tokens:")
     print_token_comparison(snapshot1, snapshot2, token_comparison)
     print()
+    print(f"Logits:")
+    print(f"  same length: {logit_size_comparison}")
+    print(f"    A: {str(logits_1_size)}")
+    print(f"    B: {str(logits_2_size)}")
+    print(f"  top-1:")
+    print(f"    A: {logit_comparison[0][0]}")
+    print(f"    B: {logit_comparison[0][1]}")
+    print(f"  top-5 overlap: {logit_comparison[1]}/5")
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
