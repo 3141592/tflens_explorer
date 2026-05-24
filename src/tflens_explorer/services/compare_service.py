@@ -211,6 +211,7 @@ def compare_logits(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"    A: {logit_comparison[0][0]}")
     print(f"    B: {logit_comparison[0][1]}")
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
+    print(f"  rankings:")
     compare_logits_ranks(snapshot1.logits, snapshot2.logits)
 
 
@@ -401,22 +402,18 @@ def compare_logits_ranks(logits1, logits2):
                 }
                 rankings.append(ranking)
 
-    for item2 in enumerate(logits2):
-        item2 = item2[1]
-        for item1 in enumerate(logits1):
-            item1 = item1[1]
-            if item1['token'] == item2['token']:
-                ranking = {
-                    'index1': item1['index'],
-                    'prob1': item1['prob'],
-                    'token1': item1['token'],
-                    'index2': item2['index'],
-                    'prob2': item2['prob'],
-                    'token2': item2['token'],
-                }
-                rankings.append(ranking)
-
-    for ranking in rankings:
-        print(ranking)
+    print(f"    {'Token':<20} {'Rank A':>7} {'Rank B':>7} {'ΔRank':>7}")
+    if len(rankings) > 0:
+        for ranking in rankings:
+            token = ranking['token1']
+            token = token.replace("\n", "\\n")[:20]
+            index1 = ranking['index1']
+            index2 = ranking['index2']
+            delta = index1 - index2
+            print(f"    {token:<20} {index1:>7} {index2:>7} {delta:>7}")
+    else:
+        print(f"    No rankings in common.")
+    
+    print()
 
     return
