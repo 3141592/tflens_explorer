@@ -213,6 +213,8 @@ def compare_logits(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
     print(f"  rankings:")
     compare_logits_ranks(snapshot1.logits, snapshot2.logits)
+    print(f"  probabilities:")
+    compare_logits_probs(snapshot1.logits, snapshot2.logits)
 
 
 
@@ -412,8 +414,39 @@ def compare_logits_ranks(logits1, logits2):
             delta = index1 - index2
             print(f"    {token:<20} {index1:>7} {index2:>7} {delta:>7}")
     else:
-        print(f"    No rankings in common.")
+        print(f"    No tokens in common.")
     
     print()
+    return
 
+def compare_logits_probs(logits1, logits2):
+    rankings = []
+    for item1 in enumerate(logits1):
+        item1 = item1[1]
+        for item2 in enumerate(logits2):
+            item2 = item2[1]
+            if item2['token'] == item1['token']:
+                ranking = {
+                    'index1': item1['index'],
+                    'prob1': item1['prob'],
+                    'token1': item1['token'],
+                    'index2': item2['index'],
+                    'prob2': item2['prob'],
+                    'token2': item2['token'],
+                }
+                rankings.append(ranking)
+
+    print(f"    {'Token':<20} {'Prob A':>7} {'Prob B':>7} {'ΔProb':>7}")
+    if len(rankings) > 0:
+        for ranking in rankings:
+            token = ranking['token1']
+            token = token.replace("\n", "\\n")[:20]
+            prob1 = ranking['prob1']
+            prob2 = ranking['prob2']
+            delta = round(prob1 - prob2, 2)
+            print(f"    {token:<20} {prob1:>7} {prob2:>7} {delta:>7}")
+    else:
+        print(f"    No tokens in common.")
+    
+    print()
     return
