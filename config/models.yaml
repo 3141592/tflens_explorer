@@ -13,3 +13,5 @@ models:
   deepseek-math: VladShash/deepseek-math-7b-lean-prover-dpo-olmo-3
   qwen3-math: jaygala24/Qwen3-1.7B-ReMax-math-reasoning
   tiny-llama: alexredna/TinyLlama-1.1B-Chat-v1.0-reasoning-v2
+  mistral1: distilabel-internal-testing/tiny-random-mistral
+  mistral2: yujiepan/mistral-v0.3-tiny-random

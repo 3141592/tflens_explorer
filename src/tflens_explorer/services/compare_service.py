@@ -385,23 +385,11 @@ def compare_models():
     print("compare-models")
 
 def compare_logits_ranks(logits1, logits2):
-    logits = []
-    for index, value in enumerate(logits1):
-        temp = value
-        temp['snapshot'] = 'snapshot1'
-        logits.append(temp)
-    
-    for index, value in enumerate(logits2):
-        temp = value
-        temp['snapshot'] = 'snapshot2'
-        logits.append(temp)
-
     rankings = []
-    for item1 in enumerate(logits):
+    for item1 in enumerate(logits1):
         item1 = item1[1]
-        for item2 in enumerate(logits):
+        for item2 in enumerate(logits2):
             item2 = item2[1]
-            breakpoint()
             if item2['token'] == item1['token']:
                 ranking = {
                     'index1': item1['index'],
@@ -412,6 +400,23 @@ def compare_logits_ranks(logits1, logits2):
                     'token2': item2['token'],
                 }
                 rankings.append(ranking)
-    breakpoint()
+
+    for item2 in enumerate(logits2):
+        item2 = item2[1]
+        for item1 in enumerate(logits1):
+            item1 = item1[1]
+            if item1['token'] == item2['token']:
+                ranking = {
+                    'index1': item1['index'],
+                    'prob1': item1['prob'],
+                    'token1': item1['token'],
+                    'index2': item2['index'],
+                    'prob2': item2['prob'],
+                    'token2': item2['token'],
+                }
+                rankings.append(ranking)
+
+    for ranking in rankings:
+        print(ranking)
 
     return
