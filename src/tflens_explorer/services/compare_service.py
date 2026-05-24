@@ -175,7 +175,47 @@ def compare_generated():
 def compare_evals():
     print("compare-evals")
 
-def compare_logits(logits1, logits2):
+def compare_logits(snapshot1: Snapshot, snapshot2: Snapshot):
+    all_args = locals()
+    for name, value in all_args.items():
+        if verify_snapshot(value):
+            pass
+        else:
+            print(f"Snapshot {value} does not exist. Use: snapshots-list to find valid snapshots.")
+            return
+
+    snapshot1 = Snapshot(name=snapshot1)
+    snapshot1.load()
+
+    snapshot2 = Snapshot(name=snapshot2)
+    snapshot2.load()
+
+    logits_1_size = snapshot1.logits[0]
+    logits_2_size = snapshot2.logits[0]
+    logit_size_comparison = logits_1_size == logits_2_size
+    logit_comparison = compare_logits_details(snapshot1.logits, snapshot2.logits)
+
+    print(f"Models:")
+    print(f"  A: {snapshot1.model.name}")
+    print(f"  B: {snapshot2.model.name}")
+    print()
+    print(f"Prompt:")
+    print(f"  A: {snapshot1.prompt}")
+    print(f"  B: {snapshot2.prompt}")
+    print()
+    print(f"Logits:")
+    print(f"  same length: {logit_size_comparison}")
+    print(f"    A: {str(logits_1_size)}")
+    print(f"    B: {str(logits_2_size)}")
+    print(f"  top-1:")
+    print(f"    A: {logit_comparison[0][0]}")
+    print(f"    B: {logit_comparison[0][1]}")
+    print(f"  top-5 overlap: {logit_comparison[1]}/5")
+    compare_logits_ranks(snapshot1.logits, snapshot2.logits)
+
+
+
+def compare_logits_details(logits1, logits2):
     logits1.pop(0)
     logits2.pop(0)
     top_1 = [logits1[0]['token']]
@@ -222,7 +262,7 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     logits_1_size = snapshot1.logits[0]
     logits_2_size = snapshot2.logits[0]
     logit_size_comparison = logits_1_size == logits_2_size
-    logit_comparison = compare_logits(snapshot1.logits, snapshot2.logits)
+    logit_comparison = compare_logits_details(snapshot1.logits, snapshot2.logits)
 
     print(f"Models:")
     print(f"  A: {snapshot1.model.name}")
@@ -343,3 +383,35 @@ def print_token_comparison(snapshot1, snapshot2, token_comparison):
 
 def compare_models():
     print("compare-models")
+
+def compare_logits_ranks(logits1, logits2):
+    logits = []
+    for index, value in enumerate(logits1):
+        temp = value
+        temp['snapshot'] = 'snapshot1'
+        logits.append(temp)
+    
+    for index, value in enumerate(logits2):
+        temp = value
+        temp['snapshot'] = 'snapshot2'
+        logits.append(temp)
+
+    rankings = []
+    for item1 in enumerate(logits):
+        item1 = item1[1]
+        for item2 in enumerate(logits):
+            item2 = item2[1]
+            breakpoint()
+            if item2['token'] == item1['token']:
+                ranking = {
+                    'index1': item1['index'],
+                    'prob1': item1['prob'],
+                    'token1': item1['token'],
+                    'index2': item2['index'],
+                    'prob2': item2['prob'],
+                    'token2': item2['token'],
+                }
+                rankings.append(ranking)
+    breakpoint()
+
+    return

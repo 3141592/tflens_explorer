@@ -23,3 +23,10 @@ tflens-explorer
 - `prompt run`
 - `cache list`
 - `head inspect <layer> <head>`
+
+## Shortcut compares
+
+compare-logits cat_sat_gpt2 dog_sat_gpt2
+compare-logits shepherd_chat2 shepherd_deepseek
+compare-logits shepherd_chat2 shepherd_gpt2
+compare-logits shepherd_gpt2 shepherd_deepseek

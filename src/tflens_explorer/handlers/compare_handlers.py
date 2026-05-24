@@ -87,7 +87,14 @@ def handle_compare_tokens(context: CommandContext) -> None:
     return
 
 def handle_compare_logits(context: CommandContext) -> None:
-    compare_logits()
+    if context.args == None or len(context.args) != 2:
+        print("Two snapshot names are required. Use: compare-models <snapshot1> <snapshot2>")
+        return  
+    
+    snapshot1 = context.args[0]
+    snapshot2 = context.args[1]
+
+    compare_logits(snapshot1, snapshot2)
     return
 
 def handle_compare_cache(context: CommandContext) -> None:
@@ -95,8 +102,8 @@ def handle_compare_cache(context: CommandContext) -> None:
     return
 
 def handle_compare_snapshots(context: CommandContext) -> None:
-    if context.args == None:
-        print("A snapshot name is required. Use: compare-models <snapshot>")
+    if context.args == None or len(context.args) != 2:
+        print("Two snapshot name is required. Use: compare-models <snapshot>")
         return  
     
     snapshot1 = context.args[0]
