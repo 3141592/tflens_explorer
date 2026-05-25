@@ -397,6 +397,5 @@ def cache_summary_for_snapshot(model, prompt, layer):
         cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
         cache_info["value"] = gpt2_attn[0].tolist()
         cache = cache_info
-    breakpoint()
     return cache
     

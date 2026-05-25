@@ -34,9 +34,21 @@ compare-logits cat_sat_gpt2 dog_sat_gpt2
 compare-logits shepherd_chat2 shepherd_deepseek
 compare-logits shepherd_chat2 shepherd_gpt2
 compare-logits shepherd_gpt2 shepherd_deepseek
+compare-logits cat_sat_gpt2_all dog_sat_gpt2_all
+compare-logits cat_sat_gpt2_all cat_sat_deepseek_all
+
+compare-cache cat_sat_gpt2 dog_sat_gpt2
+compare-cache cat_sat_gpt2 dog_sat_gpt2
+compare-cache shepherd_chat2 shepherd_deepseek
+compare-cache shepherd_chat2 shepherd_gpt2
+compare-cache shepherd_gpt2 shepherd_deepseek
+compare-cache cat_sat_gpt2_all dog_sat_gpt2_all
+compare-cache cat_sat_gpt2_all cat_sat_deepseek_all
 
 compare-snapshots cat_sat_gpt2 dog_sat_gpt2
 compare-snapshots cat_sat_gpt2 dog_sat_gpt2
 compare-snapshots shepherd_chat2 shepherd_deepseek
 compare-snapshots shepherd_chat2 shepherd_gpt2
 compare-snapshots shepherd_gpt2 shepherd_deepseek
+compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all
+compare-snapshots cat_sat_gpt2_all cat_sat_deepseek_all

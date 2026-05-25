@@ -234,8 +234,35 @@ def compare_logits_details(logits1, logits2):
             break
     return top_1, top_5_match_count
 
-def compare_cache():
-    print("compare-cache")
+def compare_cache(snapshot1: Snapshot, snapshot2: Snapshot):
+    all_args = locals()
+    for name, value in all_args.items():
+        if verify_snapshot(value):
+            pass
+        else:
+            print(f"Snapshot {value} does not exist. Use: snapshots-list to find valid snapshots.")
+            return
+
+    snapshot1 = Snapshot(name=snapshot1)
+    snapshot1.load()
+
+    snapshot2 = Snapshot(name=snapshot2)
+    snapshot2.load()
+
+    print(f"Models:")
+    print(f"  A: {snapshot1.model.name}")
+    print(f"  B: {snapshot2.model.name}")
+    print()
+    print(f"Prompt:")
+    print(f"  A: {snapshot1.prompt}")
+    print(f"  B: {snapshot2.prompt}")
+    print()
+    print(f"Cache activations:")
+    cache_activation_comparison(snapshot1.cache, snapshot2.cache)
+
+def cache_activation_comparison(cache1, cache2):
+    breakpoint()
+    return
 
 def verify_snapshot(snapshot_name):
     p = Path(f"{snapshot_path}/{snapshot_name}.yaml")
@@ -291,6 +318,10 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"    A: {logit_comparison[0][0]}")
     print(f"    B: {logit_comparison[0][1]}")
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
+    print()
+    if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
+        print(f"Cache activation summary:")
+        cache_activation_summary(snapshot1.cache, snapshot2.cache)
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -448,5 +479,26 @@ def compare_logits_probs(logits1, logits2):
     else:
         print(f"    No tokens in common.")
     
+    print()
+    return
+
+def cache_activation_summary(cache1, cache2):
+    print(f"    {'Attribute':<10} {'A':>30} {'B':>30}")
+    for activation1, activation2 in zip(cache1, cache2):
+        key1 = list(activation1.keys())[0]
+        value1 = list(activation1.values())[0]
+        key2 = list(activation2.keys())[0]
+        value2 = list(activation2.values())[0]
+
+        if key1 == "value" or key2 == "value":
+            continue
+
+        if key1 == key2:
+            print(f"    {key1:<10} {value1:>30} {value2:>30}")
+        else:
+            print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
+            print()
+            return
+
     print()
     return
