@@ -24,7 +24,10 @@ tflens-explorer
 - `cache list`
 - `head inspect <layer> <head>`
 
-## Shortcut compares
+## Shortcut commands
+
+snapshot-create name=test layer=blocks.0.mlp.hook_post
+snapshot-create name=test layer=all
 
 compare-logits cat_sat_gpt2 dog_sat_gpt2
 compare-logits cat_sat_gpt2 dog_sat_gpt2

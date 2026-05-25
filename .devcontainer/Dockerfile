@@ -24,6 +24,7 @@ RUN printf '\nexport PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history
     && chown -R roy:roy /home/roy
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    vim \
     python3.11 \
     python3.11-venv \
     python3-pip \
