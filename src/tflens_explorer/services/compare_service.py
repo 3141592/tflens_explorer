@@ -102,13 +102,19 @@ class Snapshot:
 
             # Cache
             self.cache = []
-            for item in data['cache']:
-                self.cache.append({item: data['cache'][item]})
+            if isinstance(data['cache'], list):
+                for item in data['cache']:
+                    self.cache.append(item)
+            elif isinstance(data['cache'], dict):
+                self.cache.append(data['cache'])
+            else:
+                print(f"Error loading cache. Check the snapshot cache.")
+                print()
+                return
 
         except Exception as error:
             print(f"Exception: {error}")
             
-
 class Compare:
     def __init__(self, name: str) -> None:
         self.snapshot = Snapshot(name=name)
@@ -261,7 +267,27 @@ def compare_cache(snapshot1: Snapshot, snapshot2: Snapshot):
     cache_activation_comparison(snapshot1.cache, snapshot2.cache)
 
 def cache_activation_comparison(cache1, cache2):
-    breakpoint()
+    print(f"    {'Attribute':<10} {'A':>30} {'B':>30}")
+    for activation1, activation2 in zip(cache1, cache2):
+        length = min(len(list(activation1.keys())), len(list(activation1.keys())))
+        for index in range (length - 1):
+            key1 = list(activation1.keys())[index]
+            value1 = list(activation1.values())[index]
+            key2 = list(activation2.keys())[index]
+            value2 = list(activation2.values())[index]
+
+            if key1 == "value" or key2 == "value":
+                continue
+
+            if key1 == key2:
+                print(f"    {key1:<10} {value1:>30} {value2:>30}")
+            else:
+                print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
+                print()
+                return
+        print()
+
+    print()
     return
 
 def verify_snapshot(snapshot_name):
@@ -485,20 +511,23 @@ def compare_logits_probs(logits1, logits2):
 def cache_activation_summary(cache1, cache2):
     print(f"    {'Attribute':<10} {'A':>30} {'B':>30}")
     for activation1, activation2 in zip(cache1, cache2):
-        key1 = list(activation1.keys())[0]
-        value1 = list(activation1.values())[0]
-        key2 = list(activation2.keys())[0]
-        value2 = list(activation2.values())[0]
+        length = min(len(list(activation1.keys())), len(list(activation1.keys())))
+        for index in range (length - 1):
+            key1 = list(activation1.keys())[index]
+            value1 = list(activation1.values())[index]
+            key2 = list(activation2.keys())[index]
+            value2 = list(activation2.values())[index]
 
-        if key1 == "value" or key2 == "value":
-            continue
+            if key1 == "value" or key2 == "value":
+                continue
 
-        if key1 == key2:
-            print(f"    {key1:<10} {value1:>30} {value2:>30}")
-        else:
-            print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
-            print()
-            return
+            if key1 == key2:
+                print(f"    {key1:<10} {value1:>30} {value2:>30}")
+            else:
+                print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
+                print()
+                return
+        print()
 
     print()
     return

@@ -99,7 +99,7 @@ def handle_compare_logits(context: CommandContext) -> None:
 
 def handle_compare_cache(context: CommandContext) -> None:
     if context.args == None or len(context.args) != 2:
-        print("Two snapshot name is required. Use: compare-models <snapshot>")
+        print("Two snapshot names are required. Use: compare-models <snapshot>")
         return  
     
     snapshot1 = context.args[0]
@@ -109,7 +109,7 @@ def handle_compare_cache(context: CommandContext) -> None:
 
 def handle_compare_snapshots(context: CommandContext) -> None:
     if context.args == None or len(context.args) != 2:
-        print("Two snapshot name is required. Use: compare-models <snapshot>")
+        print("Two snapshot names are required. Use: compare-models <snapshot>")
         return  
     
     snapshot1 = context.args[0]
