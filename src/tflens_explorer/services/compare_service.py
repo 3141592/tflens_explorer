@@ -2,6 +2,7 @@
 
 import os
 import yaml
+import torch
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot, get_model_alias
@@ -348,6 +349,7 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation summary:")
         cache_activation_summary(snapshot1.cache, snapshot2.cache)
+        cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -528,6 +530,55 @@ def cache_activation_summary(cache1, cache2):
                 print()
                 return
         print()
+
+    print()
+    return
+
+def cache_activation_summary_2(cache1, cache2):
+    print(f"    {'hook_name':<30} {'shape':<25} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
+    for activation1, activation2 in zip(cache1, cache2):
+        hook1_name = activation1['layer']
+        hook2_name = activation2['layer']
+
+        shape1 = activation1['shape']
+        shape2 = activation2['shape']
+
+        length = min(len(list(activation1.keys())), len(list(activation1.keys())))
+        for index in [length - 1]:
+            key1 = list(activation1.keys())[index]
+            value1 = list(activation1.values())[index]
+            value1_t = torch.Tensor(value1)
+            key2 = list(activation2.keys())[index]
+            value2 = list(activation2.values())[index]
+            value2_t = torch.Tensor(value2)
+
+            diff = value1_t - value2_t
+            abs_diff = diff.abs()
+            mean_abs_diff = round(abs_diff.mean().item(), 4)
+            max_abs_delta = round(abs_diff.max().item(), 4)
+            #breakpoint()
+            try:
+                cosine_sim = torch.nn.functional.cosine_similarity(value1_t.unsqueeze(0), value2_t.unsqueeze(0))
+            except:
+                cosine_sim = 0.0
+
+            try:
+                if isinstance(cosine_sim, torch.Tensor):
+                    cosine_sim = cosine_sim.item()
+                cosine_sim = round(cosine_sim, 4)
+
+                if key1 == key2:
+                    print(f"    {hook1_name:<30} {shape1:<25} {mean_abs_diff:>15} {max_abs_delta:>15} {cosine_sim:>15}")
+                else:
+                    print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
+                    print()
+                    return
+            except Exception as error:
+                pass
+                #print("cache_activation_summary_2")
+                #print(f"{error}")
+                #breakpoint()
+                
 
     print()
     return
