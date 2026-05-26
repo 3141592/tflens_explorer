@@ -381,7 +381,7 @@ def cache_summary_for_snapshot(model, prompt, layer):
                 try:
                     cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
                 except:
-                    pass
+                    cache_info["mean"] = 'na'
                 cache_info["value"] = gpt2_attn[0].tolist()
                 cache.append(cache_info)
             except:

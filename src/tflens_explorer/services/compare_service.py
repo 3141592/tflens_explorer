@@ -3,10 +3,12 @@
 import os
 import yaml
 import torch
+import re
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.core.types import CommandContext
+from tflens_explorer.cli.utilities import get_shape
 
 base_dir = Path(__file__).resolve().parents[3]
 snapshot_path = base_dir / "snapshots"
@@ -347,7 +349,7 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
-        print(f"Cache activation summary:")
+        print(f"Cache activation differences:")
         cache_activation_summary(snapshot1.cache, snapshot2.cache)
         cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
 
@@ -511,32 +513,71 @@ def compare_logits_probs(logits1, logits2):
     return
 
 def cache_activation_summary(cache1, cache2):
-    print(f"    {'Attribute':<10} {'A':>30} {'B':>30}")
+    print(
+        f"    {'A/B':<4}"
+        f"{'layer':<35}"
+        f"{'shape':>15}"
+        f"{'min':>12}"
+        f"{'max':>12}"
+        f"{'mean':>12}"
+    )
+
+    different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        length = min(len(list(activation1.keys())), len(list(activation1.keys())))
-        for index in range (length - 1):
-            key1 = list(activation1.keys())[index]
-            value1 = list(activation1.values())[index]
-            key2 = list(activation2.keys())[index]
-            value2 = list(activation2.values())[index]
+        hook1 = activation1["layer"]
+        hook2 = activation2["layer"]
+        shape1 = get_shape(activation1["shape"])
+        shape2 = get_shape(activation2["shape"])
+        minimum1 = activation1['minimum']
+        minimum2 = activation2['minimum']
+        maximum1 = activation1['maximum']
+        maximum2 = activation2['maximum']
+        try:
+            mean1 = activation1['mean']
+            mean2 = activation2['mean']
+        except:
+            mean1 = 'na'
+            mean2 = 'na'
 
-            if key1 == "value" or key2 == "value":
-                continue
+        if hook1 != hook2:
+            print(f"Cache layers {hook1} and {hook2} do not match.")
+            return
 
-            if key1 == key2:
-                print(f"    {key1:<10} {value1:>30} {value2:>30}")
-            else:
-                print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
-                print()
-                return
+        if (minimum1 == minimum2) and (maximum1 == maximum2):
+            continue
+        else:
+            different_values_count += 1
+
+        print(
+            f"    {'A:':<4}"
+            f"{hook1:<35} "
+            f"{shape1:>15} "
+            f"{minimum1:>12.4f} "
+            f"{maximum1:>12.4f} "
+            f"{mean1:>12.4f}"
+        )
+                
+        print(
+            f"    {'B:':<4}"
+            f"{hook2:<35} "
+            f"{shape2:>15} "
+            f"{minimum2:>12.4f} "
+            f"{maximum2:>12.4f} "
+            f"{mean2:>12.4f}"
+        )
+        
         print()
+
+    if different_values_count == 0:
+        print("    All A: and B: values are the same.")
 
     print()
     return
 
 def cache_activation_summary_2(cache1, cache2):
-    print(f"    {'hook_name':<30} {'shape':<25} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
+    print(f"    {'hook_name':<35} {'shape':<15} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
 
+    different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
         hook1 = activation1["layer"]
         hook2 = activation2["layer"]
@@ -566,13 +607,24 @@ def cache_activation_summary_2(cache1, cache2):
 
         cosine_sim = round(cosine_sim, 4)
 
+        shape = get_shape(activation1['shape'])
+        
+        if (mean_abs_diff == 0.0) and (max_abs_delta == 0.0) and ((cosine_sim == 0.0) or (cosine_sim == 1.0)):
+            continue
+        else:
+            different_values_count += 1
+
         print(
-            f"    {hook1:<30} "
-            f"{activation1['shape']:<25} "
+            f"    {hook1:<35} "
+            f"{shape:<15} "
             f"{mean_abs_diff:>15} "
             f"{max_abs_delta:>15} "
             f"{cosine_sim:>15}"
         )
 
+    if different_values_count == 0:
+        print("    All A: and B: values are the same.")
+
     print()
 
+    return

@@ -22,3 +22,12 @@ def parse_kv_args(args: list[str]) -> dict:
 
     return result
 
+def get_shape(shape_str):
+    index1 = shape_str.find('[')
+    index2 = shape_str.find(']')
+
+    if index1 >= 0 and index2 >= 0:
+        shape = shape_str[index1:index2 + 1]
+    else:
+        shape = shape_str
+    return shape
