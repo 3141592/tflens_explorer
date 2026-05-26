@@ -536,49 +536,43 @@ def cache_activation_summary(cache1, cache2):
 
 def cache_activation_summary_2(cache1, cache2):
     print(f"    {'hook_name':<30} {'shape':<25} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
+
     for activation1, activation2 in zip(cache1, cache2):
-        hook1_name = activation1['layer']
-        hook2_name = activation2['layer']
+        hook1 = activation1["layer"]
+        hook2 = activation2["layer"]
 
-        shape1 = activation1['shape']
-        shape2 = activation2['shape']
+        if hook1 != hook2:
+            print(f"Cache layers {hook1} and {hook2} do not match.")
+            return
 
-        length = min(len(list(activation1.keys())), len(list(activation1.keys())))
-        for index in [length - 1]:
-            key1 = list(activation1.keys())[index]
-            value1 = list(activation1.values())[index]
-            value1_t = torch.Tensor(value1)
-            key2 = list(activation2.keys())[index]
-            value2 = list(activation2.values())[index]
-            value2_t = torch.Tensor(value2)
+        value1 = torch.tensor(activation1["value"], dtype=torch.float32).flatten()
+        value2 = torch.tensor(activation2["value"], dtype=torch.float32).flatten()
 
-            diff = value1_t - value2_t
-            abs_diff = diff.abs()
-            mean_abs_diff = round(abs_diff.mean().item(), 4)
-            max_abs_delta = round(abs_diff.max().item(), 4)
-            #breakpoint()
-            try:
-                cosine_sim = torch.nn.functional.cosine_similarity(value1_t.unsqueeze(0), value2_t.unsqueeze(0))
-            except:
-                cosine_sim = 0.0
+        if value1.shape != value2.shape:
+            print(f"Shape mismatch for {hook1}: {value1.shape} vs {value2.shape}")
+            continue
 
-            try:
-                if isinstance(cosine_sim, torch.Tensor):
-                    cosine_sim = cosine_sim.item()
-                cosine_sim = round(cosine_sim, 4)
+        diff = value1 - value2
+        abs_diff = diff.abs()
 
-                if key1 == key2:
-                    print(f"    {hook1_name:<30} {shape1:<25} {mean_abs_diff:>15} {max_abs_delta:>15} {cosine_sim:>15}")
-                else:
-                    print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
-                    print()
-                    return
-            except Exception as error:
-                pass
-                #print("cache_activation_summary_2")
-                #print(f"{error}")
-                #breakpoint()
-                
+        mean_abs_diff = round(abs_diff.mean().item(), 4)
+        max_abs_delta = round(abs_diff.max().item(), 4)
+
+        cosine_sim = torch.nn.functional.cosine_similarity(
+            value1.unsqueeze(0),
+            value2.unsqueeze(0),
+            dim=1,
+        ).item()
+
+        cosine_sim = round(cosine_sim, 4)
+
+        print(
+            f"    {hook1:<30} "
+            f"{activation1['shape']:<25} "
+            f"{mean_abs_diff:>15} "
+            f"{max_abs_delta:>15} "
+            f"{cosine_sim:>15}"
+        )
 
     print()
-    return
+
