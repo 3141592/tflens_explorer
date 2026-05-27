@@ -340,7 +340,7 @@ def logits_for(model, prompt, str_token, prepend_bos):
 
 
 def cache_run(model, prompt):
-    cache = model.run_with_cache(prompt)
+    cache = model.run_with_cache(prompt, remove_batch_dim=True)
     return cache
 
 def get_cache_tensor(model, prompt, layer):
@@ -364,38 +364,58 @@ def get_cache_tensor(model, prompt, layer):
 
     return cache_info
     
-def cache_summary_for_snapshot(model, prompt, layer):
-    _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
-    
-    if 'all' == layer:
+def cache_summary_for_snapshot(model, prompt, hook):
+    try:
+        _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
+        
         cache = []
-        for layer in gpt2_cache:
-            try: 
-                gpt2_attn = gpt2_cache[layer]
-                cache_info = {"layer": layer}
+        values = []
+        if 'all' == hook:
+            for layer in gpt2_cache:
+                attn = gpt2_cache[layer]
+
+                mask = torch.isfinite(attn)
+                mask = mask & (attn > -1e20)
+                gpt2_attn = attn[mask]
+
+                cache_info = {"hook_name": layer}
                 cache_info["shape"] = str(gpt2_attn.shape)
                 cache_info["dtype"] = str(gpt2_attn.dtype)
                 cache_info["device"] = str(gpt2_attn.device)
-                cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-                cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
+                cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 4)
+                cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 4)
                 try:
-                    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
+                    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 4)
                 except:
                     cache_info["mean"] = 'na'
-                cache_info["value"] = gpt2_attn[0].tolist()
+
+                for index, attn in enumerate(gpt2_attn):
+                    values.append(attn.detach().cpu().tolist())
+                cache_info['value'] = values
+
                 cache.append(cache_info)
-            except:
+
+        else:
+            gpt2_attn = gpt2_cache[hook]
+            try:
+                cache_info = {"hook_name": hook}
+                cache_info["shape"] = str(gpt2_attn.shape)
+                cache_info["dtype"] = str(gpt2_attn.dtype)
+                cache_info["device"] = str(gpt2_attn.device)
+                cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 4)
+                cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 4)
+                cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 4)
+                for index, attn in enumerate(gpt2_attn):
+                    values.append(attn.tolist())
+                cache_info['value'] = values
+                cache.append(cache_info)
+            except Exception as error:
+                print(error)
                 breakpoint()
-    else:
-        gpt2_attn = gpt2_cache[layer]
-        cache_info = {"layer": layer}
-        cache_info["shape"] = str(gpt2_attn.shape)
-        cache_info["dtype"] = str(gpt2_attn.dtype)
-        cache_info["device"] = str(gpt2_attn.device)
-        cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-        cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-        cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-        cache_info["value"] = gpt2_attn[0].tolist()
-        cache = cache_info
+
+    except Exception as error:
+        print(error)
+        breakpoint()
+
     return cache
     

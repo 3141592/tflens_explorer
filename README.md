@@ -27,6 +27,11 @@ tflens-explorer
 ## Shortcut commands
 
 snapshot-create name=test layer=blocks.0.mlp.hook_post
+snapshot-create name=test2 layer=blocks.0.mlp.hook_post
+snapshot-create name=cat_sat_gpt layer=blocks.0.mlp.hook_post
+snapshot-create name=dog_sat_gpt layer=blocks.0.mlp.hook_post
+snapshot-create name=cat_sat_gpt_all layer=all
+snapshot-create name=dog_sat_gpt_all layer=all
 snapshot-create name=test layer=all
 
 compare-logits cat_sat_gpt2 dog_sat_gpt2

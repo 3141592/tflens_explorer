@@ -123,7 +123,7 @@ class Compare:
         self.snapshot = Snapshot(name=name)
         # Additional initialization could be added here
 
-def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> None:
+def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
     model_name = context.session.current_model_name
     current_model = context.session.model
@@ -147,9 +147,9 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
     )
     
     try:
-        cache = cache_summary_for_snapshot(current_model, prompt, layer)
+        cache = cache_summary_for_snapshot(current_model, prompt, hook)
     except:
-        print(f"Layer name {layer} is not valid.")
+        print(f"Hook name {hook} is not valid.")
         return
 
     snapshot = Snapshot(
@@ -286,8 +286,7 @@ def cache_activation_comparison(cache1, cache2):
                 print(f"    {key1:<10} {value1:>30} {value2:>30}")
             else:
                 print(f"Cache activation keys {key1} and {key2} do not match. Check the snapshot cache data.")
-                print()
-                return
+                continue
         print()
 
     print()
@@ -515,7 +514,7 @@ def compare_logits_probs(logits1, logits2):
 def cache_activation_summary(cache1, cache2):
     print(
         f"    {'A/B':<4}"
-        f"{'layer':<35}"
+        f"{'hook_name':<35}"
         f"{'shape':>15}"
         f"{'min':>12}"
         f"{'max':>12}"
@@ -524,8 +523,8 @@ def cache_activation_summary(cache1, cache2):
 
     different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1["layer"]
-        hook2 = activation2["layer"]
+        hook1 = activation1["hook_name"]
+        hook2 = activation2["hook_name"]
         shape1 = get_shape(activation1["shape"])
         shape2 = get_shape(activation2["shape"])
         minimum1 = activation1['minimum']
@@ -540,7 +539,7 @@ def cache_activation_summary(cache1, cache2):
             mean2 = 'na'
 
         if hook1 != hook2:
-            print(f"Cache layers {hook1} and {hook2} do not match.")
+            print(f"Cache hooks {hook1} and {hook2} do not match.")
             return
 
         if (minimum1 == minimum2) and (maximum1 == maximum2):
@@ -554,7 +553,7 @@ def cache_activation_summary(cache1, cache2):
             f"{shape1:>15} "
             f"{minimum1:>12.4f} "
             f"{maximum1:>12.4f} "
-            f"{mean1:>12.4f}"
+            f"{mean1:>12.4f}" if isinstance(mean1, (int, float)) else f"{mean1:>12}"
         )
                 
         print(
@@ -563,7 +562,7 @@ def cache_activation_summary(cache1, cache2):
             f"{shape2:>15} "
             f"{minimum2:>12.4f} "
             f"{maximum2:>12.4f} "
-            f"{mean2:>12.4f}"
+            f"{mean2:>12.4f}" if isinstance(mean2, (int, float)) else f"{mean2:>12}"
         )
         
         print()
@@ -579,19 +578,25 @@ def cache_activation_summary_2(cache1, cache2):
 
     different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1["layer"]
-        hook2 = activation2["layer"]
+        hook1 = activation1["hook_name"]
+        hook2 = activation2["hook_name"]
 
         if hook1 != hook2:
-            print(f"Cache layers {hook1} and {hook2} do not match.")
+            print(f"Cache hookss {hook1} and {hook2} do not match.")
             return
 
-        value1 = torch.tensor(activation1["value"], dtype=torch.float32).flatten()
-        value2 = torch.tensor(activation2["value"], dtype=torch.float32).flatten()
+        value1_t = torch.tensor(activation1["value"], dtype=torch.float32).flatten()
+        value2_t = torch.tensor(activation2["value"], dtype=torch.float32).flatten()
 
-        if value1.shape != value2.shape:
-            print(f"Shape mismatch for {hook1}: {value1.shape} vs {value2.shape}")
+        if value1_t.shape != value2_t.shape:
+            print(f"Shape mismatch for {hook1}: {value1_t.shape} vs {value2_t.shape}")
             continue
+
+        mask = torch.isfinite(value1_t) & torch.isfinite(value2_t)
+        mask = mask & (value1_t > -1e20) & (value2_t > -1e20)
+
+        value1 = value1_t[mask]
+        value2 = value2_t[mask]
 
         diff = value1 - value2
         abs_diff = diff.abs()
@@ -608,7 +613,10 @@ def cache_activation_summary_2(cache1, cache2):
         cosine_sim = round(cosine_sim, 4)
 
         shape = get_shape(activation1['shape'])
-        
+
+        #if hook1 == "blocks.11.mlp.hook_post":
+        #    breakpoint()
+
         if (mean_abs_diff == 0.0) and (max_abs_delta == 0.0) and ((cosine_sim == 0.0) or (cosine_sim == 1.0)):
             continue
         else:
