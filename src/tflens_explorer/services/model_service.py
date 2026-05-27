@@ -382,7 +382,6 @@ def cache_summary_for_snapshot(model, prompt, layer):
                     cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
                 except:
                     cache_info["mean"] = 'na'
-                cache_info["value"] = gpt2_attn[0].tolist()
                 cache.append(cache_info)
             except:
                 breakpoint()
@@ -395,7 +394,20 @@ def cache_summary_for_snapshot(model, prompt, layer):
         cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
         cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
         cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-        cache_info["value"] = gpt2_attn[0].tolist()
         cache = cache_info
     return cache
     
+def summarize_cache_tensor(hook_name, tensor):
+    finite = tensor[torch.isfinite(tensor)]
+    return {
+        "hook": hook_name,
+        "shape": list(tensor.shape),
+        "dtype": str(tensor.dtype),
+        "device": str(tensor.device),
+        "minimum": round(finite.min().item(), 4),
+        "maximum": round(finite.max().item(), 4),
+        "mean": round(finite.mean().item(), 4),
+        "std": round(finite.std().item(), 4),
+        "numel": tensor.numel(),
+        "finite_count": finite.numel(),
+    }
