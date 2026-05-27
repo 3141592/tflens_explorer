@@ -9,119 +9,8 @@ from dataclasses import dataclass, field, asdict
 from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
-
-base_dir = Path(__file__).resolve().parents[3]
-snapshot_path = base_dir / "snapshots"
-snapshot_path.mkdir(parents=True, exist_ok=True)
-
-@dataclass
-class Model:
-    name: str | None = None
-    temperature: float | None = None
-    top_k: int | None = None
-    top_p: float | None = None
-    num_ctx: int | None = None
-    prepend_bos: bool | None = None
-    layers: int | None = None
-    heads: int | None = None
-    vocabulary: int | None = None    
-
-    def save(self) -> None:
-        path = snapshot_path / f"{self.name}.yaml"
-        serial = dict(self.__dict__)                    # shallow copy
-        # convert model to plain dict (choose attributes you need)
-        serial["model"] = {
-            "name": self.model.name,
-            "temperature": self.model.temperature,
-            "top_k": self.model.top_k,
-            "top_p": self.model.top_p,
-            "num_ctx": self.model.num_ctx,
-            "prepend_bos": self.model.prepend_bos,
-            "layers": self.model.layers,
-            "heads": self.model.heads,
-            "vocabulary": self.model.vocabulary,
-        }
-        with path.open("w", encoding="utf-8") as f:
-            yaml.safe_dump(serial, f, sort_keys=False)
-
-@dataclass
-class Snapshot:
-    name: str | None = None
-    model: Model | None = None
-    prompt: str | None = None
-    tokens: list[int] = field(default_factory=list)
-    logits: list[float] = field(default_factory=list)
-    cache: list[int] = field(default_factory=list)
-
-    def save(self) -> None:
-        """Save the snapshot to a YAML file."""
-        try:
-            path = snapshot_path / f"{self.name}.yaml"
-
-            # Convert Model object
-            serial = dict(self.__dict__)
-            serial["model"] = asdict(self.model)
-
-            with path.open("w", encoding="utf-8") as f:
-                # dump a plain dict instead of the object to avoid yaml picking class internals
-                yaml.safe_dump(serial, f, sort_keys=False)
-            print(f"Snapshot saved to {path}")
-        except Exception as e:
-            print(f"Error saving snapshot: {str(e)}")
-            raise
-
-    def load(self) -> None:
-        """Load the snapshot to a Snapshot object."""
-        try:
-            path = snapshot_path / f"{self.name}.yaml"
-            import yaml
-
-            with open(path, 'r') as file:
-                data = yaml.safe_load(file)
-
-            self.name = data['name']
-            self.prompt = data['prompt']
-            # Model
-            self.model = Model()
-            self.model.name = data['model']['name']
-            self.model.temperature = data['model']['temperature']
-            self.model.top_k = data['model']['top_k']
-            self.model.top_p = data['model']['top_p']
-            self.model.num_ctx = data['model']['num_ctx']
-            self.model.prepend_bos = data['model']['prepend_bos']
-            self.model.layers = data['model']['layers']
-            self.model.heads = data['model']['heads']
-            self.model.vocabulary = data['model']['vocabulary']
-            
-            # Tokens
-            self.tokens = []
-            for item in data['tokens']:
-                self.tokens.append(item)
-
-            # Logits
-            self.logits = []
-            for item in data['logits']:
-                self.logits.append(item)
-
-            # Cache
-            self.cache = []
-            if isinstance(data['cache'], list):
-                for item in data['cache']:
-                    self.cache.append(item)
-            elif isinstance(data['cache'], dict):
-                self.cache.append(data['cache'])
-            else:
-                print(f"Error loading cache. Check the snapshot cache.")
-                print()
-                return
-
-        except Exception as error:
-            print(f"Exception: {error}")
-            
-class Compare:
-    def __init__(self, name: str) -> None:
-        self.snapshot = Snapshot(name=name)
-        # Additional initialization could be added here
+from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, verify_snapshot
+from tflens_explorer.core.snapshot_types import CacheSummary
 
 def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> None:
     """Create a model comparison snapshot."""
@@ -164,7 +53,7 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
     snapshot.save()
 
 def snapshots_list():
-    p = Path(snapshot_path)
+    p = Path(SNAPSHOT_PATH)
     for f in p.iterdir():
         if f.is_file():
             print(f.stem)
@@ -292,13 +181,6 @@ def cache_activation_comparison(cache1, cache2):
 
     print()
     return
-
-def verify_snapshot(snapshot_name):
-    p = Path(f"{snapshot_path}/{snapshot_name}.yaml")
-    if p.exists():
-        return True
-    else:
-        return False
 
 def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     all_args = locals()

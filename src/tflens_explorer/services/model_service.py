@@ -8,6 +8,7 @@ from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
 from tflens_explorer.config.config_loader import load_model_aliases
 from tflens_explorer.config.config_loader import load_tflens_internals
+from tflens_explorer.core.snapshot_types import CacheSummary
 
 MODEL_ALIASES = load_model_aliases()
 INTERNALS = load_tflens_internals()
@@ -399,15 +400,4 @@ def cache_summary_for_snapshot(model, prompt, layer):
     
 def summarize_cache_tensor(hook_name, tensor):
     finite = tensor[torch.isfinite(tensor)]
-    return {
-        "hook": hook_name,
-        "shape": list(tensor.shape),
-        "dtype": str(tensor.dtype),
-        "device": str(tensor.device),
-        "minimum": round(finite.min().item(), 4),
-        "maximum": round(finite.max().item(), 4),
-        "mean": round(finite.mean().item(), 4),
-        "std": round(finite.std().item(), 4),
-        "numel": tensor.numel(),
-        "finite_count": finite.numel(),
-    }
+    return
