@@ -351,7 +351,10 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences:")
         cache_activation_summary(snapshot1.cache, snapshot2.cache)
-        cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
+        if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
+            cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
+        else:
+            print("Raw cache tensor values not available; skipping tensor-diff summary.")
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -628,3 +631,12 @@ def cache_activation_summary_2(cache1, cache2):
     print()
 
     return
+
+def snapshots_have_raw_cache_values(cache1, cache2):
+    if not cache1 or not cache2:
+        return False
+
+    return all(
+        "value" in activation1 and "value" in activation2
+        for activation1, activation2 in zip(cache1, cache2)
+    )
