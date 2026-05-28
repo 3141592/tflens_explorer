@@ -156,8 +156,9 @@ def compare_cache(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"  A: {snapshot1.prompt}")
     print(f"  B: {snapshot2.prompt}")
     print()
-    print(f"Cache activations:")
-    cache_activation_comparison(snapshot1.cache, snapshot2.cache)
+    print(f"Cache summary:")
+    cache_activation_summary(snapshot1.cache, snapshot2.cache)
+    #cache_activation_comparison(snapshot1.cache, snapshot2.cache)
 
 def cache_activation_comparison(cache1, cache2):
     print(f"    {'Attribute':<10} {'A':>30} {'B':>30}")
@@ -455,7 +456,7 @@ def cache_activation_summary(cache1, cache2):
         print()
 
     if different_values_count == 0:
-        print("    All A: and B: values are the same.")
+        print("    No cache summary differences found.")
 
     print()
     return
