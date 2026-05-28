@@ -77,16 +77,7 @@ class Snapshot:
             self.name = data['name']
             self.prompt = data['prompt']
             # Model
-            self.model = Model()
-            self.model.name = data['model']['name']
-            self.model.temperature = data['model']['temperature']
-            self.model.top_k = data['model']['top_k']
-            self.model.top_p = data['model']['top_p']
-            self.model.num_ctx = data['model']['num_ctx']
-            self.model.prepend_bos = data['model']['prepend_bos']
-            self.model.layers = data['model']['layers']
-            self.model.heads = data['model']['heads']
-            self.model.vocabulary = data['model']['vocabulary']
+            self.model = Model(**data["model"])
             
             # Tokens
             self.tokens = []
