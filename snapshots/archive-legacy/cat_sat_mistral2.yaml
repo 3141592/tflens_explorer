@@ -1,0 +1,95 @@
+name: cat_sat_mistral1
+model:
+  name: mistral2 -> yujiepan/mistral-v0.3-tiny-random
+  temperature: 0.0
+  top_k: 0
+  top_p: 0.0
+  num_ctx: 32768
+  prepend_bos: null
+  layers: 2
+  heads: 4
+  vocabulary: 32768
+prompt: The cat sat on the
+tokens:
+- shape: torch.Size([6])
+- index: 0
+  token_id: 1
+  token: <s>
+- index: 1
+  token_id: 1183
+  token: The
+- index: 2
+  token_id: 6023
+  token: cat
+- index: 3
+  token_id: 3263
+  token: sat
+- index: 4
+  token_id: 1124
+  token: 'on'
+- index: 5
+  token_id: 1040
+  token: the
+logits:
+- shape: torch.Size([1, 6, 32768])
+- index: 0
+  value: 0.03
+  prob: 0.0
+  token: entries
+- index: 1
+  value: 0.03
+  prob: 0.0
+  token: uti
+- index: 2
+  value: 0.03
+  prob: 0.0
+  token: controlled
+- index: 3
+  value: 0.03
+  prob: 0.0
+  token: Drive
+- index: 4
+  value: 0.03
+  prob: 0.0
+  token: "\u53CD"
+cache:
+  layer: blocks.1.mlp.hook_post
+  shape: torch.Size([6, 32])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.0
+  maximum: 0.0
+  mean: -0.0
+  value:
+  - -3.3304528187727556e-05
+  - -5.640317795041483e-07
+  - 1.1028017610215102e-07
+  - -1.5023925698187668e-05
+  - 7.726657713647e-06
+  - -1.644422263780143e-05
+  - 1.2774432889273157e-06
+  - -2.93622474600852e-06
+  - 4.2478637624299154e-05
+  - -6.264598084726458e-08
+  - -8.146416075760499e-05
+  - -2.171541200368665e-05
+  - -1.318278464168543e-06
+  - 4.644049113267101e-06
+  - 1.9938170225941576e-06
+  - 4.484857981879031e-06
+  - 1.9428856830927543e-05
+  - 5.9369731388869695e-06
+  - -7.727530828560703e-06
+  - 1.0996345736202784e-05
+  - 9.299855037170346e-07
+  - -3.467892747721635e-05
+  - 9.759459317137953e-06
+  - -8.839637303026393e-06
+  - 2.1209189071669243e-06
+  - 1.6480639430938027e-07
+  - 1.084633549908176e-05
+  - 2.9672046366613358e-05
+  - 7.464826467185048e-06
+  - 3.845291303150589e-06
+  - 4.509991526902013e-07
+  - -3.7013642213423736e-06

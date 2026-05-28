@@ -51,7 +51,8 @@ class Snapshot:
     def save(self) -> None:
         """Save the snapshot to a YAML file."""
         try:
-            path = SNAPSHOT_PATH / f"{self.name}.yaml"
+            path = snapshot_yaml_path(self.name)
+            path.parent.mkdir(parents=True, exist_ok=True)
 
             # Convert Model object
             serial = dict(self.__dict__)
@@ -68,8 +69,7 @@ class Snapshot:
     def load(self) -> None:
         """Load the snapshot to a Snapshot object."""
         try:
-            path = SNAPSHOT_PATH / f"{self.name}.yaml"
-            import yaml
+            path = snapshot_yaml_path(self.name)
 
             with open(path, 'r') as file:
                 data = yaml.safe_load(file)
@@ -119,9 +119,16 @@ class Compare:
         self.snapshot = Snapshot(name=name)
         # Additional initialization could be added here
 
+def snapshot_dir(snapshot_name: str) -> Path:
+    return SNAPSHOT_PATH / snapshot_name
+
+def snapshot_yaml_path(snapshot_name: str) -> Path:
+    return snapshot_dir(snapshot_name) / "snapshot.yaml"
+
 def verify_snapshot(snapshot_name):
-    p = Path(f"{SNAPSHOT_PATH}/{snapshot_name}.yaml")
-    if p.exists():
+    path = snapshot_yaml_path(snapshot_name)
+
+    if path.exists():
         return True
     else:
         return False

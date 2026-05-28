@@ -1,0 +1,3590 @@
+name: dog_sat_gpt2_all
+model:
+  name: gpt2 -> openai-community/gpt2
+  temperature: 0.0
+  top_k: 0
+  top_p: 0.0
+  num_ctx: 1024
+  prepend_bos: null
+  layers: 12
+  heads: 12
+  vocabulary: 50257
+prompt: The dog sat on the
+tokens:
+- shape: torch.Size([6])
+- index: 0
+  token_id: 50256
+  token: <|endoftext|>
+- index: 1
+  token_id: 464
+  token: The
+- index: 2
+  token_id: 3290
+  token: ' dog'
+- index: 3
+  token_id: 3332
+  token: ' sat'
+- index: 4
+  token_id: 319
+  token: ' on'
+- index: 5
+  token_id: 262
+  token: ' the'
+logits:
+- shape: torch.Size([1, 6, 50257])
+- index: 0
+  value: -82.21
+  prob: 0.09
+  token: ' floor'
+- index: 1
+  value: -82.5
+  prob: 0.07
+  token: ' ground'
+- index: 2
+  value: -82.84
+  prob: 0.05
+  token: ' bed'
+- index: 3
+  value: -83.02
+  prob: 0.04
+  token: ' couch'
+- index: 4
+  value: -83.2
+  prob: 0.03
+  token: ' back'
+cache:
+- layer: embed.hook_in
+  shape: torch.Size([6])
+  dtype: torch.int64
+  device: cuda:0
+  minimum: 262
+  maximum: 50256
+  mean: na
+- layer: embed.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.74
+  maximum: 0.87
+  mean: -0.0
+- layer: hook_embed
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.74
+  maximum: 0.87
+  mean: -0.0
+- layer: pos_embed.hook_in
+  shape: torch.Size([6])
+  dtype: torch.int64
+  device: cuda:0
+  minimum: 0
+  maximum: 5
+  mean: na
+- layer: pos_embed.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.54
+  maximum: 4.07
+  mean: -0.0
+- layer: hook_pos_embed
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.54
+  maximum: 4.07
+  mean: -0.0
+- layer: blocks.0.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.49
+  maximum: 3.92
+  mean: -0.0
+- layer: blocks.0.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.49
+  maximum: 3.92
+  mean: -0.0
+- layer: blocks.0.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.49
+  maximum: 3.92
+  mean: -0.0
+- layer: blocks.0.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.18
+  maximum: 0.37
+  mean: 0.22
+- layer: blocks.0.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.04
+  maximum: 10.53
+  mean: 0.0
+- layer: blocks.0.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.78
+  maximum: 0.59
+  mean: -0.01
+- layer: blocks.0.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.78
+  maximum: 0.59
+  mean: -0.01
+- layer: blocks.0.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.78
+  maximum: 0.59
+  mean: -0.01
+- layer: blocks.0.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.53
+  maximum: 3.75
+  mean: -0.07
+- layer: blocks.0.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.53
+  maximum: 3.75
+  mean: -0.07
+- layer: blocks.0.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.78
+  maximum: 0.59
+  mean: -0.01
+- layer: blocks.0.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.58
+  maximum: 8.25
+  mean: 0.02
+- layer: blocks.0.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.58
+  maximum: 8.25
+  mean: 0.02
+- layer: blocks.0.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.78
+  maximum: 0.59
+  mean: -0.01
+- layer: blocks.0.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3
+  maximum: 2.31
+  mean: 0.01
+- layer: blocks.0.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3
+  maximum: 2.31
+  mean: 0.01
+- layer: blocks.0.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 12.95
+  mean: -.inf
+- layer: blocks.0.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.0.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.94
+  maximum: 1.24
+  mean: 0.0
+- layer: blocks.0.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.94
+  maximum: 1.24
+  mean: 0.0
+- layer: blocks.0.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.67
+  maximum: 13.47
+  mean: 0.02
+- layer: blocks.0.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.67
+  maximum: 13.47
+  mean: 0.02
+- layer: blocks.0.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.67
+  maximum: 13.47
+  mean: 0.02
+- layer: blocks.0.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.67
+  maximum: 13.47
+  mean: 0.02
+- layer: blocks.0.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.9
+  maximum: 13.65
+  mean: 0.02
+- layer: blocks.0.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.9
+  maximum: 13.65
+  mean: 0.02
+- layer: blocks.0.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.98
+  maximum: 1.12
+  mean: 1.07
+- layer: blocks.0.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.17
+  maximum: 12.33
+  mean: -0.0
+- layer: blocks.0.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.52
+  maximum: 1.67
+  mean: -0.0
+- layer: blocks.0.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.52
+  maximum: 1.67
+  mean: -0.0
+- layer: blocks.0.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.52
+  maximum: 1.67
+  mean: -0.0
+- layer: blocks.0.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.52
+  maximum: 1.67
+  mean: -0.0
+- layer: blocks.0.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.89
+  maximum: 13.1
+  mean: -1.2
+- layer: blocks.0.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.89
+  maximum: 13.1
+  mean: -1.2
+- layer: blocks.0.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 13.1
+  mean: -0.05
+- layer: blocks.0.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 13.1
+  mean: -0.05
+- layer: blocks.0.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.03
+  maximum: 120.04
+  mean: 0.02
+- layer: blocks.0.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.03
+  maximum: 120.04
+  mean: 0.02
+- layer: blocks.0.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.03
+  maximum: 120.04
+  mean: 0.02
+- layer: blocks.0.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.34
+  maximum: 120.55
+  mean: 0.04
+- layer: blocks.0.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.34
+  maximum: 120.55
+  mean: 0.04
+- layer: blocks.1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.34
+  maximum: 120.55
+  mean: 0.04
+- layer: blocks.1.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.34
+  maximum: 120.55
+  mean: 0.04
+- layer: blocks.1.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.34
+  maximum: 120.55
+  mean: 0.04
+- layer: blocks.1.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.06
+  maximum: 5.96
+  mean: 2.79
+- layer: blocks.1.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.07
+  maximum: 20.21
+  mean: -0.0
+- layer: blocks.1.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.51
+  maximum: 1.65
+  mean: -0.01
+- layer: blocks.1.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.51
+  maximum: 1.65
+  mean: -0.01
+- layer: blocks.1.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.51
+  maximum: 1.65
+  mean: -0.01
+- layer: blocks.1.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.42
+  maximum: 3.5
+  mean: 0.01
+- layer: blocks.1.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.42
+  maximum: 3.5
+  mean: 0.01
+- layer: blocks.1.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.51
+  maximum: 1.65
+  mean: -0.01
+- layer: blocks.1.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.9
+  maximum: 4.09
+  mean: -0.03
+- layer: blocks.1.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.9
+  maximum: 4.09
+  mean: -0.03
+- layer: blocks.1.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.51
+  maximum: 1.65
+  mean: -0.01
+- layer: blocks.1.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.21
+  maximum: 3.67
+  mean: 0.0
+- layer: blocks.1.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.21
+  maximum: 3.67
+  mean: 0.0
+- layer: blocks.1.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 5.29
+  mean: -.inf
+- layer: blocks.1.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.1.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.21
+  maximum: 2.12
+  mean: -0.0
+- layer: blocks.1.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.21
+  maximum: 2.12
+  mean: -0.0
+- layer: blocks.1.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.98
+  maximum: 30.77
+  mean: 0.01
+- layer: blocks.1.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.98
+  maximum: 30.77
+  mean: 0.01
+- layer: blocks.1.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.98
+  maximum: 30.77
+  mean: 0.01
+- layer: blocks.1.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.98
+  maximum: 30.77
+  mean: 0.01
+- layer: blocks.1.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -81.86
+  maximum: 151.32
+  mean: 0.05
+- layer: blocks.1.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -81.86
+  maximum: 151.32
+  mean: 0.05
+- layer: blocks.1.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.95
+  maximum: 6.92
+  mean: 2.9
+- layer: blocks.1.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.62
+  maximum: 21.86
+  mean: 0.0
+- layer: blocks.1.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.23
+  maximum: 6.47
+  mean: -0.0
+- layer: blocks.1.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.23
+  maximum: 6.47
+  mean: -0.0
+- layer: blocks.1.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.23
+  maximum: 6.47
+  mean: -0.0
+- layer: blocks.1.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.23
+  maximum: 6.47
+  mean: -0.0
+- layer: blocks.1.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.23
+  maximum: 15.81
+  mean: -0.64
+- layer: blocks.1.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.23
+  maximum: 15.81
+  mean: -0.64
+- layer: blocks.1.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 15.81
+  mean: -0.01
+- layer: blocks.1.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 15.81
+  mean: -0.01
+- layer: blocks.1.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.92
+  maximum: 464.99
+  mean: 0.12
+- layer: blocks.1.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.92
+  maximum: 464.99
+  mean: 0.12
+- layer: blocks.1.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.92
+  maximum: 464.99
+  mean: 0.12
+- layer: blocks.1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.83
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.1.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.83
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.83
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.2.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.83
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.2.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.83
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.2.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.98
+  maximum: 23.16
+  mean: 5.66
+- layer: blocks.2.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.22
+  maximum: 26.58
+  mean: 0.0
+- layer: blocks.2.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.31
+  maximum: 3.61
+  mean: 0.0
+- layer: blocks.2.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.31
+  maximum: 3.61
+  mean: 0.0
+- layer: blocks.2.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.31
+  maximum: 3.61
+  mean: 0.0
+- layer: blocks.2.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.56
+  maximum: 4.5
+  mean: 0.0
+- layer: blocks.2.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.56
+  maximum: 4.5
+  mean: 0.0
+- layer: blocks.2.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.31
+  maximum: 3.61
+  mean: 0.0
+- layer: blocks.2.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.48
+  maximum: 5.78
+  mean: -0.03
+- layer: blocks.2.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.48
+  maximum: 5.78
+  mean: -0.03
+- layer: blocks.2.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.31
+  maximum: 3.61
+  mean: 0.0
+- layer: blocks.2.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.08
+  maximum: 2.81
+  mean: -0.02
+- layer: blocks.2.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.08
+  maximum: 2.81
+  mean: -0.02
+- layer: blocks.2.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 2.17
+  mean: -.inf
+- layer: blocks.2.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.2.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.91
+  maximum: 1.94
+  mean: -0.01
+- layer: blocks.2.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.91
+  maximum: 1.94
+  mean: -0.01
+- layer: blocks.2.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.43
+  maximum: 6.09
+  mean: 0.0
+- layer: blocks.2.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.43
+  maximum: 6.09
+  mean: 0.0
+- layer: blocks.2.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.43
+  maximum: 6.09
+  mean: 0.0
+- layer: blocks.2.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.43
+  maximum: 6.09
+  mean: 0.0
+- layer: blocks.2.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.88
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.2.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.88
+  maximum: 616.31
+  mean: 0.17
+- layer: blocks.2.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.12
+  maximum: 23.2
+  mean: 5.76
+- layer: blocks.2.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.59
+  maximum: 26.53
+  mean: -0.0
+- layer: blocks.2.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9
+  maximum: 19.72
+  mean: 0.01
+- layer: blocks.2.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9
+  maximum: 19.72
+  mean: 0.01
+- layer: blocks.2.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9
+  maximum: 19.72
+  mean: 0.01
+- layer: blocks.2.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9
+  maximum: 19.72
+  mean: 0.01
+- layer: blocks.2.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.88
+  maximum: 61.9
+  mean: -1.06
+- layer: blocks.2.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.88
+  maximum: 61.9
+  mean: -1.06
+- layer: blocks.2.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 61.9
+  mean: -0.01
+- layer: blocks.2.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 61.9
+  mean: -0.01
+- layer: blocks.2.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.04
+  maximum: 2319.54
+  mean: 0.52
+- layer: blocks.2.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.04
+  maximum: 2319.54
+  mean: 0.52
+- layer: blocks.2.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.04
+  maximum: 2319.54
+  mean: 0.52
+- layer: blocks.2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.43
+  maximum: 2476.22
+  mean: 0.69
+- layer: blocks.2.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.43
+  maximum: 2476.22
+  mean: 0.69
+- layer: blocks.3.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.43
+  maximum: 2476.22
+  mean: 0.69
+- layer: blocks.3.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.43
+  maximum: 2476.22
+  mean: 0.69
+- layer: blocks.3.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.43
+  maximum: 2476.22
+  mean: 0.69
+- layer: blocks.3.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.14
+  maximum: 92.99
+  mean: 17.47
+- layer: blocks.3.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.11
+  maximum: 26.59
+  mean: 0.0
+- layer: blocks.3.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 4.88
+  mean: 0.0
+- layer: blocks.3.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 4.88
+  mean: 0.0
+- layer: blocks.3.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 4.88
+  mean: 0.0
+- layer: blocks.3.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.15
+  maximum: 4.89
+  mean: -0.05
+- layer: blocks.3.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.15
+  maximum: 4.89
+  mean: -0.05
+- layer: blocks.3.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 4.88
+  mean: 0.0
+- layer: blocks.3.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.21
+  maximum: 13.1
+  mean: 0.08
+- layer: blocks.3.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.21
+  maximum: 13.1
+  mean: 0.08
+- layer: blocks.3.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 4.88
+  mean: 0.0
+- layer: blocks.3.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.29
+  maximum: 3.05
+  mean: 0.01
+- layer: blocks.3.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.29
+  maximum: 3.05
+  mean: 0.01
+- layer: blocks.3.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 7.29
+  mean: -.inf
+- layer: blocks.3.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.3.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.59
+  maximum: 1.83
+  mean: -0.0
+- layer: blocks.3.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.59
+  maximum: 1.83
+  mean: -0.0
+- layer: blocks.3.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.86
+  maximum: 2.12
+  mean: -0.0
+- layer: blocks.3.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.86
+  maximum: 2.12
+  mean: -0.0
+- layer: blocks.3.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.86
+  maximum: 2.12
+  mean: -0.0
+- layer: blocks.3.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.86
+  maximum: 2.12
+  mean: -0.0
+- layer: blocks.3.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.62
+  maximum: 2473.36
+  mean: 0.68
+- layer: blocks.3.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -85.62
+  maximum: 2473.36
+  mean: 0.68
+- layer: blocks.3.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.19
+  maximum: 92.89
+  mean: 17.48
+- layer: blocks.3.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.09
+  maximum: 26.58
+  mean: -0.0
+- layer: blocks.3.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.52
+  maximum: 9.33
+  mean: 0.01
+- layer: blocks.3.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.52
+  maximum: 9.33
+  mean: 0.01
+- layer: blocks.3.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.52
+  maximum: 9.33
+  mean: 0.01
+- layer: blocks.3.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.52
+  maximum: 9.33
+  mean: 0.01
+- layer: blocks.3.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.74
+  maximum: 10.96
+  mean: -1.13
+- layer: blocks.3.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.74
+  maximum: 10.96
+  mean: -1.13
+- layer: blocks.3.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 10.96
+  mean: -0.05
+- layer: blocks.3.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 10.96
+  mean: -0.05
+- layer: blocks.3.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.37
+  maximum: 190.68
+  mean: 0.06
+- layer: blocks.3.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.37
+  maximum: 190.68
+  mean: 0.06
+- layer: blocks.3.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.37
+  maximum: 190.68
+  mean: 0.06
+- layer: blocks.3.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.81
+  maximum: 2664.04
+  mean: 0.74
+- layer: blocks.3.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.81
+  maximum: 2664.04
+  mean: 0.74
+- layer: blocks.4.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.81
+  maximum: 2664.04
+  mean: 0.74
+- layer: blocks.4.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.81
+  maximum: 2664.04
+  mean: 0.74
+- layer: blocks.4.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.81
+  maximum: 2664.04
+  mean: 0.74
+- layer: blocks.4.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.25
+  maximum: 100.16
+  mean: 18.81
+- layer: blocks.4.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.5
+  maximum: 26.55
+  mean: -0.0
+- layer: blocks.4.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 4.51
+  mean: 0.0
+- layer: blocks.4.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 4.51
+  mean: 0.0
+- layer: blocks.4.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 4.51
+  mean: 0.0
+- layer: blocks.4.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.99
+  maximum: 7.22
+  mean: 0.02
+- layer: blocks.4.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.99
+  maximum: 7.22
+  mean: 0.02
+- layer: blocks.4.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 4.51
+  mean: 0.0
+- layer: blocks.4.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -17.75
+  maximum: 16.25
+  mean: -0.12
+- layer: blocks.4.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -17.75
+  maximum: 16.25
+  mean: -0.12
+- layer: blocks.4.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 4.51
+  mean: 0.0
+- layer: blocks.4.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.26
+  maximum: 2.16
+  mean: -0.01
+- layer: blocks.4.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.26
+  maximum: 2.16
+  mean: -0.01
+- layer: blocks.4.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 22.49
+  mean: -.inf
+- layer: blocks.4.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.4.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.54
+  maximum: 1.75
+  mean: 0.0
+- layer: blocks.4.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.54
+  maximum: 1.75
+  mean: 0.0
+- layer: blocks.4.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.26
+  maximum: 2.15
+  mean: 0.0
+- layer: blocks.4.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.26
+  maximum: 2.15
+  mean: 0.0
+- layer: blocks.4.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.26
+  maximum: 2.15
+  mean: 0.0
+- layer: blocks.4.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.26
+  maximum: 2.15
+  mean: 0.0
+- layer: blocks.4.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.95
+  maximum: 2663.13
+  mean: 0.74
+- layer: blocks.4.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -84.95
+  maximum: 2663.13
+  mean: 0.74
+- layer: blocks.4.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.23
+  maximum: 100.13
+  mean: 18.86
+- layer: blocks.4.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.29
+  maximum: 26.55
+  mean: -0.0
+- layer: blocks.4.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.19
+  maximum: 8.95
+  mean: -0.0
+- layer: blocks.4.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.19
+  maximum: 8.95
+  mean: -0.0
+- layer: blocks.4.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.19
+  maximum: 8.95
+  mean: -0.0
+- layer: blocks.4.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.19
+  maximum: 8.95
+  mean: -0.0
+- layer: blocks.4.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.28
+  maximum: 6.8
+  mean: -0.93
+- layer: blocks.4.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.28
+  maximum: 6.8
+  mean: -0.93
+- layer: blocks.4.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 6.8
+  mean: -0.04
+- layer: blocks.4.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 6.8
+  mean: -0.04
+- layer: blocks.4.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.34
+  maximum: 152.86
+  mean: 0.05
+- layer: blocks.4.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.34
+  maximum: 152.86
+  mean: 0.05
+- layer: blocks.4.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.34
+  maximum: 152.86
+  mean: 0.05
+- layer: blocks.4.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.81
+  maximum: 2816.0
+  mean: 0.79
+- layer: blocks.4.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.81
+  maximum: 2816.0
+  mean: 0.79
+- layer: blocks.5.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.81
+  maximum: 2816.0
+  mean: 0.79
+- layer: blocks.5.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.81
+  maximum: 2816.0
+  mean: 0.79
+- layer: blocks.5.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.81
+  maximum: 2816.0
+  mean: 0.79
+- layer: blocks.5.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.46
+  maximum: 105.72
+  mean: 19.93
+- layer: blocks.5.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.41
+  maximum: 26.59
+  mean: 0.0
+- layer: blocks.5.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 5.05
+  mean: 0.01
+- layer: blocks.5.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 5.05
+  mean: 0.01
+- layer: blocks.5.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 5.05
+  mean: 0.01
+- layer: blocks.5.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.89
+  maximum: 7.54
+  mean: -0.01
+- layer: blocks.5.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.89
+  maximum: 7.54
+  mean: -0.01
+- layer: blocks.5.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 5.05
+  mean: 0.01
+- layer: blocks.5.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.25
+  maximum: 11.01
+  mean: 0.01
+- layer: blocks.5.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.25
+  maximum: 11.01
+  mean: 0.01
+- layer: blocks.5.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.3
+  maximum: 5.05
+  mean: 0.01
+- layer: blocks.5.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.61
+  maximum: 4.71
+  mean: 0.01
+- layer: blocks.5.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.61
+  maximum: 4.71
+  mean: 0.01
+- layer: blocks.5.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 5.24
+  mean: -.inf
+- layer: blocks.5.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.5.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.32
+  maximum: 2.11
+  mean: -0.0
+- layer: blocks.5.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.32
+  maximum: 2.11
+  mean: -0.0
+- layer: blocks.5.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.26
+  maximum: 2.07
+  mean: -0.0
+- layer: blocks.5.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.26
+  maximum: 2.07
+  mean: -0.0
+- layer: blocks.5.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.26
+  maximum: 2.07
+  mean: -0.0
+- layer: blocks.5.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.26
+  maximum: 2.07
+  mean: -0.0
+- layer: blocks.5.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.97
+  maximum: 2814.74
+  mean: 0.79
+- layer: blocks.5.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -82.97
+  maximum: 2814.74
+  mean: 0.79
+- layer: blocks.5.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.46
+  maximum: 105.67
+  mean: 19.97
+- layer: blocks.5.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.05
+  maximum: 26.59
+  mean: 0.0
+- layer: blocks.5.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.79
+  maximum: 11.16
+  mean: 0.01
+- layer: blocks.5.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.79
+  maximum: 11.16
+  mean: 0.01
+- layer: blocks.5.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.79
+  maximum: 11.16
+  mean: 0.01
+- layer: blocks.5.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.79
+  maximum: 11.16
+  mean: 0.01
+- layer: blocks.5.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.95
+  maximum: 3.34
+  mean: -0.96
+- layer: blocks.5.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.95
+  maximum: 3.34
+  mean: -0.96
+- layer: blocks.5.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 3.34
+  mean: -0.03
+- layer: blocks.5.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 3.34
+  mean: -0.03
+- layer: blocks.5.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.22
+  maximum: 102.17
+  mean: 0.03
+- layer: blocks.5.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.22
+  maximum: 102.17
+  mean: 0.03
+- layer: blocks.5.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.22
+  maximum: 102.17
+  mean: 0.03
+- layer: blocks.5.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.56
+  maximum: 2916.9
+  mean: 0.82
+- layer: blocks.5.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.56
+  maximum: 2916.9
+  mean: 0.82
+- layer: blocks.6.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.56
+  maximum: 2916.9
+  mean: 0.82
+- layer: blocks.6.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.56
+  maximum: 2916.9
+  mean: 0.82
+- layer: blocks.6.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.56
+  maximum: 2916.9
+  mean: 0.82
+- layer: blocks.6.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.72
+  maximum: 109.19
+  mean: 20.73
+- layer: blocks.6.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.77
+  maximum: 26.67
+  mean: 0.0
+- layer: blocks.6.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.91
+  maximum: 4.78
+  mean: 0.01
+- layer: blocks.6.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.91
+  maximum: 4.78
+  mean: 0.01
+- layer: blocks.6.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.91
+  maximum: 4.78
+  mean: 0.01
+- layer: blocks.6.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.88
+  maximum: 7.47
+  mean: 0.03
+- layer: blocks.6.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.88
+  maximum: 7.47
+  mean: 0.03
+- layer: blocks.6.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.91
+  maximum: 4.78
+  mean: 0.01
+- layer: blocks.6.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.43
+  maximum: 9.63
+  mean: 0.01
+- layer: blocks.6.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.43
+  maximum: 9.63
+  mean: 0.01
+- layer: blocks.6.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.91
+  maximum: 4.78
+  mean: 0.01
+- layer: blocks.6.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.49
+  maximum: 2.71
+  mean: 0.01
+- layer: blocks.6.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.49
+  maximum: 2.71
+  mean: 0.01
+- layer: blocks.6.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 6.47
+  mean: -.inf
+- layer: blocks.6.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.6.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.06
+  maximum: 1.39
+  mean: 0.0
+- layer: blocks.6.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.06
+  maximum: 1.39
+  mean: 0.0
+- layer: blocks.6.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.77
+  maximum: 2.08
+  mean: -0.0
+- layer: blocks.6.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.77
+  maximum: 2.08
+  mean: -0.0
+- layer: blocks.6.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.77
+  maximum: 2.08
+  mean: -0.0
+- layer: blocks.6.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.77
+  maximum: 2.08
+  mean: -0.0
+- layer: blocks.6.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.81
+  maximum: 2917.75
+  mean: 0.82
+- layer: blocks.6.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -77.81
+  maximum: 2917.75
+  mean: 0.82
+- layer: blocks.6.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.72
+  maximum: 109.22
+  mean: 20.79
+- layer: blocks.6.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.55
+  maximum: 26.67
+  mean: -0.0
+- layer: blocks.6.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.61
+  maximum: 10.34
+  mean: 0.0
+- layer: blocks.6.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.61
+  maximum: 10.34
+  mean: 0.0
+- layer: blocks.6.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.61
+  maximum: 10.34
+  mean: 0.0
+- layer: blocks.6.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.61
+  maximum: 10.34
+  mean: 0.0
+- layer: blocks.6.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.51
+  maximum: 3.01
+  mean: -0.89
+- layer: blocks.6.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.51
+  maximum: 3.01
+  mean: -0.89
+- layer: blocks.6.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 3.01
+  mean: -0.04
+- layer: blocks.6.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 3.01
+  mean: -0.04
+- layer: blocks.6.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.89
+  maximum: 60.03
+  mean: 0.03
+- layer: blocks.6.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.89
+  maximum: 60.03
+  mean: 0.03
+- layer: blocks.6.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.89
+  maximum: 60.03
+  mean: 0.03
+- layer: blocks.6.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -71.68
+  maximum: 2977.78
+  mean: 0.85
+- layer: blocks.6.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -71.68
+  maximum: 2977.78
+  mean: 0.85
+- layer: blocks.7.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -71.68
+  maximum: 2977.78
+  mean: 0.85
+- layer: blocks.7.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -71.68
+  maximum: 2977.78
+  mean: 0.85
+- layer: blocks.7.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -71.68
+  maximum: 2977.78
+  mean: 0.85
+- layer: blocks.7.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 3.09
+  maximum: 111.29
+  mean: 21.43
+- layer: blocks.7.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.15
+  maximum: 26.72
+  mean: 0.0
+- layer: blocks.7.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.66
+  maximum: 4.44
+  mean: 0.01
+- layer: blocks.7.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.66
+  maximum: 4.44
+  mean: 0.01
+- layer: blocks.7.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.66
+  maximum: 4.44
+  mean: 0.01
+- layer: blocks.7.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.18
+  maximum: 6.35
+  mean: 0.04
+- layer: blocks.7.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.18
+  maximum: 6.35
+  mean: 0.04
+- layer: blocks.7.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.66
+  maximum: 4.44
+  mean: 0.01
+- layer: blocks.7.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.07
+  maximum: 11.31
+  mean: -0.01
+- layer: blocks.7.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.07
+  maximum: 11.31
+  mean: -0.01
+- layer: blocks.7.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.66
+  maximum: 4.44
+  mean: 0.01
+- layer: blocks.7.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.63
+  maximum: 3.1
+  mean: 0.01
+- layer: blocks.7.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.63
+  maximum: 3.1
+  mean: 0.01
+- layer: blocks.7.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 7.55
+  mean: -.inf
+- layer: blocks.7.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.7.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.92
+  maximum: 1.21
+  mean: 0.0
+- layer: blocks.7.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.92
+  maximum: 1.21
+  mean: 0.0
+- layer: blocks.7.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.62
+  maximum: 4.35
+  mean: 0.0
+- layer: blocks.7.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.62
+  maximum: 4.35
+  mean: 0.0
+- layer: blocks.7.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.62
+  maximum: 4.35
+  mean: 0.0
+- layer: blocks.7.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.62
+  maximum: 4.35
+  mean: 0.0
+- layer: blocks.7.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -72.02
+  maximum: 2978.46
+  mean: 0.86
+- layer: blocks.7.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -72.02
+  maximum: 2978.46
+  mean: 0.86
+- layer: blocks.7.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 3.14
+  maximum: 111.31
+  mean: 21.52
+- layer: blocks.7.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.81
+  maximum: 26.72
+  mean: -0.0
+- layer: blocks.7.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4
+  maximum: 9.97
+  mean: 0.01
+- layer: blocks.7.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4
+  maximum: 9.97
+  mean: 0.01
+- layer: blocks.7.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4
+  maximum: 9.97
+  mean: 0.01
+- layer: blocks.7.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4
+  maximum: 9.97
+  mean: 0.01
+- layer: blocks.7.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.11
+  maximum: 3.17
+  mean: -0.92
+- layer: blocks.7.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.11
+  maximum: 3.17
+  mean: -0.92
+- layer: blocks.7.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 3.17
+  mean: -0.05
+- layer: blocks.7.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 3.17
+  mean: -0.05
+- layer: blocks.7.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.17
+  maximum: 36.37
+  mean: 0.03
+- layer: blocks.7.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.17
+  maximum: 36.37
+  mean: 0.03
+- layer: blocks.7.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.17
+  maximum: 36.37
+  mean: 0.03
+- layer: blocks.7.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.35
+  maximum: 3014.83
+  mean: 0.88
+- layer: blocks.7.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.35
+  maximum: 3014.83
+  mean: 0.88
+- layer: blocks.8.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.35
+  maximum: 3014.83
+  mean: 0.88
+- layer: blocks.8.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.35
+  maximum: 3014.83
+  mean: 0.88
+- layer: blocks.8.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.35
+  maximum: 3014.83
+  mean: 0.88
+- layer: blocks.8.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 3.72
+  maximum: 112.55
+  mean: 22.11
+- layer: blocks.8.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.44
+  maximum: 26.74
+  mean: 0.0
+- layer: blocks.8.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0
+  maximum: 4.04
+  mean: 0.01
+- layer: blocks.8.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0
+  maximum: 4.04
+  mean: 0.01
+- layer: blocks.8.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0
+  maximum: 4.04
+  mean: 0.01
+- layer: blocks.8.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.52
+  maximum: 4.21
+  mean: -0.03
+- layer: blocks.8.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.52
+  maximum: 4.21
+  mean: -0.03
+- layer: blocks.8.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0
+  maximum: 4.04
+  mean: 0.01
+- layer: blocks.8.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.45
+  maximum: 7.84
+  mean: 0.01
+- layer: blocks.8.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.45
+  maximum: 7.84
+  mean: 0.01
+- layer: blocks.8.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0
+  maximum: 4.04
+  mean: 0.01
+- layer: blocks.8.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.74
+  maximum: 3.2
+  mean: -0.01
+- layer: blocks.8.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.74
+  maximum: 3.2
+  mean: -0.01
+- layer: blocks.8.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 6.27
+  mean: -.inf
+- layer: blocks.8.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.8.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.48
+  maximum: 1.17
+  mean: -0.0
+- layer: blocks.8.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.48
+  maximum: 1.17
+  mean: -0.0
+- layer: blocks.8.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 5.92
+  mean: 0.0
+- layer: blocks.8.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 5.92
+  mean: 0.0
+- layer: blocks.8.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 5.92
+  mean: 0.0
+- layer: blocks.8.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.33
+  maximum: 5.92
+  mean: 0.0
+- layer: blocks.8.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.53
+  maximum: 3016.74
+  mean: 0.89
+- layer: blocks.8.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -66.53
+  maximum: 3016.74
+  mean: 0.89
+- layer: blocks.8.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 3.93
+  maximum: 112.62
+  mean: 22.28
+- layer: blocks.8.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.87
+  maximum: 26.74
+  mean: 0.0
+- layer: blocks.8.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.07
+  maximum: 8.09
+  mean: -0.0
+- layer: blocks.8.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.07
+  maximum: 8.09
+  mean: -0.0
+- layer: blocks.8.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.07
+  maximum: 8.09
+  mean: -0.0
+- layer: blocks.8.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.07
+  maximum: 8.09
+  mean: -0.0
+- layer: blocks.8.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.93
+  maximum: 5.34
+  mean: -0.86
+- layer: blocks.8.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.93
+  maximum: 5.34
+  mean: -0.86
+- layer: blocks.8.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 5.34
+  mean: -0.05
+- layer: blocks.8.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 5.34
+  mean: -0.05
+- layer: blocks.8.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.06
+  maximum: 21.61
+  mean: 0.02
+- layer: blocks.8.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.06
+  maximum: 21.61
+  mean: 0.02
+- layer: blocks.8.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.06
+  maximum: 21.61
+  mean: 0.02
+- layer: blocks.8.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.64
+  maximum: 3038.35
+  mean: 0.91
+- layer: blocks.8.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.64
+  maximum: 3038.35
+  mean: 0.91
+- layer: blocks.9.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.64
+  maximum: 3038.35
+  mean: 0.91
+- layer: blocks.9.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.64
+  maximum: 3038.35
+  mean: 0.91
+- layer: blocks.9.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.64
+  maximum: 3038.35
+  mean: 0.91
+- layer: blocks.9.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 4.61
+  maximum: 113.35
+  mean: 23.02
+- layer: blocks.9.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.97
+  maximum: 26.76
+  mean: 0.0
+- layer: blocks.9.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.01
+  maximum: 3.31
+  mean: 0.01
+- layer: blocks.9.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.01
+  maximum: 3.31
+  mean: 0.01
+- layer: blocks.9.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.01
+  maximum: 3.31
+  mean: 0.01
+- layer: blocks.9.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.34
+  maximum: 5.97
+  mean: -0.0
+- layer: blocks.9.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.34
+  maximum: 5.97
+  mean: -0.0
+- layer: blocks.9.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.01
+  maximum: 3.31
+  mean: 0.01
+- layer: blocks.9.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.24
+  maximum: 7.1
+  mean: -0.06
+- layer: blocks.9.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.24
+  maximum: 7.1
+  mean: -0.06
+- layer: blocks.9.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.01
+  maximum: 3.31
+  mean: 0.01
+- layer: blocks.9.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.1
+  maximum: 3.82
+  mean: 0.01
+- layer: blocks.9.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.1
+  maximum: 3.82
+  mean: 0.01
+- layer: blocks.9.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 6.39
+  mean: -.inf
+- layer: blocks.9.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.9.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.45
+  maximum: 1.28
+  mean: 0.0
+- layer: blocks.9.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.45
+  maximum: 1.28
+  mean: 0.0
+- layer: blocks.9.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.91
+  maximum: 6.21
+  mean: 0.0
+- layer: blocks.9.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.91
+  maximum: 6.21
+  mean: 0.0
+- layer: blocks.9.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.91
+  maximum: 6.21
+  mean: 0.0
+- layer: blocks.9.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.91
+  maximum: 6.21
+  mean: 0.0
+- layer: blocks.9.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.5
+  maximum: 3040.08
+  mean: 0.91
+- layer: blocks.9.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.5
+  maximum: 3040.08
+  mean: 0.91
+- layer: blocks.9.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 4.78
+  maximum: 113.41
+  mean: 23.22
+- layer: blocks.9.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.58
+  maximum: 26.76
+  mean: 0.0
+- layer: blocks.9.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2
+  maximum: 6.87
+  mean: 0.0
+- layer: blocks.9.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2
+  maximum: 6.87
+  mean: 0.0
+- layer: blocks.9.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2
+  maximum: 6.87
+  mean: 0.0
+- layer: blocks.9.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2
+  maximum: 6.87
+  mean: 0.0
+- layer: blocks.9.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.94
+  maximum: 6.21
+  mean: -0.88
+- layer: blocks.9.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.94
+  maximum: 6.21
+  mean: -0.88
+- layer: blocks.9.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 6.21
+  mean: -0.05
+- layer: blocks.9.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 6.21
+  mean: -0.05
+- layer: blocks.9.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.85
+  maximum: 25.15
+  mean: 0.03
+- layer: blocks.9.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.85
+  maximum: 25.15
+  mean: 0.03
+- layer: blocks.9.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.85
+  maximum: 25.15
+  mean: 0.03
+- layer: blocks.9.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -73.23
+  maximum: 3051.26
+  mean: 0.94
+- layer: blocks.9.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -73.23
+  maximum: 3051.26
+  mean: 0.94
+- layer: blocks.10.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -73.23
+  maximum: 3051.26
+  mean: 0.94
+- layer: blocks.10.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -73.23
+  maximum: 3051.26
+  mean: 0.94
+- layer: blocks.10.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -73.23
+  maximum: 3051.26
+  mean: 0.94
+- layer: blocks.10.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 6.23
+  maximum: 113.77
+  mean: 24.27
+- layer: blocks.10.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.71
+  maximum: 26.78
+  mean: -0.0
+- layer: blocks.10.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.0
+  maximum: 2.46
+  mean: 0.01
+- layer: blocks.10.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.0
+  maximum: 2.46
+  mean: 0.01
+- layer: blocks.10.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.0
+  maximum: 2.46
+  mean: 0.01
+- layer: blocks.10.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.91
+  maximum: 5.35
+  mean: 0.01
+- layer: blocks.10.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.91
+  maximum: 5.35
+  mean: 0.01
+- layer: blocks.10.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.0
+  maximum: 2.46
+  mean: 0.01
+- layer: blocks.10.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.57
+  maximum: 5.55
+  mean: -0.01
+- layer: blocks.10.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.57
+  maximum: 5.55
+  mean: -0.01
+- layer: blocks.10.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.0
+  maximum: 2.46
+  mean: 0.01
+- layer: blocks.10.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.88
+  maximum: 5.27
+  mean: -0.0
+- layer: blocks.10.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.88
+  maximum: 5.27
+  mean: -0.0
+- layer: blocks.10.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 5.96
+  mean: -.inf
+- layer: blocks.10.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.10.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.26
+  maximum: 1.28
+  mean: -0.01
+- layer: blocks.10.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.26
+  maximum: 1.28
+  mean: -0.01
+- layer: blocks.10.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.87
+  maximum: 7.34
+  mean: 0.01
+- layer: blocks.10.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.87
+  maximum: 7.34
+  mean: 0.01
+- layer: blocks.10.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.87
+  maximum: 7.34
+  mean: 0.01
+- layer: blocks.10.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.87
+  maximum: 7.34
+  mean: 0.01
+- layer: blocks.10.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -78.87
+  maximum: 3052.27
+  mean: 0.95
+- layer: blocks.10.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -78.87
+  maximum: 3052.27
+  mean: 0.95
+- layer: blocks.10.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 6.51
+  maximum: 113.8
+  mean: 24.53
+- layer: blocks.10.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.12
+  maximum: 26.78
+  mean: -0.0
+- layer: blocks.10.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 8.0
+  mean: 0.02
+- layer: blocks.10.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 8.0
+  mean: 0.02
+- layer: blocks.10.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 8.0
+  mean: 0.02
+- layer: blocks.10.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 8.0
+  mean: 0.02
+- layer: blocks.10.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.85
+  maximum: 5.55
+  mean: -0.89
+- layer: blocks.10.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.85
+  maximum: 5.55
+  mean: -0.89
+- layer: blocks.10.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 5.55
+  mean: -0.05
+- layer: blocks.10.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 5.55
+  mean: -0.05
+- layer: blocks.10.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -83.64
+  maximum: 75.62
+  mean: 0.1
+- layer: blocks.10.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -83.64
+  maximum: 75.62
+  mean: 0.1
+- layer: blocks.10.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -83.64
+  maximum: 75.62
+  mean: 0.1
+- layer: blocks.10.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.5
+  maximum: 3055.42
+  mean: 1.05
+- layer: blocks.10.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.5
+  maximum: 3055.42
+  mean: 1.05
+- layer: blocks.11.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.5
+  maximum: 3055.42
+  mean: 1.05
+- layer: blocks.11.hook_resid_pre
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.5
+  maximum: 3055.42
+  mean: 1.05
+- layer: blocks.11.ln1.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.5
+  maximum: 3055.42
+  mean: 1.05
+- layer: blocks.11.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 9.12
+  maximum: 113.86
+  mean: 27.21
+- layer: blocks.11.ln1.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.83
+  maximum: 26.79
+  mean: 0.0
+- layer: blocks.11.ln1.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.95
+  maximum: 5.28
+  mean: 0.01
+- layer: blocks.11.attn.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.95
+  maximum: 5.28
+  mean: 0.01
+- layer: blocks.11.attn.q.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.95
+  maximum: 5.28
+  mean: 0.01
+- layer: blocks.11.attn.q.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.71
+  maximum: 5.79
+  mean: -0.01
+- layer: blocks.11.attn.hook_q
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.71
+  maximum: 5.79
+  mean: -0.01
+- layer: blocks.11.attn.k.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.95
+  maximum: 5.28
+  mean: 0.01
+- layer: blocks.11.attn.k.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.48
+  maximum: 4.46
+  mean: -0.01
+- layer: blocks.11.attn.hook_k
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.48
+  maximum: 4.46
+  mean: -0.01
+- layer: blocks.11.attn.v.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.95
+  maximum: 5.28
+  mean: 0.01
+- layer: blocks.11.attn.v.hook_out
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.53
+  maximum: 13.56
+  mean: 0.0
+- layer: blocks.11.attn.hook_v
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.53
+  maximum: 13.56
+  mean: 0.0
+- layer: blocks.11.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 6.49
+  mean: -.inf
+- layer: blocks.11.attn.hook_pattern
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  mean: 0.17
+- layer: blocks.11.attn.o.hook_in
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.53
+  maximum: 13.56
+  mean: 0.01
+- layer: blocks.11.attn.hook_z
+  shape: torch.Size([6, 12, 64])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.53
+  maximum: 13.56
+  mean: 0.01
+- layer: blocks.11.attn.o.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2589.08
+  maximum: 76.84
+  mean: -0.98
+- layer: blocks.11.attn.hook_hidden_states
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2589.08
+  maximum: 76.84
+  mean: -0.98
+- layer: blocks.11.attn.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2589.08
+  maximum: 76.84
+  mean: -0.98
+- layer: blocks.11.hook_attn_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2589.08
+  maximum: 76.84
+  mean: -0.98
+- layer: blocks.11.ln2.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -212.78
+  maximum: 466.34
+  mean: 0.07
+- layer: blocks.11.hook_resid_mid
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -212.78
+  maximum: 466.34
+  mean: 0.07
+- layer: blocks.11.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 11.76
+  maximum: 18.23
+  mean: 14.69
+- layer: blocks.11.ln2.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.26
+  maximum: 25.55
+  mean: -0.0
+- layer: blocks.11.ln2.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 2.03
+  mean: 0.01
+- layer: blocks.11.mlp.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 2.03
+  mean: 0.01
+- layer: blocks.11.hook_mlp_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 2.03
+  mean: 0.01
+- layer: blocks.11.mlp.in.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.08
+  maximum: 2.03
+  mean: 0.01
+- layer: blocks.11.mlp.in.hook_out
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.31
+  maximum: 4.92
+  mean: -0.74
+- layer: blocks.11.mlp.hook_pre
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.31
+  maximum: 4.92
+  mean: -0.74
+- layer: blocks.11.mlp.out.hook_in
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 4.92
+  mean: -0.04
+- layer: blocks.11.mlp.hook_post
+  shape: torch.Size([6, 3072])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.17
+  maximum: 4.92
+  mean: -0.04
+- layer: blocks.11.mlp.out.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -128.03
+  maximum: 54.72
+  mean: -0.04
+- layer: blocks.11.mlp.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -128.03
+  maximum: 54.72
+  mean: -0.04
+- layer: blocks.11.hook_mlp_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -128.03
+  maximum: 54.72
+  mean: -0.04
+- layer: blocks.11.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -216.98
+  maximum: 405.95
+  mean: 0.03
+- layer: blocks.11.hook_resid_post
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -216.98
+  maximum: 405.95
+  mean: 0.03
+- layer: ln_final.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -216.98
+  maximum: 405.95
+  mean: 0.03
+- layer: ln_final.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 12.5
+  maximum: 17.25
+  mean: 15.82
+- layer: ln_final.hook_normalized
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.57
+  maximum: 26.92
+  mean: 0.0
+- layer: ln_final.hook_out
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.75
+  maximum: 180.07
+  mean: 0.27
+- layer: unembed.hook_in
+  shape: torch.Size([6, 768])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -59.75
+  maximum: 180.07
+  mean: 0.27
+- layer: unembed.hook_out
+  shape: torch.Size([6, 50257])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -127.21
+  maximum: -38.89
+  mean: -80.51
+- layer: hook_unembed
+  shape: torch.Size([6, 50257])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -127.21
+  maximum: -38.89
+  mean: -80.51

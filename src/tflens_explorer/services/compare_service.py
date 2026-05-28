@@ -53,10 +53,11 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
     snapshot.save()
 
 def snapshots_list():
-    p = Path(SNAPSHOT_PATH)
-    for f in p.iterdir():
-        if f.is_file():
-            print(f.stem)
+    directory = Path(SNAPSHOT_PATH)
+    directories = [item for item in directory.iterdir() if item.is_dir()]
+
+    for item in directories:
+        print(str(item).split("/")[-1])
 
 def compare_runs():
     print("compare-runs")
