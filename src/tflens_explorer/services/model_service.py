@@ -8,6 +8,7 @@ from transformer_lens.model_bridge import TransformerBridge
 from transformer_lens.model_bridge.sources.transformers import list_supported_models
 from tflens_explorer.config.config_loader import load_model_aliases
 from tflens_explorer.config.config_loader import load_tflens_internals
+from tflens_explorer.core.snapshot_types import CacheSummary
 
 MODEL_ALIASES = load_model_aliases()
 INTERNALS = load_tflens_internals()
@@ -364,15 +365,15 @@ def get_cache_tensor(model, prompt, layer):
 
     return cache_info
     
-def cache_summary_for_snapshot(model, prompt, layer):
+def cache_summary_for_snapshot(model, prompt, hook):
     _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
     
-    if 'all' == layer:
+    if 'all' == hook:
         cache = []
-        for layer in gpt2_cache:
+        for hook_name in gpt2_cache:
             try: 
-                gpt2_attn = gpt2_cache[layer]
-                cache_info = {"layer": layer}
+                gpt2_attn = gpt2_cache[hook_name]
+                cache_info = {"hook": hook_name}
                 cache_info["shape"] = str(gpt2_attn.shape)
                 cache_info["dtype"] = str(gpt2_attn.dtype)
                 cache_info["device"] = str(gpt2_attn.device)
@@ -382,20 +383,25 @@ def cache_summary_for_snapshot(model, prompt, layer):
                     cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
                 except:
                     cache_info["mean"] = 'na'
-                cache_info["value"] = gpt2_attn[0].tolist()
+                cache_info['std'] = 0
+                cache_info['numel'] = 0
                 cache.append(cache_info)
             except:
                 breakpoint()
     else:
-        gpt2_attn = gpt2_cache[layer]
-        cache_info = {"layer": layer}
+        gpt2_attn = gpt2_cache[hook]
+        cache_info = {"hook": hook}
         cache_info["shape"] = str(gpt2_attn.shape)
         cache_info["dtype"] = str(gpt2_attn.dtype)
         cache_info["device"] = str(gpt2_attn.device)
         cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
         cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
         cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-        cache_info["value"] = gpt2_attn[0].tolist()
+        cache_info['std'] = 0
+        cache_info['numel'] = 0
         cache = cache_info
     return cache
     
+def summarize_cache_tensor(hook_name, tensor):
+    finite = tensor[torch.isfinite(tensor)]
+    return

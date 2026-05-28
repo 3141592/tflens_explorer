@@ -9,121 +9,10 @@ from dataclasses import dataclass, field, asdict
 from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
+from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, verify_snapshot
+from tflens_explorer.core.snapshot_types import CacheSummary, Model
 
-base_dir = Path(__file__).resolve().parents[3]
-snapshot_path = base_dir / "snapshots"
-snapshot_path.mkdir(parents=True, exist_ok=True)
-
-@dataclass
-class Model:
-    name: str | None = None
-    temperature: float | None = None
-    top_k: int | None = None
-    top_p: float | None = None
-    num_ctx: int | None = None
-    prepend_bos: bool | None = None
-    layers: int | None = None
-    heads: int | None = None
-    vocabulary: int | None = None    
-
-    def save(self) -> None:
-        path = snapshot_path / f"{self.name}.yaml"
-        serial = dict(self.__dict__)                    # shallow copy
-        # convert model to plain dict (choose attributes you need)
-        serial["model"] = {
-            "name": self.model.name,
-            "temperature": self.model.temperature,
-            "top_k": self.model.top_k,
-            "top_p": self.model.top_p,
-            "num_ctx": self.model.num_ctx,
-            "prepend_bos": self.model.prepend_bos,
-            "layers": self.model.layers,
-            "heads": self.model.heads,
-            "vocabulary": self.model.vocabulary,
-        }
-        with path.open("w", encoding="utf-8") as f:
-            yaml.safe_dump(serial, f, sort_keys=False)
-
-@dataclass
-class Snapshot:
-    name: str | None = None
-    model: Model | None = None
-    prompt: str | None = None
-    tokens: list[int] = field(default_factory=list)
-    logits: list[float] = field(default_factory=list)
-    cache: list[int] = field(default_factory=list)
-
-    def save(self) -> None:
-        """Save the snapshot to a YAML file."""
-        try:
-            path = snapshot_path / f"{self.name}.yaml"
-
-            # Convert Model object
-            serial = dict(self.__dict__)
-            serial["model"] = asdict(self.model)
-
-            with path.open("w", encoding="utf-8") as f:
-                # dump a plain dict instead of the object to avoid yaml picking class internals
-                yaml.safe_dump(serial, f, sort_keys=False)
-            print(f"Snapshot saved to {path}")
-        except Exception as e:
-            print(f"Error saving snapshot: {str(e)}")
-            raise
-
-    def load(self) -> None:
-        """Load the snapshot to a Snapshot object."""
-        try:
-            path = snapshot_path / f"{self.name}.yaml"
-            import yaml
-
-            with open(path, 'r') as file:
-                data = yaml.safe_load(file)
-
-            self.name = data['name']
-            self.prompt = data['prompt']
-            # Model
-            self.model = Model()
-            self.model.name = data['model']['name']
-            self.model.temperature = data['model']['temperature']
-            self.model.top_k = data['model']['top_k']
-            self.model.top_p = data['model']['top_p']
-            self.model.num_ctx = data['model']['num_ctx']
-            self.model.prepend_bos = data['model']['prepend_bos']
-            self.model.layers = data['model']['layers']
-            self.model.heads = data['model']['heads']
-            self.model.vocabulary = data['model']['vocabulary']
-            
-            # Tokens
-            self.tokens = []
-            for item in data['tokens']:
-                self.tokens.append(item)
-
-            # Logits
-            self.logits = []
-            for item in data['logits']:
-                self.logits.append(item)
-
-            # Cache
-            self.cache = []
-            if isinstance(data['cache'], list):
-                for item in data['cache']:
-                    self.cache.append(item)
-            elif isinstance(data['cache'], dict):
-                self.cache.append(data['cache'])
-            else:
-                print(f"Error loading cache. Check the snapshot cache.")
-                print()
-                return
-
-        except Exception as error:
-            print(f"Exception: {error}")
-            
-class Compare:
-    def __init__(self, name: str) -> None:
-        self.snapshot = Snapshot(name=name)
-        # Additional initialization could be added here
-
-def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> None:
+def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
     model_name = context.session.current_model_name
     current_model = context.session.model
@@ -147,9 +36,9 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
     )
     
     try:
-        cache = cache_summary_for_snapshot(current_model, prompt, layer)
+        cache = cache_summary_for_snapshot(current_model, prompt, hook)
     except:
-        print(f"Layer name {layer} is not valid.")
+        print(f"Hook name {hook} is not valid.")
         return
 
     snapshot = Snapshot(
@@ -164,10 +53,11 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
     snapshot.save()
 
 def snapshots_list():
-    p = Path(snapshot_path)
-    for f in p.iterdir():
-        if f.is_file():
-            print(f.stem)
+    directory = Path(SNAPSHOT_PATH)
+    directories = [item for item in directory.iterdir() if item.is_dir()]
+
+    for item in directories:
+        print(str(item).split("/")[-1])
 
 def compare_runs():
     print("compare-runs")
@@ -266,8 +156,9 @@ def compare_cache(snapshot1: Snapshot, snapshot2: Snapshot):
     print(f"  A: {snapshot1.prompt}")
     print(f"  B: {snapshot2.prompt}")
     print()
-    print(f"Cache activations:")
-    cache_activation_comparison(snapshot1.cache, snapshot2.cache)
+    print(f"Cache summary:")
+    cache_activation_summary(snapshot1.cache, snapshot2.cache)
+    #cache_activation_comparison(snapshot1.cache, snapshot2.cache)
 
 def cache_activation_comparison(cache1, cache2):
     print(f"    {'Attribute':<10} {'A':>30} {'B':>30}")
@@ -292,13 +183,6 @@ def cache_activation_comparison(cache1, cache2):
 
     print()
     return
-
-def verify_snapshot(snapshot_name):
-    p = Path(f"{snapshot_path}/{snapshot_name}.yaml")
-    if p.exists():
-        return True
-    else:
-        return False
 
 def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     all_args = locals()
@@ -351,7 +235,10 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences:")
         cache_activation_summary(snapshot1.cache, snapshot2.cache)
-        cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
+        #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
+        #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
+        #else:
+        #    print("Raw cache tensor values not available; skipping tensor-diff summary.")
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -515,7 +402,7 @@ def compare_logits_probs(logits1, logits2):
 def cache_activation_summary(cache1, cache2):
     print(
         f"    {'A/B':<4}"
-        f"{'layer':<35}"
+        f"{'hook_name':<35}"
         f"{'shape':>15}"
         f"{'min':>12}"
         f"{'max':>12}"
@@ -524,23 +411,23 @@ def cache_activation_summary(cache1, cache2):
 
     different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1["layer"]
-        hook2 = activation2["layer"]
-        shape1 = get_shape(activation1["shape"])
-        shape2 = get_shape(activation2["shape"])
-        minimum1 = activation1['minimum']
-        minimum2 = activation2['minimum']
-        maximum1 = activation1['maximum']
-        maximum2 = activation2['maximum']
+        hook1 = activation1.hook
+        hook2 = activation2.hook
+        shape1 = get_shape(activation1.shape)
+        shape2 = get_shape(activation2.shape)
+        minimum1 = activation1.minimum
+        minimum2 = activation2.minimum
+        maximum1 = activation1.maximum
+        maximum2 = activation2.maximum
         try:
-            mean1 = activation1['mean']
-            mean2 = activation2['mean']
+            mean1 = activation1.mean
+            mean2 = activation2.mean
         except:
             mean1 = 'na'
             mean2 = 'na'
 
         if hook1 != hook2:
-            print(f"Cache layers {hook1} and {hook2} do not match.")
+            print(f"Cache hooks {hook1} and {hook2} do not match.")
             return
 
         if (minimum1 == minimum2) and (maximum1 == maximum2):
@@ -569,21 +456,24 @@ def cache_activation_summary(cache1, cache2):
         print()
 
     if different_values_count == 0:
-        print("    All A: and B: values are the same.")
+        print("    No cache summary differences found.")
 
     print()
     return
 
+# TODO:
+# Reintroduce advanced tensor comparison once optional
+# raw tensor snapshot storage exists.
 def cache_activation_summary_2(cache1, cache2):
     print(f"    {'hook_name':<35} {'shape':<15} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
 
     different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1["layer"]
-        hook2 = activation2["layer"]
+        hook1 = activation1.layer
+        hook2 = activation2.layer
 
         if hook1 != hook2:
-            print(f"Cache layers {hook1} and {hook2} do not match.")
+            print(f"Cache hooks {hook1} and {hook2} do not match.")
             return
 
         value1 = torch.tensor(activation1["value"], dtype=torch.float32).flatten()
@@ -628,3 +518,7 @@ def cache_activation_summary_2(cache1, cache2):
     print()
 
     return
+
+def snapshots_have_raw_cache_values(cache1, cache2):
+    if not cache1 or not cache2:
+        return False
