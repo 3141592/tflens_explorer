@@ -402,11 +402,11 @@ def compare_logits_probs(logits1, logits2):
 def cache_activation_summary(cache1, cache2):
     print(
         f"    {'A/B':<4}"
-        f"{'hook_name':<35}"
+        f"{'hook_name':<36}"
         f"{'shape':>15}"
-        f"{'min':>12}"
-        f"{'max':>12}"
-        f"{'mean':>12}"
+        f"{'min':>13}"
+        f"{'max':>13}"
+        f"{'mean':>13}"
     )
 
     different_values_count = 0
@@ -419,12 +419,18 @@ def cache_activation_summary(cache1, cache2):
         minimum2 = activation2.minimum
         maximum1 = activation1.maximum
         maximum2 = activation2.maximum
-        try:
-            mean1 = activation1.mean
-            mean2 = activation2.mean
-        except:
-            mean1 = 'na'
-            mean2 = 'na'
+        
+        mean1_str = (
+            activation1.mean
+            if isinstance(activation1.mean, str)
+            else f"{activation1.mean:.4f}"
+        )
+
+        mean2_str = (
+            activation2.mean
+            if isinstance(activation2.mean, str)
+            else f"{activation2.mean:.4f}"
+        )
 
         if hook1 != hook2:
             print(f"Cache hooks {hook1} and {hook2} do not match.")
@@ -441,7 +447,7 @@ def cache_activation_summary(cache1, cache2):
             f"{shape1:>15} "
             f"{minimum1:>12.4f} "
             f"{maximum1:>12.4f} "
-            f"{mean1:>12.4f}"
+            f"{mean1_str:>12}"
         )
                 
         print(
@@ -450,7 +456,7 @@ def cache_activation_summary(cache1, cache2):
             f"{shape2:>15} "
             f"{minimum2:>12.4f} "
             f"{maximum2:>12.4f} "
-            f"{mean2:>12.4f}"
+            f"{mean2_str:>12}"
         )
         
         print()
