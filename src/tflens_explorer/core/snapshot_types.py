@@ -90,12 +90,10 @@ class Snapshot:
                 self.logits.append(item)
 
             # Cache
-            self.cache = []
-            if isinstance(data['cache'], list):
-                for item in data['cache']:
-                    self.cache.append(item)
-            elif isinstance(data['cache'], dict):
-                self.cache.append(data['cache'])
+            if isinstance(data["cache"], list):
+                self.cache = [CacheSummary(**item) for item in data["cache"]]
+            elif isinstance(data["cache"], dict):
+                self.cache = [CacheSummary(**data["cache"])]
             else:
                 print(f"Error loading cache. Check the snapshot cache.")
                 print()

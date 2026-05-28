@@ -10,9 +10,9 @@ from tflens_explorer.services.model_service import tokens_for_snapshot, logits_f
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, verify_snapshot
-from tflens_explorer.core.snapshot_types import CacheSummary
+from tflens_explorer.core.snapshot_types import CacheSummary, Model
 
-def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> None:
+def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
     model_name = context.session.current_model_name
     current_model = context.session.model
@@ -36,9 +36,9 @@ def snapshot_create(context: CommandContext, snapshot_name: str, layer: str) -> 
     )
     
     try:
-        cache = cache_summary_for_snapshot(current_model, prompt, layer)
+        cache = cache_summary_for_snapshot(current_model, prompt, hook)
     except:
-        print(f"Layer name {layer} is not valid.")
+        print(f"Hook name {hook} is not valid.")
         return
 
     snapshot = Snapshot(
@@ -233,10 +233,10 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences:")
         cache_activation_summary(snapshot1.cache, snapshot2.cache)
-        if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
-            cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
-        else:
-            print("Raw cache tensor values not available; skipping tensor-diff summary.")
+        #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
+        #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
+        #else:
+        #    print("Raw cache tensor values not available; skipping tensor-diff summary.")
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -400,7 +400,7 @@ def compare_logits_probs(logits1, logits2):
 def cache_activation_summary(cache1, cache2):
     print(
         f"    {'A/B':<4}"
-        f"{'layer':<35}"
+        f"{'hook_name':<35}"
         f"{'shape':>15}"
         f"{'min':>12}"
         f"{'max':>12}"
@@ -409,23 +409,23 @@ def cache_activation_summary(cache1, cache2):
 
     different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1["layer"]
-        hook2 = activation2["layer"]
-        shape1 = get_shape(activation1["shape"])
-        shape2 = get_shape(activation2["shape"])
-        minimum1 = activation1['minimum']
-        minimum2 = activation2['minimum']
-        maximum1 = activation1['maximum']
-        maximum2 = activation2['maximum']
+        hook1 = activation1.hook
+        hook2 = activation2.hook
+        shape1 = get_shape(activation1.shape)
+        shape2 = get_shape(activation2.shape)
+        minimum1 = activation1.minimum
+        minimum2 = activation2.minimum
+        maximum1 = activation1.maximum
+        maximum2 = activation2.maximum
         try:
-            mean1 = activation1['mean']
-            mean2 = activation2['mean']
+            mean1 = activation1.mean
+            mean2 = activation2.mean
         except:
             mean1 = 'na'
             mean2 = 'na'
 
         if hook1 != hook2:
-            print(f"Cache layers {hook1} and {hook2} do not match.")
+            print(f"Cache hooks {hook1} and {hook2} do not match.")
             return
 
         if (minimum1 == minimum2) and (maximum1 == maximum2):
@@ -459,16 +459,19 @@ def cache_activation_summary(cache1, cache2):
     print()
     return
 
+# TODO:
+# Reintroduce advanced tensor comparison once optional
+# raw tensor snapshot storage exists.
 def cache_activation_summary_2(cache1, cache2):
     print(f"    {'hook_name':<35} {'shape':<15} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
 
     different_values_count = 0
     for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1["layer"]
-        hook2 = activation2["layer"]
+        hook1 = activation1.layer
+        hook2 = activation2.layer
 
         if hook1 != hook2:
-            print(f"Cache layers {hook1} and {hook2} do not match.")
+            print(f"Cache hooks {hook1} and {hook2} do not match.")
             return
 
         value1 = torch.tensor(activation1["value"], dtype=torch.float32).flatten()
@@ -517,8 +520,3 @@ def cache_activation_summary_2(cache1, cache2):
 def snapshots_have_raw_cache_values(cache1, cache2):
     if not cache1 or not cache2:
         return False
-
-    return all(
-        "value" in activation1 and "value" in activation2
-        for activation1, activation2 in zip(cache1, cache2)
-    )

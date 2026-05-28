@@ -31,7 +31,7 @@ def handle_snapshot_create(context: CommandContext) -> None:
 
     kwargs = parse_kv_args(context.args)
     snapshot_name = kwargs.get("name")
-    layer = kwargs.get("layer")
+    hook = kwargs.get("hook")
 
     if snapshot_name == None:
         print("A snapshot name is required. Use: snapshot-create name=<name> layer=<layer>")
@@ -41,12 +41,12 @@ def handle_snapshot_create(context: CommandContext) -> None:
         print("Error: The snapshot name must be a valid Linux filename.")
         return
 
-    if layer == None:
-        print("A cache layer is required. Use: run-create name=<name> layer=<layer>")
-        print("Find a layer using the cache-layer command.")
+    if hook == None:
+        print("A cache hook name is required. Use: snapshot-create name=<name> hook=<hookname>|all")
+        print("Find a hook name using the cache-layer command.")
         return
 
-    snapshot_create(context, snapshot_name, layer)
+    snapshot_create(context, snapshot_name, hook)
 
     return
 
