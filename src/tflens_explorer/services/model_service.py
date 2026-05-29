@@ -378,16 +378,16 @@ def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
     cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
     cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
     cache_info['std'] = 0
-    cache_info['numel'] = 0
+    cache_info['numel'] = gpt2_attn.numel()
     cache = cache_info
 
-    torch.save(
-        {
-            "hook_name": hook,
-            "tensor": gpt2_attn.detach().cpu()
-        },
-        SNAPSHOT_PATH / snapshot_name / f"{hook}.pt"
-    )
+    #torch.save(
+    #    {
+    #        "hook_name": hook,
+    #        "tensor": gpt2_attn.detach().cpu()
+    #    },
+    #    SNAPSHOT_PATH / f"{hook}.pt"
+    #)
 
     return cache
     
@@ -409,7 +409,7 @@ def cache_summary_for_snapshot_all(model, prompt, snapshot_name):
             except:
                 cache_info["mean"] = 'na'
             cache_info['std'] = 0
-            cache_info['numel'] = 0
+            cache_info['numel'] = gpt2_attn.numel()
             cache.append(cache_info)
         except:
             traceback.print_exception(type(ex), ex, ex.__traceback__)
