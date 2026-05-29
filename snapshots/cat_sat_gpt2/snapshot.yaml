@@ -53,12 +53,12 @@ logits:
   prob: 0.04
   token: ' edge'
 cache:
-  hook: blocks.0.mlp.hook_post
-  shape: torch.Size([6, 3072])
+  hook: blocks.0.ln1.hook_scale
+  shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: -0.17
-  maximum: 13.1
-  mean: -0.05
+  minimum: 0.18
+  maximum: 0.37
+  mean: 0.22
   std: 0
   numel: 0

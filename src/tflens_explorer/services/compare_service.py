@@ -4,9 +4,12 @@ import os
 import yaml
 import torch
 import re
+import traceback
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, cache_summary_for_snapshot, get_model_alias
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot
+from tflens_explorer.services.model_service import cache_summary_for_snapshot, get_model_alias
+from tflens_explorer.services.model_service import cache_summary_for_snapshot_all
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, verify_snapshot
@@ -36,9 +39,12 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
     )
     
     try:
-        cache = cache_summary_for_snapshot(current_model, prompt, hook)
-    except:
-        print(f"Hook name {hook} is not valid.")
+        if 'all' == hook:
+            cache = cache_summary_for_snapshot_all(current_model, prompt, snapshot_name)
+        else:
+            cache = cache_summary_for_snapshot(current_model, prompt, hook, snapshot_name)
+    except Exception as ex:
+        traceback.print_exception(type(ex), ex, ex.__traceback__)
         return
 
     snapshot = Snapshot(
@@ -260,7 +266,8 @@ def compare_token_ids(tokens1, tokens2):
             else:
                 token_id_comparison[index] = False
         except:
-            breakpoint()
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
+
     return token_id_comparison
 
 def print_token_id_comparison(snapshot1, snapshot2, token_id_comparison):
@@ -305,7 +312,7 @@ def compare_tokens(tokens1, tokens2):
             else:
                 token_comparison[index] = False
         except:
-            breakpoint()
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
 
     return token_comparison
 

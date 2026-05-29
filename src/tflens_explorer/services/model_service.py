@@ -2,6 +2,7 @@
 
 import os
 import torch
+import traceback
 from pathlib import Path
 from time import perf_counter
 from transformer_lens.model_bridge import TransformerBridge
@@ -9,6 +10,7 @@ from transformer_lens.model_bridge.sources.transformers import list_supported_mo
 from tflens_explorer.config.config_loader import load_model_aliases
 from tflens_explorer.config.config_loader import load_tflens_internals
 from tflens_explorer.core.snapshot_types import CacheSummary
+from tflens_explorer.core.snapshot_types import SNAPSHOT_PATH
 
 MODEL_ALIASES = load_model_aliases()
 INTERNALS = load_tflens_internals()
@@ -31,8 +33,7 @@ def try_hf_login(verbose: bool = True) -> bool:
             print("HF login: succeeded")
         return True
     except Exception as e:
-        if verbose:
-            print(f"HF login: failed ({type(e).__name__}: {e})")
+        traceback.print_exception(type(ex), ex, ex.__traceback__)
         return False
 
 
@@ -365,41 +366,59 @@ def get_cache_tensor(model, prompt, layer):
 
     return cache_info
     
-def cache_summary_for_snapshot(model, prompt, hook):
+def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
     _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
     
-    if 'all' == hook:
-        cache = []
-        for hook_name in gpt2_cache:
-            try: 
-                gpt2_attn = gpt2_cache[hook_name]
-                cache_info = {"hook": hook_name}
-                cache_info["shape"] = str(gpt2_attn.shape)
-                cache_info["dtype"] = str(gpt2_attn.dtype)
-                cache_info["device"] = str(gpt2_attn.device)
-                cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-                cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-                try:
-                    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-                except:
-                    cache_info["mean"] = 'na'
-                cache_info['std'] = 0
-                cache_info['numel'] = 0
-                cache.append(cache_info)
+    gpt2_attn = gpt2_cache[hook]
+    cache_info = {"hook": hook}
+    cache_info["shape"] = str(gpt2_attn.shape)
+    cache_info["dtype"] = str(gpt2_attn.dtype)
+    cache_info["device"] = str(gpt2_attn.device)
+    cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
+    cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
+    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
+    cache_info['std'] = 0
+    cache_info['numel'] = 0
+    cache = cache_info
+
+    torch.save(
+        {
+            "hook_name": hook,
+            "tensor": gpt2_attn.detach().cpu()
+        },
+        SNAPSHOT_PATH / snapshot_name / f"{hook}.pt"
+    )
+
+    return cache
+    
+def cache_summary_for_snapshot_all(model, prompt, snapshot_name):
+    _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
+    
+    cache = []
+    for hook_name in gpt2_cache:
+        try: 
+            gpt2_attn = gpt2_cache[hook_name]
+            cache_info = {"hook": hook_name}
+            cache_info["shape"] = str(gpt2_attn.shape)
+            cache_info["dtype"] = str(gpt2_attn.dtype)
+            cache_info["device"] = str(gpt2_attn.device)
+            cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
+            cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
+            try:
+                cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
             except:
-                breakpoint()
-    else:
-        gpt2_attn = gpt2_cache[hook]
-        cache_info = {"hook": hook}
-        cache_info["shape"] = str(gpt2_attn.shape)
-        cache_info["dtype"] = str(gpt2_attn.dtype)
-        cache_info["device"] = str(gpt2_attn.device)
-        cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-        cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-        cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-        cache_info['std'] = 0
-        cache_info['numel'] = 0
-        cache = cache_info
+                cache_info["mean"] = 'na'
+            cache_info['std'] = 0
+            cache_info['numel'] = 0
+            cache.append(cache_info)
+        except:
+            traceback.print_exception(type(ex), ex, ex.__traceback__)
+
+    torch.save(
+        {hook_name: tensor.detach().cpu() for hook_name, tensor in gpt2_cache.items()},
+        SNAPSHOT_PATH / snapshot_name / "cache_tensors.pt",
+    )
+
     return cache
     
 def summarize_cache_tensor(hook_name, tensor):
