@@ -5,6 +5,7 @@ import yaml
 import torch
 import re
 import traceback
+import datetime
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot
@@ -12,7 +13,8 @@ from tflens_explorer.services.model_service import cache_summary_for_snapshot, g
 from tflens_explorer.services.model_service import cache_summary_for_snapshot_all
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
-from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, verify_snapshot
+from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH
+from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
@@ -25,6 +27,11 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
 
     if len(model_alias) > 0:
         model_name = f"{model_alias} -> {model_name}"
+
+    metadata = SnapshotMetadata(
+        name=snapshot_name,
+        creation_date=datetime.datetime.now().strftime("%B %d, %Y %I:%M%p")
+    )
 
     model = Model(
         name=model_name,
@@ -48,7 +55,7 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
         return
 
     snapshot = Snapshot(
-        name=snapshot_name,
+        metadata=metadata,
         model=model,
         prompt=prompt,
         tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
@@ -199,11 +206,8 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
             print(f"Snapshot {value} does not exist. Use: snapshots-list to find valid snapshots.")
             return
 
-    snapshot1 = Snapshot(name=snapshot1)
-    snapshot1.load()
-
-    snapshot2 = Snapshot(name=snapshot2)
-    snapshot2.load()
+    snapshot1 = Snapshot.load(snapshot1)
+    snapshot2 = Snapshot.load(snapshot2)
 
     token_size_comparison = snapshot1.tokens[0] == snapshot2.tokens[0]
     token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)

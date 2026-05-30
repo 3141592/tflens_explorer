@@ -151,7 +151,7 @@ commands:
     description: Runs model evaluations defined in the evals.yml and prints just the summary. 
 
   - name: snapshot-create
-    aliases: []
+    aliases: ["sc"]
     handler: handlers.compare_handlers.handle_snapshot_create
     description: Creates a snapshot YAML file for comparisons. 
 
@@ -201,7 +201,7 @@ commands:
     description: Compare two models. 
 
   - name: compare-snapshots
-    aliases: []
+    aliases: ["cs"]
     handler: handlers.compare_handlers.handle_compare_snapshots
     description: Compare two snapshots. 
 
