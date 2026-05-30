@@ -3,6 +3,7 @@
 import os
 import torch
 import traceback
+import numpy as np
 from pathlib import Path
 from time import perf_counter
 from transformer_lens.model_bridge import TransformerBridge
@@ -376,9 +377,13 @@ def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
     cache_info["device"] = str(gpt2_attn.device)
     cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
     cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-    cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-    cache_info['std'] = 0
     cache_info['numel'] = gpt2_attn.numel()
+    if torch.is_floating_point(gpt2_attn):
+        cache_info["mean"] = round(float(gpt2_attn.mean().item()), 4)
+        cache_info["std"] = round(float(gpt2_attn.std().item()), 4)
+    else:
+        cache_info["mean"] = "na"
+        cache_info["std"] = "na"
     cache = cache_info
 
     #torch.save(
@@ -404,14 +409,15 @@ def cache_summary_for_snapshot_all(model, prompt, snapshot_name):
             cache_info["device"] = str(gpt2_attn.device)
             cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
             cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-            try:
-                cache_info["mean"] = round(torch.mean(gpt2_attn).item(), 2)
-            except:
-                cache_info["mean"] = 'na'
-            cache_info['std'] = 0
             cache_info['numel'] = gpt2_attn.numel()
+            if torch.is_floating_point(gpt2_attn):
+                cache_info["mean"] = round(float(gpt2_attn.mean().item()), 4)
+                cache_info["std"] = round(float(gpt2_attn.std().item()), 4)
+            else:
+                cache_info["mean"] = "na"
+                cache_info["std"] = "na"
             cache.append(cache_info)
-        except:
+        except Exception as ex:
             traceback.print_exception(type(ex), ex, ex.__traceback__)
 
     torch.save(
