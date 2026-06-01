@@ -205,15 +205,20 @@ def tokens_for_snapshot(model, prompt, prepend_bos):
     # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
     tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
 
-    token_list = []
-    all_tokens = []
-    shape = {"shape": str(tokens[0].shape)}
-    all_tokens.append(shape)
+    token_values = []
+
     for index, token in enumerate(tokens[0]):
         str_token = model.to_str_tokens(token)
-        token_dict = {"index": index, "token_id": token.item(), "token": str_token[0]}
-        all_tokens.append(token_dict)
-    return all_tokens
+        token_values.append({
+            "index": index,
+            "token_id": token.item(),
+            "token": str_token[0],
+        })
+
+    return {
+        "shape": str(tokens[0].shape),
+        "values": token_values,
+    }
 
 def token_decode(model, token_id):
     if token_id < 0 or token_id >= model.cfg.d_vocab:

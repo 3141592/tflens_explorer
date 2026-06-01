@@ -28,11 +28,28 @@ class SnapshotMetadata:
     creation_date: str | None = None
 
 @dataclass
+class TokenSummary:
+    shape: list[int]
+    values: list[dict]
+
+@dataclass
+class CacheSummary:
+    hook: str
+    shape: list[int]
+    dtype: str
+    device: str
+    minimum: float
+    maximum: float
+    mean: float | str
+    std: float | str
+    numel: int
+
+@dataclass
 class Snapshot:
     metadata: SnapshotMetadata | None = None
     model: Model | None = None
     prompt: str | None = None
-    tokens: list[int] = field(default_factory=list)
+    tokens: TokenSummary | None = None
     logits: list[float] = field(default_factory=list)
     cache: list[int] = field(default_factory=list)
 
@@ -74,23 +91,6 @@ class Snapshot:
         except Exception as error:
             print(error)
             exit
-
-@dataclass
-class CacheSummary:
-    hook: str
-    shape: list[int]
-    dtype: str
-    device: str
-    minimum: float
-    maximum: float
-    mean: float | str
-    std: float | str
-    numel: int
-
-class Compare:
-    def __init__(self, name: str) -> None:
-        self.snapshot = Snapshot(name=name)
-        # Additional initialization could be added here
 
 def snapshot_dir(snapshot_name: str) -> Path:
     return SNAPSHOT_PATH / snapshot_name
