@@ -412,13 +412,10 @@ def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
 
     cache = cache_info
 
-    #torch.save(
-    #    {
-    #        "hook_name": hook,
-    #        "tensor": gpt2_attn.detach().cpu()
-    #    },
-    #    SNAPSHOT_PATH / f"{hook}.pt"
-    #)
+    torch.save(
+        {hook_name: tensor.detach().cpu() for hook_name, tensor in gpt2_cache.items()},
+        SNAPSHOT_PATH / snapshot_name / "cache_tensors.pt",
+    )
 
     return cache
     

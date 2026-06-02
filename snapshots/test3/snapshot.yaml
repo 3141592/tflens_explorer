@@ -1,6 +1,6 @@
 metadata:
   name: test3
-  creation_date: June 02, 2026 01:30PM
+  creation_date: June 02, 2026 02:11PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -55,12 +55,12 @@ logits:
   prob: 0.04
   token: ' edge'
 cache:
-  hook: blocks.7.attn.k.hook_out
-  shape: torch.Size([6, 12, 64])
+  hook: blocks.0.ln1.hook_normalized
+  shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.22
-  maximum: 11.35
+  minimum: -12.0373
+  maximum: 10.5258
   numel: 4608
-  mean: -0.0077
-  std: 1.6452
+  std: 1.0
+  mean: 0.0
