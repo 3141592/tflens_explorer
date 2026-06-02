@@ -1,6 +1,6 @@
 metadata:
   name: test6
-  creation_date: June 02, 2026 01:50PM
+  creation_date: June 02, 2026 02:02PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -59,8 +59,8 @@ cache:
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.4028234663852886e+38
-  maximum: 12.95
+  minimum: -6.0141
+  maximum: 12.9535
   numel: 432
-  mean: -.inf
-  std: .inf
+  std: 3.171
+  mean: 0.0395

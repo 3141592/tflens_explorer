@@ -244,7 +244,7 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
-        print(f"Cache activation differences:")
+        print(f"Cache activation differences (unmasked finite values):")
         cache_activation_summary(snapshot1.cache, snapshot2.cache)
         #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
         #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)

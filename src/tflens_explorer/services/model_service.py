@@ -378,19 +378,38 @@ def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
     _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
     
     gpt2_attn = gpt2_cache[hook]
+    t = gpt2_attn.detach().float().cpu()
+
+    # Remove NaN and +/- inf
+    finite = torch.isfinite(t)
+
+    # Remove float32 "negative infinity" mask values
+    mask_floor = torch.finfo(torch.float32).min
+    not_masked = t > (mask_floor / 2)
+
+    valid = t[finite & not_masked]
+
     cache_info = {"hook": hook}
     cache_info["shape"] = str(gpt2_attn.shape)
     cache_info["dtype"] = str(gpt2_attn.dtype)
     cache_info["device"] = str(gpt2_attn.device)
-    cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-    cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-    cache_info['numel'] = gpt2_attn.numel()
-    if torch.is_floating_point(gpt2_attn):
-        cache_info["mean"] = round(float(gpt2_attn.mean().item()), 4)
-        cache_info["std"] = round(float(gpt2_attn.std().item()), 4)
+    
+    if valid.numel() == 0:
+        minimum = "na"
+        maximum = "na"
+        mean = "na"
+        std = "na"
     else:
-        cache_info["mean"] = "na"
-        cache_info["std"] = "na"
+        cache_info["minimum"] = round(float(valid.min().item()), 4)
+        cache_info["maximum"] = round(float(valid.max().item()), 4)
+        cache_info['numel'] = t.numel()
+        std = round(float(valid.std().item()), 4) if valid.numel() > 1 else 0.0
+        cache_info['std'] = std
+        if torch.is_floating_point(t):
+            cache_info["mean"] = round(float(valid.mean().item()), 4)
+        else:
+            cache_info["mean"] = "na"
+
     cache = cache_info
 
     #torch.save(
@@ -410,19 +429,38 @@ def cache_summary_for_snapshot_all(model, prompt, snapshot_name):
     for hook_name in gpt2_cache:
         try: 
             gpt2_attn = gpt2_cache[hook_name]
+            t = gpt2_attn.detach().float().cpu()
+
+            # Remove NaN and +/- inf
+            finite = torch.isfinite(t)
+
+            # Remove float32 "negative infinity" mask values
+            mask_floor = torch.finfo(torch.float32).min
+            not_masked = t > (mask_floor / 2)
+
+            valid = t[finite & not_masked]
+
             cache_info = {"hook": hook_name}
             cache_info["shape"] = str(gpt2_attn.shape)
             cache_info["dtype"] = str(gpt2_attn.dtype)
             cache_info["device"] = str(gpt2_attn.device)
-            cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-            cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-            cache_info['numel'] = gpt2_attn.numel()
-            if torch.is_floating_point(gpt2_attn):
-                cache_info["mean"] = round(float(gpt2_attn.mean().item()), 4)
-                cache_info["std"] = round(float(gpt2_attn.std().item()), 4)
+    
+            if valid.numel() == 0:
+                minimum = "na"
+                maximum = "na"
+                mean = "na"
+                std = "na"
             else:
-                cache_info["mean"] = "na"
-                cache_info["std"] = "na"
+                cache_info["minimum"] = round(float(valid.min().item()), 4)
+                cache_info["maximum"] = round(float(valid.max().item()), 4)
+                cache_info['numel'] = t.numel()
+                std = round(float(valid.std().item()), 4) if valid.numel() > 1 else 0.0
+                cache_info['std'] = std
+                if torch.is_floating_point(t):
+                    cache_info["mean"] = round(float(valid.mean().item()), 4)
+                else:
+                    cache_info["mean"] = "na"
+
             cache.append(cache_info)
         except Exception as ex:
             traceback.print_exception(type(ex), ex, ex.__traceback__)
