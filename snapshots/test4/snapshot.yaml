@@ -1,6 +1,6 @@
 metadata:
-  name: test2
-  creation_date: June 02, 2026 01:01PM
+  name: test4
+  creation_date: June 02, 2026 01:31PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -12,7 +12,7 @@ model:
   heads: 12
   vocabulary: 50257
 prompt: The dog sat on the
-token_shape: null
+token_shape: torch.Size([1, 6])
 tokens:
 - index: 0
   token_id: 50256

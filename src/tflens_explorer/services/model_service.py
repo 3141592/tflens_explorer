@@ -215,10 +215,12 @@ def tokens_for_snapshot(model, prompt, prepend_bos):
             "token": str_token[0],
         })
 
-    return {
-        "shape": str(tokens[0].shape),
-        "values": token_values,
-    }
+    return token_values
+
+def tokens_shape(model, prompt, prepend_bos):
+    # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
+    tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
+    return str(tokens.shape)
 
 def token_decode(model, token_id):
     if token_id < 0 or token_id >= model.cfg.d_vocab:

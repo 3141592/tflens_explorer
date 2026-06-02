@@ -8,7 +8,7 @@ import traceback
 import datetime
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, tokens_shape
 from tflens_explorer.services.model_service import cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.services.model_service import cache_summary_for_snapshot_all
 from tflens_explorer.core.types import CommandContext
@@ -58,6 +58,7 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
         metadata=metadata,
         model=model,
         prompt=prompt,
+        token_shape=tokens_shape(current_model, prompt, prepend_bos),
         tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
         logits=logits_for_snapshot(current_model, prompt, prepend_bos),
         cache=cache,
@@ -197,7 +198,7 @@ def cache_activation_comparison(cache1, cache2):
     print()
     return
 
-def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
+def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
     all_args = locals()
     for name, value in all_args.items():
         if verify_snapshot(value):
@@ -206,10 +207,10 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
             print(f"Snapshot {value} does not exist. Use: snapshots-list to find valid snapshots.")
             return
 
-    snapshot1 = Snapshot.load(snapshot1)
-    snapshot2 = Snapshot.load(snapshot2)
-
-    token_size_comparison = snapshot1.tokens[0] == snapshot2.tokens[0]
+    snapshot1 = Snapshot.load(snapshot1_name)
+    snapshot2 = Snapshot.load(snapshot2_name)
+    breakpoint()
+    token_size_comparison = snapshot1.tokens == snapshot2.tokens
     token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)
     token_comparison = compare_tokens(snapshot1.tokens, snapshot2.tokens)
     logits_1_size = snapshot1.logits[0]
@@ -257,7 +258,7 @@ def compare_token_ids(tokens1, tokens2):
     for index, item in enumerate(tokens1):
         if len(tokens2) <= index:
             token_id_comparison[index] = False
-        elif item['token_id'] == tokens2[index]['token_id']:
+        elif item.token_id == tokens2[index].token_id:
             token_id_comparison[index] = True
         else:
             token_id_comparison[index] = False
@@ -265,7 +266,7 @@ def compare_token_ids(tokens1, tokens2):
         try:
             if len(tokens1) <= index:
                 token_id_comparison[index] = False
-            elif item['token_id'] == tokens1[index]['token_id']:
+            elif item.token_id == tokens1[index].token_id:
                 token_id_comparison[index] = True
             else:
                 token_id_comparison[index] = False
@@ -302,7 +303,7 @@ def compare_tokens(tokens1, tokens2):
     for index, item in enumerate(tokens1):
         if len(tokens2) <= index:
             token_comparison[index] = False
-        elif item['token'] == tokens2[index]['token']:
+        elif item.token == tokens2[index].token:
             token_comparison[index] = True
         else:
             token_comparison[index] = False
@@ -311,7 +312,7 @@ def compare_tokens(tokens1, tokens2):
         try:
             if len(tokens1) <= index:
                 token_comparison[index] = False
-            elif item['token'] == tokens1[index]['token']:
+            elif item.token == tokens1[index].token:
                 token_comparison[index] = True
             else:
                 token_comparison[index] = False

@@ -1,6 +1,6 @@
 metadata:
-  name: test2
-  creation_date: June 02, 2026 01:01PM
+  name: test3
+  creation_date: June 02, 2026 01:30PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -11,8 +11,8 @@ model:
   layers: 12
   heads: 12
   vocabulary: 50257
-prompt: The dog sat on the
-token_shape: null
+prompt: The cat sat on the
+token_shape: torch.Size([1, 6])
 tokens:
 - index: 0
   token_id: 50256
@@ -21,8 +21,8 @@ tokens:
   token_id: 464
   token: The
 - index: 2
-  token_id: 3290
-  token: ' dog'
+  token_id: 3797
+  token: ' cat'
 - index: 3
   token_id: 3332
   token: ' sat'
@@ -35,32 +35,32 @@ tokens:
 logits:
 - shape: torch.Size([1, 6, 50257])
 - index: 0
-  value: -82.21
+  value: -81.29
   prob: 0.09
   token: ' floor'
 - index: 1
-  value: -82.5
-  prob: 0.07
-  token: ' ground'
-- index: 2
-  value: -82.84
-  prob: 0.05
+  value: -81.61
+  prob: 0.06
   token: ' bed'
-- index: 3
-  value: -83.02
-  prob: 0.04
+- index: 2
+  value: -81.81
+  prob: 0.05
   token: ' couch'
+- index: 3
+  value: -82.0
+  prob: 0.04
+  token: ' ground'
 - index: 4
-  value: -83.2
-  prob: 0.03
-  token: ' back'
+  value: -82.03
+  prob: 0.04
+  token: ' edge'
 cache:
   hook: blocks.7.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.07
-  maximum: 11.31
+  minimum: -9.22
+  maximum: 11.35
   numel: 4608
-  mean: -0.0075
-  std: 1.6257
+  mean: -0.0077
+  std: 1.6452

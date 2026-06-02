@@ -29,8 +29,14 @@ class SnapshotMetadata:
 
 @dataclass
 class TokenSummary:
-    shape: list[int]
-    values: list[dict]
+    index: int
+    token_id: int
+    token: str
+
+@dataclass
+class TokenCollection:
+    shape: str
+    values: list[TokenSummary]
 
 @dataclass
 class CacheSummary:
@@ -49,7 +55,8 @@ class Snapshot:
     metadata: SnapshotMetadata | None = None
     model: Model | None = None
     prompt: str | None = None
-    tokens: TokenSummary | None = None
+    token_shape: str | None = None
+    tokens: list[TokenSummary] = field(default_factory=list)
     logits: list[float] = field(default_factory=list)
     cache: list[int] = field(default_factory=list)
 
@@ -75,6 +82,13 @@ class Snapshot:
             with path.open("r", encoding="utf-8") as f:
                 data = yaml.safe_load(f)
 
+            token_values = data.get("tokens", [])
+
+            tokens = [
+                TokenSummary(**token_data)
+                for token_data in token_values
+            ]
+
             cache = [
                 CacheSummary(**cache_data)
                 for cache_data in data["cache"]
@@ -84,12 +98,14 @@ class Snapshot:
                 metadata=SnapshotMetadata(**data["metadata"]),
                 model=Model(**data["model"]) if data.get("model") else None,
                 prompt=data.get("prompt"),
-                tokens=data.get("tokens", []),
+                token_shape=data.get('token_shape'),
+                tokens=tokens,
                 logits=data.get("logits", []),
                 cache=cache,
             )
         except Exception as error:
             print(error)
+            breakpoint()
             exit
 
 def snapshot_dir(snapshot_name: str) -> Path:

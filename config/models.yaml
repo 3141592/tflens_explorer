@@ -15,3 +15,4 @@ models:
   tiny-llama: alexredna/TinyLlama-1.1B-Chat-v1.0-reasoning-v2
   mistral1: distilabel-internal-testing/tiny-random-mistral
   mistral2: yujiepan/mistral-v0.3-tiny-random
+  kimi: nvidia/Kimi-K2.6-NVFP4
