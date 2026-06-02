@@ -89,9 +89,14 @@ class Snapshot:
                 for token_data in token_values
             ]
 
+            raw_cache = data.get("cache", [])
+
+            if isinstance(raw_cache, dict):
+                raw_cache = [raw_cache]
+
             cache = [
                 CacheSummary(**cache_data)
-                for cache_data in data["cache"]
+                for cache_data in raw_cache
             ]
 
             return cls(

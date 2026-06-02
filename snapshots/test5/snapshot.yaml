@@ -1,0 +1,66 @@
+metadata:
+  name: test5
+  creation_date: June 02, 2026 01:50PM
+model:
+  name: gpt2 -> openai-community/gpt2
+  temperature: 0.0
+  top_k: 0
+  top_p: 0.0
+  num_ctx: 1024
+  prepend_bos: null
+  layers: 12
+  heads: 12
+  vocabulary: 50257
+prompt: The cat sat on the
+token_shape: torch.Size([1, 6])
+tokens:
+- index: 0
+  token_id: 50256
+  token: <|endoftext|>
+- index: 1
+  token_id: 464
+  token: The
+- index: 2
+  token_id: 3797
+  token: ' cat'
+- index: 3
+  token_id: 3332
+  token: ' sat'
+- index: 4
+  token_id: 319
+  token: ' on'
+- index: 5
+  token_id: 262
+  token: ' the'
+logits:
+- shape: torch.Size([1, 6, 50257])
+- index: 0
+  value: -81.29
+  prob: 0.09
+  token: ' floor'
+- index: 1
+  value: -81.61
+  prob: 0.06
+  token: ' bed'
+- index: 2
+  value: -81.81
+  prob: 0.05
+  token: ' couch'
+- index: 3
+  value: -82.0
+  prob: 0.04
+  token: ' ground'
+- index: 4
+  value: -82.03
+  prob: 0.04
+  token: ' edge'
+cache:
+  hook: blocks.0.attn.hook_attn_scores
+  shape: torch.Size([12, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4028234663852886e+38
+  maximum: 13.23
+  numel: 432
+  mean: -.inf
+  std: .inf

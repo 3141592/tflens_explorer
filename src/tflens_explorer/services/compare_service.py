@@ -209,8 +209,8 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
 
     snapshot1 = Snapshot.load(snapshot1_name)
     snapshot2 = Snapshot.load(snapshot2_name)
-    breakpoint()
-    token_size_comparison = snapshot1.tokens == snapshot2.tokens
+
+    token_size_comparison = snapshot1.token_shape == snapshot2.token_shape
     token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)
     token_comparison = compare_tokens(snapshot1.tokens, snapshot2.tokens)
     logits_1_size = snapshot1.logits[0]

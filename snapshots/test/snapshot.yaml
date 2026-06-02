@@ -1,6 +1,6 @@
 metadata:
   name: test
-  creation_date: June 02, 2026 12:43PM
+  creation_date: June 02, 2026 01:46PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -12,27 +12,26 @@ model:
   heads: 12
   vocabulary: 50257
 prompt: The cat sat on the
-token_shape: null
+token_shape: torch.Size([1, 6])
 tokens:
-  values:
-  - index: 0
-    token_id: 50256
-    token: <|endoftext|>
-  - index: 1
-    token_id: 464
-    token: The
-  - index: 2
-    token_id: 3797
-    token: ' cat'
-  - index: 3
-    token_id: 3332
-    token: ' sat'
-  - index: 4
-    token_id: 319
-    token: ' on'
-  - index: 5
-    token_id: 262
-    token: ' the'
+- index: 0
+  token_id: 50256
+  token: <|endoftext|>
+- index: 1
+  token_id: 464
+  token: The
+- index: 2
+  token_id: 3797
+  token: ' cat'
+- index: 3
+  token_id: 3332
+  token: ' sat'
+- index: 4
+  token_id: 319
+  token: ' on'
+- index: 5
+  token_id: 262
+  token: ' the'
 logits:
 - shape: torch.Size([1, 6, 50257])
 - index: 0
