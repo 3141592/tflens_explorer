@@ -488,9 +488,10 @@ def cache_activation_summary(cache1, cache2, diff):
         )
 
         print()
-        print(f"  Total hooks listed: {hook_count}")
-        print()
 
+    print()
+    print(f"  Total hooks listed: {hook_count}")
+    
     if different_values_count == 0:
         print("    No cache summary differences found.")
 
