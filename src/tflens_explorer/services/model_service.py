@@ -11,7 +11,7 @@ from transformer_lens.model_bridge.sources.transformers import list_supported_mo
 from tflens_explorer.config.config_loader import load_model_aliases
 from tflens_explorer.config.config_loader import load_tflens_internals
 from tflens_explorer.core.snapshot_types import CacheSummary
-from tflens_explorer.core.snapshot_types import SNAPSHOT_PATH
+from tflens_explorer.core.snapshot_types import SNAPSHOT_PATH, snapshot_yaml_path
 
 MODEL_ALIASES = load_model_aliases()
 INTERNALS = load_tflens_internals()
@@ -414,6 +414,9 @@ def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
 
     cache = cache_info
 
+    path = snapshot_yaml_path(snapshot_name)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
     torch.save(
         {hook_name: tensor.detach().cpu() for hook_name, tensor in gpt2_cache.items()},
         SNAPSHOT_PATH / snapshot_name / "cache_tensors.pt",
@@ -463,6 +466,9 @@ def cache_summary_for_snapshot_all(model, prompt, snapshot_name):
             cache.append(cache_info)
         except Exception as ex:
             traceback.print_exception(type(ex), ex, ex.__traceback__)
+
+    path = snapshot_yaml_path(snapshot_name)
+    path.parent.mkdir(parents=True, exist_ok=True)
 
     torch.save(
         {hook_name: tensor.detach().cpu() for hook_name, tensor in gpt2_cache.items()},

@@ -1,4 +1,6 @@
-name: cat_sat_gpt2
+metadata:
+  name: cat_sat_gpt2
+  creation_date: June 03, 2026 05:20PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -10,8 +12,8 @@ model:
   heads: 12
   vocabulary: 50257
 prompt: The cat sat on the
+token_shape: torch.Size([1, 6])
 tokens:
-- shape: torch.Size([6])
 - index: 0
   token_id: 50256
   token: <|endoftext|>
@@ -30,35 +32,35 @@ tokens:
 - index: 5
   token_id: 262
   token: ' the'
+logit_shape: torch.Size([1, 6, 50257])
 logits:
-- shape: torch.Size([1, 6, 50257])
 - index: 0
   value: -81.29
-  prob: 0.09
+  probability: 0.09
   token: ' floor'
 - index: 1
   value: -81.61
-  prob: 0.06
+  probability: 0.06
   token: ' bed'
 - index: 2
   value: -81.81
-  prob: 0.05
+  probability: 0.05
   token: ' couch'
 - index: 3
   value: -82.0
-  prob: 0.04
+  probability: 0.04
   token: ' ground'
 - index: 4
   value: -82.03
-  prob: 0.04
+  probability: 0.04
   token: ' edge'
 cache:
   hook: blocks.0.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 0.18
-  maximum: 0.37
-  mean: 0.22
-  std: 0
-  numel: 0
+  minimum: 0.1765
+  maximum: 0.3728
+  numel: 6
+  std: 0.075
+  mean: 0.2218

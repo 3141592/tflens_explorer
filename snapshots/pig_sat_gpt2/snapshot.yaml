@@ -1,6 +1,6 @@
 metadata:
-  name: test6
-  creation_date: June 02, 2026 02:02PM
+  name: pig_sat_gpt2
+  creation_date: June 03, 2026 05:27PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -11,7 +11,7 @@ model:
   layers: 12
   heads: 12
   vocabulary: 50257
-prompt: The dog sat on the
+prompt: The pig sat on the
 token_shape: torch.Size([1, 6])
 tokens:
 - index: 0
@@ -21,8 +21,8 @@ tokens:
   token_id: 464
   token: The
 - index: 2
-  token_id: 3290
-  token: ' dog'
+  token_id: 12967
+  token: ' pig'
 - index: 3
   token_id: 3332
   token: ' sat'
@@ -32,35 +32,35 @@ tokens:
 - index: 5
   token_id: 262
   token: ' the'
+logit_shape: torch.Size([1, 6, 50257])
 logits:
-- shape: torch.Size([1, 6, 50257])
 - index: 0
-  value: -82.21
-  prob: 0.09
-  token: ' floor'
-- index: 1
-  value: -82.5
-  prob: 0.07
+  value: -82.47
+  probability: 0.09
   token: ' ground'
+- index: 1
+  value: -82.61
+  probability: 0.08
+  token: ' floor'
 - index: 2
-  value: -82.84
-  prob: 0.05
-  token: ' bed'
+  value: -83.32
+  probability: 0.04
+  token: ' table'
 - index: 3
-  value: -83.02
-  prob: 0.04
-  token: ' couch'
+  value: -83.65
+  probability: 0.03
+  token: ' edge'
 - index: 4
-  value: -83.2
-  prob: 0.03
+  value: -83.81
+  probability: 0.02
   token: ' back'
 cache:
-  hook: blocks.0.attn.hook_attn_scores
-  shape: torch.Size([12, 6, 6])
+  hook: blocks.0.ln1.hook_scale
+  shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.0141
-  maximum: 12.9535
-  numel: 432
-  std: 3.171
-  mean: 0.0395
+  minimum: 0.1765
+  maximum: 0.3728
+  numel: 6
+  std: 0.0748
+  mean: 0.2225

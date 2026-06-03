@@ -108,11 +108,14 @@ def handle_compare_cache(context: CommandContext) -> None:
     return
 
 def handle_compare_snapshots(context: CommandContext) -> None:
-    if context.args == None or len(context.args) != 2:
+    if context.args == None or len(context.args) < 2:
         print("Two snapshot names are required. Use: compare-models <snapshot>")
         return  
     
+    kwargs = parse_kv_args(context.args)
+    diff = kwargs.get("diff")
+
     snapshot1 = context.args[0]
     snapshot2 = context.args[1]
-    compare_snapshots(snapshot1, snapshot2)
+    compare_snapshots(snapshot1, snapshot2, diff)
     return

@@ -199,9 +199,11 @@ def cache_activation_comparison(cache1, cache2):
     print()
     return
 
-def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
+def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, percent_diff=0):
     all_args = locals()
     for name, value in all_args.items():
+        if "percent_diff" == name:
+            continue
         if verify_snapshot(value):
             pass
         else:
@@ -244,7 +246,7 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences (unmasked finite values):")
-        cache_activation_summary(snapshot1.cache, snapshot2.cache)
+        cache_activation_summary(snapshot1.cache, snapshot2.cache, percent_diff)
         #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
         #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
         #else:
@@ -410,7 +412,10 @@ def compare_logits_probs(logits1, logits2):
     print()
     return
 
-def cache_activation_summary(cache1, cache2):
+def cache_activation_summary(cache1, cache2, diff):
+    if diff == None:
+        diff = 0
+
     print(
         f"    {'A/B':<4}"
         f"{'hook_name':<36}"
@@ -421,6 +426,7 @@ def cache_activation_summary(cache1, cache2):
     )
 
     different_values_count = 0
+    hook_count = 0
     for activation1, activation2 in zip(cache1, cache2):
         hook1 = activation1.hook
         hook2 = activation2.hook
@@ -430,6 +436,15 @@ def cache_activation_summary(cache1, cache2):
         minimum2 = activation2.minimum
         maximum1 = activation1.maximum
         maximum2 = activation2.maximum
+
+        if diff == 0:
+            pass
+        else:
+            include = cache_diff(activation1.mean, activation2.mean, diff)
+            if include:
+                pass
+            else:
+                continue
         
         mean1_str = (
             activation1.mean
@@ -452,6 +467,8 @@ def cache_activation_summary(cache1, cache2):
         else:
             different_values_count += 1
 
+        hook_count += 1
+
         print(
             f"    {'A:':<4}"
             f"{hook1:<35} "
@@ -469,7 +486,9 @@ def cache_activation_summary(cache1, cache2):
             f"{maximum2:>12.4f} "
             f"{mean2_str:>12}"
         )
-        
+
+        print()
+        print(f"  Total hooks listed: {hook_count}")
         print()
 
     if different_values_count == 0:
@@ -477,6 +496,21 @@ def cache_activation_summary(cache1, cache2):
 
     print()
     return
+
+# 
+# Check to see if activatiion difference is greater than supplied limit
+def cache_diff(mean1, mean2, diff_limit):
+
+    if abs(diff_limit) >= 0:
+        if isinstance(mean1, str) or isinstance(mean2, str):
+            return True
+
+        diff = abs((mean1 - mean2))
+
+    else:
+        return True
+
+    return (diff > diff_limit)
 
 # TODO:
 # Reintroduce advanced tensor comparison once optional
