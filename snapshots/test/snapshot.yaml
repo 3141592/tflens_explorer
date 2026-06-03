@@ -1,6 +1,6 @@
 metadata:
   name: test
-  creation_date: June 02, 2026 02:07PM
+  creation_date: June 03, 2026 05:10PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -32,27 +32,27 @@ tokens:
 - index: 5
   token_id: 262
   token: ' the'
+logit_shape: torch.Size([1, 6, 50257])
 logits:
-- shape: torch.Size([1, 6, 50257])
 - index: 0
   value: -81.29
-  prob: 0.09
+  probability: 0.09
   token: ' floor'
 - index: 1
   value: -81.61
-  prob: 0.06
+  probability: 0.06
   token: ' bed'
 - index: 2
   value: -81.81
-  prob: 0.05
+  probability: 0.05
   token: ' couch'
 - index: 3
   value: -82.0
-  prob: 0.04
+  probability: 0.04
   token: ' ground'
 - index: 4
   value: -82.03
-  prob: 0.04
+  probability: 0.04
   token: ' edge'
 cache:
 - hook: embed.hook_in

@@ -277,13 +277,15 @@ def logits(model, prompt, prepend_bos):
 
     return logits_list
 
+def logits_shape(model, prompt, prepend_bos):
+    logits = model(prompt, prepend_bos=prepend_bos)
+    return str(logits.shape)
+
 def logits_for_snapshot(model, prompt, prepend_bos):
     logits = model(prompt, prepend_bos=prepend_bos)
     
     all_logits = []
     logits_list = []
-    shape = {"shape": str(logits.shape)}
-    all_logits.append(shape)
 
     final_logits = logits[0, -1]
     final_probs = torch.softmax(final_logits, dim=-1)
@@ -296,7 +298,7 @@ def logits_for_snapshot(model, prompt, prepend_bos):
 
         prob_str_token = model.to_str_tokens(topk_probs.indices[index])
         prob = topk_probs.values[index]
-        logit_dict = {"index": index, "value": round(value.item(), 2), "prob": round(prob.item(), 2), "token": value_str_token[0]}
+        logit_dict = {"index": index, "value": round(value.item(), 2), "probability": round(prob.item(), 2), "token": value_str_token[0]}
         all_logits.append(logit_dict)
 
     return all_logits

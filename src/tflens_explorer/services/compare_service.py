@@ -8,7 +8,7 @@ import traceback
 import datetime
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, tokens_shape
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, tokens_shape, logits_shape
 from tflens_explorer.services.model_service import cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.services.model_service import cache_summary_for_snapshot_all
 from tflens_explorer.core.types import CommandContext
@@ -60,6 +60,7 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
         prompt=prompt,
         token_shape=tokens_shape(current_model, prompt, prepend_bos),
         tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
+        logit_shape=logits_shape(current_model, prompt, prepend_bos),
         logits=logits_for_snapshot(current_model, prompt, prepend_bos),
         cache=cache,
     )
@@ -210,12 +211,10 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
     snapshot1 = Snapshot.load(snapshot1_name)
     snapshot2 = Snapshot.load(snapshot2_name)
 
-    token_size_comparison = snapshot1.token_shape == snapshot2.token_shape
+    token_size_comparison = (snapshot1.token_shape == snapshot2.token_shape)
     token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)
     token_comparison = compare_tokens(snapshot1.tokens, snapshot2.tokens)
-    logits_1_size = snapshot1.logits[0]
-    logits_2_size = snapshot2.logits[0]
-    logit_size_comparison = logits_1_size == logits_2_size
+    logit_size_comparison = (snapshot1.logit_shape == snapshot2.logit_shape)
     logit_comparison = compare_logits_details(snapshot1.logits, snapshot2.logits)
 
     print(f"Models:")
@@ -236,8 +235,8 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot):
     print()
     print(f"Logits:")
     print(f"  same length: {logit_size_comparison}")
-    print(f"    A: {str(logits_1_size)}")
-    print(f"    B: {str(logits_2_size)}")
+    print(f"    A: {str(snapshot1.logit_shape)}")
+    print(f"    B: {str(snapshot2.logit_shape)}")
     print(f"  top-1:")
     print(f"    A: {logit_comparison[0][0]}")
     print(f"    B: {logit_comparison[0][1]}")
@@ -445,8 +444,8 @@ def cache_activation_summary(cache1, cache2):
         )
 
         if hook1 != hook2:
-            print(f"Cache hooks {hook1} and {hook2} do not match.")
-            return
+            #print(f"Cache hooks {hook1} and {hook2} do not match.")
+            continue
 
         if (minimum1 == minimum2) and (maximum1 == maximum2):
             continue

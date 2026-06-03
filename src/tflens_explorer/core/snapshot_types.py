@@ -34,9 +34,11 @@ class TokenSummary:
     token: str
 
 @dataclass
-class TokenCollection:
-    shape: str
-    values: list[TokenSummary]
+class LogitsSummary:
+    index: int
+    value: float
+    probability: float
+    token: str
 
 @dataclass
 class CacheSummary:
@@ -57,7 +59,8 @@ class Snapshot:
     prompt: str | None = None
     token_shape: str | None = None
     tokens: list[TokenSummary] = field(default_factory=list)
-    logits: list[float] = field(default_factory=list)
+    logit_shape: str | None = None
+    logits: list[LogitsSummary] = field(default_factory=list)
     cache: list[int] = field(default_factory=list)
 
     def save(self) -> None:
@@ -89,6 +92,13 @@ class Snapshot:
                 for token_data in token_values
             ]
 
+            logit_values = data.get("logits", [])
+
+            logits = [
+                LogitsSummary(**logits_data)
+                for logits_data in logit_values
+            ]
+            
             raw_cache = data.get("cache", [])
 
             if isinstance(raw_cache, dict):
@@ -105,6 +115,7 @@ class Snapshot:
                 prompt=data.get("prompt"),
                 token_shape=data.get('token_shape'),
                 tokens=tokens,
+                logit_shape=data.get('logit_shape'),
                 logits=data.get("logits", []),
                 cache=cache,
             )
