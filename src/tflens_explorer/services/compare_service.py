@@ -5,14 +5,16 @@ import yaml
 import torch
 import re
 import traceback
+import datetime
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot
+from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, tokens_shape, logits_shape
 from tflens_explorer.services.model_service import cache_summary_for_snapshot, get_model_alias
 from tflens_explorer.services.model_service import cache_summary_for_snapshot_all
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
-from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, verify_snapshot
+from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH
+from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
@@ -25,6 +27,11 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
 
     if len(model_alias) > 0:
         model_name = f"{model_alias} -> {model_name}"
+
+    metadata = SnapshotMetadata(
+        name=snapshot_name,
+        creation_date=datetime.datetime.now().strftime("%B %d, %Y %I:%M%p")
+    )
 
     model = Model(
         name=model_name,
@@ -48,10 +55,12 @@ def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> N
         return
 
     snapshot = Snapshot(
-        name=snapshot_name,
+        metadata=metadata,
         model=model,
         prompt=prompt,
+        token_shape=tokens_shape(current_model, prompt, prepend_bos),
         tokens=tokens_for_snapshot(current_model, prompt, prepend_bos),
+        logit_shape=logits_shape(current_model, prompt, prepend_bos),
         logits=logits_for_snapshot(current_model, prompt, prepend_bos),
         cache=cache,
     )
@@ -190,27 +199,24 @@ def cache_activation_comparison(cache1, cache2):
     print()
     return
 
-def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
+def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, percent_diff=0):
     all_args = locals()
     for name, value in all_args.items():
+        if "percent_diff" == name:
+            continue
         if verify_snapshot(value):
             pass
         else:
             print(f"Snapshot {value} does not exist. Use: snapshots-list to find valid snapshots.")
             return
 
-    snapshot1 = Snapshot(name=snapshot1)
-    snapshot1.load()
+    snapshot1 = Snapshot.load(snapshot1_name)
+    snapshot2 = Snapshot.load(snapshot2_name)
 
-    snapshot2 = Snapshot(name=snapshot2)
-    snapshot2.load()
-
-    token_size_comparison = snapshot1.tokens[0] == snapshot2.tokens[0]
+    token_size_comparison = (snapshot1.token_shape == snapshot2.token_shape)
     token_id_comparison = compare_token_ids(snapshot1.tokens, snapshot2.tokens)
     token_comparison = compare_tokens(snapshot1.tokens, snapshot2.tokens)
-    logits_1_size = snapshot1.logits[0]
-    logits_2_size = snapshot2.logits[0]
-    logit_size_comparison = logits_1_size == logits_2_size
+    logit_size_comparison = (snapshot1.logit_shape == snapshot2.logit_shape)
     logit_comparison = compare_logits_details(snapshot1.logits, snapshot2.logits)
 
     print(f"Models:")
@@ -231,16 +237,16 @@ def compare_snapshots(snapshot1: Snapshot, snapshot2: Snapshot):
     print()
     print(f"Logits:")
     print(f"  same length: {logit_size_comparison}")
-    print(f"    A: {str(logits_1_size)}")
-    print(f"    B: {str(logits_2_size)}")
+    print(f"    A: {str(snapshot1.logit_shape)}")
+    print(f"    B: {str(snapshot2.logit_shape)}")
     print(f"  top-1:")
     print(f"    A: {logit_comparison[0][0]}")
     print(f"    B: {logit_comparison[0][1]}")
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
-        print(f"Cache activation differences:")
-        cache_activation_summary(snapshot1.cache, snapshot2.cache)
+        print(f"Cache activation differences (unmasked finite values):")
+        cache_activation_summary(snapshot1.cache, snapshot2.cache, percent_diff)
         #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
         #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
         #else:
@@ -253,7 +259,7 @@ def compare_token_ids(tokens1, tokens2):
     for index, item in enumerate(tokens1):
         if len(tokens2) <= index:
             token_id_comparison[index] = False
-        elif item['token_id'] == tokens2[index]['token_id']:
+        elif item.token_id == tokens2[index].token_id:
             token_id_comparison[index] = True
         else:
             token_id_comparison[index] = False
@@ -261,7 +267,7 @@ def compare_token_ids(tokens1, tokens2):
         try:
             if len(tokens1) <= index:
                 token_id_comparison[index] = False
-            elif item['token_id'] == tokens1[index]['token_id']:
+            elif item.token_id == tokens1[index].token_id:
                 token_id_comparison[index] = True
             else:
                 token_id_comparison[index] = False
@@ -298,7 +304,7 @@ def compare_tokens(tokens1, tokens2):
     for index, item in enumerate(tokens1):
         if len(tokens2) <= index:
             token_comparison[index] = False
-        elif item['token'] == tokens2[index]['token']:
+        elif item.token == tokens2[index].token:
             token_comparison[index] = True
         else:
             token_comparison[index] = False
@@ -307,7 +313,7 @@ def compare_tokens(tokens1, tokens2):
         try:
             if len(tokens1) <= index:
                 token_comparison[index] = False
-            elif item['token'] == tokens1[index]['token']:
+            elif item.token == tokens1[index].token:
                 token_comparison[index] = True
             else:
                 token_comparison[index] = False
@@ -406,7 +412,10 @@ def compare_logits_probs(logits1, logits2):
     print()
     return
 
-def cache_activation_summary(cache1, cache2):
+def cache_activation_summary(cache1, cache2, diff):
+    if diff == None:
+        diff = 0
+
     print(
         f"    {'A/B':<4}"
         f"{'hook_name':<36}"
@@ -417,6 +426,7 @@ def cache_activation_summary(cache1, cache2):
     )
 
     different_values_count = 0
+    hook_count = 0
     for activation1, activation2 in zip(cache1, cache2):
         hook1 = activation1.hook
         hook2 = activation2.hook
@@ -426,6 +436,15 @@ def cache_activation_summary(cache1, cache2):
         minimum2 = activation2.minimum
         maximum1 = activation1.maximum
         maximum2 = activation2.maximum
+
+        if diff == 0:
+            pass
+        else:
+            include = cache_diff(activation1.mean, activation2.mean, diff)
+            if include:
+                pass
+            else:
+                continue
         
         mean1_str = (
             activation1.mean
@@ -440,13 +459,15 @@ def cache_activation_summary(cache1, cache2):
         )
 
         if hook1 != hook2:
-            print(f"Cache hooks {hook1} and {hook2} do not match.")
-            return
+            #print(f"Cache hooks {hook1} and {hook2} do not match.")
+            continue
 
         if (minimum1 == minimum2) and (maximum1 == maximum2):
             continue
         else:
             different_values_count += 1
+
+        hook_count += 1
 
         print(
             f"    {'A:':<4}"
@@ -465,7 +486,9 @@ def cache_activation_summary(cache1, cache2):
             f"{maximum2:>12.4f} "
             f"{mean2_str:>12}"
         )
-        
+
+        print()
+        print(f"  Total hooks listed: {hook_count}")
         print()
 
     if different_values_count == 0:
@@ -473,6 +496,21 @@ def cache_activation_summary(cache1, cache2):
 
     print()
     return
+
+# 
+# Check to see if activatiion difference is greater than supplied limit
+def cache_diff(mean1, mean2, diff_limit):
+
+    if abs(diff_limit) >= 0:
+        if isinstance(mean1, str) or isinstance(mean2, str):
+            return True
+
+        diff = abs((mean1 - mean2))
+
+    else:
+        return True
+
+    return (diff > diff_limit)
 
 # TODO:
 # Reintroduce advanced tensor comparison once optional

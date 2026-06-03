@@ -1,17 +1,17 @@
 metadata:
-  name: dog_sat_gpt2_all
-  creation_date: June 03, 2026 05:30PM
+  name: test2
+  creation_date: June 03, 2026 05:11PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
   top_k: 0
   top_p: 0.0
   num_ctx: 1024
-  prepend_bos: null
+  prepend_bos: true
   layers: 12
   heads: 12
   vocabulary: 50257
-prompt: The dog sat on the
+prompt: The pig sat on the
 token_shape: torch.Size([1, 6])
 tokens:
 - index: 0
@@ -21,8 +21,8 @@ tokens:
   token_id: 464
   token: The
 - index: 2
-  token_id: 3290
-  token: ' dog'
+  token_id: 12967
+  token: ' pig'
 - index: 3
   token_id: 3332
   token: ' sat'
@@ -35,24 +35,24 @@ tokens:
 logit_shape: torch.Size([1, 6, 50257])
 logits:
 - index: 0
-  value: -82.21
+  value: -82.47
   probability: 0.09
-  token: ' floor'
-- index: 1
-  value: -82.5
-  probability: 0.07
   token: ' ground'
+- index: 1
+  value: -82.61
+  probability: 0.08
+  token: ' floor'
 - index: 2
-  value: -82.84
-  probability: 0.05
-  token: ' bed'
-- index: 3
-  value: -83.02
+  value: -83.32
   probability: 0.04
-  token: ' couch'
-- index: 4
-  value: -83.2
+  token: ' table'
+- index: 3
+  value: -83.65
   probability: 0.03
+  token: ' edge'
+- index: 4
+  value: -83.81
+  probability: 0.02
   token: ' back'
 cache:
 - hook: embed.hook_in
@@ -62,8 +62,8 @@ cache:
   minimum: 262.0
   maximum: 50256.0
   numel: 6
-  std: 19943.9141
-  mean: 9653.833
+  std: 19716.3379
+  mean: 11266.667
 - hook: embed.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -71,7 +71,7 @@ cache:
   minimum: -0.7359
   maximum: 0.8688
   numel: 4608
-  std: 0.1059
+  std: 0.1078
   mean: -0.001
 - hook: hook_embed
   shape: torch.Size([6, 768])
@@ -80,7 +80,7 @@ cache:
   minimum: -0.7359
   maximum: 0.8688
   numel: 4608
-  std: 0.1059
+  std: 0.1078
   mean: -0.001
 - hook: pos_embed.hook_in
   shape: torch.Size([6])
@@ -116,7 +116,7 @@ cache:
   minimum: -4.4934
   maximum: 3.9184
   numel: 4608
-  std: 0.2321
+  std: 0.2327
   mean: -0.0036
 - hook: blocks.0.hook_resid_pre
   shape: torch.Size([6, 768])
@@ -125,7 +125,7 @@ cache:
   minimum: -4.4934
   maximum: 3.9184
   numel: 4608
-  std: 0.2321
+  std: 0.2327
   mean: -0.0036
 - hook: blocks.0.ln1.hook_in
   shape: torch.Size([6, 768])
@@ -134,7 +134,7 @@ cache:
   minimum: -4.4934
   maximum: 3.9184
   numel: 4608
-  std: 0.2321
+  std: 0.2327
   mean: -0.0036
 - hook: blocks.0.ln1.hook_scale
   shape: torch.Size([6, 1])
@@ -143,8 +143,8 @@ cache:
   minimum: 0.1765
   maximum: 0.3728
   numel: 6
-  std: 0.075
-  mean: 0.2218
+  std: 0.0748
+  mean: 0.2225
 - hook: blocks.0.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -161,7 +161,7 @@ cache:
   minimum: -0.7801
   maximum: 0.5885
   numel: 4608
-  std: 0.0952
+  std: 0.0966
   mean: -0.0052
 - hook: blocks.0.attn.hook_in
   shape: torch.Size([6, 768])
@@ -170,7 +170,7 @@ cache:
   minimum: -0.7801
   maximum: 0.5885
   numel: 4608
-  std: 0.0952
+  std: 0.0966
   mean: -0.0052
 - hook: blocks.0.attn.q.hook_in
   shape: torch.Size([6, 768])
@@ -179,26 +179,26 @@ cache:
   minimum: -0.7801
   maximum: 0.5885
   numel: 4608
-  std: 0.0952
+  std: 0.0966
   mean: -0.0052
 - hook: blocks.0.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -4.5272
-  maximum: 3.7518
+  maximum: 3.8056
   numel: 4608
-  std: 0.8911
-  mean: -0.0698
+  std: 0.9085
+  mean: -0.0637
 - hook: blocks.0.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -4.5272
-  maximum: 3.7518
+  maximum: 3.8056
   numel: 4608
-  std: 0.8911
-  mean: -0.0698
+  std: 0.9085
+  mean: -0.0637
 - hook: blocks.0.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -206,26 +206,26 @@ cache:
   minimum: -0.7801
   maximum: 0.5885
   numel: 4608
-  std: 0.0952
+  std: 0.0966
   mean: -0.0052
 - hook: blocks.0.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.5824
+  minimum: -6.1988
   maximum: 8.2511
   numel: 4608
-  std: 1.3724
-  mean: 0.0235
+  std: 1.3623
+  mean: 0.0297
 - hook: blocks.0.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.5824
+  minimum: -6.1988
   maximum: 8.2511
   numel: 4608
-  std: 1.3724
-  mean: 0.0235
+  std: 1.3623
+  mean: 0.0297
 - hook: blocks.0.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -233,35 +233,35 @@ cache:
   minimum: -0.7801
   maximum: 0.5885
   numel: 4608
-  std: 0.0952
+  std: 0.0966
   mean: -0.0052
 - hook: blocks.0.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2963
+  minimum: -1.1177
   maximum: 2.308
   numel: 4608
-  std: 0.2283
-  mean: 0.0108
+  std: 0.2258
+  mean: 0.0105
 - hook: blocks.0.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2963
+  minimum: -1.1177
   maximum: 2.308
   numel: 4608
-  std: 0.2283
-  mean: 0.0108
+  std: 0.2258
+  mean: 0.0105
 - hook: blocks.0.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
   minimum: -6.0141
-  maximum: 12.9535
+  maximum: 14.6293
   numel: 432
-  std: 3.171
-  mean: 0.0395
+  std: 3.2347
+  mean: 0.0203
 - hook: blocks.0.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -269,26 +269,26 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.2753
+  std: 0.277
   mean: 0.1667
 - hook: blocks.0.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.9355
-  maximum: 1.2363
+  maximum: 1.245
   numel: 4608
-  std: 0.1706
-  mean: 0.0048
+  std: 0.171
+  mean: 0.0039
 - hook: blocks.0.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.9355
-  maximum: 1.2363
+  maximum: 1.245
   numel: 4608
-  std: 0.1706
-  mean: 0.0048
+  std: 0.171
+  mean: 0.0039
 - hook: blocks.0.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -296,8 +296,8 @@ cache:
   minimum: -12.6657
   maximum: 13.4705
   numel: 4608
-  std: 1.0027
-  mean: 0.0196
+  std: 1.0172
+  mean: 0.0209
 - hook: blocks.0.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -305,8 +305,8 @@ cache:
   minimum: -12.6657
   maximum: 13.4705
   numel: 4608
-  std: 1.0027
-  mean: 0.0196
+  std: 1.0172
+  mean: 0.0209
 - hook: blocks.0.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -314,8 +314,8 @@ cache:
   minimum: -12.6657
   maximum: 13.4705
   numel: 4608
-  std: 1.0027
-  mean: 0.0196
+  std: 1.0172
+  mean: 0.0209
 - hook: blocks.0.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -323,8 +323,8 @@ cache:
   minimum: -12.6657
   maximum: 13.4705
   numel: 4608
-  std: 1.0027
-  mean: 0.0196
+  std: 1.0172
+  mean: 0.0209
 - hook: blocks.0.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -332,8 +332,8 @@ cache:
   minimum: -12.8961
   maximum: 13.6513
   numel: 4608
-  std: 1.0669
-  mean: 0.0159
+  std: 1.0804
+  mean: 0.0173
 - hook: blocks.0.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -341,17 +341,17 @@ cache:
   minimum: -12.8961
   maximum: 13.6513
   numel: 4608
-  std: 1.0669
-  mean: 0.0159
+  std: 1.0804
+  mean: 0.0173
 - hook: blocks.0.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 0.9814
-  maximum: 1.1163
+  minimum: 0.997
+  maximum: 1.1686
   numel: 6
-  std: 0.0483
-  mean: 1.0659
+  std: 0.0565
+  mean: 1.0791
 - hook: blocks.0.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -368,8 +368,8 @@ cache:
   minimum: -2.5183
   maximum: 1.6705
   numel: 4608
-  std: 0.1724
-  mean: -0.0013
+  std: 0.1728
+  mean: -0.0027
 - hook: blocks.0.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -377,8 +377,8 @@ cache:
   minimum: -2.5183
   maximum: 1.6705
   numel: 4608
-  std: 0.1724
-  mean: -0.0013
+  std: 0.1728
+  mean: -0.0027
 - hook: blocks.0.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -386,8 +386,8 @@ cache:
   minimum: -2.5183
   maximum: 1.6705
   numel: 4608
-  std: 0.1724
-  mean: -0.0013
+  std: 0.1728
+  mean: -0.0027
 - hook: blocks.0.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -395,8 +395,8 @@ cache:
   minimum: -2.5183
   maximum: 1.6705
   numel: 4608
-  std: 0.1724
-  mean: -0.0013
+  std: 0.1728
+  mean: -0.0027
 - hook: blocks.0.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -404,8 +404,8 @@ cache:
   minimum: -6.8899
   maximum: 13.0999
   numel: 18432
-  std: 0.9476
-  mean: -1.2011
+  std: 0.9696
+  mean: -1.1735
 - hook: blocks.0.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -413,8 +413,8 @@ cache:
   minimum: -6.8899
   maximum: 13.0999
   numel: 18432
-  std: 0.9476
-  mean: -1.2011
+  std: 0.9696
+  mean: -1.1735
 - hook: blocks.0.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -422,8 +422,8 @@ cache:
   minimum: -0.17
   maximum: 13.0999
   numel: 18432
-  std: 0.2294
-  mean: -0.049
+  std: 0.2362
+  mean: -0.0417
 - hook: blocks.0.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -431,8 +431,8 @@ cache:
   minimum: -0.17
   maximum: 13.0999
   numel: 18432
-  std: 0.2294
-  mean: -0.049
+  std: 0.2362
+  mean: -0.0417
 - hook: blocks.0.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -440,8 +440,8 @@ cache:
   minimum: -82.0349
   maximum: 120.0362
   numel: 4608
-  std: 2.6048
-  mean: 0.0249
+  std: 2.6135
+  mean: 0.0236
 - hook: blocks.0.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -449,8 +449,8 @@ cache:
   minimum: -82.0349
   maximum: 120.0362
   numel: 4608
-  std: 2.6048
-  mean: 0.0249
+  std: 2.6135
+  mean: 0.0236
 - hook: blocks.0.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -458,8 +458,8 @@ cache:
   minimum: -82.0349
   maximum: 120.0362
   numel: 4608
-  std: 2.6048
-  mean: 0.0249
+  std: 2.6135
+  mean: 0.0236
 - hook: blocks.0.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -467,8 +467,8 @@ cache:
   minimum: -82.3368
   maximum: 120.5472
   numel: 4608
-  std: 3.134
-  mean: 0.0408
+  std: 3.1442
+  mean: 0.041
 - hook: blocks.0.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -476,8 +476,8 @@ cache:
   minimum: -82.3368
   maximum: 120.5472
   numel: 4608
-  std: 3.134
-  mean: 0.0408
+  std: 3.1442
+  mean: 0.041
 - hook: blocks.1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -485,8 +485,8 @@ cache:
   minimum: -82.3368
   maximum: 120.5472
   numel: 4608
-  std: 3.134
-  mean: 0.0408
+  std: 3.1442
+  mean: 0.041
 - hook: blocks.1.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -494,8 +494,8 @@ cache:
   minimum: -82.3368
   maximum: 120.5472
   numel: 4608
-  std: 3.134
-  mean: 0.0408
+  std: 3.1442
+  mean: 0.041
 - hook: blocks.1.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -503,8 +503,8 @@ cache:
   minimum: -82.3368
   maximum: 120.5472
   numel: 4608
-  std: 3.134
-  mean: 0.0408
+  std: 3.1442
+  mean: 0.041
 - hook: blocks.1.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
@@ -512,8 +512,8 @@ cache:
   minimum: 2.0584
   maximum: 5.9617
   numel: 6
-  std: 1.5569
-  mean: 2.7927
+  std: 1.5525
+  mean: 2.8062
 - hook: blocks.1.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -522,7 +522,7 @@ cache:
   maximum: 20.2066
   numel: 4608
   std: 1.0001
-  mean: 0.0
+  mean: -0.0
 - hook: blocks.1.ln1.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -530,7 +530,7 @@ cache:
   minimum: -1.5077
   maximum: 1.6516
   numel: 4608
-  std: 0.1354
+  std: 0.1386
   mean: -0.0056
 - hook: blocks.1.attn.hook_in
   shape: torch.Size([6, 768])
@@ -539,7 +539,7 @@ cache:
   minimum: -1.5077
   maximum: 1.6516
   numel: 4608
-  std: 0.1354
+  std: 0.1386
   mean: -0.0056
 - hook: blocks.1.attn.q.hook_in
   shape: torch.Size([6, 768])
@@ -548,26 +548,26 @@ cache:
   minimum: -1.5077
   maximum: 1.6516
   numel: 4608
-  std: 0.1354
+  std: 0.1386
   mean: -0.0056
 - hook: blocks.1.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.4245
-  maximum: 3.501
+  minimum: -3.3924
+  maximum: 3.4628
   numel: 4608
-  std: 0.8436
-  mean: 0.0069
+  std: 0.8443
+  mean: 0.0055
 - hook: blocks.1.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.4245
-  maximum: 3.501
+  minimum: -3.3924
+  maximum: 3.4628
   numel: 4608
-  std: 0.8436
-  mean: 0.0069
+  std: 0.8443
+  mean: 0.0055
 - hook: blocks.1.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -575,26 +575,26 @@ cache:
   minimum: -1.5077
   maximum: 1.6516
   numel: 4608
-  std: 0.1354
+  std: 0.1386
   mean: -0.0056
 - hook: blocks.1.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.8964
-  maximum: 4.092
+  minimum: -4.9146
+  maximum: 3.853
   numel: 4608
-  std: 1.0517
-  mean: -0.0325
+  std: 1.0529
+  mean: -0.0326
 - hook: blocks.1.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.8964
-  maximum: 4.092
+  minimum: -4.9146
+  maximum: 3.853
   numel: 4608
-  std: 1.0517
-  mean: -0.0325
+  std: 1.0529
+  mean: -0.0326
 - hook: blocks.1.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -602,35 +602,35 @@ cache:
   minimum: -1.5077
   maximum: 1.6516
   numel: 4608
-  std: 0.1354
+  std: 0.1386
   mean: -0.0056
 - hook: blocks.1.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -3.2138
-  maximum: 3.6696
+  maximum: 3.6945
   numel: 4608
-  std: 0.4495
-  mean: 0.004
+  std: 0.4508
+  mean: 0.0022
 - hook: blocks.1.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -3.2138
-  maximum: 3.6696
+  maximum: 3.6945
   numel: 4608
-  std: 0.4495
-  mean: 0.004
+  std: 0.4508
+  mean: 0.0022
 - hook: blocks.1.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
   minimum: -8.168
-  maximum: 5.2884
+  maximum: 5.812
   numel: 432
-  std: 2.0131
-  mean: -0.599
+  std: 2.069
+  mean: -0.6151
 - hook: blocks.1.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -638,62 +638,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.276
+  std: 0.2776
   mean: 0.1667
 - hook: blocks.1.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -3.2138
-  maximum: 2.1247
+  maximum: 2.0831
   numel: 4608
-  std: 0.2755
-  mean: -0.0048
+  std: 0.2764
+  mean: -0.0067
 - hook: blocks.1.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -3.2138
-  maximum: 2.1247
+  maximum: 2.0831
   numel: 4608
-  std: 0.2755
-  mean: -0.0048
+  std: 0.2764
+  mean: -0.0067
 - hook: blocks.1.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9782
+  minimum: -6.9198
   maximum: 30.7737
   numel: 4608
-  std: 0.6065
-  mean: 0.0076
+  std: 0.6031
+  mean: 0.0108
 - hook: blocks.1.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9782
+  minimum: -6.9198
   maximum: 30.7737
   numel: 4608
-  std: 0.6065
-  mean: 0.0076
+  std: 0.6031
+  mean: 0.0108
 - hook: blocks.1.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9782
+  minimum: -6.9198
   maximum: 30.7737
   numel: 4608
-  std: 0.6065
-  mean: 0.0076
+  std: 0.6031
+  mean: 0.0108
 - hook: blocks.1.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9782
+  minimum: -6.9198
   maximum: 30.7737
   numel: 4608
-  std: 0.6065
-  mean: 0.0076
+  std: 0.6031
+  mean: 0.0108
 - hook: blocks.1.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -701,8 +701,8 @@ cache:
   minimum: -81.8576
   maximum: 151.321
   numel: 4608
-  std: 3.4125
-  mean: 0.0484
+  std: 3.4412
+  mean: 0.0517
 - hook: blocks.1.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -710,17 +710,17 @@ cache:
   minimum: -81.8576
   maximum: 151.321
   numel: 4608
-  std: 3.4125
-  mean: 0.0484
+  std: 3.4412
+  mean: 0.0517
 - hook: blocks.1.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 1.9504
+  minimum: 1.9586
   maximum: 6.9178
   numel: 6
-  std: 1.9752
-  mean: 2.8965
+  std: 1.9609
+  mean: 2.9384
 - hook: blocks.1.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -737,7 +737,7 @@ cache:
   minimum: -3.2345
   maximum: 6.4713
   numel: 4608
-  std: 0.1936
+  std: 0.1935
   mean: -0.0039
 - hook: blocks.1.mlp.hook_in
   shape: torch.Size([6, 768])
@@ -746,7 +746,7 @@ cache:
   minimum: -3.2345
   maximum: 6.4713
   numel: 4608
-  std: 0.1936
+  std: 0.1935
   mean: -0.0039
 - hook: blocks.1.hook_mlp_in
   shape: torch.Size([6, 768])
@@ -755,7 +755,7 @@ cache:
   minimum: -3.2345
   maximum: 6.4713
   numel: 4608
-  std: 0.1936
+  std: 0.1935
   mean: -0.0039
 - hook: blocks.1.mlp.in.hook_in
   shape: torch.Size([6, 768])
@@ -764,7 +764,7 @@ cache:
   minimum: -3.2345
   maximum: 6.4713
   numel: 4608
-  std: 0.1936
+  std: 0.1935
   mean: -0.0039
 - hook: blocks.1.mlp.in.hook_out
   shape: torch.Size([6, 3072])
@@ -773,8 +773,8 @@ cache:
   minimum: -13.2265
   maximum: 15.8131
   numel: 18432
-  std: 0.9682
-  mean: -0.6408
+  std: 0.9779
+  mean: -0.6554
 - hook: blocks.1.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -782,8 +782,8 @@ cache:
   minimum: -13.2265
   maximum: 15.8131
   numel: 18432
-  std: 0.9682
-  mean: -0.6408
+  std: 0.9779
+  mean: -0.6554
 - hook: blocks.1.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -791,8 +791,8 @@ cache:
   minimum: -0.17
   maximum: 15.8131
   numel: 18432
-  std: 0.2501
-  mean: -0.0063
+  std: 0.2493
+  mean: -0.0069
 - hook: blocks.1.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -800,35 +800,35 @@ cache:
   minimum: -0.17
   maximum: 15.8131
   numel: 18432
-  std: 0.2501
-  mean: -0.0063
+  std: 0.2493
+  mean: -0.0069
 - hook: blocks.1.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9199
+  minimum: -6.4402
   maximum: 464.9931
   numel: 4608
-  std: 6.9661
-  mean: 0.1193
+  std: 6.9673
+  mean: 0.1166
 - hook: blocks.1.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9199
+  minimum: -6.4402
   maximum: 464.9931
   numel: 4608
-  std: 6.9661
-  mean: 0.1193
+  std: 6.9673
+  mean: 0.1166
 - hook: blocks.1.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9199
+  minimum: -6.4402
   maximum: 464.9931
   numel: 4608
-  std: 6.9661
-  mean: 0.1193
+  std: 6.9673
+  mean: 0.1166
 - hook: blocks.1.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -836,8 +836,8 @@ cache:
   minimum: -85.8258
   maximum: 616.3141
   numel: 4608
-  std: 9.6643
-  mean: 0.1677
+  std: 9.6679
+  mean: 0.1683
 - hook: blocks.1.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -845,8 +845,8 @@ cache:
   minimum: -85.8258
   maximum: 616.3141
   numel: 4608
-  std: 9.6643
-  mean: 0.1677
+  std: 9.6679
+  mean: 0.1683
 - hook: blocks.2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -854,8 +854,8 @@ cache:
   minimum: -85.8258
   maximum: 616.3141
   numel: 4608
-  std: 9.6643
-  mean: 0.1677
+  std: 9.6679
+  mean: 0.1683
 - hook: blocks.2.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -863,8 +863,8 @@ cache:
   minimum: -85.8258
   maximum: 616.3141
   numel: 4608
-  std: 9.6643
-  mean: 0.1677
+  std: 9.6679
+  mean: 0.1683
 - hook: blocks.2.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -872,17 +872,17 @@ cache:
   minimum: -85.8258
   maximum: 616.3141
   numel: 4608
-  std: 9.6643
-  mean: 0.1677
+  std: 9.6679
+  mean: 0.1683
 - hook: blocks.2.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 1.9788
+  minimum: 1.9575
   maximum: 23.1593
   numel: 6
-  std: 8.5758
-  mean: 5.6574
+  std: 8.5705
+  mean: 5.6702
 - hook: blocks.2.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -896,110 +896,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.3093
-  maximum: 3.6065
+  minimum: -4.3469
+  maximum: 3.6398
   numel: 4608
-  std: 0.2445
-  mean: 0.0003
+  std: 0.2468
+  mean: 0.0005
 - hook: blocks.2.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.3093
-  maximum: 3.6065
+  minimum: -4.3469
+  maximum: 3.6398
   numel: 4608
-  std: 0.2445
-  mean: 0.0003
+  std: 0.2468
+  mean: 0.0005
 - hook: blocks.2.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.3093
-  maximum: 3.6065
+  minimum: -4.3469
+  maximum: 3.6398
   numel: 4608
-  std: 0.2445
-  mean: 0.0003
+  std: 0.2468
+  mean: 0.0005
 - hook: blocks.2.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.5593
-  maximum: 4.5026
+  minimum: -6.6317
+  maximum: 4.4087
   numel: 4608
-  std: 1.0857
-  mean: 0.0039
+  std: 1.0834
+  mean: 0.0029
 - hook: blocks.2.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.5593
-  maximum: 4.5026
+  minimum: -6.6317
+  maximum: 4.4087
   numel: 4608
-  std: 1.0857
-  mean: 0.0039
+  std: 1.0834
+  mean: 0.0029
 - hook: blocks.2.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.3093
-  maximum: 3.6065
+  minimum: -4.3469
+  maximum: 3.6398
   numel: 4608
-  std: 0.2445
-  mean: 0.0003
+  std: 0.2468
+  mean: 0.0005
 - hook: blocks.2.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.4768
-  maximum: 5.7833
+  minimum: -6.5439
+  maximum: 5.8922
   numel: 4608
-  std: 1.4699
-  mean: -0.031
+  std: 1.4845
+  mean: -0.033
 - hook: blocks.2.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.4768
-  maximum: 5.7833
+  minimum: -6.5439
+  maximum: 5.8922
   numel: 4608
-  std: 1.4699
-  mean: -0.031
+  std: 1.4845
+  mean: -0.033
 - hook: blocks.2.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.3093
-  maximum: 3.6065
+  minimum: -4.3469
+  maximum: 3.6398
   numel: 4608
-  std: 0.2445
-  mean: 0.0003
+  std: 0.2468
+  mean: 0.0005
 - hook: blocks.2.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0842
-  maximum: 2.8085
+  minimum: -4.114
+  maximum: 2.8076
   numel: 4608
-  std: 0.498
-  mean: -0.0173
+  std: 0.4994
+  mean: -0.0186
 - hook: blocks.2.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0842
-  maximum: 2.8085
+  minimum: -4.114
+  maximum: 2.8076
   numel: 4608
-  std: 0.498
-  mean: -0.0173
+  std: 0.4994
+  mean: -0.0186
 - hook: blocks.2.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -14.1515
+  minimum: -13.9215
   maximum: 2.1719
   numel: 432
-  std: 2.1723
-  mean: -2.9288
+  std: 2.1283
+  mean: -2.9346
 - hook: blocks.2.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -1007,62 +1007,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.2648
+  std: 0.2647
   mean: 0.1667
 - hook: blocks.2.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9121
-  maximum: 1.9446
+  minimum: -1.9631
+  maximum: 1.9359
   numel: 4608
-  std: 0.2635
-  mean: -0.0132
+  std: 0.258
+  mean: -0.014
 - hook: blocks.2.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9121
-  maximum: 1.9446
+  minimum: -1.9631
+  maximum: 1.9359
   numel: 4608
-  std: 0.2635
-  mean: -0.0132
+  std: 0.258
+  mean: -0.014
 - hook: blocks.2.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.4303
-  maximum: 6.0884
+  maximum: 5.6336
   numel: 4608
-  std: 0.3454
-  mean: 0.002
+  std: 0.3302
+  mean: 0.0023
 - hook: blocks.2.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.4303
-  maximum: 6.0884
+  maximum: 5.6336
   numel: 4608
-  std: 0.3454
-  mean: 0.002
+  std: 0.3302
+  mean: 0.0023
 - hook: blocks.2.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.4303
-  maximum: 6.0884
+  maximum: 5.6336
   numel: 4608
-  std: 0.3454
-  mean: 0.002
+  std: 0.3302
+  mean: 0.0023
 - hook: blocks.2.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.4303
-  maximum: 6.0884
+  maximum: 5.6336
   numel: 4608
-  std: 0.3454
-  mean: 0.002
+  std: 0.3302
+  mean: 0.0023
 - hook: blocks.2.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1070,8 +1070,8 @@ cache:
   minimum: -85.8752
   maximum: 616.3126
   numel: 4608
-  std: 9.7028
-  mean: 0.1697
+  std: 9.7052
+  mean: 0.1706
 - hook: blocks.2.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1079,17 +1079,17 @@ cache:
   minimum: -85.8752
   maximum: 616.3126
   numel: 4608
-  std: 9.7028
-  mean: 0.1697
+  std: 9.7052
+  mean: 0.1706
 - hook: blocks.2.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 2.1237
+  minimum: 2.086
   maximum: 23.1986
   numel: 6
-  std: 8.5427
-  mean: 5.764
+  std: 8.5404
+  mean: 5.771
 - hook: blocks.2.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1106,8 +1106,8 @@ cache:
   minimum: -1.8955
   maximum: 19.7162
   numel: 4608
-  std: 0.351
-  mean: 0.0071
+  std: 0.3521
+  mean: 0.0073
 - hook: blocks.2.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1115,8 +1115,8 @@ cache:
   minimum: -1.8955
   maximum: 19.7162
   numel: 4608
-  std: 0.351
-  mean: 0.0071
+  std: 0.3521
+  mean: 0.0073
 - hook: blocks.2.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1124,8 +1124,8 @@ cache:
   minimum: -1.8955
   maximum: 19.7162
   numel: 4608
-  std: 0.351
-  mean: 0.0071
+  std: 0.3521
+  mean: 0.0073
 - hook: blocks.2.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1133,26 +1133,26 @@ cache:
   minimum: -1.8955
   maximum: 19.7162
   numel: 4608
-  std: 0.351
-  mean: 0.0071
+  std: 0.3521
+  mean: 0.0073
 - hook: blocks.2.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
-  minimum: -25.8789
+  minimum: -25.4036
   maximum: 61.9005
   numel: 18432
-  std: 1.4236
-  mean: -1.0616
+  std: 1.4204
+  mean: -1.0764
 - hook: blocks.2.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
-  minimum: -25.8789
+  minimum: -25.4036
   maximum: 61.9005
   numel: 18432
-  std: 1.4236
-  mean: -1.0616
+  std: 1.4204
+  mean: -1.0764
 - hook: blocks.2.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1160,8 +1160,8 @@ cache:
   minimum: -0.17
   maximum: 61.9005
   numel: 18432
-  std: 0.6777
-  mean: -0.0076
+  std: 0.677
+  mean: -0.0104
 - hook: blocks.2.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1169,35 +1169,35 @@ cache:
   minimum: -0.17
   maximum: 61.9005
   numel: 18432
-  std: 0.6777
-  mean: -0.0076
+  std: 0.677
+  mean: -0.0104
 - hook: blocks.2.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.0376
+  minimum: -4.3687
   maximum: 2319.5425
   numel: 4608
-  std: 34.2039
-  mean: 0.516
+  std: 34.204
+  mean: 0.5184
 - hook: blocks.2.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.0376
+  minimum: -4.3687
   maximum: 2319.5425
   numel: 4608
-  std: 34.2039
-  mean: 0.516
+  std: 34.204
+  mean: 0.5184
 - hook: blocks.2.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.0376
+  minimum: -4.3687
   maximum: 2319.5425
   numel: 4608
-  std: 34.2039
-  mean: 0.516
+  std: 34.204
+  mean: 0.5184
 - hook: blocks.2.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1205,8 +1205,8 @@ cache:
   minimum: -85.4309
   maximum: 2476.2214
   numel: 4608
-  std: 38.0577
-  mean: 0.6857
+  std: 38.0584
+  mean: 0.689
 - hook: blocks.2.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1214,8 +1214,8 @@ cache:
   minimum: -85.4309
   maximum: 2476.2214
   numel: 4608
-  std: 38.0577
-  mean: 0.6857
+  std: 38.0584
+  mean: 0.689
 - hook: blocks.3.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1223,8 +1223,8 @@ cache:
   minimum: -85.4309
   maximum: 2476.2214
   numel: 4608
-  std: 38.0577
-  mean: 0.6857
+  std: 38.0584
+  mean: 0.689
 - hook: blocks.3.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1232,8 +1232,8 @@ cache:
   minimum: -85.4309
   maximum: 2476.2214
   numel: 4608
-  std: 38.0577
-  mean: 0.6857
+  std: 38.0584
+  mean: 0.689
 - hook: blocks.3.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1241,17 +1241,17 @@ cache:
   minimum: -85.4309
   maximum: 2476.2214
   numel: 4608
-  std: 38.0577
-  mean: 0.6857
+  std: 38.0584
+  mean: 0.689
 - hook: blocks.3.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 2.1415
+  minimum: 2.0988
   maximum: 92.9912
   numel: 6
-  std: 36.9996
-  mean: 17.4677
+  std: 36.997
+  mean: 17.4739
 - hook: blocks.3.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1265,110 +1265,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.3044
-  maximum: 4.8838
+  minimum: -6.4252
+  maximum: 4.9748
   numel: 4608
-  std: 0.3005
-  mean: 0.0012
+  std: 0.3039
+  mean: 0.0014
 - hook: blocks.3.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.3044
-  maximum: 4.8838
+  minimum: -6.4252
+  maximum: 4.9748
   numel: 4608
-  std: 0.3005
-  mean: 0.0012
+  std: 0.3039
+  mean: 0.0014
 - hook: blocks.3.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.3044
-  maximum: 4.8838
+  minimum: -6.4252
+  maximum: 4.9748
   numel: 4608
-  std: 0.3005
-  mean: 0.0012
+  std: 0.3039
+  mean: 0.0014
 - hook: blocks.3.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.1476
-  maximum: 4.888
+  minimum: -5.2573
+  maximum: 4.7268
   numel: 4608
-  std: 1.2404
-  mean: -0.0471
+  std: 1.2522
+  mean: -0.0556
 - hook: blocks.3.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.1476
-  maximum: 4.888
+  minimum: -5.2573
+  maximum: 4.7268
   numel: 4608
-  std: 1.2404
-  mean: -0.0471
+  std: 1.2522
+  mean: -0.0556
 - hook: blocks.3.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.3044
-  maximum: 4.8838
+  minimum: -6.4252
+  maximum: 4.9748
   numel: 4608
-  std: 0.3005
-  mean: 0.0012
+  std: 0.3039
+  mean: 0.0014
 - hook: blocks.3.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -15.2096
-  maximum: 13.1004
+  minimum: -15.4312
+  maximum: 13.3201
   numel: 4608
-  std: 3.0293
-  mean: 0.0807
+  std: 3.0672
+  mean: 0.0868
 - hook: blocks.3.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -15.2096
-  maximum: 13.1004
+  minimum: -15.4312
+  maximum: 13.3201
   numel: 4608
-  std: 3.0293
-  mean: 0.0807
+  std: 3.0672
+  mean: 0.0868
 - hook: blocks.3.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.3044
-  maximum: 4.8838
+  minimum: -6.4252
+  maximum: 4.9748
   numel: 4608
-  std: 0.3005
-  mean: 0.0012
+  std: 0.3039
+  mean: 0.0014
 - hook: blocks.3.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.2942
-  maximum: 3.0547
+  minimum: -2.1689
+  maximum: 3.093
   numel: 4608
-  std: 0.4903
-  mean: 0.0076
+  std: 0.4941
+  mean: 0.0061
 - hook: blocks.3.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.2942
-  maximum: 3.0547
+  minimum: -2.1689
+  maximum: 3.093
   numel: 4608
-  std: 0.4903
-  mean: 0.0076
+  std: 0.4941
+  mean: 0.0061
 - hook: blocks.3.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -12.0719
-  maximum: 7.2935
+  minimum: -12.007
+  maximum: 7.3271
   numel: 432
-  std: 3.0721
-  mean: -3.1064
+  std: 3.0445
+  mean: -3.1837
 - hook: blocks.3.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -1376,62 +1376,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.2912
+  std: 0.2915
   mean: 0.1667
 - hook: blocks.3.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.5919
-  maximum: 1.8342
+  minimum: -1.4241
+  maximum: 1.8739
   numel: 4608
-  std: 0.224
-  mean: -0.0007
+  std: 0.2192
+  mean: 0.0004
 - hook: blocks.3.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.5919
-  maximum: 1.8342
+  minimum: -1.4241
+  maximum: 1.8739
   numel: 4608
-  std: 0.224
-  mean: -0.0007
+  std: 0.2192
+  mean: 0.0004
 - hook: blocks.3.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.8615
-  maximum: 2.1215
+  maximum: 2.3669
   numel: 4608
-  std: 0.2619
-  mean: -0.0026
+  std: 0.2542
+  mean: -0.0028
 - hook: blocks.3.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.8615
-  maximum: 2.1215
+  maximum: 2.3669
   numel: 4608
-  std: 0.2619
-  mean: -0.0026
+  std: 0.2542
+  mean: -0.0028
 - hook: blocks.3.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.8615
-  maximum: 2.1215
+  maximum: 2.3669
   numel: 4608
-  std: 0.2619
-  mean: -0.0026
+  std: 0.2542
+  mean: -0.0028
 - hook: blocks.3.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.8615
-  maximum: 2.1215
+  maximum: 2.3669
   numel: 4608
-  std: 0.2619
-  mean: -0.0026
+  std: 0.2542
+  mean: -0.0028
 - hook: blocks.3.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1439,8 +1439,8 @@ cache:
   minimum: -85.6236
   maximum: 2473.3599
   numel: 4608
-  std: 38.0198
-  mean: 0.6831
+  std: 38.0205
+  mean: 0.6863
 - hook: blocks.3.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1448,17 +1448,17 @@ cache:
   minimum: -85.6236
   maximum: 2473.3599
   numel: 4608
-  std: 38.0198
-  mean: 0.6831
+  std: 38.0205
+  mean: 0.6863
 - hook: blocks.3.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 2.1853
+  minimum: 2.1538
   maximum: 92.8931
   numel: 6
-  std: 36.9438
-  mean: 17.4835
+  std: 36.941
+  mean: 17.4902
 - hook: blocks.3.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1475,8 +1475,8 @@ cache:
   minimum: -1.5246
   maximum: 9.3274
   numel: 4608
-  std: 0.2575
-  mean: 0.009
+  std: 0.2589
+  mean: 0.0091
 - hook: blocks.3.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1484,8 +1484,8 @@ cache:
   minimum: -1.5246
   maximum: 9.3274
   numel: 4608
-  std: 0.2575
-  mean: 0.009
+  std: 0.2589
+  mean: 0.0091
 - hook: blocks.3.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1493,8 +1493,8 @@ cache:
   minimum: -1.5246
   maximum: 9.3274
   numel: 4608
-  std: 0.2575
-  mean: 0.009
+  std: 0.2589
+  mean: 0.0091
 - hook: blocks.3.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1502,26 +1502,26 @@ cache:
   minimum: -1.5246
   maximum: 9.3274
   numel: 4608
-  std: 0.2575
-  mean: 0.009
+  std: 0.2589
+  mean: 0.0091
 - hook: blocks.3.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.7386
+  minimum: -9.5585
   maximum: 10.9634
   numel: 18432
-  std: 0.9865
-  mean: -1.1315
+  std: 0.9879
+  mean: -1.1495
 - hook: blocks.3.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.7386
+  minimum: -9.5585
   maximum: 10.9634
   numel: 18432
-  std: 0.9865
-  mean: -1.1315
+  std: 0.9879
+  mean: -1.1495
 - hook: blocks.3.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1529,8 +1529,8 @@ cache:
   minimum: -0.17
   maximum: 10.9634
   numel: 18432
-  std: 0.1659
-  mean: -0.0529
+  std: 0.162
+  mean: -0.0544
 - hook: blocks.3.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1538,35 +1538,35 @@ cache:
   minimum: -0.17
   maximum: 10.9634
   numel: 18432
-  std: 0.1659
-  mean: -0.0529
+  std: 0.162
+  mean: -0.0544
 - hook: blocks.3.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.3746
+  minimum: -2.4852
   maximum: 190.6786
   numel: 4608
-  std: 3.0122
-  mean: 0.0563
+  std: 3.0092
+  mean: 0.0539
 - hook: blocks.3.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.3746
+  minimum: -2.4852
   maximum: 190.6786
   numel: 4608
-  std: 3.0122
-  mean: 0.0563
+  std: 3.0092
+  mean: 0.0539
 - hook: blocks.3.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.3746
+  minimum: -2.4852
   maximum: 190.6786
   numel: 4608
-  std: 3.0122
-  mean: 0.0563
+  std: 3.0092
+  mean: 0.0539
 - hook: blocks.3.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1574,8 +1574,8 @@ cache:
   minimum: -84.8085
   maximum: 2664.0386
   numel: 4608
-  std: 40.9941
-  mean: 0.7394
+  std: 40.9932
+  mean: 0.7402
 - hook: blocks.3.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1583,8 +1583,8 @@ cache:
   minimum: -84.8085
   maximum: 2664.0386
   numel: 4608
-  std: 40.9941
-  mean: 0.7394
+  std: 40.9932
+  mean: 0.7402
 - hook: blocks.4.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1592,8 +1592,8 @@ cache:
   minimum: -84.8085
   maximum: 2664.0386
   numel: 4608
-  std: 40.9941
-  mean: 0.7394
+  std: 40.9932
+  mean: 0.7402
 - hook: blocks.4.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1601,8 +1601,8 @@ cache:
   minimum: -84.8085
   maximum: 2664.0386
   numel: 4608
-  std: 40.9941
-  mean: 0.7394
+  std: 40.9932
+  mean: 0.7402
 - hook: blocks.4.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1610,17 +1610,17 @@ cache:
   minimum: -84.8085
   maximum: 2664.0386
   numel: 4608
-  std: 40.9941
-  mean: 0.7394
+  std: 40.9932
+  mean: 0.7402
 - hook: blocks.4.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 2.2516
+  minimum: 2.2406
   maximum: 100.1648
   numel: 6
-  std: 39.855
-  mean: 18.8134
+  std: 39.8646
+  mean: 18.7946
 - hook: blocks.4.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1634,110 +1634,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3286
-  maximum: 4.5146
+  minimum: -5.4857
+  maximum: 4.6339
   numel: 4608
-  std: 0.2865
-  mean: 0.0034
+  std: 0.2916
+  mean: 0.0037
 - hook: blocks.4.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3286
-  maximum: 4.5146
+  minimum: -5.4857
+  maximum: 4.6339
   numel: 4608
-  std: 0.2865
-  mean: 0.0034
+  std: 0.2916
+  mean: 0.0037
 - hook: blocks.4.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3286
-  maximum: 4.5146
+  minimum: -5.4857
+  maximum: 4.6339
   numel: 4608
-  std: 0.2865
-  mean: 0.0034
+  std: 0.2916
+  mean: 0.0037
 - hook: blocks.4.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -11.9902
-  maximum: 7.2202
+  minimum: -12.2003
+  maximum: 7.1272
   numel: 4608
-  std: 1.3198
-  mean: 0.0215
+  std: 1.3334
+  mean: 0.0121
 - hook: blocks.4.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -11.9902
-  maximum: 7.2202
+  minimum: -12.2003
+  maximum: 7.1272
   numel: 4608
-  std: 1.3198
-  mean: 0.0215
+  std: 1.3334
+  mean: 0.0121
 - hook: blocks.4.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3286
-  maximum: 4.5146
+  minimum: -5.4857
+  maximum: 4.6339
   numel: 4608
-  std: 0.2865
-  mean: 0.0034
+  std: 0.2916
+  mean: 0.0037
 - hook: blocks.4.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -17.7477
-  maximum: 16.25
+  maximum: 16.8968
   numel: 4608
-  std: 2.799
-  mean: -0.116
+  std: 2.8599
+  mean: -0.1283
 - hook: blocks.4.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
   minimum: -17.7477
-  maximum: 16.25
+  maximum: 16.8968
   numel: 4608
-  std: 2.799
-  mean: -0.116
+  std: 2.8599
+  mean: -0.1283
 - hook: blocks.4.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3286
-  maximum: 4.5146
+  minimum: -5.4857
+  maximum: 4.6339
   numel: 4608
-  std: 0.2865
-  mean: 0.0034
+  std: 0.2916
+  mean: 0.0037
 - hook: blocks.4.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.2572
-  maximum: 2.1627
+  minimum: -2.3005
+  maximum: 2.0936
   numel: 4608
-  std: 0.5057
-  mean: -0.0056
+  std: 0.5043
+  mean: -0.0069
 - hook: blocks.4.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.2572
-  maximum: 2.1627
+  minimum: -2.3005
+  maximum: 2.0936
   numel: 4608
-  std: 0.5057
-  mean: -0.0056
+  std: 0.5043
+  mean: -0.0069
 - hook: blocks.4.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -22.1771
-  maximum: 22.4917
+  minimum: -23.4268
+  maximum: 22.3385
   numel: 432
-  std: 3.6548
-  mean: -1.8843
+  std: 3.6711
+  mean: -1.9397
 - hook: blocks.4.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -1745,62 +1745,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3102
+  std: 0.3139
   mean: 0.1667
 - hook: blocks.4.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.5448
-  maximum: 1.7543
+  minimum: -1.4473
+  maximum: 1.6532
   numel: 4608
-  std: 0.2105
-  mean: 0.0019
+  std: 0.2081
+  mean: 0.0026
 - hook: blocks.4.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.5448
-  maximum: 1.7543
+  minimum: -1.4473
+  maximum: 1.6532
   numel: 4608
-  std: 0.2105
-  mean: 0.0019
+  std: 0.2081
+  mean: 0.0026
 - hook: blocks.4.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2614
-  maximum: 2.1512
+  minimum: -1.9204
+  maximum: 1.8734
   numel: 4608
-  std: 0.2728
-  mean: 0.001
+  std: 0.2649
+  mean: -0.0002
 - hook: blocks.4.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2614
-  maximum: 2.1512
+  minimum: -1.9204
+  maximum: 1.8734
   numel: 4608
-  std: 0.2728
-  mean: 0.001
+  std: 0.2649
+  mean: -0.0002
 - hook: blocks.4.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2614
-  maximum: 2.1512
+  minimum: -1.9204
+  maximum: 1.8734
   numel: 4608
-  std: 0.2728
-  mean: 0.001
+  std: 0.2649
+  mean: -0.0002
 - hook: blocks.4.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2614
-  maximum: 2.1512
+  minimum: -1.9204
+  maximum: 1.8734
   numel: 4608
-  std: 0.2728
-  mean: 0.001
+  std: 0.2649
+  mean: -0.0002
 - hook: blocks.4.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1808,8 +1808,8 @@ cache:
   minimum: -84.9541
   maximum: 2663.1318
   numel: 4608
-  std: 40.9845
-  mean: 0.7404
+  std: 40.9841
+  mean: 0.7399
 - hook: blocks.4.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1817,8 +1817,8 @@ cache:
   minimum: -84.9541
   maximum: 2663.1318
   numel: 4608
-  std: 40.9845
-  mean: 0.7404
+  std: 40.9841
+  mean: 0.7399
 - hook: blocks.4.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
@@ -1826,8 +1826,8 @@ cache:
   minimum: 2.2338
   maximum: 100.1342
   numel: 6
-  std: 39.8191
-  mean: 18.8561
+  std: 39.8256
+  mean: 18.8436
 - hook: blocks.4.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1836,7 +1836,7 @@ cache:
   maximum: 26.5528
   numel: 4608
   std: 1.0001
-  mean: -0.0
+  mean: 0.0
 - hook: blocks.4.ln2.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1844,8 +1844,8 @@ cache:
   minimum: -2.1865
   maximum: 8.9497
   numel: 4608
-  std: 0.2454
-  mean: -0.0002
+  std: 0.2471
+  mean: 0.0001
 - hook: blocks.4.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1853,8 +1853,8 @@ cache:
   minimum: -2.1865
   maximum: 8.9497
   numel: 4608
-  std: 0.2454
-  mean: -0.0002
+  std: 0.2471
+  mean: 0.0001
 - hook: blocks.4.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1862,8 +1862,8 @@ cache:
   minimum: -2.1865
   maximum: 8.9497
   numel: 4608
-  std: 0.2454
-  mean: -0.0002
+  std: 0.2471
+  mean: 0.0001
 - hook: blocks.4.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1871,8 +1871,8 @@ cache:
   minimum: -2.1865
   maximum: 8.9497
   numel: 4608
-  std: 0.2454
-  mean: -0.0002
+  std: 0.2471
+  mean: 0.0001
 - hook: blocks.4.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1880,8 +1880,8 @@ cache:
   minimum: -5.2767
   maximum: 6.8014
   numel: 18432
-  std: 0.9641
-  mean: -0.9295
+  std: 0.9651
+  mean: -0.9378
 - hook: blocks.4.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1889,8 +1889,8 @@ cache:
   minimum: -5.2767
   maximum: 6.8014
   numel: 18432
-  std: 0.9641
-  mean: -0.9295
+  std: 0.9651
+  mean: -0.9378
 - hook: blocks.4.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1898,8 +1898,8 @@ cache:
   minimum: -0.17
   maximum: 6.8014
   numel: 18432
-  std: 0.1735
-  mean: -0.0382
+  std: 0.1737
+  mean: -0.0389
 - hook: blocks.4.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -1907,35 +1907,35 @@ cache:
   minimum: -0.17
   maximum: 6.8014
   numel: 18432
-  std: 0.1735
-  mean: -0.0382
+  std: 0.1737
+  mean: -0.0389
 - hook: blocks.4.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.3406
+  minimum: -2.5786
   maximum: 152.8638
   numel: 4608
-  std: 2.3436
-  mean: 0.0521
+  std: 2.3463
+  mean: 0.0535
 - hook: blocks.4.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.3406
+  minimum: -2.5786
   maximum: 152.8638
   numel: 4608
-  std: 2.3436
-  mean: 0.0521
+  std: 2.3463
+  mean: 0.0535
 - hook: blocks.4.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.3406
+  minimum: -2.5786
   maximum: 152.8638
   numel: 4608
-  std: 2.3436
-  mean: 0.0521
+  std: 2.3463
+  mean: 0.0535
 - hook: blocks.4.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1943,8 +1943,8 @@ cache:
   minimum: -82.8091
   maximum: 2815.9956
   numel: 4608
-  std: 43.2703
-  mean: 0.7925
+  std: 43.2714
+  mean: 0.7934
 - hook: blocks.4.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1952,8 +1952,8 @@ cache:
   minimum: -82.8091
   maximum: 2815.9956
   numel: 4608
-  std: 43.2703
-  mean: 0.7925
+  std: 43.2714
+  mean: 0.7934
 - hook: blocks.5.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1961,8 +1961,8 @@ cache:
   minimum: -82.8091
   maximum: 2815.9956
   numel: 4608
-  std: 43.2703
-  mean: 0.7925
+  std: 43.2714
+  mean: 0.7934
 - hook: blocks.5.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1970,8 +1970,8 @@ cache:
   minimum: -82.8091
   maximum: 2815.9956
   numel: 4608
-  std: 43.2703
-  mean: 0.7925
+  std: 43.2714
+  mean: 0.7934
 - hook: blocks.5.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -1979,17 +1979,17 @@ cache:
   minimum: -82.8091
   maximum: 2815.9956
   numel: 4608
-  std: 43.2703
-  mean: 0.7925
+  std: 43.2714
+  mean: 0.7934
 - hook: blocks.5.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 2.4553
+  minimum: 2.4214
   maximum: 105.7161
   numel: 6
-  std: 42.0274
-  mean: 19.9302
+  std: 42.0225
+  mean: 19.9414
 - hook: blocks.5.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2003,110 +2003,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.298
-  maximum: 5.0473
+  minimum: -6.3849
+  maximum: 5.1102
   numel: 4608
-  std: 0.3414
-  mean: 0.0071
+  std: 0.3438
+  mean: 0.0074
 - hook: blocks.5.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.298
-  maximum: 5.0473
+  minimum: -6.3849
+  maximum: 5.1102
   numel: 4608
-  std: 0.3414
-  mean: 0.0071
+  std: 0.3438
+  mean: 0.0074
 - hook: blocks.5.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.298
-  maximum: 5.0473
+  minimum: -6.3849
+  maximum: 5.1102
   numel: 4608
-  std: 0.3414
-  mean: 0.0071
+  std: 0.3438
+  mean: 0.0074
 - hook: blocks.5.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.8874
-  maximum: 7.5408
+  minimum: -7.1904
+  maximum: 7.0426
   numel: 4608
-  std: 1.3562
-  mean: -0.0077
+  std: 1.3638
+  mean: -0.0033
 - hook: blocks.5.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.8874
-  maximum: 7.5408
+  minimum: -7.1904
+  maximum: 7.0426
   numel: 4608
-  std: 1.3562
-  mean: -0.0077
+  std: 1.3638
+  mean: -0.0033
 - hook: blocks.5.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.298
-  maximum: 5.0473
+  minimum: -6.3849
+  maximum: 5.1102
   numel: 4608
-  std: 0.3414
-  mean: 0.0071
+  std: 0.3438
+  mean: 0.0074
 - hook: blocks.5.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -12.2461
-  maximum: 11.0087
+  minimum: -12.3756
+  maximum: 11.2471
   numel: 4608
-  std: 1.708
-  mean: 0.0094
+  std: 1.7179
+  mean: 0.0075
 - hook: blocks.5.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -12.2461
-  maximum: 11.0087
+  minimum: -12.3756
+  maximum: 11.2471
   numel: 4608
-  std: 1.708
-  mean: 0.0094
+  std: 1.7179
+  mean: 0.0075
 - hook: blocks.5.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.298
-  maximum: 5.0473
+  minimum: -6.3849
+  maximum: 5.1102
   numel: 4608
-  std: 0.3414
-  mean: 0.0071
+  std: 0.3438
+  mean: 0.0074
 - hook: blocks.5.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.6106
-  maximum: 4.7101
+  minimum: -3.2544
+  maximum: 4.9068
   numel: 4608
-  std: 0.7005
-  mean: 0.0051
+  std: 0.6978
+  mean: 0.0054
 - hook: blocks.5.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.6106
-  maximum: 4.7101
+  minimum: -3.2544
+  maximum: 4.9068
   numel: 4608
-  std: 0.7005
-  mean: 0.0051
+  std: 0.6978
+  mean: 0.0054
 - hook: blocks.5.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.8517
-  maximum: 5.2436
+  minimum: -11.6222
+  maximum: 5.3204
   numel: 432
-  std: 2.5791
-  mean: -1.1603
+  std: 2.5697
+  mean: -1.1397
 - hook: blocks.5.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -2114,7 +2114,7 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3237
+  std: 0.3229
   mean: 0.1667
 - hook: blocks.5.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
@@ -2123,8 +2123,8 @@ cache:
   minimum: -2.3212
   maximum: 2.1091
   numel: 4608
-  std: 0.2618
-  mean: -0.002
+  std: 0.2453
+  mean: -0.0028
 - hook: blocks.5.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
@@ -2132,44 +2132,44 @@ cache:
   minimum: -2.3212
   maximum: 2.1091
   numel: 4608
-  std: 0.2618
-  mean: -0.002
+  std: 0.2453
+  mean: -0.0028
 - hook: blocks.5.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.2561
-  maximum: 2.0724
+  maximum: 1.5577
   numel: 4608
-  std: 0.3542
-  mean: -0.0019
+  std: 0.2954
+  mean: -0.0026
 - hook: blocks.5.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.2561
-  maximum: 2.0724
+  maximum: 1.5577
   numel: 4608
-  std: 0.3542
-  mean: -0.0019
+  std: 0.2954
+  mean: -0.0026
 - hook: blocks.5.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.2561
-  maximum: 2.0724
+  maximum: 1.5577
   numel: 4608
-  std: 0.3542
-  mean: -0.0019
+  std: 0.2954
+  mean: -0.0026
 - hook: blocks.5.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2.2561
-  maximum: 2.0724
+  maximum: 1.5577
   numel: 4608
-  std: 0.3542
-  mean: -0.0019
+  std: 0.2954
+  mean: -0.0026
 - hook: blocks.5.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2177,8 +2177,8 @@ cache:
   minimum: -82.9687
   maximum: 2814.738
   numel: 4608
-  std: 43.2557
-  mean: 0.7906
+  std: 43.2561
+  mean: 0.7908
 - hook: blocks.5.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2186,8 +2186,8 @@ cache:
   minimum: -82.9687
   maximum: 2814.738
   numel: 4608
-  std: 43.2557
-  mean: 0.7906
+  std: 43.2561
+  mean: 0.7908
 - hook: blocks.5.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
@@ -2195,8 +2195,8 @@ cache:
   minimum: 2.4598
   maximum: 105.6729
   numel: 6
-  std: 41.987
-  mean: 19.9695
+  std: 41.9865
+  mean: 19.9711
 - hook: blocks.5.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2213,8 +2213,8 @@ cache:
   minimum: -1.7935
   maximum: 11.1606
   numel: 4608
-  std: 0.2709
-  mean: 0.0081
+  std: 0.2715
+  mean: 0.0083
 - hook: blocks.5.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2222,8 +2222,8 @@ cache:
   minimum: -1.7935
   maximum: 11.1606
   numel: 4608
-  std: 0.2709
-  mean: 0.0081
+  std: 0.2715
+  mean: 0.0083
 - hook: blocks.5.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2231,8 +2231,8 @@ cache:
   minimum: -1.7935
   maximum: 11.1606
   numel: 4608
-  std: 0.2709
-  mean: 0.0081
+  std: 0.2715
+  mean: 0.0083
 - hook: blocks.5.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2240,70 +2240,70 @@ cache:
   minimum: -1.7935
   maximum: 11.1606
   numel: 4608
-  std: 0.2709
-  mean: 0.0081
+  std: 0.2715
+  mean: 0.0083
 - hook: blocks.5.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -7.9504
-  maximum: 3.3409
+  maximum: 3.2564
   numel: 18432
-  std: 0.9907
-  mean: -0.9616
+  std: 0.9859
+  mean: -0.9629
 - hook: blocks.5.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -7.9504
-  maximum: 3.3409
+  maximum: 3.2564
   numel: 18432
-  std: 0.9907
-  mean: -0.9616
+  std: 0.9859
+  mean: -0.9629
 - hook: blocks.5.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 3.3397
+  maximum: 3.2548
   numel: 18432
-  std: 0.1898
-  mean: -0.0299
+  std: 0.1868
+  mean: -0.0322
 - hook: blocks.5.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 3.3397
+  maximum: 3.2548
   numel: 18432
-  std: 0.1898
-  mean: -0.0299
+  std: 0.1868
+  mean: -0.0322
 - hook: blocks.5.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.2241
+  minimum: -2.8371
   maximum: 102.1658
   numel: 4608
-  std: 1.6158
+  std: 1.6109
   mean: 0.0335
 - hook: blocks.5.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.2241
+  minimum: -2.8371
   maximum: 102.1658
   numel: 4608
-  std: 1.6158
+  std: 1.6109
   mean: 0.0335
 - hook: blocks.5.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.2241
+  minimum: -2.8371
   maximum: 102.1658
   numel: 4608
-  std: 1.6158
+  std: 1.6109
   mean: 0.0335
 - hook: blocks.5.hook_out
   shape: torch.Size([6, 768])
@@ -2312,8 +2312,8 @@ cache:
   minimum: -77.5587
   maximum: 2916.9038
   numel: 4608
-  std: 44.7031
-  mean: 0.8242
+  std: 44.7036
+  mean: 0.8243
 - hook: blocks.5.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2321,8 +2321,8 @@ cache:
   minimum: -77.5587
   maximum: 2916.9038
   numel: 4608
-  std: 44.7031
-  mean: 0.8242
+  std: 44.7036
+  mean: 0.8243
 - hook: blocks.6.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2330,8 +2330,8 @@ cache:
   minimum: -77.5587
   maximum: 2916.9038
   numel: 4608
-  std: 44.7031
-  mean: 0.8242
+  std: 44.7036
+  mean: 0.8243
 - hook: blocks.6.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2339,8 +2339,8 @@ cache:
   minimum: -77.5587
   maximum: 2916.9038
   numel: 4608
-  std: 44.7031
-  mean: 0.8242
+  std: 44.7036
+  mean: 0.8243
 - hook: blocks.6.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2348,17 +2348,17 @@ cache:
   minimum: -77.5587
   maximum: 2916.9038
   numel: 4608
-  std: 44.7031
-  mean: 0.8242
+  std: 44.7036
+  mean: 0.8243
 - hook: blocks.6.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 2.7152
+  minimum: 2.6522
   maximum: 109.1949
   numel: 6
-  std: 43.3413
-  mean: 20.7269
+  std: 43.3411
+  mean: 20.7284
 - hook: blocks.6.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2372,110 +2372,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.9123
-  maximum: 4.7803
+  minimum: -6.0799
+  maximum: 4.8971
   numel: 4608
-  std: 0.3177
-  mean: 0.0062
+  std: 0.3215
+  mean: 0.0066
 - hook: blocks.6.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.9123
-  maximum: 4.7803
+  minimum: -6.0799
+  maximum: 4.8971
   numel: 4608
-  std: 0.3177
-  mean: 0.0062
+  std: 0.3215
+  mean: 0.0066
 - hook: blocks.6.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.9123
-  maximum: 4.7803
+  minimum: -6.0799
+  maximum: 4.8971
   numel: 4608
-  std: 0.3177
-  mean: 0.0062
+  std: 0.3215
+  mean: 0.0066
 - hook: blocks.6.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.8783
-  maximum: 7.4728
+  minimum: -5.4799
+  maximum: 7.6873
   numel: 4608
-  std: 1.2083
-  mean: 0.0335
+  std: 1.2223
+  mean: 0.0364
 - hook: blocks.6.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.8783
-  maximum: 7.4728
+  minimum: -5.4799
+  maximum: 7.6873
   numel: 4608
-  std: 1.2083
-  mean: 0.0335
+  std: 1.2223
+  mean: 0.0364
 - hook: blocks.6.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.9123
-  maximum: 4.7803
+  minimum: -6.0799
+  maximum: 4.8971
   numel: 4608
-  std: 0.3177
-  mean: 0.0062
+  std: 0.3215
+  mean: 0.0066
 - hook: blocks.6.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -12.4339
-  maximum: 9.6328
+  minimum: -12.7597
+  maximum: 9.8927
   numel: 4608
-  std: 1.6722
-  mean: 0.0132
+  std: 1.6955
+  mean: 0.0187
 - hook: blocks.6.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -12.4339
-  maximum: 9.6328
+  minimum: -12.7597
+  maximum: 9.8927
   numel: 4608
-  std: 1.6722
-  mean: 0.0132
+  std: 1.6955
+  mean: 0.0187
 - hook: blocks.6.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.9123
-  maximum: 4.7803
+  minimum: -6.0799
+  maximum: 4.8971
   numel: 4608
-  std: 0.3177
-  mean: 0.0062
+  std: 0.3215
+  mean: 0.0066
 - hook: blocks.6.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.4903
-  maximum: 2.7104
+  minimum: -2.6271
+  maximum: 2.7705
   numel: 4608
-  std: 0.6372
-  mean: 0.0089
+  std: 0.637
+  mean: 0.0011
 - hook: blocks.6.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -2.4903
-  maximum: 2.7104
+  minimum: -2.6271
+  maximum: 2.7705
   numel: 4608
-  std: 0.6372
-  mean: 0.0089
+  std: 0.637
+  mean: 0.0011
 - hook: blocks.6.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.7073
-  maximum: 6.4693
+  minimum: -5.3406
+  maximum: 6.4507
   numel: 432
-  std: 2.052
-  mean: -1.1441
+  std: 2.054
+  mean: -1.1073
 - hook: blocks.6.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -2483,62 +2483,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3179
+  std: 0.3141
   mean: 0.1667
 - hook: blocks.6.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0583
+  minimum: -0.9101
   maximum: 1.3855
   numel: 4608
-  std: 0.1411
-  mean: 0.0012
+  std: 0.1421
+  mean: -0.0022
 - hook: blocks.6.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0583
+  minimum: -0.9101
   maximum: 1.3855
   numel: 4608
-  std: 0.1411
-  mean: 0.0012
+  std: 0.1421
+  mean: -0.0022
 - hook: blocks.6.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.7669
-  maximum: 2.0752
+  minimum: -1.1403
+  maximum: 3.0526
   numel: 4608
-  std: 0.2867
-  mean: -0.0003
+  std: 0.2891
+  mean: 0.0011
 - hook: blocks.6.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.7669
-  maximum: 2.0752
+  minimum: -1.1403
+  maximum: 3.0526
   numel: 4608
-  std: 0.2867
-  mean: -0.0003
+  std: 0.2891
+  mean: 0.0011
 - hook: blocks.6.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.7669
-  maximum: 2.0752
+  minimum: -1.1403
+  maximum: 3.0526
   numel: 4608
-  std: 0.2867
-  mean: -0.0003
+  std: 0.2891
+  mean: 0.0011
 - hook: blocks.6.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.7669
-  maximum: 2.0752
+  minimum: -1.1403
+  maximum: 3.0526
   numel: 4608
-  std: 0.2867
-  mean: -0.0003
+  std: 0.2891
+  mean: 0.0011
 - hook: blocks.6.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2546,8 +2546,8 @@ cache:
   minimum: -77.8118
   maximum: 2917.75
   numel: 4608
-  std: 44.7196
-  mean: 0.8238
+  std: 44.7201
+  mean: 0.8254
 - hook: blocks.6.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2555,8 +2555,8 @@ cache:
   minimum: -77.8118
   maximum: 2917.75
   numel: 4608
-  std: 44.7196
-  mean: 0.8238
+  std: 44.7201
+  mean: 0.8254
 - hook: blocks.6.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
@@ -2564,8 +2564,8 @@ cache:
   minimum: 2.7205
   maximum: 109.2246
   numel: 6
-  std: 43.3229
-  mean: 20.7944
+  std: 43.3209
+  mean: 20.7992
 - hook: blocks.6.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2574,106 +2574,106 @@ cache:
   maximum: 26.6707
   numel: 4608
   std: 1.0001
-  mean: -0.0
+  mean: 0.0
 - hook: blocks.6.ln2.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6145
+  minimum: -1.6327
   maximum: 10.3435
   numel: 4608
-  std: 0.2523
-  mean: 0.004
+  std: 0.2532
+  mean: 0.0042
 - hook: blocks.6.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6145
+  minimum: -1.6327
   maximum: 10.3435
   numel: 4608
-  std: 0.2523
-  mean: 0.004
+  std: 0.2532
+  mean: 0.0042
 - hook: blocks.6.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6145
+  minimum: -1.6327
   maximum: 10.3435
   numel: 4608
-  std: 0.2523
-  mean: 0.004
+  std: 0.2532
+  mean: 0.0042
 - hook: blocks.6.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6145
+  minimum: -1.6327
   maximum: 10.3435
   numel: 4608
-  std: 0.2523
-  mean: 0.004
+  std: 0.2532
+  mean: 0.0042
 - hook: blocks.6.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -7.5132
-  maximum: 3.0126
+  maximum: 2.9224
   numel: 18432
-  std: 0.9355
-  mean: -0.886
+  std: 0.9273
+  mean: -0.8904
 - hook: blocks.6.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -7.5132
-  maximum: 3.0126
+  maximum: 2.9224
   numel: 18432
-  std: 0.9355
-  mean: -0.886
+  std: 0.9273
+  mean: -0.8904
 - hook: blocks.6.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 3.0091
+  maximum: 2.9177
   numel: 18432
-  std: 0.1866
-  mean: -0.0373
+  std: 0.1817
+  mean: -0.0405
 - hook: blocks.6.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 3.0091
+  maximum: 2.9177
   numel: 18432
-  std: 0.1866
-  mean: -0.0373
+  std: 0.1817
+  mean: -0.0405
 - hook: blocks.6.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.8902
+  minimum: -4.0277
   maximum: 60.027
   numel: 4608
-  std: 1.1665
-  mean: 0.0302
+  std: 1.1483
+  mean: 0.0298
 - hook: blocks.6.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.8902
+  minimum: -4.0277
   maximum: 60.027
   numel: 4608
-  std: 1.1665
-  mean: 0.0302
+  std: 1.1483
+  mean: 0.0298
 - hook: blocks.6.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.8902
+  minimum: -4.0277
   maximum: 60.027
   numel: 4608
-  std: 1.1665
-  mean: 0.0302
+  std: 1.1483
+  mean: 0.0298
 - hook: blocks.6.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2681,8 +2681,8 @@ cache:
   minimum: -71.6819
   maximum: 2977.7771
   numel: 4608
-  std: 45.5807
-  mean: 0.854
+  std: 45.5796
+  mean: 0.8552
 - hook: blocks.6.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2690,8 +2690,8 @@ cache:
   minimum: -71.6819
   maximum: 2977.7771
   numel: 4608
-  std: 45.5807
-  mean: 0.854
+  std: 45.5796
+  mean: 0.8552
 - hook: blocks.7.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2699,8 +2699,8 @@ cache:
   minimum: -71.6819
   maximum: 2977.7771
   numel: 4608
-  std: 45.5807
-  mean: 0.854
+  std: 45.5796
+  mean: 0.8552
 - hook: blocks.7.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2708,8 +2708,8 @@ cache:
   minimum: -71.6819
   maximum: 2977.7771
   numel: 4608
-  std: 45.5807
-  mean: 0.854
+  std: 45.5796
+  mean: 0.8552
 - hook: blocks.7.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2717,134 +2717,134 @@ cache:
   minimum: -71.6819
   maximum: 2977.7771
   numel: 4608
-  std: 45.5807
-  mean: 0.854
+  std: 45.5796
+  mean: 0.8552
 - hook: blocks.7.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 3.0906
+  minimum: 3.0408
   maximum: 111.2863
   numel: 6
-  std: 44.0238
-  mean: 21.4255
+  std: 44.0323
+  mean: 21.4087
 - hook: blocks.7.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.1522
+  minimum: -9.227
   maximum: 26.7152
   numel: 4608
   std: 1.0001
-  mean: 0.0
+  mean: -0.0
 - hook: blocks.7.ln1.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.6631
-  maximum: 4.4436
+  minimum: -5.7495
+  maximum: 4.5031
   numel: 4608
-  std: 0.3171
-  mean: 0.0085
+  std: 0.3204
+  mean: 0.0089
 - hook: blocks.7.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.6631
-  maximum: 4.4436
+  minimum: -5.7495
+  maximum: 4.5031
   numel: 4608
-  std: 0.3171
-  mean: 0.0085
+  std: 0.3204
+  mean: 0.0089
 - hook: blocks.7.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.6631
-  maximum: 4.4436
+  minimum: -5.7495
+  maximum: 4.5031
   numel: 4608
-  std: 0.3171
-  mean: 0.0085
+  std: 0.3204
+  mean: 0.0089
 - hook: blocks.7.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.1825
-  maximum: 6.3452
+  minimum: -6.2206
+  maximum: 6.7359
   numel: 4608
-  std: 1.3016
-  mean: 0.0367
+  std: 1.3055
+  mean: 0.046
 - hook: blocks.7.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.1825
-  maximum: 6.3452
+  minimum: -6.2206
+  maximum: 6.7359
   numel: 4608
-  std: 1.3016
-  mean: 0.0367
+  std: 1.3055
+  mean: 0.046
 - hook: blocks.7.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.6631
-  maximum: 4.4436
+  minimum: -5.7495
+  maximum: 4.5031
   numel: 4608
-  std: 0.3171
-  mean: 0.0085
+  std: 0.3204
+  mean: 0.0089
 - hook: blocks.7.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.0658
-  maximum: 11.3114
+  minimum: -9.2132
+  maximum: 11.4806
   numel: 4608
-  std: 1.6257
-  mean: -0.0075
+  std: 1.6366
+  mean: -0.0009
 - hook: blocks.7.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.0658
-  maximum: 11.3114
+  minimum: -9.2132
+  maximum: 11.4806
   numel: 4608
-  std: 1.6257
-  mean: -0.0075
+  std: 1.6366
+  mean: -0.0009
 - hook: blocks.7.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.6631
-  maximum: 4.4436
+  minimum: -5.7495
+  maximum: 4.5031
   numel: 4608
-  std: 0.3171
-  mean: 0.0085
+  std: 0.3204
+  mean: 0.0089
 - hook: blocks.7.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.628
-  maximum: 3.0965
+  minimum: -4.1877
+  maximum: 2.8739
   numel: 4608
-  std: 0.7285
-  mean: 0.0116
+  std: 0.718
+  mean: 0.0085
 - hook: blocks.7.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.628
-  maximum: 3.0965
+  minimum: -4.1877
+  maximum: 2.8739
   numel: 4608
-  std: 0.7285
-  mean: 0.0116
+  std: 0.718
+  mean: 0.0085
 - hook: blocks.7.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.7888
-  maximum: 7.5508
+  minimum: -5.7535
+  maximum: 7.6125
   numel: 432
-  std: 2.4441
-  mean: -0.6934
+  std: 2.424
+  mean: -0.6852
 - hook: blocks.7.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -2852,62 +2852,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3371
+  std: 0.337
   mean: 0.1667
 - hook: blocks.7.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -0.9167
-  maximum: 1.2071
+  minimum: -0.8979
+  maximum: 1.2201
   numel: 4608
-  std: 0.1385
-  mean: 0.0009
+  std: 0.1329
+  mean: 0.0005
 - hook: blocks.7.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -0.9167
-  maximum: 1.2071
+  minimum: -0.8979
+  maximum: 1.2201
   numel: 4608
-  std: 0.1385
-  mean: 0.0009
+  std: 0.1329
+  mean: 0.0005
 - hook: blocks.7.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6234
-  maximum: 4.3472
+  minimum: -1.4867
+  maximum: 4.4778
   numel: 4608
-  std: 0.3037
-  mean: 0.0045
+  std: 0.2884
+  mean: 0.0055
 - hook: blocks.7.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6234
-  maximum: 4.3472
+  minimum: -1.4867
+  maximum: 4.4778
   numel: 4608
-  std: 0.3037
-  mean: 0.0045
+  std: 0.2884
+  mean: 0.0055
 - hook: blocks.7.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6234
-  maximum: 4.3472
+  minimum: -1.4867
+  maximum: 4.4778
   numel: 4608
-  std: 0.3037
-  mean: 0.0045
+  std: 0.2884
+  mean: 0.0055
 - hook: blocks.7.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.6234
-  maximum: 4.3472
+  minimum: -1.4867
+  maximum: 4.4778
   numel: 4608
-  std: 0.3037
-  mean: 0.0045
+  std: 0.2884
+  mean: 0.0055
 - hook: blocks.7.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2915,8 +2915,8 @@ cache:
   minimum: -72.0234
   maximum: 2978.4644
   numel: 4608
-  std: 45.5975
-  mean: 0.8585
+  std: 45.5961
+  mean: 0.8607
 - hook: blocks.7.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -2924,8 +2924,8 @@ cache:
   minimum: -72.0234
   maximum: 2978.4644
   numel: 4608
-  std: 45.5975
-  mean: 0.8585
+  std: 45.5961
+  mean: 0.8607
 - hook: blocks.7.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
@@ -2933,13 +2933,13 @@ cache:
   minimum: 3.1418
   maximum: 111.3107
   numel: 6
-  std: 43.9888
-  mean: 21.5211
+  std: 43.9986
+  mean: 21.5015
 - hook: blocks.7.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -8.8129
+  minimum: -8.7851
   maximum: 26.7155
   numel: 4608
   std: 1.0001
@@ -2948,101 +2948,101 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.3979
+  minimum: -1.4108
   maximum: 9.9691
   numel: 4608
-  std: 0.2395
-  mean: 0.0082
+  std: 0.24
+  mean: 0.0084
 - hook: blocks.7.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.3979
+  minimum: -1.4108
   maximum: 9.9691
   numel: 4608
-  std: 0.2395
-  mean: 0.0082
+  std: 0.24
+  mean: 0.0084
 - hook: blocks.7.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.3979
+  minimum: -1.4108
   maximum: 9.9691
   numel: 4608
-  std: 0.2395
-  mean: 0.0082
+  std: 0.24
+  mean: 0.0084
 - hook: blocks.7.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.3979
+  minimum: -1.4108
   maximum: 9.9691
   numel: 4608
-  std: 0.2395
-  mean: 0.0082
+  std: 0.24
+  mean: 0.0084
 - hook: blocks.7.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -7.1087
-  maximum: 3.1723
+  maximum: 3.4607
   numel: 18432
-  std: 0.8998
-  mean: -0.9224
+  std: 0.8904
+  mean: -0.9135
 - hook: blocks.7.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -7.1087
-  maximum: 3.1723
+  maximum: 3.4607
   numel: 18432
-  std: 0.8998
-  mean: -0.9224
+  std: 0.8904
+  mean: -0.9135
 - hook: blocks.7.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 3.1703
+  maximum: 3.4599
   numel: 18432
-  std: 0.182
-  mean: -0.0496
+  std: 0.1802
+  mean: -0.0516
 - hook: blocks.7.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 3.1703
+  maximum: 3.4599
   numel: 18432
-  std: 0.182
-  mean: -0.0496
+  std: 0.1802
+  mean: -0.0516
 - hook: blocks.7.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.172
+  minimum: -8.0681
   maximum: 36.3696
   numel: 4608
-  std: 1.0064
-  mean: 0.0257
+  std: 1.0201
+  mean: 0.0247
 - hook: blocks.7.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.172
+  minimum: -8.0681
   maximum: 36.3696
   numel: 4608
-  std: 1.0064
-  mean: 0.0257
+  std: 1.0201
+  mean: 0.0247
 - hook: blocks.7.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.172
+  minimum: -8.0681
   maximum: 36.3696
   numel: 4608
-  std: 1.0064
-  mean: 0.0257
+  std: 1.0201
+  mean: 0.0247
 - hook: blocks.7.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3050,8 +3050,8 @@ cache:
   minimum: -66.3511
   maximum: 3014.834
   numel: 4608
-  std: 46.1336
-  mean: 0.8842
+  std: 46.1328
+  mean: 0.8854
 - hook: blocks.7.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3059,8 +3059,8 @@ cache:
   minimum: -66.3511
   maximum: 3014.834
   numel: 4608
-  std: 46.1336
-  mean: 0.8842
+  std: 46.1328
+  mean: 0.8854
 - hook: blocks.8.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3068,8 +3068,8 @@ cache:
   minimum: -66.3511
   maximum: 3014.834
   numel: 4608
-  std: 46.1336
-  mean: 0.8842
+  std: 46.1328
+  mean: 0.8854
 - hook: blocks.8.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3077,8 +3077,8 @@ cache:
   minimum: -66.3511
   maximum: 3014.834
   numel: 4608
-  std: 46.1336
-  mean: 0.8842
+  std: 46.1328
+  mean: 0.8854
 - hook: blocks.8.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3086,22 +3086,22 @@ cache:
   minimum: -66.3511
   maximum: 3014.834
   numel: 4608
-  std: 46.1336
-  mean: 0.8842
+  std: 46.1328
+  mean: 0.8854
 - hook: blocks.8.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 3.7206
+  minimum: 3.6127
   maximum: 112.5504
   numel: 6
-  std: 44.31
-  mean: 22.1053
+  std: 44.3174
+  mean: 22.0913
 - hook: blocks.8.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.4364
+  minimum: -9.1706
   maximum: 26.7439
   numel: 4608
   std: 1.0001
@@ -3110,110 +3110,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9959
-  maximum: 4.041
+  minimum: -5.1256
+  maximum: 4.0905
   numel: 4608
-  std: 0.2964
-  mean: 0.0071
+  std: 0.2994
+  mean: 0.0074
 - hook: blocks.8.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9959
-  maximum: 4.041
+  minimum: -5.1256
+  maximum: 4.0905
   numel: 4608
-  std: 0.2964
-  mean: 0.0071
+  std: 0.2994
+  mean: 0.0074
 - hook: blocks.8.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9959
-  maximum: 4.041
+  minimum: -5.1256
+  maximum: 4.0905
   numel: 4608
-  std: 0.2964
-  mean: 0.0071
+  std: 0.2994
+  mean: 0.0074
 - hook: blocks.8.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.516
-  maximum: 4.2089
+  minimum: -7.6222
+  maximum: 4.3
   numel: 4608
-  std: 1.1108
-  mean: -0.0333
+  std: 1.1069
+  mean: -0.0412
 - hook: blocks.8.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.516
-  maximum: 4.2089
+  minimum: -7.6222
+  maximum: 4.3
   numel: 4608
-  std: 1.1108
-  mean: -0.0333
+  std: 1.1069
+  mean: -0.0412
 - hook: blocks.8.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9959
-  maximum: 4.041
+  minimum: -5.1256
+  maximum: 4.0905
   numel: 4608
-  std: 0.2964
-  mean: 0.0071
+  std: 0.2994
+  mean: 0.0074
 - hook: blocks.8.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -8.4488
-  maximum: 7.8435
+  minimum: -8.6111
+  maximum: 8.0252
   numel: 4608
-  std: 1.4663
-  mean: 0.0144
+  std: 1.4778
+  mean: 0.0116
 - hook: blocks.8.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -8.4488
-  maximum: 7.8435
+  minimum: -8.6111
+  maximum: 8.0252
   numel: 4608
-  std: 1.4663
-  mean: 0.0144
+  std: 1.4778
+  mean: 0.0116
 - hook: blocks.8.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.9959
-  maximum: 4.041
+  minimum: -5.1256
+  maximum: 4.0905
   numel: 4608
-  std: 0.2964
-  mean: 0.0071
+  std: 0.2994
+  mean: 0.0074
 - hook: blocks.8.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.7423
-  maximum: 3.1979
+  minimum: -3.9711
+  maximum: 3.7025
   numel: 4608
-  std: 0.7601
+  std: 0.768
   mean: -0.0052
 - hook: blocks.8.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.7423
-  maximum: 3.1979
+  minimum: -3.9711
+  maximum: 3.7025
   numel: 4608
-  std: 0.7601
+  std: 0.768
   mean: -0.0052
 - hook: blocks.8.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.9247
-  maximum: 6.2739
+  minimum: -4.3473
+  maximum: 6.0717
   numel: 432
-  std: 1.8702
-  mean: -0.4093
+  std: 1.8609
+  mean: -0.4358
 - hook: blocks.8.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -3221,62 +3221,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.326
+  std: 0.3237
   mean: 0.1667
 - hook: blocks.8.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.4847
-  maximum: 1.1653
+  minimum: -1.7274
+  maximum: 1.1604
   numel: 4608
-  std: 0.1523
-  mean: -0.0025
+  std: 0.1455
+  mean: -0.0011
 - hook: blocks.8.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.4847
-  maximum: 1.1653
+  minimum: -1.7274
+  maximum: 1.1604
   numel: 4608
-  std: 0.1523
-  mean: -0.0025
+  std: 0.1455
+  mean: -0.0011
 - hook: blocks.8.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3304
-  maximum: 5.9207
+  minimum: -6.3078
+  maximum: 7.0576
   numel: 4608
-  std: 0.3651
-  mean: 0.0049
+  std: 0.367
+  mean: 0.0055
 - hook: blocks.8.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3304
-  maximum: 5.9207
+  minimum: -6.3078
+  maximum: 7.0576
   numel: 4608
-  std: 0.3651
-  mean: 0.0049
+  std: 0.367
+  mean: 0.0055
 - hook: blocks.8.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3304
-  maximum: 5.9207
+  minimum: -6.3078
+  maximum: 7.0576
   numel: 4608
-  std: 0.3651
-  mean: 0.0049
+  std: 0.367
+  mean: 0.0055
 - hook: blocks.8.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -5.3304
-  maximum: 5.9207
+  minimum: -6.3078
+  maximum: 7.0576
   numel: 4608
-  std: 0.3651
-  mean: 0.0049
+  std: 0.367
+  mean: 0.0055
 - hook: blocks.8.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3285,7 +3285,7 @@ cache:
   maximum: 3016.7424
   numel: 4608
   std: 46.175
-  mean: 0.8891
+  mean: 0.8909
 - hook: blocks.8.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3294,21 +3294,21 @@ cache:
   maximum: 3016.7424
   numel: 4608
   std: 46.175
-  mean: 0.8891
+  mean: 0.8909
 - hook: blocks.8.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 3.9347
+  minimum: 3.8704
   maximum: 112.6177
   numel: 6
-  std: 44.2586
-  mean: 22.2767
+  std: 44.2609
+  mean: 22.2729
 - hook: blocks.8.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.8659
+  minimum: -9.7871
   maximum: 26.7448
   numel: 4608
   std: 1.0001
@@ -3317,74 +3317,74 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0705
+  minimum: -1.0825
   maximum: 8.0859
   numel: 4608
-  std: 0.2163
-  mean: -0.0013
+  std: 0.2162
+  mean: -0.0012
 - hook: blocks.8.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0705
+  minimum: -1.0825
   maximum: 8.0859
   numel: 4608
-  std: 0.2163
-  mean: -0.0013
+  std: 0.2162
+  mean: -0.0012
 - hook: blocks.8.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0705
+  minimum: -1.0825
   maximum: 8.0859
   numel: 4608
-  std: 0.2163
-  mean: -0.0013
+  std: 0.2162
+  mean: -0.0012
 - hook: blocks.8.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0705
+  minimum: -1.0825
   maximum: 8.0859
   numel: 4608
-  std: 0.2163
-  mean: -0.0013
+  std: 0.2162
+  mean: -0.0012
 - hook: blocks.8.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -4.9291
-  maximum: 5.3423
+  maximum: 5.2777
   numel: 18432
-  std: 0.86
-  mean: -0.86
+  std: 0.8471
+  mean: -0.857
 - hook: blocks.8.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -4.9291
-  maximum: 5.3423
+  maximum: 5.2777
   numel: 18432
-  std: 0.86
-  mean: -0.86
+  std: 0.8471
+  mean: -0.857
 - hook: blocks.8.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 5.3423
+  maximum: 5.2777
   numel: 18432
-  std: 0.2034
-  mean: -0.0477
+  std: 0.197
+  mean: -0.0513
 - hook: blocks.8.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 5.3423
+  maximum: 5.2777
   numel: 18432
-  std: 0.2034
-  mean: -0.0477
+  std: 0.197
+  mean: -0.0513
 - hook: blocks.8.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3392,8 +3392,8 @@ cache:
   minimum: -11.0632
   maximum: 21.6058
   numel: 4608
-  std: 1.1984
-  mean: 0.0221
+  std: 1.1467
+  mean: 0.0222
 - hook: blocks.8.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3401,8 +3401,8 @@ cache:
   minimum: -11.0632
   maximum: 21.6058
   numel: 4608
-  std: 1.1984
-  mean: 0.0221
+  std: 1.1467
+  mean: 0.0222
 - hook: blocks.8.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3410,8 +3410,8 @@ cache:
   minimum: -11.0632
   maximum: 21.6058
   numel: 4608
-  std: 1.1984
-  mean: 0.0221
+  std: 1.1467
+  mean: 0.0222
 - hook: blocks.8.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3419,8 +3419,8 @@ cache:
   minimum: -59.6396
   maximum: 3038.3481
   numel: 4608
-  std: 46.5328
-  mean: 0.9112
+  std: 46.5293
+  mean: 0.9131
 - hook: blocks.8.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3428,8 +3428,8 @@ cache:
   minimum: -59.6396
   maximum: 3038.3481
   numel: 4608
-  std: 46.5328
-  mean: 0.9112
+  std: 46.5293
+  mean: 0.9131
 - hook: blocks.9.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3437,8 +3437,8 @@ cache:
   minimum: -59.6396
   maximum: 3038.3481
   numel: 4608
-  std: 46.5328
-  mean: 0.9112
+  std: 46.5293
+  mean: 0.9131
 - hook: blocks.9.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3446,8 +3446,8 @@ cache:
   minimum: -59.6396
   maximum: 3038.3481
   numel: 4608
-  std: 46.5328
-  mean: 0.9112
+  std: 46.5293
+  mean: 0.9131
 - hook: blocks.9.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3455,22 +3455,22 @@ cache:
   minimum: -59.6396
   maximum: 3038.3481
   numel: 4608
-  std: 46.5328
-  mean: 0.9112
+  std: 46.5293
+  mean: 0.9131
 - hook: blocks.9.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 4.61
+  minimum: 4.5128
   maximum: 113.3456
   numel: 6
-  std: 44.2523
-  mean: 23.0185
+  std: 44.2695
+  mean: 22.9841
 - hook: blocks.9.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.9746
+  minimum: -9.8902
   maximum: 26.7634
   numel: 4608
   std: 1.0001
@@ -3479,110 +3479,110 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0066
-  maximum: 3.315
+  minimum: -4.075
+  maximum: 3.3578
   numel: 4608
-  std: 0.2798
-  mean: 0.01
+  std: 0.2817
+  mean: 0.0102
 - hook: blocks.9.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0066
-  maximum: 3.315
+  minimum: -4.075
+  maximum: 3.3578
   numel: 4608
-  std: 0.2798
-  mean: 0.01
+  std: 0.2817
+  mean: 0.0102
 - hook: blocks.9.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0066
-  maximum: 3.315
+  minimum: -4.075
+  maximum: 3.3578
   numel: 4608
-  std: 0.2798
-  mean: 0.01
+  std: 0.2817
+  mean: 0.0102
 - hook: blocks.9.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -8.3377
-  maximum: 5.9725
+  minimum: -8.5538
+  maximum: 5.8854
   numel: 4608
-  std: 1.1183
-  mean: -0.0007
+  std: 1.1107
+  mean: 0.0033
 - hook: blocks.9.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -8.3377
-  maximum: 5.9725
+  minimum: -8.5538
+  maximum: 5.8854
   numel: 4608
-  std: 1.1183
-  mean: -0.0007
+  std: 1.1107
+  mean: 0.0033
 - hook: blocks.9.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0066
-  maximum: 3.315
+  minimum: -4.075
+  maximum: 3.3578
   numel: 4608
-  std: 0.2798
-  mean: 0.01
+  std: 0.2817
+  mean: 0.0102
 - hook: blocks.9.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -10.2417
-  maximum: 7.0971
+  minimum: -10.1788
+  maximum: 6.9778
   numel: 4608
-  std: 1.3448
-  mean: -0.0566
+  std: 1.3376
+  mean: -0.0587
 - hook: blocks.9.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -10.2417
-  maximum: 7.0971
+  minimum: -10.1788
+  maximum: 6.9778
   numel: 4608
-  std: 1.3448
-  mean: -0.0566
+  std: 1.3376
+  mean: -0.0587
 - hook: blocks.9.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0066
-  maximum: 3.315
+  minimum: -4.075
+  maximum: 3.3578
   numel: 4608
-  std: 0.2798
-  mean: 0.01
+  std: 0.2817
+  mean: 0.0102
 - hook: blocks.9.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0961
-  maximum: 3.8229
+  minimum: -4.0247
+  maximum: 3.8741
   numel: 4608
-  std: 0.822
-  mean: 0.0067
+  std: 0.8305
+  mean: 0.0096
 - hook: blocks.9.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.0961
-  maximum: 3.8229
+  minimum: -4.0247
+  maximum: 3.8741
   numel: 4608
-  std: 0.822
-  mean: 0.0067
+  std: 0.8305
+  mean: 0.0096
 - hook: blocks.9.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.137
-  maximum: 6.3913
+  minimum: -4.0929
+  maximum: 6.2117
   numel: 432
-  std: 2.1646
-  mean: -0.0605
+  std: 2.1293
+  mean: -0.0922
 - hook: blocks.9.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -3590,62 +3590,62 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3338
+  std: 0.3381
   mean: 0.1667
 - hook: blocks.9.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.4491
-  maximum: 1.2772
+  minimum: -1.2651
+  maximum: 1.3717
   numel: 4608
-  std: 0.1499
-  mean: 0.0005
+  std: 0.12
+  mean: 0.0016
 - hook: blocks.9.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.4491
-  maximum: 1.2772
+  minimum: -1.2651
+  maximum: 1.3717
   numel: 4608
-  std: 0.1499
-  mean: 0.0005
+  std: 0.12
+  mean: 0.0016
 - hook: blocks.9.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9069
-  maximum: 6.2133
+  minimum: -7.7372
+  maximum: 7.6503
   numel: 4608
-  std: 0.4335
-  mean: 0.003
+  std: 0.3933
+  mean: 0.0049
 - hook: blocks.9.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9069
-  maximum: 6.2133
+  minimum: -7.7372
+  maximum: 7.6503
   numel: 4608
-  std: 0.4335
-  mean: 0.003
+  std: 0.3933
+  mean: 0.0049
 - hook: blocks.9.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9069
-  maximum: 6.2133
+  minimum: -7.7372
+  maximum: 7.6503
   numel: 4608
-  std: 0.4335
-  mean: 0.003
+  std: 0.3933
+  mean: 0.0049
 - hook: blocks.9.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -6.9069
-  maximum: 6.2133
+  minimum: -7.7372
+  maximum: 7.6503
   numel: 4608
-  std: 0.4335
-  mean: 0.003
+  std: 0.3933
+  mean: 0.0049
 - hook: blocks.9.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3653,8 +3653,8 @@ cache:
   minimum: -59.5035
   maximum: 3040.0781
   numel: 4608
-  std: 46.5784
-  mean: 0.9142
+  std: 46.576
+  mean: 0.918
 - hook: blocks.9.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3662,61 +3662,61 @@ cache:
   minimum: -59.5035
   maximum: 3040.0781
   numel: 4608
-  std: 46.5784
-  mean: 0.9142
+  std: 46.576
+  mean: 0.918
 - hook: blocks.9.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 4.7771
+  minimum: 4.7169
   maximum: 113.4059
   numel: 6
-  std: 44.1828
-  mean: 23.2212
+  std: 44.1946
+  mean: 23.1977
 - hook: blocks.9.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -10.5792
+  minimum: -10.6056
   maximum: 26.7644
   numel: 4608
   std: 1.0001
-  mean: 0.0
+  mean: -0.0
 - hook: blocks.9.ln2.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.1975
+  minimum: -1.2022
   maximum: 6.873
   numel: 4608
-  std: 0.2048
+  std: 0.2031
   mean: 0.0044
 - hook: blocks.9.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.1975
+  minimum: -1.2022
   maximum: 6.873
   numel: 4608
-  std: 0.2048
+  std: 0.2031
   mean: 0.0044
 - hook: blocks.9.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.1975
+  minimum: -1.2022
   maximum: 6.873
   numel: 4608
-  std: 0.2048
+  std: 0.2031
   mean: 0.0044
 - hook: blocks.9.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.1975
+  minimum: -1.2022
   maximum: 6.873
   numel: 4608
-  std: 0.2048
+  std: 0.2031
   mean: 0.0044
 - hook: blocks.9.mlp.in.hook_out
   shape: torch.Size([6, 3072])
@@ -3725,8 +3725,8 @@ cache:
   minimum: -5.9381
   maximum: 6.2107
   numel: 18432
-  std: 0.8509
-  mean: -0.8814
+  std: 0.8298
+  mean: -0.8724
 - hook: blocks.9.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -3734,8 +3734,8 @@ cache:
   minimum: -5.9381
   maximum: 6.2107
   numel: 18432
-  std: 0.8509
-  mean: -0.8814
+  std: 0.8298
+  mean: -0.8724
 - hook: blocks.9.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -3743,8 +3743,8 @@ cache:
   minimum: -0.17
   maximum: 6.2107
   numel: 18432
-  std: 0.2084
-  mean: -0.0524
+  std: 0.2023
+  mean: -0.0565
 - hook: blocks.9.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
@@ -3752,8 +3752,8 @@ cache:
   minimum: -0.17
   maximum: 6.2107
   numel: 18432
-  std: 0.2084
-  mean: -0.0524
+  std: 0.2023
+  mean: -0.0565
 - hook: blocks.9.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3761,8 +3761,8 @@ cache:
   minimum: -25.8538
   maximum: 25.148
   numel: 4608
-  std: 1.55
-  mean: 0.0277
+  std: 1.4844
+  mean: 0.0296
 - hook: blocks.9.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3770,8 +3770,8 @@ cache:
   minimum: -25.8538
   maximum: 25.148
   numel: 4608
-  std: 1.55
-  mean: 0.0277
+  std: 1.4844
+  mean: 0.0296
 - hook: blocks.9.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3779,62 +3779,62 @@ cache:
   minimum: -25.8538
   maximum: 25.148
   numel: 4608
-  std: 1.55
-  mean: 0.0277
+  std: 1.4844
+  mean: 0.0296
 - hook: blocks.9.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -73.2255
+  minimum: -73.9953
   maximum: 3051.2561
   numel: 4608
-  std: 46.8456
-  mean: 0.9419
+  std: 46.8375
+  mean: 0.9476
 - hook: blocks.9.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -73.2255
+  minimum: -73.9953
   maximum: 3051.2561
   numel: 4608
-  std: 46.8456
-  mean: 0.9419
+  std: 46.8375
+  mean: 0.9476
 - hook: blocks.10.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -73.2255
+  minimum: -73.9953
   maximum: 3051.2561
   numel: 4608
-  std: 46.8456
-  mean: 0.9419
+  std: 46.8375
+  mean: 0.9476
 - hook: blocks.10.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -73.2255
+  minimum: -73.9953
   maximum: 3051.2561
   numel: 4608
-  std: 46.8456
-  mean: 0.9419
+  std: 46.8375
+  mean: 0.9476
 - hook: blocks.10.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -73.2255
+  minimum: -73.9953
   maximum: 3051.2561
   numel: 4608
-  std: 46.8456
-  mean: 0.9419
+  std: 46.8375
+  mean: 0.9476
 - hook: blocks.10.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 6.2313
+  minimum: 6.0166
   maximum: 113.765
   numel: 6
-  std: 43.8428
-  mean: 24.2718
+  std: 43.874
+  mean: 24.2093
 - hook: blocks.10.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -3843,115 +3843,115 @@ cache:
   maximum: 26.7779
   numel: 4608
   std: 1.0001
-  mean: -0.0
+  mean: 0.0
 - hook: blocks.10.ln1.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.0023
-  maximum: 2.4551
+  minimum: -3.076
+  maximum: 2.4952
   numel: 4608
-  std: 0.2594
+  std: 0.258
   mean: 0.0128
 - hook: blocks.10.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.0023
-  maximum: 2.4551
+  minimum: -3.076
+  maximum: 2.4952
   numel: 4608
-  std: 0.2594
+  std: 0.258
   mean: 0.0128
 - hook: blocks.10.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.0023
-  maximum: 2.4551
+  minimum: -3.076
+  maximum: 2.4952
   numel: 4608
-  std: 0.2594
+  std: 0.258
   mean: 0.0128
 - hook: blocks.10.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.9066
-  maximum: 5.3535
+  minimum: -4.4666
+  maximum: 5.1116
   numel: 4608
-  std: 1.0443
-  mean: 0.0113
+  std: 1.0254
+  mean: 0.0181
 - hook: blocks.10.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.9066
-  maximum: 5.3535
+  minimum: -4.4666
+  maximum: 5.1116
   numel: 4608
-  std: 1.0443
-  mean: 0.0113
+  std: 1.0254
+  mean: 0.0181
 - hook: blocks.10.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.0023
-  maximum: 2.4551
+  minimum: -3.076
+  maximum: 2.4952
   numel: 4608
-  std: 0.2594
+  std: 0.258
   mean: 0.0128
 - hook: blocks.10.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.5699
-  maximum: 5.5488
+  minimum: -7.4803
+  maximum: 5.3977
   numel: 4608
-  std: 1.2359
-  mean: -0.0075
+  std: 1.2328
+  mean: 0.0019
 - hook: blocks.10.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.5699
-  maximum: 5.5488
+  minimum: -7.4803
+  maximum: 5.3977
   numel: 4608
-  std: 1.2359
-  mean: -0.0075
+  std: 1.2328
+  mean: 0.0019
 - hook: blocks.10.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -3.0023
-  maximum: 2.4551
+  minimum: -3.076
+  maximum: 2.4952
   numel: 4608
-  std: 0.2594
+  std: 0.258
   mean: 0.0128
 - hook: blocks.10.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.8834
-  maximum: 5.2719
+  minimum: -4.7587
+  maximum: 4.425
   numel: 4608
-  std: 0.8764
-  mean: -0.0009
+  std: 0.8948
+  mean: 0.0029
 - hook: blocks.10.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.8834
-  maximum: 5.2719
+  minimum: -4.7587
+  maximum: 4.425
   numel: 4608
-  std: 0.8764
-  mean: -0.0009
+  std: 0.8948
+  mean: 0.0029
 - hook: blocks.10.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.3602
-  maximum: 5.9592
+  minimum: -3.8429
+  maximum: 5.7074
   numel: 432
-  std: 2.1085
-  mean: 0.635
+  std: 2.0053
+  mean: 0.6841
 - hook: blocks.10.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -3959,89 +3959,89 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3416
+  std: 0.3368
   mean: 0.1667
 - hook: blocks.10.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2574
-  maximum: 1.278
+  minimum: -1.3195
+  maximum: 1.1386
   numel: 4608
-  std: 0.1526
-  mean: -0.0064
+  std: 0.1581
+  mean: -0.0055
 - hook: blocks.10.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.2574
-  maximum: 1.278
+  minimum: -1.3195
+  maximum: 1.1386
   numel: 4608
-  std: 0.1526
-  mean: -0.0064
+  std: 0.1581
+  mean: -0.0055
 - hook: blocks.10.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.8725
-  maximum: 7.3398
+  minimum: -8.7716
+  maximum: 7.5169
   numel: 4608
-  std: 0.4545
-  mean: 0.0053
+  std: 0.4786
+  mean: 0.0072
 - hook: blocks.10.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.8725
-  maximum: 7.3398
+  minimum: -8.7716
+  maximum: 7.5169
   numel: 4608
-  std: 0.4545
-  mean: 0.0053
+  std: 0.4786
+  mean: 0.0072
 - hook: blocks.10.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.8725
-  maximum: 7.3398
+  minimum: -8.7716
+  maximum: 7.5169
   numel: 4608
-  std: 0.4545
-  mean: 0.0053
+  std: 0.4786
+  mean: 0.0072
 - hook: blocks.10.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -7.8725
-  maximum: 7.3398
+  minimum: -8.7716
+  maximum: 7.5169
   numel: 4608
-  std: 0.4545
-  mean: 0.0053
+  std: 0.4786
+  mean: 0.0072
 - hook: blocks.10.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -78.8663
+  minimum: -80.84
   maximum: 3052.2686
   numel: 4608
-  std: 46.8955
-  mean: 0.9471
+  std: 46.8884
+  mean: 0.9548
 - hook: blocks.10.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -78.8663
+  minimum: -80.84
   maximum: 3052.2686
   numel: 4608
-  std: 46.8955
-  mean: 0.9471
+  std: 46.8884
+  mean: 0.9548
 - hook: blocks.10.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 6.5093
+  minimum: 6.3133
   maximum: 113.7999
   numel: 6
-  std: 43.731
-  mean: 24.5349
+  std: 43.7576
+  mean: 24.482
 - hook: blocks.10.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4055,74 +4055,74 @@ cache:
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0815
+  minimum: -1.115
   maximum: 8.0006
   numel: 4608
-  std: 0.2125
-  mean: 0.0187
+  std: 0.2105
+  mean: 0.0185
 - hook: blocks.10.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0815
+  minimum: -1.115
   maximum: 8.0006
   numel: 4608
-  std: 0.2125
-  mean: 0.0187
+  std: 0.2105
+  mean: 0.0185
 - hook: blocks.10.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0815
+  minimum: -1.115
   maximum: 8.0006
   numel: 4608
-  std: 0.2125
-  mean: 0.0187
+  std: 0.2105
+  mean: 0.0185
 - hook: blocks.10.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0815
+  minimum: -1.115
   maximum: 8.0006
   numel: 4608
-  std: 0.2125
-  mean: 0.0187
+  std: 0.2105
+  mean: 0.0185
 - hook: blocks.10.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -14.8482
-  maximum: 5.5475
+  maximum: 5.0184
   numel: 18432
-  std: 0.8865
-  mean: -0.8878
+  std: 0.8626
+  mean: -0.8804
 - hook: blocks.10.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -14.8482
-  maximum: 5.5475
+  maximum: 5.0184
   numel: 18432
-  std: 0.8865
-  mean: -0.8878
+  std: 0.8626
+  mean: -0.8804
 - hook: blocks.10.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 5.5475
+  maximum: 5.0184
   numel: 18432
-  std: 0.2419
-  mean: -0.0463
+  std: 0.2343
+  mean: -0.0526
 - hook: blocks.10.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 5.5475
+  maximum: 5.0184
   numel: 18432
-  std: 0.2419
-  mean: -0.0463
+  std: 0.2343
+  mean: -0.0526
 - hook: blocks.10.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4130,8 +4130,8 @@ cache:
   minimum: -83.6376
   maximum: 75.6177
   numel: 4608
-  std: 3.6586
-  mean: 0.1011
+  std: 3.6242
+  mean: 0.1014
 - hook: blocks.10.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4139,8 +4139,8 @@ cache:
   minimum: -83.6376
   maximum: 75.6177
   numel: 4608
-  std: 3.6586
-  mean: 0.1011
+  std: 3.6242
+  mean: 0.1014
 - hook: blocks.10.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4148,8 +4148,8 @@ cache:
   minimum: -83.6376
   maximum: 75.6177
   numel: 4608
-  std: 3.6586
-  mean: 0.1011
+  std: 3.6242
+  mean: 0.1014
 - hook: blocks.10.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4157,8 +4157,8 @@ cache:
   minimum: -162.5039
   maximum: 3055.4231
   numel: 4608
-  std: 47.3925
-  mean: 1.0483
+  std: 47.3861
+  mean: 1.0562
 - hook: blocks.10.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4166,8 +4166,8 @@ cache:
   minimum: -162.5039
   maximum: 3055.4231
   numel: 4608
-  std: 47.3925
-  mean: 1.0483
+  std: 47.3861
+  mean: 1.0562
 - hook: blocks.11.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4175,8 +4175,8 @@ cache:
   minimum: -162.5039
   maximum: 3055.4231
   numel: 4608
-  std: 47.3925
-  mean: 1.0483
+  std: 47.3861
+  mean: 1.0562
 - hook: blocks.11.hook_resid_pre
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4184,8 +4184,8 @@ cache:
   minimum: -162.5039
   maximum: 3055.4231
   numel: 4608
-  std: 47.3925
-  mean: 1.0483
+  std: 47.3861
+  mean: 1.0562
 - hook: blocks.11.ln1.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4193,17 +4193,17 @@ cache:
   minimum: -162.5039
   maximum: 3055.4231
   numel: 4608
-  std: 47.3925
-  mean: 1.0483
+  std: 47.3861
+  mean: 1.0562
 - hook: blocks.11.ln1.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 9.1163
+  minimum: 9.3949
   maximum: 113.8645
   numel: 6
-  std: 42.4548
-  mean: 27.2139
+  std: 42.4675
+  mean: 27.1864
 - hook: blocks.11.ln1.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4212,34 +4212,34 @@ cache:
   maximum: 26.7908
   numel: 4608
   std: 1.0001
-  mean: -0.0
+  mean: 0.0
 - hook: blocks.11.ln1.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9495
+  minimum: -1.9431
   maximum: 5.2784
   numel: 4608
-  std: 0.251
-  mean: 0.0147
+  std: 0.2458
+  mean: 0.0146
 - hook: blocks.11.attn.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9495
+  minimum: -1.9431
   maximum: 5.2784
   numel: 4608
-  std: 0.251
-  mean: 0.0147
+  std: 0.2458
+  mean: 0.0146
 - hook: blocks.11.attn.q.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9495
+  minimum: -1.9431
   maximum: 5.2784
   numel: 4608
-  std: 0.251
-  mean: 0.0147
+  std: 0.2458
+  mean: 0.0146
 - hook: blocks.11.attn.q.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
@@ -4247,8 +4247,8 @@ cache:
   minimum: -4.7069
   maximum: 5.7881
   numel: 4608
-  std: 1.0946
-  mean: -0.0149
+  std: 1.0701
+  mean: -0.0082
 - hook: blocks.11.attn.hook_q
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
@@ -4256,44 +4256,44 @@ cache:
   minimum: -4.7069
   maximum: 5.7881
   numel: 4608
-  std: 1.0946
-  mean: -0.0149
+  std: 1.0701
+  mean: -0.0082
 - hook: blocks.11.attn.k.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9495
+  minimum: -1.9431
   maximum: 5.2784
   numel: 4608
-  std: 0.251
-  mean: 0.0147
+  std: 0.2458
+  mean: 0.0146
 - hook: blocks.11.attn.k.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.48
+  minimum: -4.4058
   maximum: 4.4615
   numel: 4608
-  std: 1.0081
-  mean: -0.0109
+  std: 1.0015
+  mean: -0.0112
 - hook: blocks.11.attn.hook_k
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
   device: cuda:0
-  minimum: -4.48
+  minimum: -4.4058
   maximum: 4.4615
   numel: 4608
-  std: 1.0081
-  mean: -0.0109
+  std: 1.0015
+  mean: -0.0112
 - hook: blocks.11.attn.v.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.9495
+  minimum: -1.9431
   maximum: 5.2784
   numel: 4608
-  std: 0.251
-  mean: 0.0147
+  std: 0.2458
+  mean: 0.0146
 - hook: blocks.11.attn.v.hook_out
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
@@ -4301,8 +4301,8 @@ cache:
   minimum: -13.5287
   maximum: 13.5596
   numel: 4608
-  std: 1.2688
-  mean: 0.0011
+  std: 1.2828
+  mean: 0.0014
 - hook: blocks.11.attn.hook_v
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
@@ -4310,8 +4310,8 @@ cache:
   minimum: -13.5287
   maximum: 13.5596
   numel: 4608
-  std: 1.2688
-  mean: 0.0011
+  std: 1.2828
+  mean: 0.0014
 - hook: blocks.11.attn.hook_attn_scores
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -4319,8 +4319,8 @@ cache:
   minimum: -10.9312
   maximum: 6.4948
   numel: 432
-  std: 2.0668
-  mean: 1.1866
+  std: 2.0474
+  mean: 1.1797
 - hook: blocks.11.attn.hook_pattern
   shape: torch.Size([12, 6, 6])
   dtype: torch.float32
@@ -4328,7 +4328,7 @@ cache:
   minimum: 0.0
   maximum: 1.0
   numel: 432
-  std: 0.3214
+  std: 0.3181
   mean: 0.1667
 - hook: blocks.11.attn.o.hook_in
   shape: torch.Size([6, 12, 64])
@@ -4337,8 +4337,8 @@ cache:
   minimum: -13.5287
   maximum: 13.5596
   numel: 4608
-  std: 0.909
-  mean: 0.0068
+  std: 0.905
+  mean: 0.0039
 - hook: blocks.11.attn.hook_z
   shape: torch.Size([6, 12, 64])
   dtype: torch.float32
@@ -4346,44 +4346,44 @@ cache:
   minimum: -13.5287
   maximum: 13.5596
   numel: 4608
-  std: 0.909
-  mean: 0.0068
+  std: 0.905
+  mean: 0.0039
 - hook: blocks.11.attn.o.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2589.0793
-  maximum: 76.8366
+  maximum: 79.0159
   numel: 4608
-  std: 39.9424
-  mean: -0.976
+  std: 39.9062
+  mean: -0.9688
 - hook: blocks.11.attn.hook_hidden_states
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2589.0793
-  maximum: 76.8366
+  maximum: 79.0159
   numel: 4608
-  std: 39.9424
-  mean: -0.976
+  std: 39.9062
+  mean: -0.9688
 - hook: blocks.11.attn.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2589.0793
-  maximum: 76.8366
+  maximum: 79.0159
   numel: 4608
-  std: 39.9424
-  mean: -0.976
+  std: 39.9062
+  mean: -0.9688
 - hook: blocks.11.hook_attn_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -2589.0793
-  maximum: 76.8366
+  maximum: 79.0159
   numel: 4608
-  std: 39.9424
-  mean: -0.976
+  std: 39.9062
+  mean: -0.9688
 - hook: blocks.11.ln2.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4391,8 +4391,8 @@ cache:
   minimum: -212.7765
   maximum: 466.3438
   numel: 4608
-  std: 14.829
-  mean: 0.0723
+  std: 14.5982
+  mean: 0.0874
 - hook: blocks.11.hook_resid_mid
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4400,17 +4400,17 @@ cache:
   minimum: -212.7765
   maximum: 466.3438
   numel: 4608
-  std: 14.829
-  mean: 0.0723
+  std: 14.5982
+  mean: 0.0874
 - hook: blocks.11.ln2.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 11.7618
+  minimum: 11.4768
   maximum: 18.2336
   numel: 6
-  std: 2.2296
-  mean: 14.6858
+  std: 2.5484
+  mean: 14.4088
 - hook: blocks.11.ln2.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4419,106 +4419,106 @@ cache:
   maximum: 25.55
   numel: 4608
   std: 1.0001
-  mean: -0.0
+  mean: 0.0
 - hook: blocks.11.ln2.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0769
+  minimum: -1.1666
   maximum: 2.0265
   numel: 4608
-  std: 0.1825
-  mean: 0.0105
+  std: 0.1817
+  mean: 0.0099
 - hook: blocks.11.mlp.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0769
+  minimum: -1.1666
   maximum: 2.0265
   numel: 4608
-  std: 0.1825
-  mean: 0.0105
+  std: 0.1817
+  mean: 0.0099
 - hook: blocks.11.hook_mlp_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0769
+  minimum: -1.1666
   maximum: 2.0265
   numel: 4608
-  std: 0.1825
-  mean: 0.0105
+  std: 0.1817
+  mean: 0.0099
 - hook: blocks.11.mlp.in.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -1.0769
+  minimum: -1.1666
   maximum: 2.0265
   numel: 4608
-  std: 0.1825
-  mean: 0.0105
+  std: 0.1817
+  mean: 0.0099
 - hook: blocks.11.mlp.in.hook_out
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.3127
-  maximum: 4.9244
+  minimum: -10.2048
+  maximum: 4.9563
   numel: 18432
-  std: 0.864
-  mean: -0.7365
+  std: 0.8469
+  mean: -0.7323
 - hook: blocks.11.mlp.hook_pre
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
-  minimum: -9.3127
-  maximum: 4.9244
+  minimum: -10.2048
+  maximum: 4.9563
   numel: 18432
-  std: 0.864
-  mean: -0.7365
+  std: 0.8469
+  mean: -0.7323
 - hook: blocks.11.mlp.out.hook_in
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 4.9244
+  maximum: 4.9563
   numel: 18432
-  std: 0.2666
-  mean: -0.0371
+  std: 0.2549
+  mean: -0.0424
 - hook: blocks.11.mlp.hook_post
   shape: torch.Size([6, 3072])
   dtype: torch.float32
   device: cuda:0
   minimum: -0.17
-  maximum: 4.9244
+  maximum: 4.9563
   numel: 18432
-  std: 0.2666
-  mean: -0.0371
+  std: 0.2549
+  mean: -0.0424
 - hook: blocks.11.mlp.out.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -128.0251
-  maximum: 54.7224
+  maximum: 42.643
   numel: 4608
-  std: 3.9816
-  mean: -0.0429
+  std: 3.7349
+  mean: -0.0462
 - hook: blocks.11.mlp.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -128.0251
-  maximum: 54.7224
+  maximum: 42.643
   numel: 4608
-  std: 3.9816
-  mean: -0.0429
+  std: 3.7349
+  mean: -0.0462
 - hook: blocks.11.hook_mlp_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
   minimum: -128.0251
-  maximum: 54.7224
+  maximum: 42.643
   numel: 4608
-  std: 3.9816
-  mean: -0.0429
+  std: 3.7349
+  mean: -0.0462
 - hook: blocks.11.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4526,8 +4526,8 @@ cache:
   minimum: -216.9844
   maximum: 405.9539
   numel: 4608
-  std: 15.9054
-  mean: 0.0294
+  std: 15.4835
+  mean: 0.0412
 - hook: blocks.11.hook_resid_post
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4535,8 +4535,8 @@ cache:
   minimum: -216.9844
   maximum: 405.9539
   numel: 4608
-  std: 15.9054
-  mean: 0.0294
+  std: 15.4835
+  mean: 0.0412
 - hook: ln_final.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4544,17 +4544,17 @@ cache:
   minimum: -216.9844
   maximum: 405.9539
   numel: 4608
-  std: 15.9054
-  mean: 0.0294
+  std: 15.4835
+  mean: 0.0412
 - hook: ln_final.hook_scale
   shape: torch.Size([6, 1])
   dtype: torch.float32
   device: cuda:0
-  minimum: 12.5009
+  minimum: 12.913
   maximum: 17.2532
   numel: 6
-  std: 1.802
-  mean: 15.817
+  std: 1.6134
+  mean: 15.4103
 - hook: ln_final.hook_normalized
   shape: torch.Size([6, 768])
   dtype: torch.float32
@@ -4563,40 +4563,40 @@ cache:
   maximum: 26.923
   numel: 4608
   std: 1.0001
-  mean: 0.0
+  mean: -0.0
 - hook: ln_final.hook_out
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -59.7528
-  maximum: 180.066
+  minimum: -59.8011
+  maximum: 180.2484
   numel: 4608
-  std: 6.3892
-  mean: 0.2718
+  std: 6.3257
+  mean: 0.2733
 - hook: unembed.hook_in
   shape: torch.Size([6, 768])
   dtype: torch.float32
   device: cuda:0
-  minimum: -59.7528
-  maximum: 180.066
+  minimum: -59.8011
+  maximum: 180.2484
   numel: 4608
-  std: 6.3892
-  mean: 0.2718
+  std: 6.3257
+  mean: 0.2733
 - hook: unembed.hook_out
   shape: torch.Size([6, 50257])
   dtype: torch.float32
   device: cuda:0
-  minimum: -127.2144
+  minimum: -111.7245
   maximum: -38.8872
   numel: 301542
-  std: 19.0809
-  mean: -80.5129
+  std: 16.0082
+  mean: -77.3045
 - hook: hook_unembed
   shape: torch.Size([6, 50257])
   dtype: torch.float32
   device: cuda:0
-  minimum: -127.2144
+  minimum: -111.7245
   maximum: -38.8872
   numel: 301542
-  std: 19.0809
-  mean: -80.5129
+  std: 16.0082
+  mean: -77.3045

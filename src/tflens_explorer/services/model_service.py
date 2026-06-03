@@ -11,7 +11,7 @@ from transformer_lens.model_bridge.sources.transformers import list_supported_mo
 from tflens_explorer.config.config_loader import load_model_aliases
 from tflens_explorer.config.config_loader import load_tflens_internals
 from tflens_explorer.core.snapshot_types import CacheSummary
-from tflens_explorer.core.snapshot_types import SNAPSHOT_PATH
+from tflens_explorer.core.snapshot_types import SNAPSHOT_PATH, snapshot_yaml_path
 
 MODEL_ALIASES = load_model_aliases()
 INTERNALS = load_tflens_internals()
@@ -205,15 +205,22 @@ def tokens_for_snapshot(model, prompt, prepend_bos):
     # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
     tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
 
-    token_list = []
-    all_tokens = []
-    shape = {"shape": str(tokens[0].shape)}
-    all_tokens.append(shape)
+    token_values = []
+
     for index, token in enumerate(tokens[0]):
         str_token = model.to_str_tokens(token)
-        token_dict = {"index": index, "token_id": token.item(), "token": str_token[0]}
-        all_tokens.append(token_dict)
-    return all_tokens
+        token_values.append({
+            "index": index,
+            "token_id": token.item(),
+            "token": str_token[0],
+        })
+
+    return token_values
+
+def tokens_shape(model, prompt, prepend_bos):
+    # tensor([[50256,   464,  3290,  3332,   319,   262]], device='cuda:0')
+    tokens = model.to_tokens(prompt, prepend_bos=prepend_bos)
+    return str(tokens.shape)
 
 def token_decode(model, token_id):
     if token_id < 0 or token_id >= model.cfg.d_vocab:
@@ -270,13 +277,15 @@ def logits(model, prompt, prepend_bos):
 
     return logits_list
 
+def logits_shape(model, prompt, prepend_bos):
+    logits = model(prompt, prepend_bos=prepend_bos)
+    return str(logits.shape)
+
 def logits_for_snapshot(model, prompt, prepend_bos):
     logits = model(prompt, prepend_bos=prepend_bos)
     
     all_logits = []
     logits_list = []
-    shape = {"shape": str(logits.shape)}
-    all_logits.append(shape)
 
     final_logits = logits[0, -1]
     final_probs = torch.softmax(final_logits, dim=-1)
@@ -289,7 +298,7 @@ def logits_for_snapshot(model, prompt, prepend_bos):
 
         prob_str_token = model.to_str_tokens(topk_probs.indices[index])
         prob = topk_probs.values[index]
-        logit_dict = {"index": index, "value": round(value.item(), 2), "prob": round(prob.item(), 2), "token": value_str_token[0]}
+        logit_dict = {"index": index, "value": round(value.item(), 2), "probability": round(prob.item(), 2), "token": value_str_token[0]}
         all_logits.append(logit_dict)
 
     return all_logits
@@ -371,28 +380,47 @@ def cache_summary_for_snapshot(model, prompt, hook, snapshot_name):
     _, gpt2_cache = model.run_with_cache(prompt, remove_batch_dim=True)
     
     gpt2_attn = gpt2_cache[hook]
+    t = gpt2_attn.detach().float().cpu()
+
+    # Remove NaN and +/- inf
+    finite = torch.isfinite(t)
+
+    # Remove float32 "negative infinity" mask values
+    mask_floor = torch.finfo(torch.float32).min
+    not_masked = t > (mask_floor / 2)
+
+    valid = t[finite & not_masked]
+
     cache_info = {"hook": hook}
     cache_info["shape"] = str(gpt2_attn.shape)
     cache_info["dtype"] = str(gpt2_attn.dtype)
     cache_info["device"] = str(gpt2_attn.device)
-    cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-    cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-    cache_info['numel'] = gpt2_attn.numel()
-    if torch.is_floating_point(gpt2_attn):
-        cache_info["mean"] = round(float(gpt2_attn.mean().item()), 4)
-        cache_info["std"] = round(float(gpt2_attn.std().item()), 4)
+    
+    if valid.numel() == 0:
+        minimum = "na"
+        maximum = "na"
+        mean = "na"
+        std = "na"
     else:
-        cache_info["mean"] = "na"
-        cache_info["std"] = "na"
+        cache_info["minimum"] = round(float(valid.min().item()), 4)
+        cache_info["maximum"] = round(float(valid.max().item()), 4)
+        cache_info['numel'] = t.numel()
+        std = round(float(valid.std().item()), 4) if valid.numel() > 1 else 0.0
+        cache_info['std'] = std
+        if torch.is_floating_point(t):
+            cache_info["mean"] = round(float(valid.mean().item()), 4)
+        else:
+            cache_info["mean"] = "na"
+
     cache = cache_info
 
-    #torch.save(
-    #    {
-    #        "hook_name": hook,
-    #        "tensor": gpt2_attn.detach().cpu()
-    #    },
-    #    SNAPSHOT_PATH / f"{hook}.pt"
-    #)
+    path = snapshot_yaml_path(snapshot_name)
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    torch.save(
+        {hook_name: tensor.detach().cpu() for hook_name, tensor in gpt2_cache.items()},
+        SNAPSHOT_PATH / snapshot_name / "cache_tensors.pt",
+    )
 
     return cache
     
@@ -403,22 +431,44 @@ def cache_summary_for_snapshot_all(model, prompt, snapshot_name):
     for hook_name in gpt2_cache:
         try: 
             gpt2_attn = gpt2_cache[hook_name]
+            t = gpt2_attn.detach().float().cpu()
+
+            # Remove NaN and +/- inf
+            finite = torch.isfinite(t)
+
+            # Remove float32 "negative infinity" mask values
+            mask_floor = torch.finfo(torch.float32).min
+            not_masked = t > (mask_floor / 2)
+
+            valid = t[finite & not_masked]
+
             cache_info = {"hook": hook_name}
             cache_info["shape"] = str(gpt2_attn.shape)
             cache_info["dtype"] = str(gpt2_attn.dtype)
             cache_info["device"] = str(gpt2_attn.device)
-            cache_info["minimum"] = round(torch.min(gpt2_attn).item(), 2)
-            cache_info["maximum"] = round(torch.max(gpt2_attn).item(), 2)
-            cache_info['numel'] = gpt2_attn.numel()
-            if torch.is_floating_point(gpt2_attn):
-                cache_info["mean"] = round(float(gpt2_attn.mean().item()), 4)
-                cache_info["std"] = round(float(gpt2_attn.std().item()), 4)
+    
+            if valid.numel() == 0:
+                minimum = "na"
+                maximum = "na"
+                mean = "na"
+                std = "na"
             else:
-                cache_info["mean"] = "na"
-                cache_info["std"] = "na"
+                cache_info["minimum"] = round(float(valid.min().item()), 4)
+                cache_info["maximum"] = round(float(valid.max().item()), 4)
+                cache_info['numel'] = t.numel()
+                std = round(float(valid.std().item()), 4) if valid.numel() > 1 else 0.0
+                cache_info['std'] = std
+                if torch.is_floating_point(t):
+                    cache_info["mean"] = round(float(valid.mean().item()), 4)
+                else:
+                    cache_info["mean"] = "na"
+
             cache.append(cache_info)
         except Exception as ex:
             traceback.print_exception(type(ex), ex, ex.__traceback__)
+
+    path = snapshot_yaml_path(snapshot_name)
+    path.parent.mkdir(parents=True, exist_ok=True)
 
     torch.save(
         {hook_name: tensor.detach().cpu() for hook_name, tensor in gpt2_cache.items()},

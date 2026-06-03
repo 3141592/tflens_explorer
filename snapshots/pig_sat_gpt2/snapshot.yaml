@@ -1,6 +1,6 @@
 metadata:
-  name: cat_sat_gpt2
-  creation_date: June 03, 2026 05:20PM
+  name: pig_sat_gpt2
+  creation_date: June 03, 2026 05:27PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -11,7 +11,7 @@ model:
   layers: 12
   heads: 12
   vocabulary: 50257
-prompt: The cat sat on the
+prompt: The pig sat on the
 token_shape: torch.Size([1, 6])
 tokens:
 - index: 0
@@ -21,8 +21,8 @@ tokens:
   token_id: 464
   token: The
 - index: 2
-  token_id: 3797
-  token: ' cat'
+  token_id: 12967
+  token: ' pig'
 - index: 3
   token_id: 3332
   token: ' sat'
@@ -35,25 +35,25 @@ tokens:
 logit_shape: torch.Size([1, 6, 50257])
 logits:
 - index: 0
-  value: -81.29
+  value: -82.47
   probability: 0.09
-  token: ' floor'
-- index: 1
-  value: -81.61
-  probability: 0.06
-  token: ' bed'
-- index: 2
-  value: -81.81
-  probability: 0.05
-  token: ' couch'
-- index: 3
-  value: -82.0
-  probability: 0.04
   token: ' ground'
-- index: 4
-  value: -82.03
+- index: 1
+  value: -82.61
+  probability: 0.08
+  token: ' floor'
+- index: 2
+  value: -83.32
   probability: 0.04
+  token: ' table'
+- index: 3
+  value: -83.65
+  probability: 0.03
   token: ' edge'
+- index: 4
+  value: -83.81
+  probability: 0.02
+  token: ' back'
 cache:
   hook: blocks.0.ln1.hook_scale
   shape: torch.Size([6, 1])
@@ -62,5 +62,5 @@ cache:
   minimum: 0.1765
   maximum: 0.3728
   numel: 6
-  std: 0.075
-  mean: 0.2218
+  std: 0.0748
+  mean: 0.2225
