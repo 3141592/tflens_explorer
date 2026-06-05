@@ -114,8 +114,9 @@ def handle_compare_snapshots(context: CommandContext) -> None:
     
     kwargs = parse_kv_args(context.args)
     diff = kwargs.get("diff")
+    percent = kwargs.get("percent")
 
     snapshot1 = context.args[0]
     snapshot2 = context.args[1]
-    compare_snapshots(snapshot1, snapshot2, diff)
+    compare_snapshots(snapshot1, snapshot2, diff, percent)
     return

@@ -55,6 +55,7 @@ compare-snapshots shepherd_chat2_all shepherd_deepseek_all
 compare-snapshots shepherd_chat2 shepherd_gpt2
 compare-snapshots shepherd_gpt2 shepherd_deepseek
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all
+compare-snapshots cat_sat_gpt2_all pig_sat_gpt2_all
 compare-snapshots cat_sat_gpt2_all cat_sat_deepseek_all
 compare-snapshots cat_sat_mistral1_all dog_sat_mistral1_all
 

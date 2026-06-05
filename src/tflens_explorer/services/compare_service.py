@@ -199,10 +199,10 @@ def cache_activation_comparison(cache1, cache2):
     print()
     return
 
-def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, percent_diff=0):
+def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, diff, percent):
     all_args = locals()
     for name, value in all_args.items():
-        if "percent_diff" == name:
+        if name in ["diff","percent"]:
             continue
         if verify_snapshot(value):
             pass
@@ -246,7 +246,7 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, percen
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences (unmasked finite values):")
-        cache_activation_summary(snapshot1.cache, snapshot2.cache, percent_diff)
+        cache_activation_summary(snapshot1.cache, snapshot2.cache, diff, percent)
         #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
         #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
         #else:
@@ -412,9 +412,11 @@ def compare_logits_probs(logits1, logits2):
     print()
     return
 
-def cache_activation_summary(cache1, cache2, diff):
+def cache_activation_summary(cache1, cache2, diff, percent):
     if diff == None:
         diff = 0
+    if percent == None:
+        percent = 0
 
     print(
         f"    {'A/B':<4}"
@@ -437,14 +439,12 @@ def cache_activation_summary(cache1, cache2, diff):
         maximum1 = activation1.maximum
         maximum2 = activation2.maximum
 
-        if diff == 0:
+        include_diff = cache_diff(activation1.mean, activation2.mean, diff)
+        include_percent = cache_percent_diff(activation1.mean, activation2.mean, percent)
+        if include_diff and include_percent:
             pass
         else:
-            include = cache_diff(activation1.mean, activation2.mean, diff)
-            if include:
-                pass
-            else:
-                continue
+            continue
         
         mean1_str = (
             activation1.mean
@@ -499,8 +499,35 @@ def cache_activation_summary(cache1, cache2, diff):
     return
 
 # 
+# Check to see if activatiioni percent difference is greater than supplied limit
+# True: show the hook row
+# False: exclude the hook row
+def cache_percent_diff(mean1, mean2, percent_limit):
+    percent_limit = abs(percent_limit)
+
+    if percent_limit == 0:
+        return True
+
+    diff = abs(mean1 - mean2)
+
+    if diff == 0:
+        return False
+
+    if mean1 == 0 or mean2 == 0:
+        percent_diff = diff * 100
+    else:
+        percent_diff = (diff * 100) / mean2
+        
+    #print(f"{percent_limit}, {abs(mean1-mean2)}, {abs(mean1-mean2) / mean2}")
+    return (percent_diff > percent_limit)
+
+# 
 # Check to see if activatiion difference is greater than supplied limit
+# True: show the hook row
+# False: exclude the hook row
 def cache_diff(mean1, mean2, diff_limit):
+    if diff_limit == 0:
+        return True    
 
     if abs(diff_limit) >= 0:
         if isinstance(mean1, str) or isinstance(mean2, str):
