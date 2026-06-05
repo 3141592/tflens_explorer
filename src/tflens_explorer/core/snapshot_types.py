@@ -5,6 +5,7 @@ import re
 import datetime
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
+from torch import Tensor
 
 BASE_DIR = Path(__file__).resolve().parents[3]
 SNAPSHOT_PATH = BASE_DIR / "snapshots"
@@ -62,6 +63,7 @@ class Snapshot:
     logit_shape: str | None = None
     logits: list[LogitsSummary] = field(default_factory=list)
     cache: list[int] = field(default_factory=list)
+    cache_tensors: dict[str, Tensor] | None = None
 
     def save(self) -> None:
         """Save the snapshot to a YAML file."""
@@ -80,6 +82,7 @@ class Snapshot:
     @classmethod
     def load(cls, name: str) -> "Snapshot":
         path = SNAPSHOT_PATH / name / "snapshot.yaml"
+        tensor_path = SNAPSHOT_PATH / name / "cache_tensors.pt"
 
         try:
             with path.open("r", encoding="utf-8") as f:
@@ -109,6 +112,11 @@ class Snapshot:
                 for cache_data in raw_cache
             ]
 
+            cache_tensors = None
+
+            if tensor_path.exists():
+                cache_tensors = torch.load(tensor_path, map_location="cpu", weights_only=True)
+
             return cls(
                 metadata=SnapshotMetadata(**data["metadata"]),
                 model=Model(**data["model"]) if data.get("model") else None,
@@ -118,6 +126,7 @@ class Snapshot:
                 logit_shape=data.get('logit_shape'),
                 logits=data.get("logits", []),
                 cache=cache,
+                cache_tensors=cache_tensors,
             )
         except Exception as error:
             print(error)
