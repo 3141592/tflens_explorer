@@ -246,7 +246,7 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, diff, 
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences (unmasked finite values):")
-        cache_activation_summary(snapshot1.cache, snapshot2.cache, diff, percent)
+        cache_activation_summary(snapshot1, snapshot2, diff, percent)
         #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
         #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
         #else:
@@ -412,7 +412,7 @@ def compare_logits_probs(logits1, logits2):
     print()
     return
 
-def cache_activation_summary(cache1, cache2, diff, percent):
+def cache_activation_summary(snapshot1, snapshot2, diff, percent):
     if diff == None:
         diff = 0
     if percent == None:
@@ -425,11 +425,13 @@ def cache_activation_summary(cache1, cache2, diff, percent):
         f"{'min':>13}"
         f"{'max':>13}"
         f"{'mean':>13}"
+        f"{'mean_abs_diff':>16}"
     )
 
     different_values_count = 0
     hook_count = 0
-    for activation1, activation2 in zip(cache1, cache2):
+    seen = set()
+    for activation1, activation2 in zip(snapshot1.cache, snapshot2.cache):
         hook1 = activation1.hook
         hook2 = activation2.hook
         shape1 = get_shape(activation1.shape)
@@ -439,13 +441,16 @@ def cache_activation_summary(cache1, cache2, diff, percent):
         maximum1 = activation1.maximum
         maximum2 = activation2.maximum
 
-        include_diff = cache_diff(activation1.mean, activation2.mean, diff)
+        mean_abs_diff = cache_mean_abs_diff(snapshot1.cache_tensors[activation1.hook],
+                                             snapshot2.cache_tensors[activation2.hook])
+
+        include_diff = cache_diff(mean_abs_diff, diff)
         include_percent = cache_percent_diff(activation1.mean, activation2.mean, percent)
         if include_diff and include_percent:
             pass
         else:
             continue
-        
+
         mean1_str = (
             activation1.mean
             if isinstance(activation1.mean, str)
@@ -467,6 +472,16 @@ def cache_activation_summary(cache1, cache2, diff, percent):
         else:
             different_values_count += 1
 
+        # de-duplicate results
+        key = (
+            mean1_str,
+            mean2_str,
+            round(mean_abs_diff.item(), 6),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        
         hook_count += 1
 
         print(
@@ -476,6 +491,7 @@ def cache_activation_summary(cache1, cache2, diff, percent):
             f"{minimum1:>12.4f} "
             f"{maximum1:>12.4f} "
             f"{mean1_str:>12}"
+            f"{mean_abs_diff:>16.4f}"
         )
                 
         print(
@@ -485,6 +501,7 @@ def cache_activation_summary(cache1, cache2, diff, percent):
             f"{minimum2:>12.4f} "
             f"{maximum2:>12.4f} "
             f"{mean2_str:>12}"
+            f"{'':>16}"
         )
 
         print()
@@ -525,20 +542,20 @@ def cache_percent_diff(mean1, mean2, percent_limit):
 # Check to see if activatiion difference is greater than supplied limit
 # True: show the hook row
 # False: exclude the hook row
-def cache_diff(mean1, mean2, diff_limit):
+def cache_diff(mean_abs_diff, diff_limit):
     if diff_limit == 0:
-        return True    
-
-    if abs(diff_limit) >= 0:
-        if isinstance(mean1, str) or isinstance(mean2, str):
-            return True
-
-        diff = abs((mean1 - mean2))
-
-    else:
         return True
+    return (mean_abs_diff > diff_limit)
 
-    return (diff > diff_limit)
+def cache_mean_abs_diff(tensor1, tensor2):
+    if not tensor1.is_floating_point():
+        tensor1 = tensor1.float()
+
+    if not tensor2.is_floating_point():
+        tensor2 = tensor2.float()
+
+    mean_abs_diff = (tensor1 - tensor2).abs().mean()
+    return mean_abs_diff
 
 # TODO:
 # Reintroduce advanced tensor comparison once optional
