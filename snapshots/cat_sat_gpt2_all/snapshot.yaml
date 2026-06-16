@@ -1,6 +1,6 @@
 metadata:
   name: cat_sat_gpt2_all
-  creation_date: June 03, 2026 05:30PM
+  creation_date: June 16, 2026 01:26PM
 model:
   name: gpt2 -> openai-community/gpt2
   temperature: 0.0
@@ -34,25 +34,30 @@ tokens:
   token: ' the'
 logit_shape: torch.Size([1, 6, 50257])
 logits:
-- index: 0
+- rank: 0
   value: -81.29
   probability: 0.09
+  token_id: 4314
   token: ' floor'
-- index: 1
+- rank: 1
   value: -81.61
   probability: 0.06
+  token_id: 3996
   token: ' bed'
-- index: 2
+- rank: 2
   value: -81.81
   probability: 0.05
+  token_id: 18507
   token: ' couch'
-- index: 3
+- rank: 3
   value: -82.0
   probability: 0.04
+  token_id: 2323
   token: ' ground'
-- index: 4
+- rank: 4
   value: -82.03
   probability: 0.04
+  token_id: 5743
   token: ' edge'
 cache:
 - hook: embed.hook_in
@@ -4600,3 +4605,4 @@ cache:
   numel: 301542
   std: 19.0946
   mean: -79.7478
+cache_tensors: null

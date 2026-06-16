@@ -298,7 +298,12 @@ def logits_for_snapshot(model, prompt, prepend_bos):
 
         prob_str_token = model.to_str_tokens(topk_probs.indices[index])
         prob = topk_probs.values[index]
-        logit_dict = {"index": index, "value": round(value.item(), 2), "probability": round(prob.item(), 2), "token": value_str_token[0]}
+        token_id = topk_logits.indices[index].item()
+        logit_dict = {"rank": index, 
+                      "value": round(value.item(), 2), 
+                      "probability": round(prob.item(), 2), 
+                      "token_id": token_id, 
+                      "token": value_str_token[0]}
         all_logits.append(logit_dict)
 
     return all_logits

@@ -36,9 +36,10 @@ class TokenSummary:
 
 @dataclass
 class LogitsSummary:
-    index: int
+    rank: int
     value: float
     probability: float
+    token_id: int
     token: str
 
 @dataclass

@@ -1,6 +1,7 @@
 """Prompt command handlers."""
 
 import numbers
+import torch
 from pathlib import Path
 from tflens_explorer.core.types import CommandContext
 
@@ -34,10 +35,17 @@ def handle_token_next(context: CommandContext) -> None:
         print("No prompt set. Use: prompt-set <text>")
         return
     
-    from tflens_explorer.services.model_service import prompt_run
+    from tflens_explorer.services.model_service import logits_for_snapshot
+    logits = logits_for_snapshot(model, prompt, prepend_bos=True)
+    next_id = logits[0]['token_id']
 
-    next_token = prompt_run(model, prompt, new_tokens=1)
-    next_token = " " + next_token.split()[-1]
+    tokens = model.to_tokens(prompt, prepend_bos=True)
+    new_tokens = torch.cat([
+        tokens,
+        torch.tensor([[next_id]], device=tokens.device)
+    ], dim=1)
+
+    next_token = model.to_string(new_tokens[-1][-1].item())
     context.session.current_prompt += next_token
     print(f"New prompt: {context.session.current_prompt}")
 

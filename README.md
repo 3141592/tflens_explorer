@@ -58,4 +58,6 @@ compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all
 compare-snapshots cat_sat_gpt2_all pig_sat_gpt2_all
 compare-snapshots cat_sat_gpt2_all cat_sat_deepseek_all
 compare-snapshots cat_sat_mistral1_all dog_sat_mistral1_all
+compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all diff=1
+compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all percent=50
 
