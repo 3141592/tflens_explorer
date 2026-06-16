@@ -61,3 +61,4 @@ compare-snapshots cat_sat_mistral1_all dog_sat_mistral1_all
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all diff=1
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all percent=50
 
+prompt-run new_tokens=50
