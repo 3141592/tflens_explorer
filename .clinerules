@@ -1,0 +1,19 @@
+This is a Python CLI project for exploring TransformerLens model behavior.
+
+Do not make broad refactors unless explicitly asked.
+
+Prefer small, reviewable changes.
+
+Before editing code:
+- explain the intended change
+- identify the files that will be touched
+- wait for approval unless the task is trivial
+
+Project conventions:
+- YAML stores metadata and summaries only
+- raw tensors belong in separate .pt files
+- snapshot creation and comparison logic should remain separated
+- avoid dumping large tensor lists into YAML
+
+Use existing tests when available.
+If no tests exist, suggest a small test before changing behavior.
