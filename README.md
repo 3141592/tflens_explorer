@@ -126,6 +126,7 @@ compare-snapshots cat_sat_gpt2 dog_sat_gpt2 diff=1
 - Avoid dumping large tensor lists into YAML.
 
 ## Quick Commands
+```bash
 snapshot-create name=cat_sat_gpt2 hook=blocks.0.mlp.hook_post
 snapshot-create name=dog_sat_gpt2 hook=blocks.0.mlp.hook_post
 snapshot-create name=test hook=all
@@ -162,3 +163,4 @@ compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all diff=1
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all percent=50
 
 prompt-run new_tokens=50
+```
