@@ -569,23 +569,24 @@ def cache_mean_abs_diff(tensor1, tensor2):
 def cache_cosine_similarity(tensor1, tensor2):
     if not tensor1.is_floating_point():
         tensor1 = tensor1.float()
-
     if not tensor2.is_floating_point():
         tensor2 = tensor2.float()
 
-    flat1 = tensor1.flatten()
-    flat2 = tensor2.flatten()
+    v1 = tensor1.reshape(-1)
+    v2 = tensor2.reshape(-1)
 
-    if flat1.norm() == 0 or flat2.norm() == 0:
-        return float("nan")
+    mask = torch.isfinite(v1) & torch.isfinite(v2)
 
-    cosine_sim = torch.nn.functional.cosine_similarity(
-        flat1,
-        flat2,
-        dim=0
-    )
+    # Optional: remove TransformerLens/PyTorch mask sentinel values
+    mask = mask & (v1 > -1e20) & (v2 > -1e20)
 
-    return cosine_sim
+    v1 = v1[mask]
+    v2 = v2[mask]
+
+    if v1.numel() == 0:
+        return None
+
+    return torch.nn.functional.cosine_similarity(v1, v2, dim=0).item()
 
 def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activation2):
     tensor1 = snapshot1.cache_tensors[activation1.hook]
@@ -615,8 +616,9 @@ def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activati
                 else:
                     raise ValueError(f"Unsupported head axis: {head_axis}")
 
-                sim = torch.nn.functional.cosine_similarity(v1, v2, dim=0)
-                print(f"            head{head} cos_sim: {round(sim.item(), 4)}")
+                sim = cache_cosine_similarity(v1, v2)
+                if sim < 0.90:
+                    print(f"            head{head} cos_sim: {round(sim, 4)}")
 
 
 def is_cosine_eligible(tensor1, tensor2) -> bool:
