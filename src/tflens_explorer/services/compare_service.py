@@ -426,6 +426,7 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
         f"{'max':>13}"
         f"{'mean':>13}"
         f"{'mean_abs_diff':>16}"
+        f"{'cos_sim':>16}"
     )
 
     different_values_count = 0
@@ -443,6 +444,9 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
 
         mean_abs_diff = cache_mean_abs_diff(snapshot1.cache_tensors[activation1.hook],
                                              snapshot2.cache_tensors[activation2.hook])
+
+        cosine_similarity = cache_cosine_similarity(snapshot1.cache_tensors[activation1.hook],
+                                                    snapshot2.cache_tensors[activation1.hook])
 
         include_diff = cache_diff(mean_abs_diff, diff)
         include_percent = cache_percent_diff(activation1.mean, activation2.mean, percent)
@@ -492,6 +496,7 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
             f"{maximum1:>12.4f} "
             f"{mean1_str:>12}"
             f"{mean_abs_diff:>16.4f}"
+            f"{cosine_similarity:>16.4f}"
         )
                 
         print(
@@ -504,6 +509,10 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
             f"{'':>16}"
         )
 
+        cache_cosine_similarity_per_head(snapshot1,
+                                         snapshot2,
+                                         activation1,
+                                         activation2)
         print()
 
     print()
@@ -556,6 +565,78 @@ def cache_mean_abs_diff(tensor1, tensor2):
 
     mean_abs_diff = (tensor1 - tensor2).abs().mean()
     return mean_abs_diff
+
+def cache_cosine_similarity(tensor1, tensor2):
+    if not tensor1.is_floating_point():
+        tensor1 = tensor1.float()
+
+    if not tensor2.is_floating_point():
+        tensor2 = tensor2.float()
+
+    flat1 = tensor1.flatten()
+    flat2 = tensor2.flatten()
+
+    if flat1.norm() == 0 or flat2.norm() == 0:
+        return float("nan")
+
+    cosine_sim = torch.nn.functional.cosine_similarity(
+        flat1,
+        flat2,
+        dim=0
+    )
+
+    return cosine_sim
+
+def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activation2):
+    tensor1 = snapshot1.cache_tensors[activation1.hook]
+    tensor2 = snapshot2.cache_tensors[activation2.hook]
+
+    if not tensor1.is_floating_point():
+        tensor1 = tensor1.float()
+
+    if not tensor2.is_floating_point():
+        tensor2 = tensor2.float()
+
+    heads1 = snapshot1.model.heads
+    heads2 = snapshot2.model.heads
+    heads = min(heads1, heads2)
+
+    if is_cosine_eligible(tensor1, tensor2):
+        head_axis = head_axis_for_hook(activation1.hook, tensor1, heads1)
+
+        if head_axis is not None:
+            for head in range(heads):
+                if head_axis == 0:
+                    v1 = tensor1[head, :, :].reshape(-1)
+                    v2 = tensor2[head, :, :].reshape(-1)
+                elif head_axis == 1:
+                    v1 = tensor1[:, head, :].reshape(-1)
+                    v2 = tensor2[:, head, :].reshape(-1)
+                else:
+                    raise ValueError(f"Unsupported head axis: {head_axis}")
+
+                sim = torch.nn.functional.cosine_similarity(v1, v2, dim=0)
+                print(f"            head{head} cos_sim: {round(sim.item(), 4)}")
+
+
+def is_cosine_eligible(tensor1, tensor2) -> bool:
+    return (
+        tensor1.shape == tensor2.shape
+        and tensor1.numel() > 0
+        and tensor1.is_floating_point()
+        and tensor2.is_floating_point()
+    ) 
+
+def head_axis_for_hook(hook_name: str, tensor, n_heads: int) -> int | None:
+    if tensor.ndim == 3 and tensor.shape[1] == n_heads:
+        # [seq, head, d_head]
+        return 1
+
+    if tensor.ndim == 3 and tensor.shape[0] == n_heads:
+        # [head, query, key]
+        return 0
+
+    return None
 
 # TODO:
 # Reintroduce advanced tensor comparison once optional
