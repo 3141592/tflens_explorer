@@ -6,6 +6,7 @@ import torch
 import re
 import traceback
 import datetime
+import math
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
 from tflens_explorer.services.model_service import tokens_for_snapshot, logits_for_snapshot, tokens_shape, logits_shape
@@ -545,6 +546,10 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
         print("    No cache summary differences found.")
 
     print()
+
+    # Create graph of cosine similarity changes
+    plot_cosine_chart(filename)
+
     return
 
 # 
@@ -706,6 +711,101 @@ def head_axis_for_hook(hook_name: str, tensor, n_heads: int) -> int | None:
         return 0
 
     return None
+
+def plot_cosine_chart(filename: str) -> None:
+    """Read cosine similarity per-head CSV data and plot a line-segment chart.
+
+    The CSV is expected at ``snapshots/data/<filename>`` with the format::
+
+        hook1, hook2, head, cosine_similarity
+
+    For each attention head a piecewise-linear path is drawn.  Each segment
+    spans one unit on the x-axis and its *slope* is set to
+    ``arccos(cosine_similarity)``.  Cosine similarity close to 1 therefore
+    produces a flat segment, while a low similarity produces a steep upward
+    segment.
+
+    The output image is saved to ``snapshots/data/<filename>.png``.
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        return
+
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
+
+    if not rows:
+        print("No data rows found.")
+        return
+
+    # Build (hook_index, cos_sim) per head, preserving file order
+    hook_index_of = {h: i for i, h in enumerate(seen_hooks)}
+    heads: dict[int, list[tuple[int, float]]] = {h: [] for h in seen_heads}
+    for hook, head, cos_sim in rows:
+        heads[head].append((hook_index_of[hook], cos_sim))
+
+    # ── draw ──────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    n_heads = len(heads)
+    colors = plt.cm.rainbow(np.linspace(0, 1, n_heads))
+
+    for (head, segments), color in zip(
+        sorted(heads.items()), colors
+    ):
+        x = 0.0
+        y = 0.0
+        xs: list[float] = [x]
+        ys: list[float] = [y]
+        for _hook_idx, cos_sim in sorted(segments):
+            angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
+            x += 1.0
+            y += angle
+            xs.append(x)
+            ys.append(y)
+        ax.plot(xs, ys, color=color, label=f"Head {head}")
+
+    ax.set_xlabel("Hook index (each unit = one hook)")
+    ax.set_ylabel("Cumulative arccos(cosine similarity)")
+    ax.set_title(f"Cosine similarity change per head — {filename}")
+    ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left", fontsize="small")
+
+    # Tick labels – abbreviated hook names
+    short_names = [
+        h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        for h in seen_hooks
+    ]
+    ax.set_xticks(range(len(seen_hooks)))
+    ax.set_xticklabels(short_names, rotation=45, ha="right", fontsize=7)
+
+    fig.tight_layout()
+
+    outpath = SNAPSHOT_DATA_PATH / f"{filename}.png"
+    fig.savefig(outpath, dpi=150)
+    plt.close(fig)
+    print(f"Chart saved to {outpath}")
+
 
 # TODO:
 # Reintroduce advanced tensor comparison once optional

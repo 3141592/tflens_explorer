@@ -41,6 +41,7 @@ RUN ln -sf /usr/bin/python3.11 /usr/local/bin/python \
 
 RUN python -m pip install --upgrade pip setuptools wheel
 RUN pip install -U bitsandbytes>=0.46.1
+RUN pip install matplotlib
 
 RUN mkdir -p /home/roy/commandhistory && chown -R roy:roy /home/roy/commandhistory
 
