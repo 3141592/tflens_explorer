@@ -203,23 +203,23 @@ class TestCacheDiff:
 
 
 class TestCacheMeanAbsDiff:
-    def test_float_tensors(self):
+    def test_int_tensors(self):
         t1 = torch.tensor([1.0, 2.0, 3.0])
         t2 = torch.tensor([2.0, 3.0, 4.0])
         result = cache_mean_abs_diff(t1, t2)
-        assert torch.isclose(result, torch.tensor(1.0))
+        assert result == 1.0
 
     def test_int_tensors_are_converted(self):
         t1 = torch.tensor([1, 2, 3])
         t2 = torch.tensor([2, 3, 4])
         result = cache_mean_abs_diff(t1, t2)
-        assert torch.isclose(result, torch.tensor(1.0))
+        assert result == 1.0
 
     def test_identical_tensors(self):
         t1 = torch.tensor([1.0, 2.0, 3.0])
         t2 = torch.tensor([1.0, 2.0, 3.0])
         result = cache_mean_abs_diff(t1, t2)
-        assert torch.isclose(result, torch.tensor(0.0))
+        assert result == 0.0
 
 
 class TestCacheCosineSimilarity:
@@ -254,7 +254,6 @@ class TestCacheCosineSimilarity:
         t1 = torch.tensor([1, 2, 3], dtype=torch.int32)
         t2 = torch.tensor([1, 2, 3], dtype=torch.int32)
         result = cache_cosine_similarity(t1, t2)
-        assert result is not None
         assert abs(result - 1.0) < 1e-6
 
 

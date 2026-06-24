@@ -13,7 +13,7 @@ from tflens_explorer.services.model_service import cache_summary_for_snapshot, g
 from tflens_explorer.services.model_service import cache_summary_for_snapshot_all
 from tflens_explorer.core.types import CommandContext
 from tflens_explorer.cli.utilities import get_shape
-from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH
+from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHOT_DATA_PATH
 from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
 
@@ -245,7 +245,7 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, diff, 
     print(f"  top-5 overlap: {logit_comparison[1]}/5")
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
-        print(f"Cache activation differences (unmasked finite values):")
+        print(f"Cache activation differences (usable finite values):")
         cache_activation_summary(snapshot1, snapshot2, diff, percent)
         #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
         #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
@@ -418,6 +418,10 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
     if percent == None:
         percent = 0
 
+    # Create new file for saving cosine similarities for each layer and head
+    filename = f"{snapshot1.metadata.name}_vs_{snapshot2.metadata.name}"
+    open(SNAPSHOT_DATA_PATH / filename, 'w')
+
     print(
         f"    {'A/B':<4}"
         f"{'hook_name':<36}"
@@ -443,10 +447,15 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
         maximum2 = activation2.maximum
 
         mean_abs_diff = cache_mean_abs_diff(snapshot1.cache_tensors[activation1.hook],
-                                             snapshot2.cache_tensors[activation2.hook])
+                                            snapshot2.cache_tensors[activation2.hook])
 
         cosine_similarity = cache_cosine_similarity(snapshot1.cache_tensors[activation1.hook],
                                                     snapshot2.cache_tensors[activation1.hook])
+
+        if cosine_similarity is None:
+            cos_similarity_str = "n/a"
+        else:
+            cos_similarity_str = f"{cosine_similarity:>14.6f}"
 
         include_diff = cache_diff(mean_abs_diff, diff)
         include_percent = cache_percent_diff(activation1.mean, activation2.mean, percent)
@@ -477,11 +486,25 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
             different_values_count += 1
 
         # de-duplicate results
+        mean_abs_diff_key = (
+            None
+            if mean_abs_diff is None
+            else round(mean_abs_diff, 6)
+        )
+
         key = (
+            activation1.hook,
             mean1_str,
             mean2_str,
-            round(mean_abs_diff.item(), 6),
+            mean_abs_diff_key,
         )
+
+        mean_abs_diff_str = (
+            "n/a"
+            if mean_abs_diff is None
+            else f"{mean_abs_diff:>14.4f}"
+        )
+
         if key in seen:
             continue
         seen.add(key)
@@ -495,8 +518,8 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
             f"{minimum1:>12.4f} "
             f"{maximum1:>12.4f} "
             f"{mean1_str:>12}"
-            f"{mean_abs_diff:>16.4f}"
-            f"{cosine_similarity:>16.4f}"
+            f"{mean_abs_diff_str:>16}"
+            f"{cos_similarity_str:>16}"
         )
                 
         print(
@@ -557,36 +580,57 @@ def cache_diff(mean_abs_diff, diff_limit):
     return (mean_abs_diff > diff_limit)
 
 def cache_mean_abs_diff(tensor1, tensor2):
-    if not tensor1.is_floating_point():
-        tensor1 = tensor1.float()
+    v1 = tensor1.detach().flatten()
+    v2 = tensor2.detach().flatten()
 
-    if not tensor2.is_floating_point():
-        tensor2 = tensor2.float()
-
-    mean_abs_diff = (tensor1 - tensor2).abs().mean()
-    return mean_abs_diff
-
-def cache_cosine_similarity(tensor1, tensor2):
-    if not tensor1.is_floating_point():
-        tensor1 = tensor1.float()
-    if not tensor2.is_floating_point():
-        tensor2 = tensor2.float()
-
-    v1 = tensor1.reshape(-1)
-    v2 = tensor2.reshape(-1)
-
-    mask = torch.isfinite(v1) & torch.isfinite(v2)
-
-    # Optional: remove TransformerLens/PyTorch mask sentinel values
-    mask = mask & (v1 > -1e20) & (v2 > -1e20)
-
-    v1 = v1[mask]
-    v2 = v2[mask]
-
-    if v1.numel() == 0:
+    if v1.numel() != v2.numel():
         return None
 
-    return torch.nn.functional.cosine_similarity(v1, v2, dim=0).item()
+    if not v1.is_floating_point():
+        v1 = v1.float()
+    if not v2.is_floating_point():
+        v2 = v2.float()
+
+    mask = finite_reasonable_mask(v1, v2)
+
+    if mask.sum().item() == 0:
+        return None
+
+    return (v1[mask] - v2[mask]).abs().mean().item()
+
+def cache_cosine_similarity(tensor1, tensor2):
+    v1 = tensor1.detach().flatten()
+    v2 = tensor2.detach().flatten()
+
+    if v1.numel() != v2.numel():
+        return None
+
+    if not v1.is_floating_point():
+        v1 = v1.float()
+    if not v2.is_floating_point():
+        v2 = v2.float()
+
+    if not is_cosine_eligible(v1, v2):
+        return None
+
+    mask = cache_value_mask(v1, v2)
+
+    if mask.sum().item() == 0:
+        return None
+
+    v1_masked = v1[mask]
+    v2_masked = v2[mask]
+
+    if v1_masked.norm().item() == 0 or v2_masked.norm().item() == 0:
+        return None
+
+    cosine_sim_raw = torch.nn.functional.cosine_similarity(
+        v1_masked,
+        v2_masked,
+        dim=0,
+    )
+
+    return cosine_sim_raw.item()
 
 def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activation2):
     tensor1 = snapshot1.cache_tensors[activation1.hook]
@@ -617,9 +661,32 @@ def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activati
                     raise ValueError(f"Unsupported head axis: {head_axis}")
 
                 sim = cache_cosine_similarity(v1, v2)
+                save_cosine_similarity_data(snapshot1.metadata.name, snapshot2.metadata.name, 
+                                            activation1.hook, activation2.hook, head, sim)
+                 
                 if sim < 0.90:
                     print(f"            head{head} cos_sim: {round(sim, 4)}")
 
+def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
+    filename = f"{name1}_vs_{name2}"
+    with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
+        f.write(f"{hook1},{hook2}, {head},{sim}\n")
+
+def cache_value_mask(v1, v2, max_abs=1e20):
+    return (
+        torch.isfinite(v1)
+        & torch.isfinite(v2)
+        & (v1.abs() < max_abs)
+        & (v2.abs() < max_abs)
+    )
+
+def finite_reasonable_mask(v1, v2, max_abs=1e20):
+    return (
+        torch.isfinite(v1)
+        & torch.isfinite(v2)
+        & (v1.abs() < max_abs)
+        & (v2.abs() < max_abs)
+    )
 
 def is_cosine_eligible(tensor1, tensor2) -> bool:
     return (

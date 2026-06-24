@@ -10,6 +10,8 @@ from torch import Tensor
 BASE_DIR = Path(__file__).resolve().parents[3]
 SNAPSHOT_PATH = BASE_DIR / "snapshots"
 SNAPSHOT_PATH.mkdir(parents=True, exist_ok=True)
+SNAPSHOT_DATA_PATH = SNAPSHOT_PATH / "data"
+SNAPSHOT_DATA_PATH.mkdir(parents=True, exist_ok=True)
 
 @dataclass
 class Model:
