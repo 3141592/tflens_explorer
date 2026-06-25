@@ -549,6 +549,7 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
 
     # Create graph of cosine similarity changes
     plot_cosine_chart(filename)
+    plot_cosine_chart2(filename)
 
     return
 
@@ -770,7 +771,8 @@ def plot_cosine_chart(filename: str) -> None:
 
     n_heads = len(heads)
     colors = plt.cm.rainbow(np.linspace(0, 1, n_heads))
-
+    cummulative_change = 0
+    #y = 0
     for (head, segments), color in zip(
         sorted(heads.items()), colors
     ):
@@ -779,9 +781,12 @@ def plot_cosine_chart(filename: str) -> None:
         xs: list[float] = [x]
         ys: list[float] = [y]
         for _hook_idx, cos_sim in sorted(segments):
-            angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
+            #angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
+            angle = math.acos(cos_sim)  # clamp to [-1, 1]
             x += 1.0
             y += angle
+            #cummulative_change += y
+            #y = cummulative_change
             xs.append(x)
             ys.append(y)
         ax.plot(xs, ys, color=color, label=f"Head {head}")
@@ -805,6 +810,104 @@ def plot_cosine_chart(filename: str) -> None:
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
     print(f"Chart saved to {outpath}")
+
+
+def plot_cosine_chart2(filename: str) -> None:
+    """Read cosine similarity per-head CSV data and plot a heatmap.
+
+    The CSV is expected at ``snapshots/data/<filename>`` with the format::
+
+        hook1, hook2, head, cosine_similarity
+
+    The heatmap uses hooks as the x-axis and heads as the y-axis, with
+    cosine similarity shown as cell color.
+
+    The output image is saved to ``snapshots/data/<filename>.png``.
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        return
+
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
+
+    if not rows:
+        print("No data rows found.")
+        return
+
+    # ── build heatmap matrix ──────────────────────────────────────────
+    hook_index_of = {h: i for i, h in enumerate(seen_hooks)}
+    n_hooks = len(seen_hooks)
+    sorted_heads = sorted(seen_heads)
+    n_heads = len(sorted_heads)
+    head_index_of = {h: i for i, h in enumerate(sorted_heads)}
+
+    # NaN fill so missing combos show as a distinct color (via cmap.set_bad)
+    matrix = np.full((n_heads, n_hooks), np.nan)
+    for hook, head, cos_sim in rows:
+        matrix[head_index_of[head], hook_index_of[hook]] = cos_sim
+
+    # ── draw heatmap ──────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(max(8, n_hooks * 0.6), max(4, n_heads * 0.5)))
+
+    cmap = plt.cm.RdYlGn  # red (low) → yellow → green (high)
+    cmap.set_bad(color='lightgray')
+
+    im = ax.imshow(matrix, aspect='auto', cmap=cmap, vmin=0.0, vmax=1.0)
+
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Cosine similarity", rotation=270, labelpad=15)
+
+    # Tick labels – abbreviated hook names
+    short_names = [
+        h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        for h in seen_hooks
+    ]
+    ax.set_xticks(range(n_hooks))
+    ax.set_xticklabels(short_names, rotation=45, ha="right", fontsize=7)
+    ax.set_yticks(range(n_heads))
+    ax.set_yticklabels([f"Head {h}" for h in sorted_heads], fontsize=8)
+
+    ax.set_xlabel("Hook")
+    ax.set_ylabel("Head")
+    ax.set_title(f"Cosine similarity heatmap — {filename}")
+
+    # Annotate cells with values if grid is not too large
+    if n_hooks * n_heads <= 200:
+        for i in range(n_heads):
+            for j in range(n_hooks):
+                val = matrix[i, j]
+                if not np.isnan(val):
+                    ax.text(j, i, f"{val:.2f}", ha="center", va="center",
+                            fontsize=6, color="black")
+
+    fig.tight_layout()
+
+    outpath = SNAPSHOT_DATA_PATH / f"{filename}2.png"
+    fig.savefig(outpath, dpi=150)
+    plt.close(fig)
+    print(f"Heatmap saved to {outpath}")
 
 
 # TODO:
