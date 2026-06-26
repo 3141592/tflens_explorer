@@ -248,10 +248,16 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, diff, 
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences (usable finite values):")
         cache_activation_summary(snapshot1, snapshot2, diff, percent)
-        #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
-        #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
-        #else:
-        #    print("Raw cache tensor values not available; skipping tensor-diff summary.")
+    
+    print()
+    # add a table sorted by largest angular change
+    filename = f"{snapshot1.metadata.name}_vs_{snapshot2.metadata.name}"
+    angular_change_per_head(filename)   
+
+    print()
+    outpath = SNAPSHOT_DATA_PATH
+    print(f"Plots are saved to {outpath}.")
+
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -675,6 +681,63 @@ def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activati
                 if sim < 0.90:
                     print(f"            head{head} cos_sim: {round(sim, 4)}")
 
+def angular_change_per_head(filename: str) -> None:
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        return
+
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
+    
+    print(
+        f"{'    hook_name':<30}"
+        f"{'head':>4}"
+        f"{'angle':>10}"
+    )
+
+    if not rows:
+        print("No data rows found.")
+        return
+
+    rows.sort(key=lambda t: t[-1])
+
+    row_count = 0
+    for row in rows:
+        if ".o." in row[0] or ".v." in row[0]:
+            continue
+        row_count +=1
+        layer = row[0]
+        head = row[1]
+        angle = math.acos(row[2])
+
+        print(
+            f"    {layer:<30} "
+            f"{head:>4.0f} "
+            f"{angle:>10.4f} "
+        )
+        if row_count == 20:
+            break
+
+    return
+
 def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
     filename = f"{name1}_vs_{name2}"
     with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
@@ -818,7 +881,7 @@ def plot_cosine_chart(filename: str) -> None:
     outpath = SNAPSHOT_DATA_PATH / f"{filename}.png"
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
-    print(f"Chart saved to {outpath}")
+    #print(f"Chart saved to {outpath}")
 
 
 def plot_cosine_chart2(filename: str) -> None:
@@ -922,7 +985,7 @@ def plot_cosine_chart2(filename: str) -> None:
     outpath = SNAPSHOT_DATA_PATH / f"{filename}2.png"
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
-    print(f"Heatmap saved to {outpath}")
+    #print(f"Heatmap saved to {outpath}")
 
 
 def plot_cosine_chart3(filename: str) -> None:
@@ -1030,7 +1093,7 @@ def plot_cosine_chart3(filename: str) -> None:
     outpath = SNAPSHOT_DATA_PATH / f"{filename}_hook_o_z_only.png"
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
-    print(f"Heatmap saved to {outpath}")
+    #print(f"Heatmap saved to {outpath}")
 
 
 def plot_cosine_chart4(filename: str) -> None:
@@ -1080,33 +1143,16 @@ def plot_cosine_chart4(filename: str) -> None:
         print("No data rows found.")
         return
 
-    # Build (hook_index, cos_sim) per head, preserving file order
     hook_index_of = {h: i for i, h in enumerate(seen_hooks)}
     heads: dict[int, list[tuple[int, float]]] = {h: [] for h in seen_heads}
     for hook, head, cos_sim in rows:
         heads[head].append((hook_index_of[hook], cos_sim))
 
-    # print table of angles per head
-    print()
-    print(
-        f"{'hook_name':<36}"
-        f"{'head':>15}"
-        f"{'angle':>13}"
-    )
-
-    for head in sorted(heads.items():
-        for _hook_idx, cos_sim in sorted(segments):
-            angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
-            print(
-                f"{hookhook:<36} "
-                f"{head:>15} "
-                f"{angle:>12.4f} "
-            )
-
     # ── draw ──────────────────────────────────────────────────────────
     fig, ax = plt.subplots(figsize=(12, 6))
 
-    n_heads = len(heads)
+    sorted_heads = sorted(seen_heads)
+    n_heads = len(sorted_heads)
     colors = plt.cm.rainbow(np.linspace(0, 1, n_heads))
     
     for (head, segments), color in zip(
@@ -1149,6 +1195,6 @@ def plot_cosine_chart4(filename: str) -> None:
     outpath = SNAPSHOT_DATA_PATH / f"{filename}_4.png"
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
-    print(f"Chart saved to {outpath}")
+    #print(f"Chart saved to {outpath}")
 
 
