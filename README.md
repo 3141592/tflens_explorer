@@ -132,6 +132,8 @@ snapshot-create name=dog_sat_gpt2 hook=blocks.0.mlp.hook_post
 snapshot-create name=test hook=all
 snapshot-create name=cat_sat_gpt2_all hook=all
 snapshot-create name=dog_sat_gpt2_all hook=all
+snapshot-create name=pig_sat_gpt2_all hook=all
+snapshot-create name=lamp_sat_gpt2_all hook=all
 
 compare-logits cat_sat_gpt2 dog_sat_gpt2
 compare-logits cat_sat_gpt2 dog_sat_gpt2
@@ -157,6 +159,7 @@ compare-snapshots shepherd_chat2 shepherd_gpt2
 compare-snapshots shepherd_gpt2 shepherd_deepseek
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all
 compare-snapshots cat_sat_gpt2_all pig_sat_gpt2_all
+compare-snapshots cat_sat_gpt2_all lamp_sat_gpt2_all
 compare-snapshots cat_sat_gpt2_all cat_sat_deepseek_all
 compare-snapshots cat_sat_mistral1_all dog_sat_mistral1_all
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all diff=1

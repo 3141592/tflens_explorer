@@ -248,10 +248,16 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, diff, 
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences (usable finite values):")
         cache_activation_summary(snapshot1, snapshot2, diff, percent)
-        #if snapshots_have_raw_cache_values(snapshot1.cache, snapshot2.cache):
-        #    cache_activation_summary_2(snapshot1.cache, snapshot2.cache)
-        #else:
-        #    print("Raw cache tensor values not available; skipping tensor-diff summary.")
+    
+    print()
+    # add a table sorted by largest angular change
+    filename = f"{snapshot1.metadata.name}_vs_{snapshot2.metadata.name}"
+    angular_change_per_head(filename)   
+
+    print()
+    outpath = SNAPSHOT_DATA_PATH
+    print(f"Plots are saved to {outpath}.")
+
 
 def compare_token_ids(tokens1, tokens2):
     tokens1.pop(0)
@@ -550,6 +556,8 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
     # Create graph of cosine similarity changes
     plot_cosine_chart(filename)
     plot_cosine_chart2(filename)
+    plot_cosine_chart3(filename)
+    plot_cosine_chart4(filename)
 
     return
 
@@ -673,6 +681,63 @@ def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activati
                 if sim < 0.90:
                     print(f"            head{head} cos_sim: {round(sim, 4)}")
 
+def angular_change_per_head(filename: str) -> None:
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        return
+
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
+    
+    print(
+        f"{'    hook_name':<30}"
+        f"{'head':>4}"
+        f"{'angle':>10}"
+    )
+
+    if not rows:
+        print("No data rows found.")
+        return
+
+    rows.sort(key=lambda t: t[-1])
+
+    row_count = 0
+    for row in rows:
+        if ".o." in row[0] or ".v." in row[0]:
+            continue
+        row_count +=1
+        layer = row[0]
+        head = row[1]
+        angle = math.acos(row[2])
+
+        print(
+            f"    {layer:<30} "
+            f"{head:>4.0f} "
+            f"{angle:>10.4f} "
+        )
+        if row_count == 20:
+            break
+
+    return
+
 def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
     filename = f"{name1}_vs_{name2}"
     with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
@@ -712,6 +777,10 @@ def head_axis_for_hook(hook_name: str, tensor, n_heads: int) -> int | None:
         return 0
 
     return None
+
+def snapshots_have_raw_cache_values(cache1, cache2):
+    if not cache1 or not cache2:
+        return False
 
 def plot_cosine_chart(filename: str) -> None:
     """Read cosine similarity per-head CSV data and plot a line-segment chart.
@@ -771,8 +840,7 @@ def plot_cosine_chart(filename: str) -> None:
 
     n_heads = len(heads)
     colors = plt.cm.rainbow(np.linspace(0, 1, n_heads))
-    cummulative_change = 0
-    #y = 0
+    
     for (head, segments), color in zip(
         sorted(heads.items()), colors
     ):
@@ -781,12 +849,9 @@ def plot_cosine_chart(filename: str) -> None:
         xs: list[float] = [x]
         ys: list[float] = [y]
         for _hook_idx, cos_sim in sorted(segments):
-            #angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
-            angle = math.acos(cos_sim)  # clamp to [-1, 1]
+            angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
             x += 1.0
             y += angle
-            #cummulative_change += y
-            #y = cummulative_change
             xs.append(x)
             ys.append(y)
         ax.plot(xs, ys, color=color, label=f"Head {head}")
@@ -797,10 +862,17 @@ def plot_cosine_chart(filename: str) -> None:
     ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left", fontsize="small")
 
     # Tick labels – abbreviated hook names
+    index = 0
+    for item in seen_hooks:
+        seen_hooks[index] = item.replace("blocks.", "D")
+        index += 1
+
     short_names = [
-        h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        #h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        h.split(".attn.")[0] + "." + h.split(".attn.")[1] if ".attn." in h else h
         for h in seen_hooks
     ]
+
     ax.set_xticks(range(len(seen_hooks)))
     ax.set_xticklabels(short_names, rotation=45, ha="right", fontsize=7)
 
@@ -809,7 +881,7 @@ def plot_cosine_chart(filename: str) -> None:
     outpath = SNAPSHOT_DATA_PATH / f"{filename}.png"
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
-    print(f"Chart saved to {outpath}")
+    #print(f"Chart saved to {outpath}")
 
 
 def plot_cosine_chart2(filename: str) -> None:
@@ -880,8 +952,14 @@ def plot_cosine_chart2(filename: str) -> None:
     cbar.set_label("Cosine similarity", rotation=270, labelpad=15)
 
     # Tick labels – abbreviated hook names
+    index = 0
+    for item in seen_hooks:
+        seen_hooks[index] = item.replace("blocks.", "D")
+        index += 1
+
     short_names = [
-        h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        #h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        h.split(".attn.")[0] + "." + h.split(".attn.")[1] if ".attn." in h else h
         for h in seen_hooks
     ]
     ax.set_xticks(range(n_hooks))
@@ -907,67 +985,216 @@ def plot_cosine_chart2(filename: str) -> None:
     outpath = SNAPSHOT_DATA_PATH / f"{filename}2.png"
     fig.savefig(outpath, dpi=150)
     plt.close(fig)
-    print(f"Heatmap saved to {outpath}")
+    #print(f"Heatmap saved to {outpath}")
 
 
-# TODO:
-# Reintroduce advanced tensor comparison once optional
-# raw tensor snapshot storage exists.
-def cache_activation_summary_2(cache1, cache2):
-    print(f"    {'hook_name':<35} {'shape':<15} {'mean_abs_diff':>15} {'max_abs_delta':>15} {'cosine_sim':>15}")
+def plot_cosine_chart3(filename: str) -> None:
+    """Read cosine similarity per-head CSV data and plot a heatmap.
 
-    different_values_count = 0
-    for activation1, activation2 in zip(cache1, cache2):
-        hook1 = activation1.layer
-        hook2 = activation2.layer
+    The CSV is expected at ``snapshots/data/<filename>`` with the format::
 
-        if hook1 != hook2:
-            print(f"Cache hooks {hook1} and {hook2} do not match.")
-            return
+        hook1, hook2, head, cosine_similarity
 
-        value1 = torch.tensor(activation1["value"], dtype=torch.float32).flatten()
-        value2 = torch.tensor(activation2["value"], dtype=torch.float32).flatten()
+    The heatmap uses hooks as the x-axis and heads as the y-axis, with
+    cosine similarity shown as cell color.
 
-        if value1.shape != value2.shape:
-            print(f"Shape mismatch for {hook1}: {value1.shape} vs {value2.shape}")
-            continue
+    The output image is saved to ``snapshots/data/<filename>.png``.
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
 
-        diff = value1 - value2
-        abs_diff = diff.abs()
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        return
 
-        mean_abs_diff = round(abs_diff.mean().item(), 4)
-        max_abs_delta = round(abs_diff.max().item(), 4)
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            if "hook_o" not in hook and "hook_z" not in hook:
+                continue
+            #print(f"hook: {hook}")
 
-        cosine_sim = torch.nn.functional.cosine_similarity(
-            value1.unsqueeze(0),
-            value2.unsqueeze(0),
-            dim=1,
-        ).item()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
 
-        cosine_sim = round(cosine_sim, 4)
+    if not rows:
+        print("No data rows found.")
+        return
 
-        shape = get_shape(activation1['shape'])
-        
-        if (mean_abs_diff == 0.0) and (max_abs_delta == 0.0) and ((cosine_sim == 0.0) or (cosine_sim == 1.0)):
-            continue
-        else:
-            different_values_count += 1
+    # ── build heatmap matrix ──────────────────────────────────────────
+    hook_index_of = {h: i for i, h in enumerate(seen_hooks)}
+    n_hooks = len(seen_hooks)
+    sorted_heads = sorted(seen_heads)
+    n_heads = len(sorted_heads)
+    head_index_of = {h: i for i, h in enumerate(sorted_heads)}
 
-        print(
-            f"    {hook1:<35} "
-            f"{shape:<15} "
-            f"{mean_abs_diff:>15} "
-            f"{max_abs_delta:>15} "
-            f"{cosine_sim:>15}"
-        )
+    # NaN fill so missing combos show as a distinct color (via cmap.set_bad)
+    matrix = np.full((n_heads, n_hooks), np.nan)
+    for hook, head, cos_sim in rows:
+        matrix[head_index_of[head], hook_index_of[hook]] = cos_sim
 
-    if different_values_count == 0:
-        print("    All A: and B: values are the same.")
+    # ── draw heatmap ──────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(max(8, n_hooks * 0.6), max(4, n_heads * 0.5)))
 
-    print()
+    cmap = plt.cm.RdYlGn  # red (low) → yellow → green (high)
+    cmap.set_bad(color='lightgray')
 
-    return
+    im = ax.imshow(matrix, aspect='auto', cmap=cmap, vmin=0.0, vmax=1.0)
 
-def snapshots_have_raw_cache_values(cache1, cache2):
-    if not cache1 or not cache2:
-        return False
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Cosine similarity", rotation=270, labelpad=15)
+
+    # Tick labels – abbreviated hook names
+    index = 0
+    for item in seen_hooks:
+        seen_hooks[index] = item.replace("blocks.", "D")
+        index += 1
+
+    short_names = [
+        h.split(".attn.")[0] + "." + h.split(".attn.")[1] if ".attn." in h else h
+        for h in seen_hooks
+    ]
+    #print(short_names)
+    ax.set_xticks(range(n_hooks))
+    ax.set_xticklabels(short_names, rotation=45, ha="right", fontsize=7)
+    ax.set_yticks(range(n_heads))
+    ax.set_yticklabels([f"Head {h}" for h in sorted_heads], fontsize=8)
+
+    ax.set_xlabel("Hook")
+    ax.set_ylabel("Head")
+    ax.set_title(f"Cosine similarity heatmap — {filename}")
+
+    # Annotate cells with values if grid is not too large
+    if n_hooks * n_heads <= 200:
+        for i in range(n_heads):
+            for j in range(n_hooks):
+                val = matrix[i, j]
+                if not np.isnan(val):
+                    ax.text(j, i, f"{val:.2f}", ha="center", va="center",
+                            fontsize=6, color="black")
+
+    fig.tight_layout()
+
+    outpath = SNAPSHOT_DATA_PATH / f"{filename}_hook_o_z_only.png"
+    fig.savefig(outpath, dpi=150)
+    plt.close(fig)
+    #print(f"Heatmap saved to {outpath}")
+
+
+def plot_cosine_chart4(filename: str) -> None:
+    """Read cosine similarity per-head CSV data and plot a line-segment chart.
+
+    The CSV is expected at ``snapshots/data/<filename>`` with the format::
+
+        hook1, hook2, head, cosine_similarity
+
+    For each attention head a piecewise-linear path is drawn.  Each segment
+    spans one unit on the x-axis and its *slope* is set to
+    ``arccos(cosine_similarity)``.  Cosine similarity close to 1 therefore
+    produces a flat segment, while a low similarity produces a steep upward
+    segment.
+
+    The output image is saved to ``snapshots/data/<filename>.png``.
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        return
+
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
+
+    if not rows:
+        print("No data rows found.")
+        return
+
+    hook_index_of = {h: i for i, h in enumerate(seen_hooks)}
+    heads: dict[int, list[tuple[int, float]]] = {h: [] for h in seen_heads}
+    for hook, head, cos_sim in rows:
+        heads[head].append((hook_index_of[hook], cos_sim))
+
+    # ── draw ──────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    sorted_heads = sorted(seen_heads)
+    n_heads = len(sorted_heads)
+    colors = plt.cm.rainbow(np.linspace(0, 1, n_heads))
+    
+    for (head, segments), color in zip(
+        sorted(heads.items()), colors
+    ):
+        x = 0.0
+        y = 0.0
+        xs: list[float] = [x]
+        ys: list[float] = [y]
+        for _hook_idx, cos_sim in sorted(segments):
+            angle = math.acos(max(-1.0, min(1.0, cos_sim)))  # clamp to [-1, 1]
+            x += 1.0
+            y = angle
+            xs.append(x)
+            ys.append(y)
+        ax.plot(xs, ys, color=color, label=f"Head {head}")
+
+    ax.set_xlabel("Hook index (each unit = one hook)")
+    ax.set_ylabel("Cumulative arccos(cosine similarity)")
+    ax.set_title(f"Cosine similarity change per head — {filename}")
+    ax.legend(bbox_to_anchor=(1.02, 1), loc="upper left", fontsize="small")
+
+    # Tick labels – abbreviated hook names
+    index = 0
+    for item in seen_hooks:
+        seen_hooks[index] = item.replace("blocks.", "D")
+        index += 1
+
+    short_names = [
+        #h.split(".attn.")[0] + "." + h.split(".attn.")[1][:8] if ".attn." in h else h
+        h.split(".attn.")[0] + "." + h.split(".attn.")[1] if ".attn." in h else h
+        for h in seen_hooks
+    ]
+
+    ax.set_xticks(range(len(seen_hooks)))
+    ax.set_xticklabels(short_names, rotation=45, ha="right", fontsize=7)
+
+    fig.tight_layout()
+
+    outpath = SNAPSHOT_DATA_PATH / f"{filename}_4.png"
+    fig.savefig(outpath, dpi=150)
+    plt.close(fig)
+    #print(f"Chart saved to {outpath}")
+
+
