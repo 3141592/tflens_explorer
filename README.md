@@ -134,23 +134,22 @@ snapshot-create name=cat_sat_gpt2_all hook=all
 snapshot-create name=dog_sat_gpt2_all hook=all
 snapshot-create name=pig_sat_gpt2_all hook=all
 snapshot-create name=lamp_sat_gpt2_all hook=all
-
-compare-logits cat_sat_gpt2 dog_sat_gpt2
-compare-logits cat_sat_gpt2 dog_sat_gpt2
-compare-logits shepherd_chat2 shepherd_deepseek
-compare-logits shepherd_chat2 shepherd_gpt2
-compare-logits shepherd_gpt2 shepherd_deepseek
-compare-logits cat_sat_gpt2_all dog_sat_gpt2_all
-compare-logits cat_sat_gpt2_all cat_sat_deepseek_all
-
-compare-cache cat_sat_gpt2 dog_sat_gpt2
-compare-cache cat_sat_gpt2 dog_sat_gpt2
-compare-cache shepherd_chat2 shepherd_deepseek
-compare-cache shepherd_chat2 shepherd_gpt2
-compare-cache shepherd_gpt2 shepherd_deepseek
-compare-cache cat_sat_gpt2_all dog_sat_gpt2_all
-compare-cache cat_sat_gpt2_all cat_sat_deepseek_all
-compare-cache cat_sat_mistral1_all dog_sat_mistral1_all
+snapshot-create name=cat_sat_chat2_all hook=all
+snapshot-create name=dog_sat_chat2_all hook=all
+snapshot-create name=cat_sat_falcon_all hook=all
+snapshot-create name=dog_sat_falcon_all hook=all
+snapshot-create name=cat_sat_llama_all hook=all
+snapshot-create name=dog_sat_llama_all hook=all
+snapshot-create name=mat_sat_llama_all hook=all
+snapshot-create name=fat_sat_llama_all hook=all
+snapshot-create name=capital_of_paris_llama_all hook=all
+snapshot-create name=largest_mammal_llama_all hook=all
+snapshot-create name=longest_book_llama_all hook=all
+snapshot-create name=radius_circle_llama_all hook=all
+snapshot-create name=law_states_llama_all hook=all
+snapshot-create name=paris_capital_llama_all hook=all
+snapshot-create name=pound_signs_llama_all hook=all
+snapshot-create name=math1_llama_all hook=all
 
 compare-snapshots cat_sat_gpt2 dog_sat_gpt2
 compare-snapshots shepherd_chat2 shepherd_deepseek
@@ -164,6 +163,17 @@ compare-snapshots cat_sat_gpt2_all cat_sat_deepseek_all
 compare-snapshots cat_sat_mistral1_all dog_sat_mistral1_all
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all diff=1
 compare-snapshots cat_sat_gpt2_all dog_sat_gpt2_all percent=50
+compare-snapshots cat_sat_chat2_all dog_sat_chat2_all percent=50
+compare-snapshots cat_sat_falcon_all dog_sat_falcon_all percent=50
+compare-snapshots cat_sat_llama_all dog_sat_llama_all percent=50
+compare-snapshots cat_sat_llama_all mat_sat_llama_all percent=50
+compare-snapshots cat_sat_llama_all fat_sat_llama_all percent=50
+compare-snapshots capital_of_paris_llama_all longest_book_llama_all percent=50
+compare-snapshots capital_of_paris_llama_all radius_circle_llama_all percent=50
+compare-snapshots capital_of_paris_llama_all longest_book_llama_all percent=50
+compare-snapshots cat_sat_llama_all law_states_llama_all percent=50
+compare-snapshots paris_capital_llama_all pound_signs_llama_all percent=50
+compare-snapshots paris_capital_llama_all math1_llama_all percent=50
 
 prompt-run new_tokens=50
 ```

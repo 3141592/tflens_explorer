@@ -16,3 +16,4 @@ models:
   mistral1: distilabel-internal-testing/tiny-random-mistral
   mistral2: yujiepan/mistral-v0.3-tiny-random
   kimi: nvidia/Kimi-K2.6-NVFP4
+  falcon: fxmarty/really-tiny-falcon-testing

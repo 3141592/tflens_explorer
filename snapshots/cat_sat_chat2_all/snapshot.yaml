@@ -1,0 +1,6948 @@
+metadata:
+  name: cat_sat_chat2_all
+  creation_date: June 28, 2026 09:04PM
+model:
+  name: chat2 -> h2oai/h2o-danube3-500m-chat
+  temperature: 0.0
+  top_k: 0
+  top_p: 0.0
+  num_ctx: 8192
+  prepend_bos: null
+  layers: 16
+  heads: 16
+  vocabulary: 32000
+prompt: The cat sat on the
+token_shape: torch.Size([1, 6])
+tokens:
+- index: 0
+  token_id: 1
+  token: <s>
+- index: 1
+  token_id: 1014
+  token: The
+- index: 2
+  token_id: 5255
+  token: ' cat'
+- index: 3
+  token_id: 2495
+  token: ' sat'
+- index: 4
+  token_id: 356
+  token: ' on'
+- index: 5
+  token_id: 272
+  token: ' the'
+logit_shape: torch.Size([1, 6, 32000])
+logits:
+- rank: 0
+  value: 10.77
+  probability: 0.22
+  token_id: 1610
+  token: ' mat'
+- rank: 1
+  value: 9.04
+  probability: 0.04
+  token_id: 22252
+  token: ' porch'
+- rank: 2
+  value: 9.02
+  probability: 0.04
+  token_id: 9145
+  token: ' roof'
+- rank: 3
+  value: 8.98
+  probability: 0.04
+  token_id: 2924
+  token: ' window'
+- rank: 4
+  value: 8.81
+  probability: 0.03
+  token_id: 2855
+  token: ' bed'
+cache:
+- hook: embed.hook_in
+  shape: torch.Size([6])
+  dtype: torch.int64
+  device: cuda:0
+  minimum: 1.0
+  maximum: 5255.0
+  numel: 6
+  std: 2018.1292
+  mean: 1565.5
+- hook: embed.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3242
+  maximum: 0.3652
+  numel: 9216
+  std: 0.0177
+  mean: -0.0001
+- hook: hook_embed
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3242
+  maximum: 0.3652
+  numel: 9216
+  std: 0.0177
+  mean: -0.0001
+- hook: rotary_emb.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3242
+  maximum: 0.3652
+  numel: 9216
+  std: 0.0177
+  mean: -0.0001
+- hook: rotary_emb.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: rotary_emb.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.0.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3242
+  maximum: 0.3652
+  numel: 9216
+  std: 0.0177
+  mean: -0.0001
+- hook: blocks.0.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3242
+  maximum: 0.3652
+  numel: 9216
+  std: 0.0177
+  mean: -0.0001
+- hook: blocks.0.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3242
+  maximum: 0.3652
+  numel: 9216
+  std: 0.0177
+  mean: -0.0001
+- hook: blocks.0.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0032
+  maximum: 0.0208
+  numel: 6
+  std: 0.0068
+  mean: 0.0169
+- hook: blocks.0.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -16.5393
+  maximum: 18.6316
+  numel: 9216
+  std: 0.9009
+  mean: -0.0042
+- hook: blocks.0.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.7901
+  maximum: 18.6165
+  numel: 9216
+  std: 0.5622
+  mean: 0.0073
+- hook: blocks.0.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.7901
+  maximum: 18.6165
+  numel: 9216
+  std: 0.5622
+  mean: 0.0073
+- hook: blocks.0.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.7901
+  maximum: 18.6165
+  numel: 9216
+  std: 0.5622
+  mean: 0.0073
+- hook: blocks.0.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.5397
+  maximum: 5.2896
+  numel: 9216
+  std: 0.9793
+  mean: 0.0099
+- hook: blocks.0.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.5397
+  maximum: 5.2896
+  numel: 9216
+  std: 0.9793
+  mean: 0.0099
+- hook: blocks.0.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.7901
+  maximum: 18.6165
+  numel: 9216
+  std: 0.5622
+  mean: 0.0073
+- hook: blocks.0.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.1397
+  maximum: 24.9843
+  numel: 4608
+  std: 2.989
+  mean: -0.0593
+- hook: blocks.0.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.1397
+  maximum: 24.9843
+  numel: 4608
+  std: 2.989
+  mean: -0.0593
+- hook: blocks.0.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.7901
+  maximum: 18.6165
+  numel: 9216
+  std: 0.5622
+  mean: 0.0073
+- hook: blocks.0.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4353
+  maximum: 1.2561
+  numel: 4608
+  std: 0.1855
+  mean: 0.0026
+- hook: blocks.0.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4353
+  maximum: 1.2561
+  numel: 4608
+  std: 0.1855
+  mean: 0.0026
+- hook: blocks.0.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.0.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.0.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.5388
+  maximum: 5.2885
+  numel: 9216
+  std: 0.9791
+  mean: 0.0217
+- hook: blocks.0.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.1444
+  maximum: 24.989
+  numel: 4608
+  std: 2.9891
+  mean: -0.0566
+- hook: blocks.0.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.4734
+  maximum: 5.6638
+  numel: 576
+  std: 1.5167
+  mean: 0.3664
+- hook: blocks.0.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.2786
+  mean: 0.1667
+- hook: blocks.0.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1929
+  maximum: 0.8804
+  numel: 9216
+  std: 0.1279
+  mean: 0.0008
+- hook: blocks.0.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1929
+  maximum: 0.8804
+  numel: 9216
+  std: 0.1279
+  mean: 0.0008
+- hook: blocks.0.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1654
+  maximum: 2.285
+  numel: 9216
+  std: 0.0802
+  mean: 0.0002
+- hook: blocks.0.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1654
+  maximum: 2.285
+  numel: 9216
+  std: 0.0802
+  mean: 0.0002
+- hook: blocks.0.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1654
+  maximum: 2.285
+  numel: 9216
+  std: 0.0802
+  mean: 0.0002
+- hook: blocks.0.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1292
+  maximum: 2.3159
+  numel: 9216
+  std: 0.0835
+  mean: 0.0002
+- hook: blocks.0.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1292
+  maximum: 2.3159
+  numel: 9216
+  std: 0.0835
+  mean: 0.0002
+- hook: blocks.0.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0049
+  maximum: 0.1162
+  numel: 6
+  std: 0.0392
+  mean: 0.0755
+- hook: blocks.0.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -16.2528
+  maximum: 29.544
+  numel: 9216
+  std: 0.9648
+  mean: -0.0003
+- hook: blocks.0.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.11
+  maximum: 6.9718
+  numel: 9216
+  std: 0.4373
+  mean: -0.0068
+- hook: blocks.0.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.11
+  maximum: 6.9718
+  numel: 9216
+  std: 0.4373
+  mean: -0.0068
+- hook: blocks.0.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.11
+  maximum: 6.9718
+  numel: 9216
+  std: 0.4373
+  mean: -0.0068
+- hook: blocks.0.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.11
+  maximum: 6.9718
+  numel: 9216
+  std: 0.4373
+  mean: -0.0068
+- hook: blocks.0.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0403
+  maximum: 3.2953
+  numel: 24576
+  std: 0.8455
+  mean: -0.4358
+- hook: blocks.0.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0403
+  maximum: 3.2953
+  numel: 24576
+  std: 0.8455
+  mean: -0.4358
+- hook: blocks.0.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.11
+  maximum: 6.9718
+  numel: 9216
+  std: 0.4373
+  mean: -0.0068
+- hook: blocks.0.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9477
+  maximum: 1.8302
+  numel: 24576
+  std: 0.2547
+  mean: -0.0047
+- hook: blocks.0.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9477
+  maximum: 1.8302
+  numel: 24576
+  std: 0.2547
+  mean: -0.0047
+- hook: blocks.0.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.6424
+  maximum: 4.632
+  numel: 24576
+  std: 0.0754
+  mean: 0.0004
+- hook: blocks.0.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.6424
+  maximum: 4.632
+  numel: 24576
+  std: 0.0754
+  mean: 0.0004
+- hook: blocks.0.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3851
+  maximum: 3.1041
+  numel: 9216
+  std: 0.1007
+  mean: 0.0006
+- hook: blocks.0.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3851
+  maximum: 3.1041
+  numel: 9216
+  std: 0.1007
+  mean: 0.0006
+- hook: blocks.0.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3851
+  maximum: 3.1041
+  numel: 9216
+  std: 0.1007
+  mean: 0.0006
+- hook: blocks.0.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.012
+  maximum: 5.11
+  numel: 9216
+  std: 0.1503
+  mean: 0.0008
+- hook: blocks.0.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.012
+  maximum: 5.11
+  numel: 9216
+  std: 0.1503
+  mean: 0.0008
+- hook: blocks.1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.012
+  maximum: 5.11
+  numel: 9216
+  std: 0.1503
+  mean: 0.0008
+- hook: blocks.1.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.012
+  maximum: 5.11
+  numel: 9216
+  std: 0.1503
+  mean: 0.0008
+- hook: blocks.1.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.012
+  maximum: 5.11
+  numel: 9216
+  std: 0.1503
+  mean: 0.0008
+- hook: blocks.1.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0813
+  maximum: 0.1753
+  numel: 6
+  std: 0.0339
+  mean: 0.1471
+- hook: blocks.1.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.8994
+  maximum: 31.4147
+  numel: 9216
+  std: 0.9998
+  mean: 0.005
+- hook: blocks.1.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.927
+  maximum: 26.2607
+  numel: 9216
+  std: 0.7019
+  mean: 0.0046
+- hook: blocks.1.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.927
+  maximum: 26.2607
+  numel: 9216
+  std: 0.7019
+  mean: 0.0046
+- hook: blocks.1.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.927
+  maximum: 26.2607
+  numel: 9216
+  std: 0.7019
+  mean: 0.0046
+- hook: blocks.1.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.7388
+  maximum: 8.8586
+  numel: 9216
+  std: 1.2369
+  mean: -0.0319
+- hook: blocks.1.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.7388
+  maximum: 8.8586
+  numel: 9216
+  std: 1.2369
+  mean: -0.0319
+- hook: blocks.1.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.927
+  maximum: 26.2607
+  numel: 9216
+  std: 0.7019
+  mean: 0.0046
+- hook: blocks.1.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.4075
+  maximum: 19.1951
+  numel: 4608
+  std: 1.9542
+  mean: 0.0785
+- hook: blocks.1.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.4075
+  maximum: 19.1951
+  numel: 4608
+  std: 1.9542
+  mean: 0.0785
+- hook: blocks.1.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.927
+  maximum: 26.2607
+  numel: 9216
+  std: 0.7019
+  mean: 0.0046
+- hook: blocks.1.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3453
+  maximum: 4.129
+  numel: 4608
+  std: 0.2295
+  mean: -0.0028
+- hook: blocks.1.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3453
+  maximum: 4.129
+  numel: 4608
+  std: 0.2295
+  mean: -0.0028
+- hook: blocks.1.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.1.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.1.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.7388
+  maximum: 8.8586
+  numel: 9216
+  std: 1.2364
+  mean: -0.0483
+- hook: blocks.1.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.4075
+  maximum: 19.1951
+  numel: 4608
+  std: 1.9548
+  mean: 0.0603
+- hook: blocks.1.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.9713
+  maximum: 11.1967
+  numel: 576
+  std: 2.6069
+  mean: 1.5433
+- hook: blocks.1.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.2604
+  mean: 0.1667
+- hook: blocks.1.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.2446
+  maximum: 4.129
+  numel: 9216
+  std: 0.2095
+  mean: -0.0074
+- hook: blocks.1.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.2446
+  maximum: 4.129
+  numel: 9216
+  std: 0.2095
+  mean: -0.0074
+- hook: blocks.1.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.0029
+  maximum: 0.7116
+  numel: 9216
+  std: 0.0998
+  mean: -0.0
+- hook: blocks.1.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.0029
+  maximum: 0.7116
+  numel: 9216
+  std: 0.0998
+  mean: -0.0
+- hook: blocks.1.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.0029
+  maximum: 0.7116
+  numel: 9216
+  std: 0.0998
+  mean: -0.0
+- hook: blocks.1.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3226
+  maximum: 3.9858
+  numel: 9216
+  std: 0.1709
+  mean: 0.0008
+- hook: blocks.1.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3226
+  maximum: 3.9858
+  numel: 9216
+  std: 0.1709
+  mean: 0.0008
+- hook: blocks.1.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.1414
+  maximum: 0.2009
+  numel: 6
+  std: 0.0207
+  mean: 0.1699
+- hook: blocks.1.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.863
+  maximum: 25.5066
+  numel: 9216
+  std: 0.9999
+  mean: 0.0044
+- hook: blocks.1.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.7092
+  maximum: 8.6444
+  numel: 9216
+  std: 0.7686
+  mean: -0.0114
+- hook: blocks.1.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.7092
+  maximum: 8.6444
+  numel: 9216
+  std: 0.7686
+  mean: -0.0114
+- hook: blocks.1.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.7092
+  maximum: 8.6444
+  numel: 9216
+  std: 0.7686
+  mean: -0.0114
+- hook: blocks.1.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.7092
+  maximum: 8.6444
+  numel: 9216
+  std: 0.7686
+  mean: -0.0114
+- hook: blocks.1.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.2883
+  maximum: 10.0975
+  numel: 24576
+  std: 1.296
+  mean: -1.1736
+- hook: blocks.1.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.2883
+  maximum: 10.0975
+  numel: 24576
+  std: 1.296
+  mean: -1.1736
+- hook: blocks.1.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.7092
+  maximum: 8.6444
+  numel: 9216
+  std: 0.7686
+  mean: -0.0114
+- hook: blocks.1.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -173.1572
+  maximum: 10.3266
+  numel: 24576
+  std: 1.5499
+  mean: -0.0173
+- hook: blocks.1.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -173.1572
+  maximum: 10.3266
+  numel: 24576
+  std: 1.5499
+  mean: -0.0173
+- hook: blocks.1.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1748.3777
+  maximum: 101.6508
+  numel: 24576
+  std: 11.1725
+  mean: -0.0651
+- hook: blocks.1.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1748.3777
+  maximum: 101.6508
+  numel: 24576
+  std: 11.1725
+  mean: -0.0651
+- hook: blocks.1.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.4462
+  maximum: 47.1564
+  numel: 9216
+  std: 13.6813
+  mean: -0.1492
+- hook: blocks.1.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.4462
+  maximum: 47.1564
+  numel: 9216
+  std: 13.6813
+  mean: -0.1492
+- hook: blocks.1.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.4462
+  maximum: 47.1564
+  numel: 9216
+  std: 13.6813
+  mean: -0.1492
+- hook: blocks.1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.8228
+  maximum: 46.6184
+  numel: 9216
+  std: 13.6857
+  mean: -0.1484
+- hook: blocks.1.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.8228
+  maximum: 46.6184
+  numel: 9216
+  std: 13.6857
+  mean: -0.1484
+- hook: blocks.2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.8228
+  maximum: 46.6184
+  numel: 9216
+  std: 13.6857
+  mean: -0.1484
+- hook: blocks.2.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.8228
+  maximum: 46.6184
+  numel: 9216
+  std: 13.6857
+  mean: -0.1484
+- hook: blocks.2.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.8228
+  maximum: 46.6184
+  numel: 9216
+  std: 13.6857
+  mean: -0.1484
+- hook: blocks.2.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.157
+  maximum: 33.5198
+  numel: 6
+  std: 13.5999
+  mean: 5.7593
+- hook: blocks.2.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6584
+  maximum: 23.4001
+  numel: 9216
+  std: 0.9999
+  mean: 0.0073
+- hook: blocks.2.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.6067
+  maximum: 13.8024
+  numel: 9216
+  std: 0.7593
+  mean: 0.0008
+- hook: blocks.2.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.6067
+  maximum: 13.8024
+  numel: 9216
+  std: 0.7593
+  mean: 0.0008
+- hook: blocks.2.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.6067
+  maximum: 13.8024
+  numel: 9216
+  std: 0.7593
+  mean: 0.0008
+- hook: blocks.2.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.0193
+  maximum: 8.7877
+  numel: 9216
+  std: 1.1592
+  mean: 0.0324
+- hook: blocks.2.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.0193
+  maximum: 8.7877
+  numel: 9216
+  std: 1.1592
+  mean: 0.0324
+- hook: blocks.2.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.6067
+  maximum: 13.8024
+  numel: 9216
+  std: 0.7593
+  mean: 0.0008
+- hook: blocks.2.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.5878
+  maximum: 8.0064
+  numel: 4608
+  std: 1.3157
+  mean: -0.009
+- hook: blocks.2.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.5878
+  maximum: 8.0064
+  numel: 4608
+  std: 1.3157
+  mean: -0.009
+- hook: blocks.2.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.6067
+  maximum: 13.8024
+  numel: 9216
+  std: 0.7593
+  mean: 0.0008
+- hook: blocks.2.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.8537
+  maximum: 2.2306
+  numel: 4608
+  std: 0.3496
+  mean: 0.0087
+- hook: blocks.2.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.8537
+  maximum: 2.2306
+  numel: 4608
+  std: 0.3496
+  mean: 0.0087
+- hook: blocks.2.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.2.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.2.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.0192
+  maximum: 8.7888
+  numel: 9216
+  std: 1.159
+  mean: 0.0379
+- hook: blocks.2.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.5891
+  maximum: 8.0083
+  numel: 4608
+  std: 1.3157
+  mean: 0.0098
+- hook: blocks.2.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.8257
+  maximum: 5.7224
+  numel: 576
+  std: 1.7808
+  mean: 0.3417
+- hook: blocks.2.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3026
+  mean: 0.1667
+- hook: blocks.2.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5706
+  maximum: 1.8693
+  numel: 9216
+  std: 0.1087
+  mean: 0.0011
+- hook: blocks.2.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5706
+  maximum: 1.8693
+  numel: 9216
+  std: 0.1087
+  mean: 0.0011
+- hook: blocks.2.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0254
+  maximum: 0.3708
+  numel: 9216
+  std: 0.0666
+  mean: -0.0019
+- hook: blocks.2.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0254
+  maximum: 0.3708
+  numel: 9216
+  std: 0.0666
+  mean: -0.0019
+- hook: blocks.2.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0254
+  maximum: 0.3708
+  numel: 9216
+  std: 0.0666
+  mean: -0.0019
+- hook: blocks.2.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.6193
+  maximum: 46.7715
+  numel: 9216
+  std: 13.6844
+  mean: -0.1503
+- hook: blocks.2.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1295.6193
+  maximum: 46.7715
+  numel: 9216
+  std: 13.6844
+  mean: -0.1503
+- hook: blocks.2.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.1656
+  maximum: 33.5165
+  numel: 6
+  std: 13.5947
+  mean: 5.7666
+- hook: blocks.2.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6561
+  maximum: 21.3017
+  numel: 9216
+  std: 1.0
+  mean: -0.0015
+- hook: blocks.2.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -117.7803
+  maximum: 6.3473
+  numel: 9216
+  std: 1.3282
+  mean: -0.0146
+- hook: blocks.2.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -117.7803
+  maximum: 6.3473
+  numel: 9216
+  std: 1.3282
+  mean: -0.0146
+- hook: blocks.2.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -117.7803
+  maximum: 6.3473
+  numel: 9216
+  std: 1.3282
+  mean: -0.0146
+- hook: blocks.2.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -117.7803
+  maximum: 6.3473
+  numel: 9216
+  std: 1.3282
+  mean: -0.0146
+- hook: blocks.2.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.024
+  maximum: 8.7695
+  numel: 24576
+  std: 0.9035
+  mean: -0.7677
+- hook: blocks.2.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.024
+  maximum: 8.7695
+  numel: 24576
+  std: 0.9035
+  mean: -0.7677
+- hook: blocks.2.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -117.7803
+  maximum: 6.3473
+  numel: 9216
+  std: 1.3282
+  mean: -0.0146
+- hook: blocks.2.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.0303
+  maximum: 9.3198
+  numel: 24576
+  std: 0.4217
+  mean: -0.0023
+- hook: blocks.2.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.0303
+  maximum: 9.3198
+  numel: 24576
+  std: 0.4217
+  mean: -0.0023
+- hook: blocks.2.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -65.2991
+  maximum: 81.7169
+  numel: 24576
+  std: 0.7363
+  mean: -0.0019
+- hook: blocks.2.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -65.2991
+  maximum: 81.7169
+  numel: 24576
+  std: 0.7363
+  mean: -0.0019
+- hook: blocks.2.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -133.5582
+  maximum: 4.8911
+  numel: 9216
+  std: 1.5
+  mean: -0.0074
+- hook: blocks.2.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -133.5582
+  maximum: 4.8911
+  numel: 9216
+  std: 1.5
+  mean: -0.0074
+- hook: blocks.2.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -133.5582
+  maximum: 4.8911
+  numel: 9216
+  std: 1.5
+  mean: -0.0074
+- hook: blocks.2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1775
+  maximum: 50.0706
+  numel: 9216
+  std: 15.0742
+  mean: -0.1577
+- hook: blocks.2.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1775
+  maximum: 50.0706
+  numel: 9216
+  std: 15.0742
+  mean: -0.1577
+- hook: blocks.3.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1775
+  maximum: 50.0706
+  numel: 9216
+  std: 15.0742
+  mean: -0.1577
+- hook: blocks.3.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1775
+  maximum: 50.0706
+  numel: 9216
+  std: 15.0742
+  mean: -0.1577
+- hook: blocks.3.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1775
+  maximum: 50.0706
+  numel: 9216
+  std: 15.0742
+  mean: -0.1577
+- hook: blocks.3.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.1857
+  maximum: 36.92
+  numel: 6
+  std: 14.9727
+  mean: 6.3572
+- hook: blocks.3.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.7101
+  maximum: 23.8716
+  numel: 9216
+  std: 1.0
+  mean: 0.0032
+- hook: blocks.3.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.3123
+  maximum: 14.799
+  numel: 9216
+  std: 0.8682
+  mean: -0.0026
+- hook: blocks.3.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.3123
+  maximum: 14.799
+  numel: 9216
+  std: 0.8682
+  mean: -0.0026
+- hook: blocks.3.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.3123
+  maximum: 14.799
+  numel: 9216
+  std: 0.8682
+  mean: -0.0026
+- hook: blocks.3.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.1769
+  maximum: 8.6657
+  numel: 9216
+  std: 1.2429
+  mean: 0.0326
+- hook: blocks.3.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.1769
+  maximum: 8.6657
+  numel: 9216
+  std: 1.2429
+  mean: 0.0326
+- hook: blocks.3.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.3123
+  maximum: 14.799
+  numel: 9216
+  std: 0.8682
+  mean: -0.0026
+- hook: blocks.3.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.419
+  maximum: 7.8275
+  numel: 4608
+  std: 1.4447
+  mean: -0.0653
+- hook: blocks.3.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.419
+  maximum: 7.8275
+  numel: 4608
+  std: 1.4447
+  mean: -0.0653
+- hook: blocks.3.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.3123
+  maximum: 14.799
+  numel: 9216
+  std: 0.8682
+  mean: -0.0026
+- hook: blocks.3.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.1253
+  maximum: 3.4122
+  numel: 4608
+  std: 0.3964
+  mean: 0.0007
+- hook: blocks.3.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.1253
+  maximum: 3.4122
+  numel: 4608
+  std: 0.3964
+  mean: 0.0007
+- hook: blocks.3.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.3.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.3.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.1767
+  maximum: 8.6652
+  numel: 9216
+  std: 1.2421
+  mean: 0.0543
+- hook: blocks.3.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.4222
+  maximum: 7.8287
+  numel: 4608
+  std: 1.4449
+  mean: -0.061
+- hook: blocks.3.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.8787
+  maximum: 5.6749
+  numel: 576
+  std: 2.3698
+  mean: 0.0809
+- hook: blocks.3.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3147
+  mean: 0.1667
+- hook: blocks.3.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0922
+  maximum: 1.7783
+  numel: 9216
+  std: 0.1048
+  mean: -0.0007
+- hook: blocks.3.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0922
+  maximum: 1.7783
+  numel: 9216
+  std: 0.1048
+  mean: -0.0007
+- hook: blocks.3.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3933
+  maximum: 0.3898
+  numel: 9216
+  std: 0.0612
+  mean: 0.001
+- hook: blocks.3.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3933
+  maximum: 0.3898
+  numel: 9216
+  std: 0.0612
+  mean: 0.001
+- hook: blocks.3.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.3933
+  maximum: 0.3898
+  numel: 9216
+  std: 0.0612
+  mean: 0.001
+- hook: blocks.3.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.004
+  maximum: 50.2241
+  numel: 9216
+  std: 15.0733
+  mean: -0.1568
+- hook: blocks.3.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.004
+  maximum: 50.2241
+  numel: 9216
+  std: 15.0733
+  mean: -0.1568
+- hook: blocks.3.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.2013
+  maximum: 36.9172
+  numel: 6
+  std: 14.9654
+  mean: 6.3694
+- hook: blocks.3.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.7084
+  maximum: 23.8617
+  numel: 9216
+  std: 1.0
+  mean: 0.008
+- hook: blocks.3.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -32.509
+  maximum: 5.9858
+  numel: 9216
+  std: 0.5991
+  mean: 0.001
+- hook: blocks.3.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -32.509
+  maximum: 5.9858
+  numel: 9216
+  std: 0.5991
+  mean: 0.001
+- hook: blocks.3.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -32.509
+  maximum: 5.9858
+  numel: 9216
+  std: 0.5991
+  mean: 0.001
+- hook: blocks.3.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -32.509
+  maximum: 5.9858
+  numel: 9216
+  std: 0.5991
+  mean: 0.001
+- hook: blocks.3.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.6055
+  maximum: 4.2355
+  numel: 24576
+  std: 0.5342
+  mean: -0.4476
+- hook: blocks.3.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.6055
+  maximum: 4.2355
+  numel: 24576
+  std: 0.5342
+  mean: -0.4476
+- hook: blocks.3.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -32.509
+  maximum: 5.9858
+  numel: 9216
+  std: 0.5991
+  mean: 0.001
+- hook: blocks.3.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.9063
+  maximum: 2.7075
+  numel: 24576
+  std: 0.3748
+  mean: 0.0019
+- hook: blocks.3.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.9063
+  maximum: 2.7075
+  numel: 24576
+  std: 0.3748
+  mean: 0.0019
+- hook: blocks.3.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0302
+  maximum: 2.251
+  numel: 24576
+  std: 0.0829
+  mean: 0.0
+- hook: blocks.3.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0302
+  maximum: 2.251
+  numel: 24576
+  std: 0.0829
+  mean: 0.0
+- hook: blocks.3.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.6101
+  maximum: 1.1708
+  numel: 9216
+  std: 0.1048
+  mean: -0.0013
+- hook: blocks.3.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.6101
+  maximum: 1.1708
+  numel: 9216
+  std: 0.1048
+  mean: -0.0013
+- hook: blocks.3.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.6101
+  maximum: 1.1708
+  numel: 9216
+  std: 0.1048
+  mean: -0.0013
+- hook: blocks.3.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.2676
+  maximum: 50.2856
+  numel: 9216
+  std: 15.0788
+  mean: -0.1581
+- hook: blocks.3.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.2676
+  maximum: 50.2856
+  numel: 9216
+  std: 15.0788
+  mean: -0.1581
+- hook: blocks.4.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.2676
+  maximum: 50.2856
+  numel: 9216
+  std: 15.0788
+  mean: -0.1581
+- hook: blocks.4.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.2676
+  maximum: 50.2856
+  numel: 9216
+  std: 15.0788
+  mean: -0.1581
+- hook: blocks.4.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.2676
+  maximum: 50.2856
+  numel: 9216
+  std: 15.0788
+  mean: -0.1581
+- hook: blocks.4.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.2119
+  maximum: 36.9303
+  numel: 6
+  std: 14.965
+  mean: 6.3831
+- hook: blocks.4.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.7018
+  maximum: 23.9607
+  numel: 9216
+  std: 1.0
+  mean: 0.0014
+- hook: blocks.4.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.4502
+  maximum: 11.9336
+  numel: 9216
+  std: 0.8039
+  mean: -0.0059
+- hook: blocks.4.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.4502
+  maximum: 11.9336
+  numel: 9216
+  std: 0.8039
+  mean: -0.0059
+- hook: blocks.4.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.4502
+  maximum: 11.9336
+  numel: 9216
+  std: 0.8039
+  mean: -0.0059
+- hook: blocks.4.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.3585
+  maximum: 7.2252
+  numel: 9216
+  std: 1.1962
+  mean: 0.036
+- hook: blocks.4.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.3585
+  maximum: 7.2252
+  numel: 9216
+  std: 1.1962
+  mean: 0.036
+- hook: blocks.4.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.4502
+  maximum: 11.9336
+  numel: 9216
+  std: 0.8039
+  mean: -0.0059
+- hook: blocks.4.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.804
+  maximum: 9.8326
+  numel: 4608
+  std: 1.4017
+  mean: 0.01
+- hook: blocks.4.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.804
+  maximum: 9.8326
+  numel: 4608
+  std: 1.4017
+  mean: 0.01
+- hook: blocks.4.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.4502
+  maximum: 11.9336
+  numel: 9216
+  std: 0.8039
+  mean: -0.0059
+- hook: blocks.4.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3289
+  maximum: 2.0462
+  numel: 4608
+  std: 0.3853
+  mean: -0.0109
+- hook: blocks.4.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3289
+  maximum: 2.0462
+  numel: 4608
+  std: 0.3853
+  mean: -0.0109
+- hook: blocks.4.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.4.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.4.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.3557
+  maximum: 7.2237
+  numel: 9216
+  std: 1.1962
+  mean: 0.0371
+- hook: blocks.4.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.8052
+  maximum: 9.8332
+  numel: 4608
+  std: 1.4016
+  mean: 0.0178
+- hook: blocks.4.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.6576
+  maximum: 5.6559
+  numel: 576
+  std: 1.8909
+  mean: -0.144
+- hook: blocks.4.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.321
+  mean: 0.1667
+- hook: blocks.4.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0411
+  maximum: 1.4348
+  numel: 9216
+  std: 0.093
+  mean: -0.002
+- hook: blocks.4.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0411
+  maximum: 1.4348
+  numel: 9216
+  std: 0.093
+  mean: -0.002
+- hook: blocks.4.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.5062
+  maximum: 0.3247
+  numel: 9216
+  std: 0.0555
+  mean: -0.0022
+- hook: blocks.4.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.5062
+  maximum: 0.3247
+  numel: 9216
+  std: 0.0555
+  mean: -0.0022
+- hook: blocks.4.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.5062
+  maximum: 0.3247
+  numel: 9216
+  std: 0.0555
+  mean: -0.0022
+- hook: blocks.4.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1428.9429
+  maximum: 50.5778
+  numel: 9216
+  std: 15.0768
+  mean: -0.1603
+- hook: blocks.4.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1428.9429
+  maximum: 50.5778
+  numel: 9216
+  std: 15.0768
+  mean: -0.1603
+- hook: blocks.4.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.231
+  maximum: 36.9251
+  numel: 6
+  std: 14.9605
+  mean: 6.3873
+- hook: blocks.4.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6984
+  maximum: 23.7047
+  numel: 9216
+  std: 1.0
+  mean: -0.0057
+- hook: blocks.4.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.5239
+  maximum: 6.9103
+  numel: 9216
+  std: 0.6292
+  mean: -0.0113
+- hook: blocks.4.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.5239
+  maximum: 6.9103
+  numel: 9216
+  std: 0.6292
+  mean: -0.0113
+- hook: blocks.4.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.5239
+  maximum: 6.9103
+  numel: 9216
+  std: 0.6292
+  mean: -0.0113
+- hook: blocks.4.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.5239
+  maximum: 6.9103
+  numel: 9216
+  std: 0.6292
+  mean: -0.0113
+- hook: blocks.4.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.7556
+  maximum: 3.4253
+  numel: 24576
+  std: 0.5231
+  mean: -0.4582
+- hook: blocks.4.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.7556
+  maximum: 3.4253
+  numel: 24576
+  std: 0.5231
+  mean: -0.4582
+- hook: blocks.4.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.5239
+  maximum: 6.9103
+  numel: 9216
+  std: 0.6292
+  mean: -0.0113
+- hook: blocks.4.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.137
+  maximum: 3.7166
+  numel: 24576
+  std: 0.3992
+  mean: -0.0025
+- hook: blocks.4.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.137
+  maximum: 3.7166
+  numel: 24576
+  std: 0.3992
+  mean: -0.0025
+- hook: blocks.4.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.0728
+  maximum: 2.84
+  numel: 24576
+  std: 0.0964
+  mean: 0.0004
+- hook: blocks.4.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.0728
+  maximum: 2.84
+  numel: 24576
+  std: 0.0964
+  mean: 0.0004
+- hook: blocks.4.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4242
+  maximum: 1.6235
+  numel: 9216
+  std: 0.1353
+  mean: 0.0001
+- hook: blocks.4.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4242
+  maximum: 1.6235
+  numel: 9216
+  std: 0.1353
+  mean: 0.0001
+- hook: blocks.4.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4242
+  maximum: 1.6235
+  numel: 9216
+  std: 0.1353
+  mean: 0.0001
+- hook: blocks.4.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.4608
+  maximum: 50.6137
+  numel: 9216
+  std: 15.0904
+  mean: -0.1601
+- hook: blocks.4.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.4608
+  maximum: 50.6137
+  numel: 9216
+  std: 15.0904
+  mean: -0.1601
+- hook: blocks.5.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.4608
+  maximum: 50.6137
+  numel: 9216
+  std: 15.0904
+  mean: -0.1601
+- hook: blocks.5.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.4608
+  maximum: 50.6137
+  numel: 9216
+  std: 15.0904
+  mean: -0.1601
+- hook: blocks.5.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.4608
+  maximum: 50.6137
+  numel: 9216
+  std: 15.0904
+  mean: -0.1601
+- hook: blocks.5.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.2487
+  maximum: 36.9578
+  numel: 6
+  std: 14.967
+  mean: 6.4067
+- hook: blocks.5.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6781
+  maximum: 19.6494
+  numel: 9216
+  std: 1.0
+  mean: -0.0059
+- hook: blocks.5.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.2321
+  maximum: 11.5133
+  numel: 9216
+  std: 0.7745
+  mean: -0.0105
+- hook: blocks.5.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.2321
+  maximum: 11.5133
+  numel: 9216
+  std: 0.7745
+  mean: -0.0105
+- hook: blocks.5.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.2321
+  maximum: 11.5133
+  numel: 9216
+  std: 0.7745
+  mean: -0.0105
+- hook: blocks.5.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.0104
+  maximum: 7.5961
+  numel: 9216
+  std: 1.1446
+  mean: -0.0266
+- hook: blocks.5.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.0104
+  maximum: 7.5961
+  numel: 9216
+  std: 1.1446
+  mean: -0.0266
+- hook: blocks.5.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.2321
+  maximum: 11.5133
+  numel: 9216
+  std: 0.7745
+  mean: -0.0105
+- hook: blocks.5.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.7918
+  maximum: 10.6653
+  numel: 4608
+  std: 1.5117
+  mean: -0.078
+- hook: blocks.5.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.7918
+  maximum: 10.6653
+  numel: 4608
+  std: 1.5117
+  mean: -0.078
+- hook: blocks.5.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.2321
+  maximum: 11.5133
+  numel: 9216
+  std: 0.7745
+  mean: -0.0105
+- hook: blocks.5.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3275
+  maximum: 2.0768
+  numel: 4608
+  std: 0.3812
+  mean: 0.0049
+- hook: blocks.5.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3275
+  maximum: 2.0768
+  numel: 4608
+  std: 0.3812
+  mean: 0.0049
+- hook: blocks.5.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.5.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.5.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.0092
+  maximum: 7.5947
+  numel: 9216
+  std: 1.1446
+  mean: -0.0246
+- hook: blocks.5.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.7946
+  maximum: 10.6662
+  numel: 4608
+  std: 1.5119
+  mean: -0.0739
+- hook: blocks.5.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.1225
+  maximum: 6.2591
+  numel: 576
+  std: 1.5432
+  mean: 0.7202
+- hook: blocks.5.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.2787
+  mean: 0.1667
+- hook: blocks.5.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1407
+  maximum: 1.1643
+  numel: 9216
+  std: 0.1553
+  mean: 0.0041
+- hook: blocks.5.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1407
+  maximum: 1.1643
+  numel: 9216
+  std: 0.1553
+  mean: 0.0041
+- hook: blocks.5.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.6554
+  maximum: 0.9005
+  numel: 9216
+  std: 0.0888
+  mean: 0.0007
+- hook: blocks.5.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.6554
+  maximum: 0.9005
+  numel: 9216
+  std: 0.0888
+  mean: 0.0007
+- hook: blocks.5.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.6554
+  maximum: 0.9005
+  numel: 9216
+  std: 0.0888
+  mean: 0.0007
+- hook: blocks.5.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1704
+  maximum: 50.9752
+  numel: 9216
+  std: 15.0888
+  mean: -0.1594
+- hook: blocks.5.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1429.1704
+  maximum: 50.9752
+  numel: 9216
+  std: 15.0888
+  mean: -0.1594
+- hook: blocks.5.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.286
+  maximum: 36.9531
+  numel: 6
+  std: 14.9554
+  mean: 6.4254
+- hook: blocks.5.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6753
+  maximum: 19.319
+  numel: 9216
+  std: 1.0
+  mean: -0.0026
+- hook: blocks.5.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -62.8473
+  maximum: 5.8614
+  numel: 9216
+  std: 0.8363
+  mean: -0.0096
+- hook: blocks.5.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -62.8473
+  maximum: 5.8614
+  numel: 9216
+  std: 0.8363
+  mean: -0.0096
+- hook: blocks.5.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -62.8473
+  maximum: 5.8614
+  numel: 9216
+  std: 0.8363
+  mean: -0.0096
+- hook: blocks.5.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -62.8473
+  maximum: 5.8614
+  numel: 9216
+  std: 0.8363
+  mean: -0.0096
+- hook: blocks.5.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.583
+  maximum: 18.2866
+  numel: 24576
+  std: 0.587
+  mean: -0.4397
+- hook: blocks.5.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.583
+  maximum: 18.2866
+  numel: 24576
+  std: 0.587
+  mean: -0.4397
+- hook: blocks.5.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -62.8473
+  maximum: 5.8614
+  numel: 9216
+  std: 0.8363
+  mean: -0.0096
+- hook: blocks.5.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.5376
+  maximum: 8.3222
+  numel: 24576
+  std: 0.4537
+  mean: -0.0023
+- hook: blocks.5.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -15.5376
+  maximum: 8.3222
+  numel: 24576
+  std: 0.4537
+  mean: -0.0023
+- hook: blocks.5.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.2229
+  maximum: 3.3758
+  numel: 24576
+  std: 1.0403
+  mean: -0.0064
+- hook: blocks.5.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -162.2229
+  maximum: 3.3758
+  numel: 24576
+  std: 1.0403
+  mean: -0.0064
+- hook: blocks.5.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -129.5283
+  maximum: 4.5872
+  numel: 9216
+  std: 1.383
+  mean: -0.0145
+- hook: blocks.5.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -129.5283
+  maximum: 4.5872
+  numel: 9216
+  std: 1.383
+  mean: -0.0145
+- hook: blocks.5.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -129.5283
+  maximum: 4.5872
+  numel: 9216
+  std: 1.383
+  mean: -0.0145
+- hook: blocks.5.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6987
+  maximum: 55.4108
+  numel: 9216
+  std: 16.4641
+  mean: -0.1739
+- hook: blocks.5.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6987
+  maximum: 55.4108
+  numel: 9216
+  std: 16.4641
+  mean: -0.1739
+- hook: blocks.6.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6987
+  maximum: 55.4108
+  numel: 9216
+  std: 16.4641
+  mean: -0.1739
+- hook: blocks.6.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6987
+  maximum: 55.4108
+  numel: 9216
+  std: 16.4641
+  mean: -0.1739
+- hook: blocks.6.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6987
+  maximum: 55.4108
+  numel: 9216
+  std: 16.4641
+  mean: -0.1739
+- hook: blocks.6.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.3195
+  maximum: 40.3209
+  numel: 6
+  std: 16.3179
+  mean: 7.0123
+- hook: blocks.6.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6573
+  maximum: 21.2495
+  numel: 9216
+  std: 1.0
+  mean: -0.0015
+- hook: blocks.6.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -19.6307
+  maximum: 14.775
+  numel: 9216
+  std: 0.8428
+  mean: -0.0102
+- hook: blocks.6.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -19.6307
+  maximum: 14.775
+  numel: 9216
+  std: 0.8428
+  mean: -0.0102
+- hook: blocks.6.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -19.6307
+  maximum: 14.775
+  numel: 9216
+  std: 0.8428
+  mean: -0.0102
+- hook: blocks.6.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.5962
+  maximum: 8.0753
+  numel: 9216
+  std: 1.2329
+  mean: 0.0294
+- hook: blocks.6.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.5962
+  maximum: 8.0753
+  numel: 9216
+  std: 1.2329
+  mean: 0.0294
+- hook: blocks.6.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -19.6307
+  maximum: 14.775
+  numel: 9216
+  std: 0.8428
+  mean: -0.0102
+- hook: blocks.6.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.9043
+  maximum: 10.992
+  numel: 4608
+  std: 1.4837
+  mean: 0.0669
+- hook: blocks.6.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.9043
+  maximum: 10.992
+  numel: 4608
+  std: 1.4837
+  mean: 0.0669
+- hook: blocks.6.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -19.6307
+  maximum: 14.775
+  numel: 9216
+  std: 0.8428
+  mean: -0.0102
+- hook: blocks.6.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3682
+  maximum: 2.532
+  numel: 4608
+  std: 0.421
+  mean: 0.005
+- hook: blocks.6.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3682
+  maximum: 2.532
+  numel: 4608
+  std: 0.421
+  mean: 0.005
+- hook: blocks.6.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.6.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.6.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.7784
+  maximum: 7.4806
+  numel: 9216
+  std: 1.2331
+  mean: 0.0202
+- hook: blocks.6.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.9081
+  maximum: 10.9934
+  numel: 4608
+  std: 1.4839
+  mean: 0.0611
+- hook: blocks.6.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.3088
+  maximum: 4.4372
+  numel: 576
+  std: 1.8174
+  mean: 0.455
+- hook: blocks.6.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.306
+  mean: 0.1667
+- hook: blocks.6.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.2857
+  maximum: 1.5846
+  numel: 9216
+  std: 0.1572
+  mean: -0.0044
+- hook: blocks.6.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.2857
+  maximum: 1.5846
+  numel: 9216
+  std: 0.1572
+  mean: -0.0044
+- hook: blocks.6.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1599
+  maximum: 0.4701
+  numel: 9216
+  std: 0.0841
+  mean: 0.0001
+- hook: blocks.6.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1599
+  maximum: 0.4701
+  numel: 9216
+  std: 0.0841
+  mean: 0.0001
+- hook: blocks.6.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1599
+  maximum: 0.4701
+  numel: 9216
+  std: 0.0841
+  mean: 0.0001
+- hook: blocks.6.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.5695
+  maximum: 55.8808
+  numel: 9216
+  std: 16.4654
+  mean: -0.1738
+- hook: blocks.6.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.5695
+  maximum: 55.8808
+  numel: 9216
+  std: 16.4654
+  mean: -0.1738
+- hook: blocks.6.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.334
+  maximum: 40.3241
+  numel: 6
+  std: 16.317
+  mean: 7.0171
+- hook: blocks.6.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6511
+  maximum: 19.4928
+  numel: 9216
+  std: 1.0
+  mean: -0.0009
+- hook: blocks.6.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -30.9511
+  maximum: 5.0662
+  numel: 9216
+  std: 0.603
+  mean: -0.0053
+- hook: blocks.6.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -30.9511
+  maximum: 5.0662
+  numel: 9216
+  std: 0.603
+  mean: -0.0053
+- hook: blocks.6.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -30.9511
+  maximum: 5.0662
+  numel: 9216
+  std: 0.603
+  mean: -0.0053
+- hook: blocks.6.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -30.9511
+  maximum: 5.0662
+  numel: 9216
+  std: 0.603
+  mean: -0.0053
+- hook: blocks.6.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.9924
+  maximum: 4.875
+  numel: 24576
+  std: 0.5373
+  mean: -0.3698
+- hook: blocks.6.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.9924
+  maximum: 4.875
+  numel: 24576
+  std: 0.5373
+  mean: -0.3698
+- hook: blocks.6.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -30.9511
+  maximum: 5.0662
+  numel: 9216
+  std: 0.603
+  mean: -0.0053
+- hook: blocks.6.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.9115
+  maximum: 4.7205
+  numel: 24576
+  std: 0.4379
+  mean: 0.0064
+- hook: blocks.6.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.9115
+  maximum: 4.7205
+  numel: 24576
+  std: 0.4379
+  mean: 0.0064
+- hook: blocks.6.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.1988
+  maximum: 1.8399
+  numel: 24576
+  std: 0.1075
+  mean: -0.0002
+- hook: blocks.6.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.1988
+  maximum: 1.8399
+  numel: 24576
+  std: 0.1075
+  mean: -0.0002
+- hook: blocks.6.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9376
+  maximum: 1.9732
+  numel: 9216
+  std: 0.1381
+  mean: -0.0013
+- hook: blocks.6.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9376
+  maximum: 1.9732
+  numel: 9216
+  std: 0.1381
+  mean: -0.0013
+- hook: blocks.6.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9376
+  maximum: 1.9732
+  numel: 9216
+  std: 0.1381
+  mean: -0.0013
+- hook: blocks.6.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6901
+  maximum: 55.7641
+  numel: 9216
+  std: 16.471
+  mean: -0.1751
+- hook: blocks.6.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6901
+  maximum: 55.7641
+  numel: 9216
+  std: 16.471
+  mean: -0.1751
+- hook: blocks.7.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6901
+  maximum: 55.7641
+  numel: 9216
+  std: 16.471
+  mean: -0.1751
+- hook: blocks.7.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6901
+  maximum: 55.7641
+  numel: 9216
+  std: 16.471
+  mean: -0.1751
+- hook: blocks.7.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.6901
+  maximum: 55.7641
+  numel: 9216
+  std: 16.471
+  mean: -0.1751
+- hook: blocks.7.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.3769
+  maximum: 40.336
+  numel: 6
+  std: 16.306
+  mean: 7.0515
+- hook: blocks.7.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6427
+  maximum: 18.3733
+  numel: 9216
+  std: 1.0
+  mean: -0.004
+- hook: blocks.7.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.3135
+  maximum: 14.4259
+  numel: 9216
+  std: 0.973
+  mean: -0.0118
+- hook: blocks.7.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.3135
+  maximum: 14.4259
+  numel: 9216
+  std: 0.973
+  mean: -0.0118
+- hook: blocks.7.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.3135
+  maximum: 14.4259
+  numel: 9216
+  std: 0.973
+  mean: -0.0118
+- hook: blocks.7.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.8334
+  maximum: 8.8644
+  numel: 9216
+  std: 1.2096
+  mean: -0.0233
+- hook: blocks.7.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.8334
+  maximum: 8.8644
+  numel: 9216
+  std: 1.2096
+  mean: -0.0233
+- hook: blocks.7.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.3135
+  maximum: 14.4259
+  numel: 9216
+  std: 0.973
+  mean: -0.0118
+- hook: blocks.7.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.6736
+  maximum: 6.4878
+  numel: 4608
+  std: 1.4209
+  mean: -0.0109
+- hook: blocks.7.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.6736
+  maximum: 6.4878
+  numel: 4608
+  std: 1.4209
+  mean: -0.0109
+- hook: blocks.7.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.3135
+  maximum: 14.4259
+  numel: 9216
+  std: 0.973
+  mean: -0.0118
+- hook: blocks.7.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.1502
+  maximum: 3.1885
+  numel: 4608
+  std: 0.5049
+  mean: 0.0208
+- hook: blocks.7.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.1502
+  maximum: 3.1885
+  numel: 4608
+  std: 0.5049
+  mean: 0.0208
+- hook: blocks.7.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.7.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.7.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.8325
+  maximum: 8.8617
+  numel: 9216
+  std: 1.2098
+  mean: 0.0019
+- hook: blocks.7.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.6768
+  maximum: 6.4877
+  numel: 4608
+  std: 1.4209
+  mean: 0.0165
+- hook: blocks.7.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.5994
+  maximum: 4.721
+  numel: 576
+  std: 2.4869
+  mean: -0.0456
+- hook: blocks.7.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3243
+  mean: 0.1667
+- hook: blocks.7.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.7809
+  maximum: 0.9873
+  numel: 9216
+  std: 0.1209
+  mean: 0.0015
+- hook: blocks.7.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.7809
+  maximum: 0.9873
+  numel: 9216
+  std: 0.1209
+  mean: 0.0015
+- hook: blocks.7.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0231
+  maximum: 0.4671
+  numel: 9216
+  std: 0.0633
+  mean: -0.0013
+- hook: blocks.7.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0231
+  maximum: 0.4671
+  numel: 9216
+  std: 0.0633
+  mean: -0.0013
+- hook: blocks.7.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0231
+  maximum: 0.4671
+  numel: 9216
+  std: 0.0633
+  mean: -0.0013
+- hook: blocks.7.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.5258
+  maximum: 56.2312
+  numel: 9216
+  std: 16.4716
+  mean: -0.1764
+- hook: blocks.7.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.5258
+  maximum: 56.2312
+  numel: 9216
+  std: 16.4716
+  mean: -0.1764
+- hook: blocks.7.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.3755
+  maximum: 40.3377
+  numel: 6
+  std: 16.3083
+  mean: 7.0485
+- hook: blocks.7.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6369
+  maximum: 16.3654
+  numel: 9216
+  std: 1.0
+  mean: -0.0068
+- hook: blocks.7.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -31.9962
+  maximum: 5.0435
+  numel: 9216
+  std: 0.6337
+  mean: -0.0113
+- hook: blocks.7.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -31.9962
+  maximum: 5.0435
+  numel: 9216
+  std: 0.6337
+  mean: -0.0113
+- hook: blocks.7.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -31.9962
+  maximum: 5.0435
+  numel: 9216
+  std: 0.6337
+  mean: -0.0113
+- hook: blocks.7.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -31.9962
+  maximum: 5.0435
+  numel: 9216
+  std: 0.6337
+  mean: -0.0113
+- hook: blocks.7.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.9626
+  maximum: 4.0685
+  numel: 24576
+  std: 0.5348
+  mean: -0.3755
+- hook: blocks.7.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.9626
+  maximum: 4.0685
+  numel: 24576
+  std: 0.5348
+  mean: -0.3755
+- hook: blocks.7.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -31.9962
+  maximum: 5.0435
+  numel: 9216
+  std: 0.6337
+  mean: -0.0113
+- hook: blocks.7.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.5325
+  maximum: 5.1191
+  numel: 24576
+  std: 0.4543
+  mean: -0.0084
+- hook: blocks.7.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.5325
+  maximum: 5.1191
+  numel: 24576
+  std: 0.4543
+  mean: -0.0084
+- hook: blocks.7.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.8962
+  maximum: 3.1838
+  numel: 24576
+  std: 0.1171
+  mean: 0.0
+- hook: blocks.7.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.8962
+  maximum: 3.1838
+  numel: 24576
+  std: 0.1171
+  mean: 0.0
+- hook: blocks.7.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3513
+  maximum: 2.3275
+  numel: 9216
+  std: 0.1536
+  mean: 0.0027
+- hook: blocks.7.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3513
+  maximum: 2.3275
+  numel: 9216
+  std: 0.1536
+  mean: 0.0027
+- hook: blocks.7.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.3513
+  maximum: 2.3275
+  numel: 9216
+  std: 0.1536
+  mean: 0.0027
+- hook: blocks.7.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.509
+  maximum: 55.7556
+  numel: 9216
+  std: 16.4759
+  mean: -0.1736
+- hook: blocks.7.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.509
+  maximum: 55.7556
+  numel: 9216
+  std: 16.4759
+  mean: -0.1736
+- hook: blocks.8.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.509
+  maximum: 55.7556
+  numel: 9216
+  std: 16.4759
+  mean: -0.1736
+- hook: blocks.8.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.509
+  maximum: 55.7556
+  numel: 9216
+  std: 16.4759
+  mean: -0.1736
+- hook: blocks.8.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.509
+  maximum: 55.7556
+  numel: 9216
+  std: 16.4759
+  mean: -0.1736
+- hook: blocks.8.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.3922
+  maximum: 40.3461
+  numel: 6
+  std: 16.296
+  mean: 7.0821
+- hook: blocks.8.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6284
+  maximum: 18.7514
+  numel: 9216
+  std: 1.0
+  mean: -0.0002
+- hook: blocks.8.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -18.1502
+  maximum: 15.675
+  numel: 9216
+  std: 0.9077
+  mean: -0.0076
+- hook: blocks.8.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -18.1502
+  maximum: 15.675
+  numel: 9216
+  std: 0.9077
+  mean: -0.0076
+- hook: blocks.8.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -18.1502
+  maximum: 15.675
+  numel: 9216
+  std: 0.9077
+  mean: -0.0076
+- hook: blocks.8.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.544
+  maximum: 8.8952
+  numel: 9216
+  std: 1.2023
+  mean: 0.0245
+- hook: blocks.8.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.544
+  maximum: 8.8952
+  numel: 9216
+  std: 1.2023
+  mean: 0.0245
+- hook: blocks.8.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -18.1502
+  maximum: 15.675
+  numel: 9216
+  std: 0.9077
+  mean: -0.0076
+- hook: blocks.8.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.9633
+  maximum: 9.4374
+  numel: 4608
+  std: 1.5149
+  mean: 0.0207
+- hook: blocks.8.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.9633
+  maximum: 9.4374
+  numel: 4608
+  std: 1.5149
+  mean: 0.0207
+- hook: blocks.8.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -18.1502
+  maximum: 15.675
+  numel: 9216
+  std: 0.9077
+  mean: -0.0076
+- hook: blocks.8.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.4922
+  maximum: 2.2296
+  numel: 4608
+  std: 0.4187
+  mean: 0.008
+- hook: blocks.8.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.4922
+  maximum: 2.2296
+  numel: 4608
+  std: 0.4187
+  mean: 0.008
+- hook: blocks.8.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.8.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.8.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.5405
+  maximum: 8.8923
+  numel: 9216
+  std: 1.2026
+  mean: -0.0008
+- hook: blocks.8.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.968
+  maximum: 9.4381
+  numel: 4608
+  std: 1.515
+  mean: 0.0163
+- hook: blocks.8.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4812
+  maximum: 3.8881
+  numel: 576
+  std: 1.4758
+  mean: 0.4865
+- hook: blocks.8.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.2918
+  mean: 0.1667
+- hook: blocks.8.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1742
+  maximum: 1.1224
+  numel: 9216
+  std: 0.1322
+  mean: -0.0015
+- hook: blocks.8.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1742
+  maximum: 1.1224
+  numel: 9216
+  std: 0.1322
+  mean: -0.0015
+- hook: blocks.8.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2516
+  maximum: 0.4115
+  numel: 9216
+  std: 0.0748
+  mean: -0.0022
+- hook: blocks.8.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2516
+  maximum: 0.4115
+  numel: 9216
+  std: 0.0748
+  mean: -0.0022
+- hook: blocks.8.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.2516
+  maximum: 0.4115
+  numel: 9216
+  std: 0.0748
+  mean: -0.0022
+- hook: blocks.8.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3475
+  maximum: 56.1672
+  numel: 9216
+  std: 16.4771
+  mean: -0.1758
+- hook: blocks.8.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3475
+  maximum: 56.1672
+  numel: 9216
+  std: 16.4771
+  mean: -0.1758
+- hook: blocks.8.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.4117
+  maximum: 40.3485
+  numel: 6
+  std: 16.2919
+  mean: 7.0928
+- hook: blocks.8.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6222
+  maximum: 17.7362
+  numel: 9216
+  std: 1.0
+  mean: -0.0043
+- hook: blocks.8.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.1175
+  maximum: 5.504
+  numel: 9216
+  std: 0.6231
+  mean: -0.0066
+- hook: blocks.8.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.1175
+  maximum: 5.504
+  numel: 9216
+  std: 0.6231
+  mean: -0.0066
+- hook: blocks.8.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.1175
+  maximum: 5.504
+  numel: 9216
+  std: 0.6231
+  mean: -0.0066
+- hook: blocks.8.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.1175
+  maximum: 5.504
+  numel: 9216
+  std: 0.6231
+  mean: -0.0066
+- hook: blocks.8.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.1836
+  maximum: 7.258
+  numel: 24576
+  std: 0.5769
+  mean: -0.3292
+- hook: blocks.8.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.1836
+  maximum: 7.258
+  numel: 24576
+  std: 0.5769
+  mean: -0.3292
+- hook: blocks.8.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -29.1175
+  maximum: 5.504
+  numel: 9216
+  std: 0.6231
+  mean: -0.0066
+- hook: blocks.8.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.146
+  maximum: 3.0919
+  numel: 24576
+  std: 0.4897
+  mean: 0.0029
+- hook: blocks.8.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.146
+  maximum: 3.0919
+  numel: 24576
+  std: 0.4897
+  mean: 0.0029
+- hook: blocks.8.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.2061
+  maximum: 5.2617
+  numel: 24576
+  std: 0.1308
+  mean: 0.0006
+- hook: blocks.8.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.2061
+  maximum: 5.2617
+  numel: 24576
+  std: 0.1308
+  mean: 0.0006
+- hook: blocks.8.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3919
+  maximum: 1.3422
+  numel: 9216
+  std: 0.1545
+  mean: -0.001
+- hook: blocks.8.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3919
+  maximum: 1.3422
+  numel: 9216
+  std: 0.1545
+  mean: -0.001
+- hook: blocks.8.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.3919
+  maximum: 1.3422
+  numel: 9216
+  std: 0.1545
+  mean: -0.001
+- hook: blocks.8.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3098
+  maximum: 55.8294
+  numel: 9216
+  std: 16.4795
+  mean: -0.1768
+- hook: blocks.8.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3098
+  maximum: 55.8294
+  numel: 9216
+  std: 16.4795
+  mean: -0.1768
+- hook: blocks.9.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3098
+  maximum: 55.8294
+  numel: 9216
+  std: 16.4795
+  mean: -0.1768
+- hook: blocks.9.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3098
+  maximum: 55.8294
+  numel: 9216
+  std: 16.4795
+  mean: -0.1768
+- hook: blocks.9.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.3098
+  maximum: 55.8294
+  numel: 9216
+  std: 16.4795
+  mean: -0.1768
+- hook: blocks.9.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.4297
+  maximum: 40.3521
+  numel: 6
+  std: 16.2774
+  mean: 7.1262
+- hook: blocks.9.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6178
+  maximum: 18.3244
+  numel: 9216
+  std: 1.0
+  mean: -0.0068
+- hook: blocks.9.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.7225
+  maximum: 11.3812
+  numel: 9216
+  std: 0.9566
+  mean: -0.0163
+- hook: blocks.9.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.7225
+  maximum: 11.3812
+  numel: 9216
+  std: 0.9566
+  mean: -0.0163
+- hook: blocks.9.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.7225
+  maximum: 11.3812
+  numel: 9216
+  std: 0.9566
+  mean: -0.0163
+- hook: blocks.9.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.2049
+  maximum: 8.06
+  numel: 9216
+  std: 1.1789
+  mean: -0.0137
+- hook: blocks.9.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.2049
+  maximum: 8.06
+  numel: 9216
+  std: 1.1789
+  mean: -0.0137
+- hook: blocks.9.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.7225
+  maximum: 11.3812
+  numel: 9216
+  std: 0.9566
+  mean: -0.0163
+- hook: blocks.9.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.8635
+  maximum: 12.1808
+  numel: 4608
+  std: 1.3736
+  mean: 0.0149
+- hook: blocks.9.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.8635
+  maximum: 12.1808
+  numel: 4608
+  std: 1.3736
+  mean: 0.0149
+- hook: blocks.9.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.7225
+  maximum: 11.3812
+  numel: 9216
+  std: 0.9566
+  mean: -0.0163
+- hook: blocks.9.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.7672
+  maximum: 4.6452
+  numel: 4608
+  std: 0.5758
+  mean: -0.0011
+- hook: blocks.9.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.7672
+  maximum: 4.6452
+  numel: 4608
+  std: 0.5758
+  mean: -0.0011
+- hook: blocks.9.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.9.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.9.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.2047
+  maximum: 8.056
+  numel: 9216
+  std: 1.1785
+  mean: -0.0352
+- hook: blocks.9.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.8658
+  maximum: 12.1832
+  numel: 4608
+  std: 1.3736
+  mean: 0.0094
+- hook: blocks.9.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.7469
+  maximum: 5.0165
+  numel: 576
+  std: 1.8186
+  mean: 0.6408
+- hook: blocks.9.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3207
+  mean: 0.1667
+- hook: blocks.9.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4787
+  maximum: 2.6633
+  numel: 9216
+  std: 0.1658
+  mean: -0.0038
+- hook: blocks.9.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4787
+  maximum: 2.6633
+  numel: 9216
+  std: 0.1658
+  mean: -0.0038
+- hook: blocks.9.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1869
+  maximum: 0.5366
+  numel: 9216
+  std: 0.0925
+  mean: -0.0036
+- hook: blocks.9.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1869
+  maximum: 0.5366
+  numel: 9216
+  std: 0.0925
+  mean: -0.0036
+- hook: blocks.9.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.1869
+  maximum: 0.5366
+  numel: 9216
+  std: 0.0925
+  mean: -0.0036
+- hook: blocks.9.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.1279
+  maximum: 55.9063
+  numel: 9216
+  std: 16.4795
+  mean: -0.1803
+- hook: blocks.9.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.1279
+  maximum: 55.9063
+  numel: 9216
+  std: 16.4795
+  mean: -0.1803
+- hook: blocks.9.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.4672
+  maximum: 40.3503
+  numel: 6
+  std: 16.2648
+  mean: 7.1499
+- hook: blocks.9.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.615
+  maximum: 17.6404
+  numel: 9216
+  std: 0.9999
+  mean: -0.0135
+- hook: blocks.9.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.0953
+  maximum: 6.2917
+  numel: 9216
+  std: 0.6476
+  mean: -0.0145
+- hook: blocks.9.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.0953
+  maximum: 6.2917
+  numel: 9216
+  std: 0.6476
+  mean: -0.0145
+- hook: blocks.9.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.0953
+  maximum: 6.2917
+  numel: 9216
+  std: 0.6476
+  mean: -0.0145
+- hook: blocks.9.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.0953
+  maximum: 6.2917
+  numel: 9216
+  std: 0.6476
+  mean: -0.0145
+- hook: blocks.9.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.2145
+  maximum: 5.845
+  numel: 24576
+  std: 0.6258
+  mean: -0.303
+- hook: blocks.9.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.2145
+  maximum: 5.845
+  numel: 24576
+  std: 0.6258
+  mean: -0.303
+- hook: blocks.9.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.0953
+  maximum: 6.2917
+  numel: 9216
+  std: 0.6476
+  mean: -0.0145
+- hook: blocks.9.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.835
+  maximum: 3.5949
+  numel: 24576
+  std: 0.52
+  mean: -0.0023
+- hook: blocks.9.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.835
+  maximum: 3.5949
+  numel: 24576
+  std: 0.52
+  mean: -0.0023
+- hook: blocks.9.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.2362
+  maximum: 3.5331
+  numel: 24576
+  std: 0.1545
+  mean: -0.0001
+- hook: blocks.9.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.2362
+  maximum: 3.5331
+  numel: 24576
+  std: 0.1545
+  mean: -0.0001
+- hook: blocks.9.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5498
+  maximum: 2.5859
+  numel: 9216
+  std: 0.1954
+  mean: -0.0008
+- hook: blocks.9.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5498
+  maximum: 2.5859
+  numel: 9216
+  std: 0.1954
+  mean: -0.0008
+- hook: blocks.9.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5498
+  maximum: 2.5859
+  numel: 9216
+  std: 0.1954
+  mean: -0.0008
+- hook: blocks.9.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.2026
+  maximum: 55.2522
+  numel: 9216
+  std: 16.483
+  mean: -0.1812
+- hook: blocks.9.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.2026
+  maximum: 55.2522
+  numel: 9216
+  std: 16.483
+  mean: -0.1812
+- hook: blocks.10.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.2026
+  maximum: 55.2522
+  numel: 9216
+  std: 16.483
+  mean: -0.1812
+- hook: blocks.10.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.2026
+  maximum: 55.2522
+  numel: 9216
+  std: 16.483
+  mean: -0.1812
+- hook: blocks.10.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.2026
+  maximum: 55.2522
+  numel: 9216
+  std: 16.483
+  mean: -0.1812
+- hook: blocks.10.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.5388
+  maximum: 40.3542
+  numel: 6
+  std: 16.2374
+  mean: 7.2099
+- hook: blocks.10.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6131
+  maximum: 18.962
+  numel: 9216
+  std: 0.9999
+  mean: -0.0139
+- hook: blocks.10.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.2674
+  maximum: 13.9252
+  numel: 9216
+  std: 0.9715
+  mean: -0.0207
+- hook: blocks.10.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.2674
+  maximum: 13.9252
+  numel: 9216
+  std: 0.9715
+  mean: -0.0207
+- hook: blocks.10.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.2674
+  maximum: 13.9252
+  numel: 9216
+  std: 0.9715
+  mean: -0.0207
+- hook: blocks.10.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.0669
+  maximum: 8.8141
+  numel: 9216
+  std: 1.1942
+  mean: 0.0089
+- hook: blocks.10.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.0669
+  maximum: 8.8141
+  numel: 9216
+  std: 1.1942
+  mean: 0.0089
+- hook: blocks.10.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.2674
+  maximum: 13.9252
+  numel: 9216
+  std: 0.9715
+  mean: -0.0207
+- hook: blocks.10.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.5993
+  maximum: 11.3113
+  numel: 4608
+  std: 1.4496
+  mean: 0.0524
+- hook: blocks.10.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.5993
+  maximum: 11.3113
+  numel: 4608
+  std: 1.4496
+  mean: 0.0524
+- hook: blocks.10.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.2674
+  maximum: 13.9252
+  numel: 9216
+  std: 0.9715
+  mean: -0.0207
+- hook: blocks.10.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.9122
+  maximum: 2.7961
+  numel: 4608
+  std: 0.5573
+  mean: -0.0
+- hook: blocks.10.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.9122
+  maximum: 2.7961
+  numel: 4608
+  std: 0.5573
+  mean: -0.0
+- hook: blocks.10.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.10.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.10.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.0641
+  maximum: 8.8128
+  numel: 9216
+  std: 1.1943
+  mean: 0.0041
+- hook: blocks.10.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -11.6016
+  maximum: 11.3132
+  numel: 4608
+  std: 1.4503
+  mean: 0.0278
+- hook: blocks.10.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.7991
+  maximum: 3.9756
+  numel: 576
+  std: 1.5095
+  mean: 0.4869
+- hook: blocks.10.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.2919
+  mean: 0.1667
+- hook: blocks.10.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9004
+  maximum: 1.4586
+  numel: 9216
+  std: 0.2072
+  mean: -0.0017
+- hook: blocks.10.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.9004
+  maximum: 1.4586
+  numel: 9216
+  std: 0.2072
+  mean: -0.0017
+- hook: blocks.10.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4015
+  maximum: 0.9317
+  numel: 9216
+  std: 0.1312
+  mean: -0.0014
+- hook: blocks.10.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4015
+  maximum: 0.9317
+  numel: 9216
+  std: 0.1312
+  mean: -0.0014
+- hook: blocks.10.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4015
+  maximum: 0.9317
+  numel: 9216
+  std: 0.1312
+  mean: -0.0014
+- hook: blocks.10.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.0049
+  maximum: 55.4737
+  numel: 9216
+  std: 16.4849
+  mean: -0.1826
+- hook: blocks.10.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1558.0049
+  maximum: 55.4737
+  numel: 9216
+  std: 16.4849
+  mean: -0.1826
+- hook: blocks.10.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.5854
+  maximum: 40.3563
+  numel: 6
+  std: 16.2237
+  mean: 7.2399
+- hook: blocks.10.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6063
+  maximum: 17.4323
+  numel: 9216
+  std: 0.9999
+  mean: -0.0155
+- hook: blocks.10.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.4467
+  maximum: 8.0469
+  numel: 9216
+  std: 0.7201
+  mean: -0.0157
+- hook: blocks.10.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.4467
+  maximum: 8.0469
+  numel: 9216
+  std: 0.7201
+  mean: -0.0157
+- hook: blocks.10.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.4467
+  maximum: 8.0469
+  numel: 9216
+  std: 0.7201
+  mean: -0.0157
+- hook: blocks.10.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.4467
+  maximum: 8.0469
+  numel: 9216
+  std: 0.7201
+  mean: -0.0157
+- hook: blocks.10.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.3592
+  maximum: 5.4864
+  numel: 24576
+  std: 0.7213
+  mean: -0.3484
+- hook: blocks.10.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.3592
+  maximum: 5.4864
+  numel: 24576
+  std: 0.7213
+  mean: -0.3484
+- hook: blocks.10.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.4467
+  maximum: 8.0469
+  numel: 9216
+  std: 0.7201
+  mean: -0.0157
+- hook: blocks.10.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.5932
+  maximum: 4.7377
+  numel: 24576
+  std: 0.6091
+  mean: -0.0022
+- hook: blocks.10.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.5932
+  maximum: 4.7377
+  numel: 24576
+  std: 0.6091
+  mean: -0.0022
+- hook: blocks.10.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.8086
+  maximum: 7.7073
+  numel: 24576
+  std: 0.2154
+  mean: -0.0025
+- hook: blocks.10.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.8086
+  maximum: 7.7073
+  numel: 24576
+  std: 0.2154
+  mean: -0.0025
+- hook: blocks.10.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4105
+  maximum: 4.1118
+  numel: 9216
+  std: 0.2731
+  mean: 0.0034
+- hook: blocks.10.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4105
+  maximum: 4.1118
+  numel: 9216
+  std: 0.2731
+  mean: 0.0034
+- hook: blocks.10.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.4105
+  maximum: 4.1118
+  numel: 9216
+  std: 0.2731
+  mean: 0.0034
+- hook: blocks.10.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.9238
+  maximum: 55.009
+  numel: 9216
+  std: 16.4903
+  mean: -0.1791
+- hook: blocks.10.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.9238
+  maximum: 55.009
+  numel: 9216
+  std: 16.4903
+  mean: -0.1791
+- hook: blocks.11.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.9238
+  maximum: 55.009
+  numel: 9216
+  std: 16.4903
+  mean: -0.1791
+- hook: blocks.11.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.9238
+  maximum: 55.009
+  numel: 9216
+  std: 16.4903
+  mean: -0.1791
+- hook: blocks.11.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.9238
+  maximum: 55.009
+  numel: 9216
+  std: 16.4903
+  mean: -0.1791
+- hook: blocks.11.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.711
+  maximum: 40.3577
+  numel: 6
+  std: 16.1676
+  mean: 7.3558
+- hook: blocks.11.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6029
+  maximum: 18.5142
+  numel: 9216
+  std: 1.0
+  mean: -0.0086
+- hook: blocks.11.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.6639
+  maximum: 12.5106
+  numel: 9216
+  std: 1.0708
+  mean: -0.0155
+- hook: blocks.11.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.6639
+  maximum: 12.5106
+  numel: 9216
+  std: 1.0708
+  mean: -0.0155
+- hook: blocks.11.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.6639
+  maximum: 12.5106
+  numel: 9216
+  std: 1.0708
+  mean: -0.0155
+- hook: blocks.11.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0267
+  maximum: 8.2483
+  numel: 9216
+  std: 1.1831
+  mean: -0.0393
+- hook: blocks.11.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0267
+  maximum: 8.2483
+  numel: 9216
+  std: 1.1831
+  mean: -0.0393
+- hook: blocks.11.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.6639
+  maximum: 12.5106
+  numel: 9216
+  std: 1.0708
+  mean: -0.0155
+- hook: blocks.11.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.299
+  maximum: 10.6027
+  numel: 4608
+  std: 1.3547
+  mean: 0.0567
+- hook: blocks.11.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.299
+  maximum: 10.6027
+  numel: 4608
+  std: 1.3547
+  mean: 0.0567
+- hook: blocks.11.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.6639
+  maximum: 12.5106
+  numel: 9216
+  std: 1.0708
+  mean: -0.0155
+- hook: blocks.11.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.9995
+  maximum: 3.8003
+  numel: 4608
+  std: 0.7081
+  mean: -0.0116
+- hook: blocks.11.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.9995
+  maximum: 3.8003
+  numel: 4608
+  std: 0.7081
+  mean: -0.0116
+- hook: blocks.11.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.11.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.11.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0269
+  maximum: 8.2482
+  numel: 9216
+  std: 1.1832
+  mean: -0.0349
+- hook: blocks.11.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.2999
+  maximum: 10.6057
+  numel: 4608
+  std: 1.3548
+  mean: 0.0541
+- hook: blocks.11.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.038
+  maximum: 4.7074
+  numel: 576
+  std: 2.2774
+  mean: -0.0988
+- hook: blocks.11.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3208
+  mean: 0.1667
+- hook: blocks.11.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4251
+  maximum: 1.7028
+  numel: 9216
+  std: 0.1685
+  mean: -0.0019
+- hook: blocks.11.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.4251
+  maximum: 1.7028
+  numel: 9216
+  std: 0.1685
+  mean: -0.0019
+- hook: blocks.11.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5779
+  maximum: 0.5893
+  numel: 9216
+  std: 0.1145
+  mean: -0.0019
+- hook: blocks.11.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5779
+  maximum: 0.5893
+  numel: 9216
+  std: 0.1145
+  mean: -0.0019
+- hook: blocks.11.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.5779
+  maximum: 0.5893
+  numel: 9216
+  std: 0.1145
+  mean: -0.0019
+- hook: blocks.11.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.6155
+  maximum: 54.7763
+  numel: 9216
+  std: 16.488
+  mean: -0.181
+- hook: blocks.11.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.6155
+  maximum: 54.7763
+  numel: 9216
+  std: 16.488
+  mean: -0.181
+- hook: blocks.11.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.7367
+  maximum: 40.351
+  numel: 6
+  std: 16.16
+  mean: 7.3646
+- hook: blocks.11.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6016
+  maximum: 17.1154
+  numel: 9216
+  std: 1.0
+  mean: -0.0108
+- hook: blocks.11.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.6894
+  maximum: 8.5261
+  numel: 9216
+  std: 0.7941
+  mean: -0.0121
+- hook: blocks.11.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.6894
+  maximum: 8.5261
+  numel: 9216
+  std: 0.7941
+  mean: -0.0121
+- hook: blocks.11.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.6894
+  maximum: 8.5261
+  numel: 9216
+  std: 0.7941
+  mean: -0.0121
+- hook: blocks.11.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.6894
+  maximum: 8.5261
+  numel: 9216
+  std: 0.7941
+  mean: -0.0121
+- hook: blocks.11.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.4664
+  maximum: 4.6085
+  numel: 24576
+  std: 0.79
+  mean: -0.3311
+- hook: blocks.11.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.4664
+  maximum: 4.6085
+  numel: 24576
+  std: 0.79
+  mean: -0.3311
+- hook: blocks.11.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -26.6894
+  maximum: 8.5261
+  numel: 9216
+  std: 0.7941
+  mean: -0.0121
+- hook: blocks.11.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.8135
+  maximum: 5.4692
+  numel: 24576
+  std: 0.7032
+  mean: -0.0059
+- hook: blocks.11.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.8135
+  maximum: 5.4692
+  numel: 24576
+  std: 0.7032
+  mean: -0.0059
+- hook: blocks.11.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.7542
+  maximum: 24.956
+  numel: 24576
+  std: 0.3132
+  mean: 0.0042
+- hook: blocks.11.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.7542
+  maximum: 24.956
+  numel: 24576
+  std: 0.3132
+  mean: 0.0042
+- hook: blocks.11.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.8723
+  maximum: 6.2271
+  numel: 9216
+  std: 0.4418
+  mean: 0.0043
+- hook: blocks.11.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.8723
+  maximum: 6.2271
+  numel: 9216
+  std: 0.4418
+  mean: 0.0043
+- hook: blocks.11.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.8723
+  maximum: 6.2271
+  numel: 9216
+  std: 0.4418
+  mean: 0.0043
+- hook: blocks.11.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.3365
+  maximum: 54.2932
+  numel: 9216
+  std: 16.4981
+  mean: -0.1767
+- hook: blocks.11.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.3365
+  maximum: 54.2932
+  numel: 9216
+  std: 16.4981
+  mean: -0.1767
+- hook: blocks.12.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.3365
+  maximum: 54.2932
+  numel: 9216
+  std: 16.4981
+  mean: -0.1767
+- hook: blocks.12.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.3365
+  maximum: 54.2932
+  numel: 9216
+  std: 16.4981
+  mean: -0.1767
+- hook: blocks.12.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.3365
+  maximum: 54.2932
+  numel: 9216
+  std: 16.4981
+  mean: -0.1767
+- hook: blocks.12.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.9245
+  maximum: 40.3471
+  numel: 6
+  std: 16.0544
+  mean: 7.5766
+- hook: blocks.12.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.5985
+  maximum: 18.7635
+  numel: 9216
+  std: 1.0
+  mean: -0.0052
+- hook: blocks.12.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.8627
+  maximum: 14.5147
+  numel: 9216
+  std: 1.1821
+  mean: -0.0171
+- hook: blocks.12.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.8627
+  maximum: 14.5147
+  numel: 9216
+  std: 1.1821
+  mean: -0.0171
+- hook: blocks.12.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.8627
+  maximum: 14.5147
+  numel: 9216
+  std: 1.1821
+  mean: -0.0171
+- hook: blocks.12.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.9528
+  maximum: 8.6131
+  numel: 9216
+  std: 1.1881
+  mean: 0.0382
+- hook: blocks.12.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.9528
+  maximum: 8.6131
+  numel: 9216
+  std: 1.1881
+  mean: 0.0382
+- hook: blocks.12.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.8627
+  maximum: 14.5147
+  numel: 9216
+  std: 1.1821
+  mean: -0.0171
+- hook: blocks.12.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.5276
+  maximum: 8.7641
+  numel: 4608
+  std: 1.4358
+  mean: -0.0067
+- hook: blocks.12.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.5276
+  maximum: 8.7641
+  numel: 4608
+  std: 1.4358
+  mean: -0.0067
+- hook: blocks.12.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -27.8627
+  maximum: 14.5147
+  numel: 9216
+  std: 1.1821
+  mean: -0.0171
+- hook: blocks.12.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.8199
+  maximum: 4.1268
+  numel: 4608
+  std: 0.8533
+  mean: 0.0181
+- hook: blocks.12.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -3.8199
+  maximum: 4.1268
+  numel: 4608
+  std: 0.8533
+  mean: 0.0181
+- hook: blocks.12.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.12.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.12.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.9481
+  maximum: 8.6088
+  numel: 9216
+  std: 1.1881
+  mean: 0.0402
+- hook: blocks.12.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.5315
+  maximum: 8.768
+  numel: 4608
+  std: 1.4358
+  mean: -0.004
+- hook: blocks.12.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4436
+  maximum: 3.4753
+  numel: 576
+  std: 1.6957
+  mean: -0.0133
+- hook: blocks.12.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.306
+  mean: 0.1667
+- hook: blocks.12.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.8368
+  maximum: 1.4854
+  numel: 9216
+  std: 0.2038
+  mean: 0.0028
+- hook: blocks.12.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.8368
+  maximum: 1.4854
+  numel: 9216
+  std: 0.2038
+  mean: 0.0028
+- hook: blocks.12.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.7479
+  maximum: 1.488
+  numel: 9216
+  std: 0.1808
+  mean: 0.0027
+- hook: blocks.12.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.7479
+  maximum: 1.488
+  numel: 9216
+  std: 0.1808
+  mean: 0.0027
+- hook: blocks.12.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.7479
+  maximum: 1.488
+  numel: 9216
+  std: 0.1808
+  mean: 0.0027
+- hook: blocks.12.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.5183
+  maximum: 54.1108
+  numel: 9216
+  std: 16.5025
+  mean: -0.1739
+- hook: blocks.12.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.5183
+  maximum: 54.1108
+  numel: 9216
+  std: 16.5025
+  mean: -0.1739
+- hook: blocks.12.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.0171
+  maximum: 40.3494
+  numel: 6
+  std: 16.0292
+  mean: 7.6302
+- hook: blocks.12.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6008
+  maximum: 18.7094
+  numel: 9216
+  std: 1.0
+  mean: -0.0028
+- hook: blocks.12.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.1966
+  maximum: 9.669
+  numel: 9216
+  std: 0.8617
+  mean: -0.0039
+- hook: blocks.12.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.1966
+  maximum: 9.669
+  numel: 9216
+  std: 0.8617
+  mean: -0.0039
+- hook: blocks.12.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.1966
+  maximum: 9.669
+  numel: 9216
+  std: 0.8617
+  mean: -0.0039
+- hook: blocks.12.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.1966
+  maximum: 9.669
+  numel: 9216
+  std: 0.8617
+  mean: -0.0039
+- hook: blocks.12.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0587
+  maximum: 4.2936
+  numel: 24576
+  std: 0.8354
+  mean: -0.2881
+- hook: blocks.12.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.0587
+  maximum: 4.2936
+  numel: 24576
+  std: 0.8354
+  mean: -0.2881
+- hook: blocks.12.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.1966
+  maximum: 9.669
+  numel: 9216
+  std: 0.8617
+  mean: -0.0039
+- hook: blocks.12.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.9168
+  maximum: 5.2199
+  numel: 24576
+  std: 0.8017
+  mean: 0.0108
+- hook: blocks.12.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.9168
+  maximum: 5.2199
+  numel: 24576
+  std: 0.8017
+  mean: 0.0108
+- hook: blocks.12.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.2297
+  maximum: 9.7395
+  numel: 24576
+  std: 0.3546
+  mean: 0.0009
+- hook: blocks.12.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.2297
+  maximum: 9.7395
+  numel: 24576
+  std: 0.3546
+  mean: 0.0009
+- hook: blocks.12.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.9567
+  maximum: 9.9839
+  numel: 9216
+  std: 0.5224
+  mean: -0.0009
+- hook: blocks.12.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.9567
+  maximum: 9.9839
+  numel: 9216
+  std: 0.5224
+  mean: -0.0009
+- hook: blocks.12.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.9567
+  maximum: 9.9839
+  numel: 9216
+  std: 0.5224
+  mean: -0.0009
+- hook: blocks.12.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.2867
+  maximum: 53.3491
+  numel: 9216
+  std: 16.5186
+  mean: -0.1748
+- hook: blocks.12.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.2867
+  maximum: 53.3491
+  numel: 9216
+  std: 16.5186
+  mean: -0.1748
+- hook: blocks.13.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.2867
+  maximum: 53.3491
+  numel: 9216
+  std: 16.5186
+  mean: -0.1748
+- hook: blocks.13.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.2867
+  maximum: 53.3491
+  numel: 9216
+  std: 16.5186
+  mean: -0.1748
+- hook: blocks.13.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.2867
+  maximum: 53.3491
+  numel: 9216
+  std: 16.5186
+  mean: -0.1748
+- hook: blocks.13.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.2576
+  maximum: 40.3423
+  numel: 6
+  std: 15.9027
+  mean: 7.8814
+- hook: blocks.13.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6019
+  maximum: 21.0197
+  numel: 9216
+  std: 1.0
+  mean: -0.0035
+- hook: blocks.13.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.3389
+  maximum: 13.1082
+  numel: 9216
+  std: 1.247
+  mean: -0.0151
+- hook: blocks.13.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.3389
+  maximum: 13.1082
+  numel: 9216
+  std: 1.247
+  mean: -0.0151
+- hook: blocks.13.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.3389
+  maximum: 13.1082
+  numel: 9216
+  std: 1.247
+  mean: -0.0151
+- hook: blocks.13.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0876
+  maximum: 8.318
+  numel: 9216
+  std: 1.2766
+  mean: -0.0264
+- hook: blocks.13.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0876
+  maximum: 8.318
+  numel: 9216
+  std: 1.2766
+  mean: -0.0264
+- hook: blocks.13.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.3389
+  maximum: 13.1082
+  numel: 9216
+  std: 1.247
+  mean: -0.0151
+- hook: blocks.13.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.0224
+  maximum: 11.2684
+  numel: 4608
+  std: 1.3977
+  mean: 0.0532
+- hook: blocks.13.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.0224
+  maximum: 11.2684
+  numel: 4608
+  std: 1.3977
+  mean: 0.0532
+- hook: blocks.13.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -35.3389
+  maximum: 13.1082
+  numel: 9216
+  std: 1.247
+  mean: -0.0151
+- hook: blocks.13.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.1
+  maximum: 4.0944
+  numel: 4608
+  std: 0.907
+  mean: -0.0017
+- hook: blocks.13.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.1
+  maximum: 4.0944
+  numel: 4608
+  std: 0.907
+  mean: -0.0017
+- hook: blocks.13.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.13.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.13.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0863
+  maximum: 8.3156
+  numel: 9216
+  std: 1.276
+  mean: -0.0466
+- hook: blocks.13.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.0231
+  maximum: 11.2708
+  numel: 4608
+  std: 1.3983
+  mean: 0.0348
+- hook: blocks.13.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.339
+  maximum: 4.1531
+  numel: 576
+  std: 1.7461
+  mean: 0.1446
+- hook: blocks.13.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.2974
+  mean: 0.1667
+- hook: blocks.13.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.3141
+  maximum: 2.0921
+  numel: 9216
+  std: 0.2442
+  mean: -0.0018
+- hook: blocks.13.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.3141
+  maximum: 2.0921
+  numel: 9216
+  std: 0.2442
+  mean: -0.0018
+- hook: blocks.13.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4999
+  maximum: 3.3833
+  numel: 9216
+  std: 0.2474
+  mean: 0.0012
+- hook: blocks.13.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4999
+  maximum: 3.3833
+  numel: 9216
+  std: 0.2474
+  mean: 0.0012
+- hook: blocks.13.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.4999
+  maximum: 3.3833
+  numel: 9216
+  std: 0.2474
+  mean: 0.0012
+- hook: blocks.13.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.4224
+  maximum: 53.2157
+  numel: 9216
+  std: 16.5274
+  mean: -0.1736
+- hook: blocks.13.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.4224
+  maximum: 53.2157
+  numel: 9216
+  std: 16.5274
+  mean: -0.1736
+- hook: blocks.13.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.4023
+  maximum: 40.3383
+  numel: 6
+  std: 15.8432
+  mean: 7.9989
+- hook: blocks.13.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6091
+  maximum: 21.0535
+  numel: 9216
+  std: 1.0
+  mean: -0.003
+- hook: blocks.13.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -34.2354
+  maximum: 9.6761
+  numel: 9216
+  std: 0.923
+  mean: -0.0023
+- hook: blocks.13.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -34.2354
+  maximum: 9.6761
+  numel: 9216
+  std: 0.923
+  mean: -0.0023
+- hook: blocks.13.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -34.2354
+  maximum: 9.6761
+  numel: 9216
+  std: 0.923
+  mean: -0.0023
+- hook: blocks.13.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -34.2354
+  maximum: 9.6761
+  numel: 9216
+  std: 0.923
+  mean: -0.0023
+- hook: blocks.13.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.917
+  maximum: 11.5996
+  numel: 24576
+  std: 0.894
+  mean: -0.1816
+- hook: blocks.13.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -4.917
+  maximum: 11.5996
+  numel: 24576
+  std: 0.894
+  mean: -0.1816
+- hook: blocks.13.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -34.2354
+  maximum: 9.6761
+  numel: 9216
+  std: 0.923
+  mean: -0.0023
+- hook: blocks.13.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.1739
+  maximum: 5.6819
+  numel: 24576
+  std: 0.9034
+  mean: -0.0188
+- hook: blocks.13.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.1739
+  maximum: 5.6819
+  numel: 24576
+  std: 0.9034
+  mean: -0.0188
+- hook: blocks.13.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.3059
+  maximum: 18.1264
+  numel: 24576
+  std: 0.4718
+  mean: -0.0059
+- hook: blocks.13.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.3059
+  maximum: 18.1264
+  numel: 24576
+  std: 0.4718
+  mean: -0.0059
+- hook: blocks.13.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.6165
+  maximum: 10.3082
+  numel: 9216
+  std: 0.6755
+  mean: -0.0009
+- hook: blocks.13.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.6165
+  maximum: 10.3082
+  numel: 9216
+  std: 0.6755
+  mean: -0.0009
+- hook: blocks.13.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -13.6165
+  maximum: 10.3082
+  numel: 9216
+  std: 0.6755
+  mean: -0.0009
+- hook: blocks.13.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.1337
+  maximum: 52.6352
+  numel: 9216
+  std: 16.5561
+  mean: -0.1745
+- hook: blocks.13.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.1337
+  maximum: 52.6352
+  numel: 9216
+  std: 16.5561
+  mean: -0.1745
+- hook: blocks.14.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.1337
+  maximum: 52.6352
+  numel: 9216
+  std: 16.5561
+  mean: -0.1745
+- hook: blocks.14.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.1337
+  maximum: 52.6352
+  numel: 9216
+  std: 16.5561
+  mean: -0.1745
+- hook: blocks.14.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1557.1337
+  maximum: 52.6352
+  numel: 9216
+  std: 16.5561
+  mean: -0.1745
+- hook: blocks.14.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.7798
+  maximum: 40.3231
+  numel: 6
+  std: 15.6737
+  mean: 8.3298
+- hook: blocks.14.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.6164
+  maximum: 21.3626
+  numel: 9216
+  std: 1.0
+  mean: -0.0033
+- hook: blocks.14.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.7988
+  maximum: 13.0849
+  numel: 9216
+  std: 1.2268
+  mean: -0.0113
+- hook: blocks.14.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.7988
+  maximum: 13.0849
+  numel: 9216
+  std: 1.2268
+  mean: -0.0113
+- hook: blocks.14.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.7988
+  maximum: 13.0849
+  numel: 9216
+  std: 1.2268
+  mean: -0.0113
+- hook: blocks.14.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.7086
+  maximum: 8.7128
+  numel: 9216
+  std: 1.2444
+  mean: -0.0161
+- hook: blocks.14.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.7086
+  maximum: 8.7128
+  numel: 9216
+  std: 1.2444
+  mean: -0.0161
+- hook: blocks.14.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.7988
+  maximum: 13.0849
+  numel: 9216
+  std: 1.2268
+  mean: -0.0113
+- hook: blocks.14.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.3938
+  maximum: 9.9172
+  numel: 4608
+  std: 1.2817
+  mean: 0.0146
+- hook: blocks.14.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.3938
+  maximum: 9.9172
+  numel: 4608
+  std: 1.2817
+  mean: 0.0146
+- hook: blocks.14.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -28.7988
+  maximum: 13.0849
+  numel: 9216
+  std: 1.2268
+  mean: -0.0113
+- hook: blocks.14.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.3876
+  maximum: 9.1758
+  numel: 4608
+  std: 1.4444
+  mean: 0.0079
+- hook: blocks.14.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -7.3876
+  maximum: 9.1758
+  numel: 4608
+  std: 1.4444
+  mean: 0.0079
+- hook: blocks.14.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.14.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.14.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.7087
+  maximum: 8.7129
+  numel: 9216
+  std: 1.2443
+  mean: -0.0231
+- hook: blocks.14.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.3949
+  maximum: 9.9206
+  numel: 4608
+  std: 1.2817
+  mean: 0.0106
+- hook: blocks.14.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -5.8014
+  maximum: 3.2923
+  numel: 576
+  std: 1.9285
+  mean: -0.3669
+- hook: blocks.14.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.325
+  mean: 0.1667
+- hook: blocks.14.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.106
+  maximum: 2.1173
+  numel: 9216
+  std: 0.2233
+  mean: -0.0085
+- hook: blocks.14.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -2.106
+  maximum: 2.1173
+  numel: 9216
+  std: 0.2233
+  mean: -0.0085
+- hook: blocks.14.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.1659
+  maximum: 5.8017
+  numel: 9216
+  std: 0.2725
+  mean: 0.0064
+- hook: blocks.14.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.1659
+  maximum: 5.8017
+  numel: 9216
+  std: 0.2725
+  mean: 0.0064
+- hook: blocks.14.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -6.1659
+  maximum: 5.8017
+  numel: 9216
+  std: 0.2725
+  mean: 0.0064
+- hook: blocks.14.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1556.715
+  maximum: 52.9852
+  numel: 9216
+  std: 16.5582
+  mean: -0.1682
+- hook: blocks.14.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1556.715
+  maximum: 52.9852
+  numel: 9216
+  std: 16.5582
+  mean: -0.1682
+- hook: blocks.14.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.9399
+  maximum: 40.298
+  numel: 6
+  std: 15.6138
+  mean: 8.4269
+- hook: blocks.14.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.63
+  maximum: 21.4008
+  numel: 9216
+  std: 1.0001
+  mean: -0.0007
+- hook: blocks.14.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -91.1428
+  maximum: 8.7188
+  numel: 9216
+  std: 1.2743
+  mean: -0.0042
+- hook: blocks.14.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -91.1428
+  maximum: 8.7188
+  numel: 9216
+  std: 1.2743
+  mean: -0.0042
+- hook: blocks.14.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -91.1428
+  maximum: 8.7188
+  numel: 9216
+  std: 1.2743
+  mean: -0.0042
+- hook: blocks.14.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -91.1428
+  maximum: 8.7188
+  numel: 9216
+  std: 1.2743
+  mean: -0.0042
+- hook: blocks.14.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -46.0648
+  maximum: 38.3253
+  numel: 24576
+  std: 1.1971
+  mean: -0.1307
+- hook: blocks.14.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -46.0648
+  maximum: 38.3253
+  numel: 24576
+  std: 1.1971
+  mean: -0.1307
+- hook: blocks.14.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -91.1428
+  maximum: 8.7188
+  numel: 9216
+  std: 1.2743
+  mean: -0.0042
+- hook: blocks.14.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -40.5968
+  maximum: 13.0578
+  numel: 24576
+  std: 1.0734
+  mean: -0.0071
+- hook: blocks.14.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -40.5968
+  maximum: 13.0578
+  numel: 24576
+  std: 1.0734
+  mean: -0.0071
+- hook: blocks.14.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0244
+  maximum: 371.2509
+  numel: 24576
+  std: 2.4303
+  mean: 0.0139
+- hook: blocks.14.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.0244
+  maximum: 371.2509
+  numel: 24576
+  std: 2.4303
+  mean: 0.0139
+- hook: blocks.14.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.0765
+  maximum: 377.3878
+  numel: 9216
+  std: 4.0604
+  mean: 0.0304
+- hook: blocks.14.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.0765
+  maximum: 377.3878
+  numel: 9216
+  std: 4.0604
+  mean: 0.0304
+- hook: blocks.14.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -20.0765
+  maximum: 377.3878
+  numel: 9216
+  std: 4.0604
+  mean: 0.0304
+- hook: blocks.14.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1179.3271
+  maximum: 49.7486
+  numel: 9216
+  std: 12.6467
+  mean: -0.1377
+- hook: blocks.14.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1179.3271
+  maximum: 49.7486
+  numel: 9216
+  std: 12.6467
+  mean: -0.1377
+- hook: blocks.15.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1179.3271
+  maximum: 49.7486
+  numel: 9216
+  std: 12.6467
+  mean: -0.1377
+- hook: blocks.15.hook_resid_pre
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1179.3271
+  maximum: 49.7486
+  numel: 9216
+  std: 12.6467
+  mean: -0.1377
+- hook: blocks.15.ln1.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1179.3271
+  maximum: 49.7486
+  numel: 9216
+  std: 12.6467
+  mean: -0.1377
+- hook: blocks.15.ln1.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 2.1313
+  maximum: 30.5272
+  numel: 6
+  std: 11.5051
+  mean: 7.0452
+- hook: blocks.15.ln1.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.632
+  maximum: 21.1627
+  numel: 9216
+  std: 1.0
+  mean: -0.0076
+- hook: blocks.15.ln1.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -61.2679
+  maximum: 10.5358
+  numel: 9216
+  std: 1.3033
+  mean: -0.0233
+- hook: blocks.15.attn.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -61.2679
+  maximum: 10.5358
+  numel: 9216
+  std: 1.3033
+  mean: -0.0233
+- hook: blocks.15.attn.q.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -61.2679
+  maximum: 10.5358
+  numel: 9216
+  std: 1.3033
+  mean: -0.0233
+- hook: blocks.15.attn.q.hook_out
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.7489
+  maximum: 10.7407
+  numel: 9216
+  std: 1.3556
+  mean: 0.0226
+- hook: blocks.15.attn.hook_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.7489
+  maximum: 10.7407
+  numel: 9216
+  std: 1.3556
+  mean: 0.0226
+- hook: blocks.15.attn.k.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -61.2679
+  maximum: 10.5358
+  numel: 9216
+  std: 1.3033
+  mean: -0.0233
+- hook: blocks.15.attn.k.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.8477
+  maximum: 9.8239
+  numel: 4608
+  std: 1.3245
+  mean: -0.0171
+- hook: blocks.15.attn.hook_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.8477
+  maximum: 9.8239
+  numel: 4608
+  std: 1.3245
+  mean: -0.0171
+- hook: blocks.15.attn.v.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -61.2679
+  maximum: 10.5358
+  numel: 9216
+  std: 1.3033
+  mean: -0.0233
+- hook: blocks.15.attn.v.hook_out
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.713
+  maximum: 8.3792
+  numel: 4608
+  std: 1.6341
+  mean: -0.0274
+- hook: blocks.15.attn.hook_v
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.713
+  maximum: 8.3792
+  numel: 4608
+  std: 1.6341
+  mean: -0.0274
+- hook: blocks.15.attn.hook_cos
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -1.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3616
+  mean: 0.8864
+- hook: blocks.15.attn.hook_sin
+  shape: torch.Size([6, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -0.9589
+  maximum: 1.0
+  numel: 576
+  std: 0.2674
+  mean: 0.1116
+- hook: blocks.15.attn.hook_rot_q
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.749
+  maximum: 10.7406
+  numel: 9216
+  std: 1.3556
+  mean: 0.0237
+- hook: blocks.15.attn.hook_rot_k
+  shape: torch.Size([6, 8, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -10.85
+  maximum: 9.8243
+  numel: 4608
+  std: 1.3245
+  mean: -0.0147
+- hook: blocks.15.attn.hook_attn_scores
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.1051
+  maximum: 9.9324
+  numel: 576
+  std: 2.8041
+  mean: 1.1364
+- hook: blocks.15.attn.hook_pattern
+  shape: torch.Size([16, 6, 6])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.0
+  maximum: 1.0
+  numel: 576
+  std: 0.3097
+  mean: 0.1667
+- hook: blocks.15.attn.o.hook_in
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.713
+  maximum: 8.3792
+  numel: 9216
+  std: 1.1881
+  mean: -0.0239
+- hook: blocks.15.attn.hook_z
+  shape: torch.Size([6, 16, 96])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.713
+  maximum: 8.3792
+  numel: 9216
+  std: 1.1881
+  mean: -0.0239
+- hook: blocks.15.attn.o.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.7725
+  maximum: 1172.1124
+  numel: 9216
+  std: 12.3844
+  mean: 0.1267
+- hook: blocks.15.attn.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.7725
+  maximum: 1172.1124
+  numel: 9216
+  std: 12.3844
+  mean: 0.1267
+- hook: blocks.15.hook_attn_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -38.7725
+  maximum: 1172.1124
+  numel: 9216
+  std: 12.3844
+  mean: 0.1267
+- hook: blocks.15.ln2.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -64.3729
+  maximum: 56.9998
+  numel: 9216
+  std: 2.4109
+  mean: -0.0111
+- hook: blocks.15.hook_resid_mid
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -64.3729
+  maximum: 56.9998
+  numel: 9216
+  std: 2.4109
+  mean: -0.0111
+- hook: blocks.15.ln2.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 0.7165
+  maximum: 2.851
+  numel: 6
+  std: 0.7996
+  mean: 2.2977
+- hook: blocks.15.ln2.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -25.2306
+  maximum: 21.807
+  numel: 9216
+  std: 1.0
+  mean: -0.0054
+- hook: blocks.15.ln2.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.4023
+  maximum: 12.9092
+  numel: 9216
+  std: 0.9755
+  mean: 0.0023
+- hook: blocks.15.mlp.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.4023
+  maximum: 12.9092
+  numel: 9216
+  std: 0.9755
+  mean: 0.0023
+- hook: blocks.15.hook_mlp_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.4023
+  maximum: 12.9092
+  numel: 9216
+  std: 0.9755
+  mean: 0.0023
+- hook: blocks.15.mlp.gate.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.4023
+  maximum: 12.9092
+  numel: 9216
+  std: 0.9755
+  mean: 0.0023
+- hook: blocks.15.mlp.gate.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.0966
+  maximum: 10.956
+  numel: 24576
+  std: 1.1525
+  mean: -0.2104
+- hook: blocks.15.mlp.hook_pre
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -8.0966
+  maximum: 10.956
+  numel: 24576
+  std: 1.1525
+  mean: -0.2104
+- hook: blocks.15.mlp.in.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -9.4023
+  maximum: 12.9092
+  numel: 9216
+  std: 0.9755
+  mean: 0.0023
+- hook: blocks.15.mlp.in.hook_out
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.5388
+  maximum: 10.2717
+  numel: 24576
+  std: 1.3834
+  mean: -0.0081
+- hook: blocks.15.mlp.hook_pre_linear
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.5388
+  maximum: 10.2717
+  numel: 24576
+  std: 1.3834
+  mean: -0.0081
+- hook: blocks.15.mlp.out.hook_in
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -36.003
+  maximum: 23.5175
+  numel: 24576
+  std: 0.8926
+  mean: -0.0126
+- hook: blocks.15.mlp.hook_post
+  shape: torch.Size([6, 4096])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -36.003
+  maximum: 23.5175
+  numel: 24576
+  std: 0.8926
+  mean: -0.0126
+- hook: blocks.15.mlp.out.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.9265
+  maximum: 30.1708
+  numel: 9216
+  std: 1.2524
+  mean: 0.028
+- hook: blocks.15.mlp.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.9265
+  maximum: 30.1708
+  numel: 9216
+  std: 1.2524
+  mean: 0.028
+- hook: blocks.15.hook_mlp_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -21.9265
+  maximum: 30.1708
+  numel: 9216
+  std: 1.2524
+  mean: 0.028
+- hook: blocks.15.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -72.0785
+  maximum: 67.1425
+  numel: 9216
+  std: 2.6483
+  mean: 0.017
+- hook: blocks.15.hook_resid_post
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -72.0785
+  maximum: 67.1425
+  numel: 9216
+  std: 2.6483
+  mean: 0.017
+- hook: ln_final.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -72.0785
+  maximum: 67.1425
+  numel: 9216
+  std: 2.6483
+  mean: 0.017
+- hook: ln_final.hook_scale
+  shape: torch.Size([6, 1])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: 1.5193
+  maximum: 3.1281
+  numel: 6
+  std: 0.6106
+  mean: 2.5889
+- hook: ln_final.hook_normalized
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -24.4503
+  maximum: 22.4453
+  numel: 9216
+  std: 1.0
+  mean: 0.0067
+- hook: ln_final.hook_out
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.1855
+  maximum: 13.0298
+  numel: 9216
+  std: 1.3674
+  mean: 0.0201
+- hook: unembed.hook_in
+  shape: torch.Size([6, 1536])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -12.1855
+  maximum: 13.0298
+  numel: 9216
+  std: 1.3674
+  mean: 0.0201
+- hook: unembed.hook_out
+  shape: torch.Size([6, 32000])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.92
+  maximum: 12.2082
+  numel: 192000
+  std: 2.7042
+  mean: -3.6744
+- hook: hook_unembed
+  shape: torch.Size([6, 32000])
+  dtype: torch.float32
+  device: cuda:0
+  minimum: -14.92
+  maximum: 12.2082
+  numel: 192000
+  std: 2.7042
+  mean: -3.6744
+cache_tensors: null
