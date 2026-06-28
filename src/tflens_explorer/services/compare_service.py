@@ -644,7 +644,9 @@ def cache_cosine_similarity(tensor1, tensor2):
         dim=0,
     )
 
-    return cosine_sim_raw.item()
+    cosine_sim = cosine_sim_raw.item()
+    cosine_sim = max(-1.0, min(1.0, cosine_sim))
+    return cosine_sim
 
 def cache_cosine_similarity_per_head(snapshot1, snapshot2, activation1, activation2):
     tensor1 = snapshot1.cache_tensors[activation1.hook]
@@ -706,11 +708,15 @@ def angular_change_per_head(filename: str) -> None:
             if hook not in seen_hooks:
                 seen_hooks.append(hook)
             seen_heads.add(head)
-    
+
+    print("Angular similarity by head (top 10)")
+
+    # Descending List 
     print(
-        f"{'    hook_name':<30}"
-        f"{'head':>4}"
-        f"{'angle':>10}"
+        f"{'    ':<4} "
+        f"{'hook_name':<36} "
+        f"{'head':>5} "
+        f"{'angle':>8}"
     )
 
     if not rows:
@@ -726,18 +732,52 @@ def angular_change_per_head(filename: str) -> None:
         row_count +=1
         layer = row[0]
         head = row[1]
-        angle = math.acos(row[2])
+        angle_rad = math.acos(row[2])
+        angle_deg = math.degrees(angle_rad)
 
         print(
-            f"    {layer:<30} "
-            f"{head:>4.0f} "
-            f"{angle:>10.4f} "
+            f"{'    ':<4} "
+            f"{layer:<36} "
+            f"{head:>5d} "
+            f"{angle_deg:>8.4f}"
         )
-        if row_count == 20:
+        if row_count == 10:
+            break
+
+    # Ascending List 
+    print()
+    print(
+        f"{'    ':<4} "
+        f"{'hook_name':<36} "
+        f"{'head':>5} "
+        f"{'angle':>8}"
+    )
+
+    rows.sort(key=lambda t: t[-1], reverse=True)
+
+    row_count = 0
+    for row in rows:
+        if ".o." in row[0] or ".v." in row[0]:
+            continue
+        row_count +=1
+        layer = row[0]
+        head = row[1]
+        angle_rad = math.acos(row[2])
+        angle_deg = math.degrees(angle_rad)
+
+        print(
+            f"{'    ':<4} "
+            f"{layer:<36} "
+            f"{head:>5d} "
+            f"{angle_deg:>8.4f}"
+        )
+        if row_count == 10:
             break
 
     return
 
+#
+# Write cosine similarity data per layer and head to a file
 def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
     filename = f"{name1}_vs_{name2}"
     with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
