@@ -448,8 +448,10 @@ class TestCompareSnapshots:
     @patch("tflens_explorer.services.compare_service.compare_tokens")
     @patch("tflens_explorer.services.compare_service.compare_logits_details")
     @patch("tflens_explorer.services.compare_service.cache_activation_summary")
+    @patch("tflens_explorer.services.compare_service.angular_change_per_head")
     def test_valid_snapshots(
         self,
+        mock_angular_change_per_head,
         mock_cas,
         mock_details,
         mock_comp_tokens,

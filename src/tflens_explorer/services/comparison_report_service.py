@@ -12,7 +12,7 @@ def angular_change_per_head(filename: str) -> None:
     filepath = SNAPSHOT_DATA_PATH / filename
     if not filepath.is_file():
         print(f"File not found: {filepath}")
-        return
+        raise SystemExit(1)
 
     # ── read CSV ──────────────────────────────────────────────────────
     rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
