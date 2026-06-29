@@ -13,11 +13,15 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-toolsai.jupyter"
+        "ms-toolsai.jupyter",
+        "saoudrizwan.claude-dev"
       ],
       "settings": {
         "python.defaultInterpreterPath": "/workspaces/tflens_explorer/.venv/bin/python",
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "cline.ollamaBaseUrl": "http://host.docker.internal:11434",
+        "cline.apiProvider": "ollama",
+        "cline.ollamaModelId": "qwen2.5-coder:7b"
       }
     }
   },
