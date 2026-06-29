@@ -12,8 +12,11 @@ models:
   deepseek-coder: deepseek-ai/deepseek-coder-1.3b-instruct
   deepseek-math: VladShash/deepseek-math-7b-lean-prover-dpo-olmo-3
   qwen3-math: jaygala24/Qwen3-1.7B-ReMax-math-reasoning
+  qwen35: continuum-ai/qwen3.5-2b-general-forged
+  llama: meta-llama/Llama-3.2-3B-Instruct
+  llama32: typhoon-ai/llama3.2-typhoon2-3b-instruct
+  llama-chat: vilm/vinallama-2.7b-chat
   tiny-llama: alexredna/TinyLlama-1.1B-Chat-v1.0-reasoning-v2
-  mistral1: distilabel-internal-testing/tiny-random-mistral
-  mistral2: yujiepan/mistral-v0.3-tiny-random
+  mistral: yujiepan/mistral-v0.3-tiny-random
   kimi: nvidia/Kimi-K2.6-NVFP4
   falcon: fxmarty/really-tiny-falcon-testing

@@ -83,6 +83,7 @@ def list_models(partial_name):
         elif partial_name in item:
             model_list.append(item)
 
+    model_list.sort()
     return model_list
 
 

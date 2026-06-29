@@ -17,9 +17,9 @@ from tflens_explorer.cli.utilities import get_shape
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHOT_DATA_PATH
 from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
-from tflens_explorer.services.comparison_report_service import save_cosine_similarity_data
 from tflens_explorer.services.comparison_report_service import plot_cosine_chart, plot_cosine_chart2, plot_cosine_chart3, plot_cosine_chart4
 from tflens_explorer.services.comparison_report_service import angular_change_per_head
+from tflens_explorer.core.comparison_types import HeadSimilarity
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
@@ -724,3 +724,11 @@ def head_axis_for_hook(hook_name: str, tensor, n_heads: int) -> int | None:
 def snapshots_have_raw_cache_values(cache1, cache2):
     if not cache1 or not cache2:
         return False
+
+#
+# Write cosine similarity data per layer and head to a file
+def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
+    filename = f"{name1}_vs_{name2}"
+    with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
+        f.write(f"{hook1},{hook2}, {head},{sim}\n")
+

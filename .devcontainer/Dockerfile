@@ -21,6 +21,7 @@ RUN apt-get update \
 RUN printf '\nexport PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a; history -n"\n' >> /home/roy/.bashrc \
     && printf '"\\e[A": history-search-backward\n"\\e[B": history-search-forward\n' >> /home/roy/.inputrc \
     && echo 'source /workspaces/tflens_explorer/.venv/bin/activate' >> /home/roy/.bashrc \
+    && echo 'export HF_TOKEN="$(hf auth token)"' >> /home/roy/.bashrc \
     && chown -R roy:roy /home/roy
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
