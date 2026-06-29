@@ -17,6 +17,7 @@ from tflens_explorer.cli.utilities import get_shape
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHOT_DATA_PATH
 from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
+from tflens_explorer.services.comparison_report_service import save_cosine_similarity_data
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
@@ -775,13 +776,6 @@ def angular_change_per_head(filename: str) -> None:
             break
 
     return
-
-#
-# Write cosine similarity data per layer and head to a file
-def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
-    filename = f"{name1}_vs_{name2}"
-    with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
-        f.write(f"{hook1},{hook2}, {head},{sim}\n")
 
 def cache_value_mask(v1, v2, max_abs=1e20):
     return (
