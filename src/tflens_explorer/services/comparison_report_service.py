@@ -2,7 +2,7 @@ import math
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHOT_DATA_PATH
 from tflens_explorer.core.comparison_types import HeadSimilarity, CacheActivationDifferences
 
-def display_cache_activation_summary(data: CacheActivationDifferences) -> None:
+def display_cache_activation_summary(data: CacheActivationDifferences, header=False) -> None:
 
     print(
         f"    {'A/B':<4}"

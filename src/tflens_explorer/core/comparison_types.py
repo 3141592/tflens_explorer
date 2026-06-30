@@ -1,6 +1,13 @@
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
+class Column:
+    title: str
+    field_name: str
+    width: int
+    align: str = "<"
+
+@dataclass(frozen=True)
 class HeadSimilarity:
     hook: str
     head: int
