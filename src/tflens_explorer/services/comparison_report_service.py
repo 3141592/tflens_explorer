@@ -1,5 +1,33 @@
 import math
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHOT_DATA_PATH
+from tflens_explorer.core.comparison_types import HeadSimilarity, CacheActivationDifferences
+
+def display_cache_activation_summary(data: CacheActivationDifferences) -> None:
+
+    print(
+        f"    {'A/B':<4}"
+        f"{'hook_name':<36}"
+        f"{'shape':>15}"
+        f"{'min':>13}"
+        f"{'max':>13}"
+        f"{'mean':>13}"
+        f"{'mean_abs_diff':>16}"
+        f"{'cos_sim':>16}"
+    )
+
+    print(
+        f"    {'A:':<4}"
+        f"{hook1:<35} "
+        f"{shape1:>15} "
+        f"{minimum1:>12.4f} "
+        f"{maximum1:>12.4f} "
+        f"{mean1_str:>12}"
+        f"{mean_abs_diff_str:>16}"
+        f"{cos_similarity_str:>16}"
+    )
+    
+
+    return
 
 def angular_change_per_head(filename: str) -> None:
     filepath = SNAPSHOT_DATA_PATH / filename

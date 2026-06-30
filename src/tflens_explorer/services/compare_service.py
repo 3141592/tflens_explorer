@@ -20,6 +20,8 @@ from tflens_explorer.core.snapshot_types import CacheSummary, Model
 from tflens_explorer.services.comparison_report_service import plot_cosine_chart, plot_cosine_chart2, plot_cosine_chart3, plot_cosine_chart4
 from tflens_explorer.services.comparison_report_service import angular_change_per_head
 from tflens_explorer.core.comparison_types import HeadSimilarity
+from tflens_explorer.services.comparison_report_service import display_cache_activation_summary
+from tflens_explorer.core.comparison_types import CacheActivationDifferences
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
@@ -432,16 +434,7 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
     filename = f"{snapshot1.metadata.name}_vs_{snapshot2.metadata.name}"
     open(SNAPSHOT_DATA_PATH / filename, 'w')
 
-    print(
-        f"    {'A/B':<4}"
-        f"{'hook_name':<36}"
-        f"{'shape':>15}"
-        f"{'min':>13}"
-        f"{'max':>13}"
-        f"{'mean':>13}"
-        f"{'mean_abs_diff':>16}"
-        f"{'cos_sim':>16}"
-    )
+    display_cache_activation_summary()
 
     different_values_count = 0
     hook_count = 0
@@ -521,16 +514,17 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
         
         hook_count += 1
 
-        print(
-            f"    {'A:':<4}"
-            f"{hook1:<35} "
-            f"{shape1:>15} "
-            f"{minimum1:>12.4f} "
-            f"{maximum1:>12.4f} "
-            f"{mean1_str:>12}"
-            f"{mean_abs_diff_str:>16}"
-            f"{cos_similarity_str:>16}"
+        run_a = CacheActivationDifferences(
+            run="A",
+            hook=hook1,
+            shape=shape1,
+            min=minimum1,
+            max=maximum1,
+            mean=mean1_str,
+            mean_abs_diff=mean_abs_diff_str,
+            cos_sim=cos_similarity_str
         )
+
                 
         print(
             f"    {'B:':<4}"
