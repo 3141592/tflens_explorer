@@ -18,10 +18,8 @@ from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHO
 from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
 from tflens_explorer.services.comparison_report_service import plot_cosine_chart, plot_cosine_chart2, plot_cosine_chart3, plot_cosine_chart4
-from tflens_explorer.services.comparison_report_service import angular_change_per_head
 from tflens_explorer.core.comparison_types import HeadSimilarity
-from tflens_explorer.services.comparison_report_service import display_cache_activation_summary
-from tflens_explorer.core.comparison_types import CacheActivationDifferences
+from tflens_explorer.core.comparison_types import CacheActivationDifferencesRow, AngularSimilarityRow
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
@@ -434,8 +432,6 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
     filename = f"{snapshot1.metadata.name}_vs_{snapshot2.metadata.name}"
     open(SNAPSHOT_DATA_PATH / filename, 'w')
 
-    display_cache_activation_summary()
-
     different_values_count = 0
     hook_count = 0
     seen = set()
@@ -514,7 +510,7 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
         
         hook_count += 1
 
-        run_a = CacheActivationDifferences(
+        run_a = CacheActivationDifferencesRow(
             run="A",
             hook=hook1,
             shape=shape1,
@@ -726,3 +722,77 @@ def save_cosine_similarity_data(name1, name2, hook1, hook2, head, sim):
     with open(SNAPSHOT_DATA_PATH / filename, 'a') as f:
         f.write(f"{hook1},{hook2}, {head},{sim}\n")
 
+def angular_change_per_head(filename: str) -> None:
+    filepath = SNAPSHOT_DATA_PATH / filename
+    if not filepath.is_file():
+        print(f"File not found: {filepath}")
+        raise SystemExit(1)
+
+    # ── read CSV ──────────────────────────────────────────────────────
+    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
+    seen_hooks: list[str] = []
+    seen_heads: set[int] = set()
+    with open(filepath, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            parts = line.split(',')
+            if len(parts) != 4:
+                continue
+            hook = parts[0].strip()
+            head = int(parts[2].strip())
+            cos_sim = float(parts[3].strip())
+            rows.append((hook, head, cos_sim))
+            if hook not in seen_hooks:
+                seen_hooks.append(hook)
+            seen_heads.add(head)
+
+    print("Angular similarity by head (top 10)")
+    data = []
+    rows.sort(key=lambda t: t[-1])
+
+    row_count = 0
+    for row in rows:
+        if ".o." in row[0] or ".v." in row[0]:
+            continue
+        row_count +=1
+        layer = row[0]
+        head = row[1]
+        angle_rad = math.acos(row[2])
+        angle_deg = math.degrees(angle_rad)
+        data_row = {
+            "layer": layer,
+            "head": head,
+            "angle": angle_deg
+        }
+        data.append(data_row)
+        
+        if row_count == 10:
+            break
+
+    # Ascending List 
+    data = []
+    rows.sort(key=lambda t: t[-1], reverse=True)
+
+    row_count = 0
+    for row in rows:
+        if ".o." in row[0] or ".v." in row[0]:
+            continue
+        row_count +=1
+        layer = row[0]
+        head = row[1]
+        angle_rad = math.acos(row[2])
+        angle_deg = math.degrees(angle_rad)
+
+        data_row = {
+            "layer": layer,
+            "head": head,
+            "angle": angle_deg
+        }
+        data.append(data_row)
+
+        if row_count == 10:
+            break
+
+    return

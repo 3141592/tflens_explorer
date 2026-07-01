@@ -1,126 +1,28 @@
 import math
 from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHOT_DATA_PATH
-from tflens_explorer.core.comparison_types import HeadSimilarity, CacheActivationDifferences
+from tflens_explorer.core.comparison_types import Column, HeadSimilarity, CacheActivationDifferencesRow
 
-def display_cache_activation_summary(data: CacheActivationDifferences, header=False) -> None:
+def print_table(columns: list[Column], rows: list[object]) -> None:
+    print_header(columns)
 
-    print(
-        f"    {'A/B':<4}"
-        f"{'hook_name':<36}"
-        f"{'shape':>15}"
-        f"{'min':>13}"
-        f"{'max':>13}"
-        f"{'mean':>13}"
-        f"{'mean_abs_diff':>16}"
-        f"{'cos_sim':>16}"
-    )
-
-    print(
-        f"    {'A:':<4}"
-        f"{hook1:<35} "
-        f"{shape1:>15} "
-        f"{minimum1:>12.4f} "
-        f"{maximum1:>12.4f} "
-        f"{mean1_str:>12}"
-        f"{mean_abs_diff_str:>16}"
-        f"{cos_similarity_str:>16}"
-    )
-    
-
-    return
-
-def angular_change_per_head(filename: str) -> None:
-    filepath = SNAPSHOT_DATA_PATH / filename
-    if not filepath.is_file():
-        print(f"File not found: {filepath}")
-        raise SystemExit(1)
-
-    # ── read CSV ──────────────────────────────────────────────────────
-    rows: list[tuple[str, int, float]] = []     # (hook, head, cos_sim)
-    seen_hooks: list[str] = []
-    seen_heads: set[int] = set()
-    with open(filepath, 'r') as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            parts = line.split(',')
-            if len(parts) != 4:
-                continue
-            hook = parts[0].strip()
-            head = int(parts[2].strip())
-            cos_sim = float(parts[3].strip())
-            rows.append((hook, head, cos_sim))
-            if hook not in seen_hooks:
-                seen_hooks.append(hook)
-            seen_heads.add(head)
-
-    print("Angular similarity by head (top 10)")
-
-    # Descending List 
-    print(
-        f"{'    ':<4} "
-        f"{'hook_name':<36} "
-        f"{'head':>5} "
-        f"{'angle':>8}"
-    )
-
-    if not rows:
-        print("No data rows found.")
-        return
-
-    rows.sort(key=lambda t: t[-1])
-
-    row_count = 0
     for row in rows:
-        if ".o." in row[0] or ".v." in row[0]:
-            continue
-        row_count +=1
-        layer = row[0]
-        head = row[1]
-        angle_rad = math.acos(row[2])
-        angle_deg = math.degrees(angle_rad)
+        print_row(columns, row)
 
-        print(
-            f"{'    ':<4} "
-            f"{layer:<36} "
-            f"{head:>5d} "
-            f"{angle_deg:>8.4f}"
-        )
-        if row_count == 10:
-            break
 
-    # Ascending List 
-    print()
-    print(
-        f"{'    ':<4} "
-        f"{'hook_name':<36} "
-        f"{'head':>5} "
-        f"{'angle':>8}"
-    )
+def print_header(columns: list[Column]) -> None:
+    line = "    "
+    for col in columns:
+        line += f"{col.title:{col.align}{col.width}}"
+    print(line)
 
-    rows.sort(key=lambda t: t[-1], reverse=True)
 
-    row_count = 0
-    for row in rows:
-        if ".o." in row[0] or ".v." in row[0]:
-            continue
-        row_count +=1
-        layer = row[0]
-        head = row[1]
-        angle_rad = math.acos(row[2])
-        angle_deg = math.degrees(angle_rad)
+def print_row(columns: list[Column], row: object) -> None:
+    line = "    "
+    for col in columns:
+        value = getattr(row, col.field_name)
+        line += f"{value:{col.align}{col.width}}"
+    print(line)
 
-        print(
-            f"{'    ':<4} "
-            f"{layer:<36} "
-            f"{head:>5d} "
-            f"{angle_deg:>8.4f}"
-        )
-        if row_count == 10:
-            break
-
-    return
 
 def plot_cosine_chart(filename: str) -> None:
     """Read cosine similarity per-head CSV data and plot a line-segment chart.
