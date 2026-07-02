@@ -20,9 +20,17 @@ def print_row(columns: list[Column], row: object) -> None:
     line = "    "
     for col in columns:
         value = getattr(row, col.field_name)
-        line += f"{value:{col.align}{col.width}}"
+        #line += f"{value:{col.align}{col.width}.{col.precision}}"
+        line += format_value(value, col)
     print(line)
 
+def format_value(value, column: Column) -> str:
+    if isinstance(value, float):
+        if column.precision is None:
+            return f"{value:{column.align}{column.width}}"
+        return f"{value:{column.align}{column.width}.{column.precision}f}"
+
+    return f"{value:{column.align}{column.width}}"
 
 def plot_cosine_chart(filename: str) -> None:
     """Read cosine similarity per-head CSV data and plot a line-segment chart.

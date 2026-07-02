@@ -1,5 +1,4 @@
 """Compare Service"""
-
 import os
 import yaml
 import torch
@@ -18,8 +17,10 @@ from tflens_explorer.core.snapshot_types import Snapshot, SNAPSHOT_PATH, SNAPSHO
 from tflens_explorer.core.snapshot_types import SnapshotMetadata, verify_snapshot
 from tflens_explorer.core.snapshot_types import CacheSummary, Model
 from tflens_explorer.services.comparison_report_service import plot_cosine_chart, plot_cosine_chart2, plot_cosine_chart3, plot_cosine_chart4
+from tflens_explorer.services.comparison_report_service import print_table
 from tflens_explorer.core.comparison_types import HeadSimilarity
-from tflens_explorer.core.comparison_types import CacheActivationDifferencesRow, AngularSimilarityRow
+from tflens_explorer.core.comparison_types import AnugularSimilarityColumns, AngularSimilarityRow
+from tflens_explorer.core.comparison_types import CacheActivationDifferencesRow
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
@@ -749,9 +750,10 @@ def angular_change_per_head(filename: str) -> None:
             seen_heads.add(head)
 
     print("Angular similarity by head (top 10)")
-    data = []
+    print()
     rows.sort(key=lambda t: t[-1])
 
+    data = []
     row_count = 0
     for row in rows:
         if ".o." in row[0] or ".v." in row[0]:
@@ -761,20 +763,24 @@ def angular_change_per_head(filename: str) -> None:
         head = row[1]
         angle_rad = math.acos(row[2])
         angle_deg = math.degrees(angle_rad)
-        data_row = {
-            "layer": layer,
-            "head": head,
-            "angle": angle_deg
-        }
-        data.append(data_row)
+
+        data.append(
+            AngularSimilarityRow(
+                layer=layer,
+                head=head,
+                angle=angle_deg,
+            )
+        )
         
         if row_count == 10:
             break
 
-    # Ascending List 
-    data = []
-    rows.sort(key=lambda t: t[-1], reverse=True)
+    print_table(AnugularSimilarityColumns, data)
+    print()
 
+    # Ascending List 
+    rows.sort(key=lambda t: t[-1], reverse=True)
+    data = []
     row_count = 0
     for row in rows:
         if ".o." in row[0] or ".v." in row[0]:
@@ -785,14 +791,18 @@ def angular_change_per_head(filename: str) -> None:
         angle_rad = math.acos(row[2])
         angle_deg = math.degrees(angle_rad)
 
-        data_row = {
-            "layer": layer,
-            "head": head,
-            "angle": angle_deg
-        }
-        data.append(data_row)
+        data.append(
+            AngularSimilarityRow(
+                layer=layer,
+                head=head,
+                angle=angle_deg,
+            )
+        )
 
         if row_count == 10:
             break
+
+    print_table(AnugularSimilarityColumns, data)
+    print()
 
     return

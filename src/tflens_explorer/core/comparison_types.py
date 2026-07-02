@@ -6,6 +6,7 @@ class Column:
     field_name: str
     width: int
     align: str = "<" # "<", ">", or "^"
+    precision: int | None = None
 
 @dataclass(frozen=True)
 class Model:
@@ -44,8 +45,8 @@ class HeadSimilarity:
 
 AnugularSimilarityColumns = [
     Column("Layer", "layer", 36),
-    Column("Head", "head", 5, ">"),
-    Column("Angle", "angle", 8, ">")
+    Column("Head", "head", 6, ">"),
+    Column("Angle", "angle", 10, ">", 2)
 ]
 
 @dataclass(frozen=True)
