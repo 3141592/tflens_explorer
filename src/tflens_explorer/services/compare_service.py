@@ -20,7 +20,10 @@ from tflens_explorer.services.comparison_report_service import plot_cosine_chart
 from tflens_explorer.services.comparison_report_service import print_table
 from tflens_explorer.core.comparison_types import HeadSimilarity
 from tflens_explorer.core.comparison_types import AnugularSimilarityColumns, AngularSimilarityRow
-from tflens_explorer.core.comparison_types import CacheActivationDifferencesRow
+from tflens_explorer.core.comparison_types import CacheActivationDifferencesColumns, CacheActivationDifferencesRow
+from tflens_explorer.services.comparison_report_service import print_model, print_prompt, print_tokenization
+from tflens_explorer.services.comparison_report_service import print_token_id_comparison, print_token_comparison
+from tflens_explorer.services.comparison_report_service import print_logits_comparison
 
 def snapshot_create(context: CommandContext, snapshot_name: str, hook: str) -> None:
     """Create a model comparison snapshot."""
@@ -224,30 +227,15 @@ def compare_snapshots(snapshot1_name: Snapshot, snapshot2_name: Snapshot, diff, 
     logit_size_comparison = (snapshot1.logit_shape == snapshot2.logit_shape)
     logit_comparison = compare_logits_details(snapshot1.logits, snapshot2.logits)
 
-    print(f"Models:")
-    print(f"  A: {snapshot1.model.name}")
-    print(f"  B: {snapshot2.model.name}")
-    print()
-    print(f"Prompt:")
-    print(f"  A: {snapshot1.prompt}")
-    print(f"  B: {snapshot2.prompt}")
-    print()
-    print(f"Tokenization:")
-    print(f"  same length: {token_size_comparison}")
-    print(f"  differing token_ids:")
+    print_model(snapshot1.model.name, snapshot2.model.name) 
+    print_prompt(snapshot1.prompt, snapshot2.prompt) 
+    print_tokenization(token_size_comparison)
     print_token_id_comparison(snapshot1, snapshot2, token_id_comparison)
-    print()
-    print(f"  differing tokens:")
     print_token_comparison(snapshot1, snapshot2, token_comparison)
-    print()
-    print(f"Logits:")
-    print(f"  same length: {logit_size_comparison}")
-    print(f"    A: {str(snapshot1.logit_shape)}")
-    print(f"    B: {str(snapshot2.logit_shape)}")
-    print(f"  top-1:")
-    print(f"    A: {logit_comparison[0][0]}")
-    print(f"    B: {logit_comparison[0][1]}")
-    print(f"  top-5 overlap: {logit_comparison[1]}/5")
+    print_logits_comparison(logit_size_comparison,
+                            snapshot1.logit_shape,
+                            snapshot2.logit_shape,
+                            logit_comparison)
     print()
     if len(snapshot1.cache) > 0 and len(snapshot2.cache) > 0:
         print(f"Cache activation differences (usable finite values):")
@@ -287,29 +275,6 @@ def compare_token_ids(tokens1, tokens2):
 
     return token_id_comparison
 
-def print_token_id_comparison(snapshot1, snapshot2, token_id_comparison):
-    for index, item in enumerate(token_id_comparison):
-        if item:
-            pass
-        elif (len(snapshot1.tokens) <= index) \
-             and (len(snapshot1.tokens) <= index):
-             pass
-        else:
-            if len(snapshot1.tokens) > index:
-                print(f"    A: {snapshot1.tokens[index]}")
-            else:
-                print(f"    A: NA")
-
-            if len(snapshot2.tokens) > index:
-                print(f"    B: {snapshot2.tokens[index]}")
-            else:
-                print(f"    B: NA")
-
-    if all(token_id_comparison):
-        print(f"    All token_ids are the same.")
-
-    return
-
 def compare_tokens(tokens1, tokens2):
     token_comparison = [None] * max(len(tokens1), len(tokens2))
     for index, item in enumerate(tokens1):
@@ -332,29 +297,6 @@ def compare_tokens(tokens1, tokens2):
             traceback.print_exception(type(ex), ex, ex.__traceback__)
 
     return token_comparison
-
-def print_token_comparison(snapshot1, snapshot2, token_comparison):
-    for index, item in enumerate(token_comparison):
-        if item:
-            pass
-        elif (len(snapshot1.tokens) <= index) \
-             and (len(snapshot1.tokens) <= index):
-             pass
-        else:
-            if len(snapshot1.tokens) > index:
-                print(f"    A: {snapshot1.tokens[index]}")
-            else:
-                print(f"    A: NA")
-
-            if len(snapshot2.tokens) > index:
-                print(f"    B: {snapshot2.tokens[index]}")
-            else:
-                print(f"    B: NA")
-
-    if all(token_comparison):
-        print(f"    All tokens are the same.")
-
-    return
 
 def compare_models():
     print("compare-models")
@@ -436,6 +378,7 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
     different_values_count = 0
     hook_count = 0
     seen = set()
+    data = []
     for activation1, activation2 in zip(snapshot1.cache, snapshot2.cache):
         hook1 = activation1.hook
         hook2 = activation2.hook
@@ -511,37 +454,43 @@ def cache_activation_summary(snapshot1, snapshot2, diff, percent):
         
         hook_count += 1
 
-        run_a = CacheActivationDifferencesRow(
-            run="A",
-            hook=hook1,
-            shape=shape1,
-            min=minimum1,
-            max=maximum1,
-            mean=mean1_str,
-            mean_abs_diff=mean_abs_diff_str,
-            cos_sim=cos_similarity_str
+        data.append(
+            CacheActivationDifferencesRow(
+                run="A",
+                layer=hook1,
+                shape=shape1,
+                min=minimum1,
+                max=maximum1,
+                mean=mean1_str,
+                mean_abs_diff=mean_abs_diff_str,
+                cos_sim=cos_similarity_str
+            )
         )
 
-                
-        print(
-            f"    {'B:':<4}"
-            f"{hook2:<35} "
-            f"{shape2:>15} "
-            f"{minimum2:>12.4f} "
-            f"{maximum2:>12.4f} "
-            f"{mean2_str:>12}"
-            f"{'':>16}"
+        data.append(
+            CacheActivationDifferencesRow(
+                run="B",
+                layer=hook2,
+                shape=shape2,
+                min=minimum2,
+                max=maximum2,
+                mean=mean2_str,
+                mean_abs_diff="",
+                cos_sim=""
+            )
         )
 
-        cache_cosine_similarity_per_head(snapshot1,
-                                         snapshot2,
-                                         activation1,
-                                         activation2)
-        print()
+    print_table(CacheActivationDifferencesColumns, data)
 
     print()
     print(f"  Total hooks listed: {hook_count}")
     
+    cache_cosine_similarity_per_head(snapshot1,
+                                     snapshot2,
+                                     activation1,
+                                     activation2)
+    print()
+
     if different_values_count == 0:
         print("    No cache summary differences found.")
 

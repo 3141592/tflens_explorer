@@ -32,6 +32,81 @@ def format_value(value, column: Column) -> str:
 
     return f"{value:{column.align}{column.width}}"
 
+def print_model(model1, model2) -> None:
+    print()
+    print(f"Models:")
+    print(f"  A: {model1}")
+    print(f"  B: {model2}")
+
+def print_prompt(prompt1, prompt2) -> None:
+    print()
+    print(f"Prompts:")
+    print(f"  A: {prompt1}")
+    print(f"  B: {prompt2}")
+
+def print_tokenization(token_size_comparison) -> None:
+    print()
+    print(f"Tokenization:")
+    print(f"  same length: {token_size_comparison}")
+    print(f"  differing token_ids:")
+
+def print_token_id_comparison(snapshot1, snapshot2, token_id_comparison):
+    for index, item in enumerate(token_id_comparison):
+        if item:
+            pass
+        elif (len(snapshot1.tokens) <= index) \
+             and (len(snapshot1.tokens) <= index):
+             pass
+        else:
+            if len(snapshot1.tokens) > index:
+                print(f"    A: {snapshot1.tokens[index]}")
+            else:
+                print(f"    A: NA")
+
+            if len(snapshot2.tokens) > index:
+                print(f"    B: {snapshot2.tokens[index]}")
+            else:
+                print(f"    B: NA")
+
+    if all(token_id_comparison):
+        print(f"    All token_ids are the same.")
+
+def print_token_comparison(snapshot1, snapshot2, token_comparison):
+    print(f"  differing tokens:")
+    for index, item in enumerate(token_comparison):
+        if item:
+            pass
+        elif (len(snapshot1.tokens) <= index) \
+             and (len(snapshot1.tokens) <= index):
+             pass
+        else:
+            if len(snapshot1.tokens) > index:
+                print(f"    A: {snapshot1.tokens[index]}")
+            else:
+                print(f"    A: NA")
+
+            if len(snapshot2.tokens) > index:
+                print(f"    B: {snapshot2.tokens[index]}")
+            else:
+                print(f"    B: NA")
+
+    if all(token_comparison):
+        print(f"    All tokens are the same.")
+
+def print_logits_comparison(logit_size_comparison, 
+                            shape1, shape2,
+                            logit_comparison) -> None:
+    print()
+    print(f"Logits:")
+    print(f"  same length: {logit_size_comparison}")
+    print(f"    A: {str(shape1)}")
+    print(f"    B: {str(shape2)}")
+    print(f"  top-1:")
+    print(f"    A: {logit_comparison[0][0]}")
+    print(f"    B: {logit_comparison[0][1]}")
+    print(f"  top-5 overlap: {logit_comparison[1]}/5")
+    
+
 def plot_cosine_chart(filename: str) -> None:
     """Read cosine similarity per-head CSV data and plot a line-segment chart.
 

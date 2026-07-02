@@ -25,10 +25,20 @@ class Logits:
     top_1: str
     top_5: str
 
+CacheActivationDifferencesColumns = [
+    Column("Run", "run", 4),
+    Column("Layer", "layer", 35, "<"),
+    Column("Shape", "shape", 15, ">"),
+    Column("Min", "min", 12, ">", 4),
+    Column("Max", "max", 12, ">", 4),
+    Column("Mean", "mean", 12, ">"),
+    Column("Mean Abs Diff", "mean_abs_diff", 16, ">"),
+]
+
 @dataclass(frozen=True)
 class CacheActivationDifferencesRow:
     run: str
-    hook: str
+    layer: str
     shape: str
     min: float
     max: float
